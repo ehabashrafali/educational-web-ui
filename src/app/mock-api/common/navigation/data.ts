@@ -42,6 +42,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:information-circle',
         link: '/about'
+    },
+    {
+        id: 'courses',
+        title: 'Courses',
+        type: 'basic',
+        icon: 'heroicons_outline:book-open',
+        link: '/courses'
     }
 
 ];

@@ -55,8 +55,6 @@ export const appRoutes: Route[] = [
     // Landing routes
     {
         path: '',
-        // canActivate: [AuthGuard, ],
-        // canActivateChild: [AuthGuard],        
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -67,8 +65,6 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        // canActivate: [AuthGuard, ],
-        // canActivateChild: [AuthGuard],        
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -81,14 +77,12 @@ export const appRoutes: Route[] = [
     // Admin routes
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
         },
         children: [
-            { path: 'crescent', loadChildren: () => import('app/modules/crescent/crescent-routes') },
+            { path: 'courses', loadChildren: () => import('app/modules/crescent/courses/courses.routes') },
         ]
     }
 ];
