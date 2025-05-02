@@ -30,18 +30,33 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
-        id: 'home',
-        title: 'Home',
-        type: 'basic',
-        icon: 'heroicons_outline:home',
-        link: '/home'
-    },
-    {
-        id: 'about',
-        title: 'About',
-        type: 'basic',
+        id: 'explore',
+        title: 'Explore',
+        type: 'collapsable',
         icon: 'heroicons_outline:information-circle',
-        link: '/about'
+        children: [
+            {
+                id: 'home',
+                title: 'Home',
+                type: 'basic',
+                icon: 'heroicons_outline:home',
+                link: '/home'
+            },
+            {
+                id: 'about',
+                title: 'About',
+                type: 'basic',
+                icon: 'heroicons_outline:information-circle',
+                link: '/about'
+            },
+            {
+                id: 'faqs',
+                title: 'FAQs',
+                type: 'basic',
+                icon: 'heroicons_outline:question-mark-circle',
+                link: '/faqs',
+            },
+        ],
     },
     {
         id: 'courses',
@@ -49,6 +64,5 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: 'basic',
         icon: 'heroicons_outline:book-open',
         link: '/courses'
-    }
-
+    },
 ];
