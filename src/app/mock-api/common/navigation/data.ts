@@ -30,6 +30,13 @@ export const futuristicNavigation: FuseNavigationItem[] = [
 ];
 export const horizontalNavigation: FuseNavigationItem[] = [
     {
+        id: 'courses',
+        title: 'Courses',
+        type: 'basic',
+        icon: 'heroicons_outline:book-open',
+        link: '/courses'
+    },
+    {
         id: 'explore',
         title: 'Explore',
         type: 'collapsable',
@@ -58,11 +65,5 @@ export const horizontalNavigation: FuseNavigationItem[] = [
             },
         ],
     },
-    {
-        id: 'courses',
-        title: 'Courses',
-        type: 'basic',
-        icon: 'heroicons_outline:book-open',
-        link: '/courses'
-    },
+
 ];

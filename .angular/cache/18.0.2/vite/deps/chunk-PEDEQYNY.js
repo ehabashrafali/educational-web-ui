@@ -1,11 +1,11 @@
 import {
-  Platform,
-  normalizePassiveListenerOptions
-} from "./chunk-JL7AZPIE.js";
-import {
   coerceElement,
   coerceNumberProperty
 } from "./chunk-X2OMSDWJ.js";
+import {
+  Platform,
+  normalizePassiveListenerOptions
+} from "./chunk-JL7AZPIE.js";
 import {
   DOCUMENT
 } from "./chunk-M4MUQ4C7.js";
@@ -482,4 +482,4 @@ export {
   CdkTextareaAutosize,
   TextFieldModule
 };
-//# sourceMappingURL=chunk-VQR7DD4R.js.map
+//# sourceMappingURL=chunk-PEDEQYNY.js.map
