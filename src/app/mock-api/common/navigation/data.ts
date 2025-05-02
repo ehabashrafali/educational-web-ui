@@ -63,6 +63,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
                 icon: 'heroicons_outline:question-mark-circle',
                 link: '/faqs',
             },
+            {
+                id: 'support',
+                title: 'Contact Us',
+                type: 'basic',
+                icon: 'heroicons_outline:lifebuoy',
+                link: '/support',
+            },
         ],
     },
 

@@ -83,6 +83,16 @@ export const appRoutes: Route[] = [
             { path: 'faqs', loadChildren: () => import('app/modules/landing/faqs/faqs.routes') },
         ]
     },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'support', loadChildren: () => import('app/modules/landing/support/support.routes') },
+        ]
+    },
 
     // Admin routes
     {
