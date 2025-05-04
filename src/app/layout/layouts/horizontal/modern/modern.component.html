@@ -63,12 +63,21 @@
         }
         <!-- Components -->
         <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
+            <div class="mt-5 mb-5 sm:mt-7 hidden sm:block">
+                <button mat-flat-button [color]="'primary'">
+                    <!-- <mat-icon
+                        [svgIcon]="'heroicons_outline:bookmark'"
+                    ></mat-icon> -->
+                    <span class="ml-2 mr-1 text-wrap">Book Free Session</span>
+                </button>
+            </div>
             <languages></languages>
             <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
             <search [appearance]="'bar'"></search>
             <shortcuts></shortcuts>
             <messages></messages>
             <notifications></notifications>
+            
             <!-- <button
                 class="lg:hidden"
                 mat-icon-button
@@ -92,7 +101,7 @@
     </div>
 
     <!-- Footer -->
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
 </div>
 
 <!-- Quick chat -->
