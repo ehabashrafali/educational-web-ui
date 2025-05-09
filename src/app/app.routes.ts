@@ -93,7 +93,6 @@ export const appRoutes: Route[] = [
             { path: 'support', loadChildren: () => import('app/modules/landing/support/support.routes') },
         ]
     },
-
     // Admin routes
     {
         path: '',
@@ -103,6 +102,16 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'courses', loadChildren: () => import('app/modules/crescent/courses/courses.routes') },
+        ]
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'free-session', loadChildren: () => import('app/modules/crescent/free-trial-form/free-trail.routes') },
         ]
     }
 ];

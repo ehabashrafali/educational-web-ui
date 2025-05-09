@@ -1,7 +1,7 @@
 import {
   MatCommonModule,
   ObserversModule
-} from "./chunk-NPTODNBK.js";
+} from "./chunk-XYSZQPLI.js";
 import {
   animate,
   state,
@@ -13,9 +13,6 @@ import {
   Directionality
 } from "./chunk-MVYBSZ2W.js";
 import {
-  coerceBooleanProperty
-} from "./chunk-X2OMSDWJ.js";
-import {
   Platform
 } from "./chunk-JL7AZPIE.js";
 import {
@@ -23,6 +20,9 @@ import {
   DOCUMENT,
   NgTemplateOutlet
 } from "./chunk-M4MUQ4C7.js";
+import {
+  coerceBooleanProperty
+} from "./chunk-X2OMSDWJ.js";
 import {
   ANIMATION_MODULE_TYPE,
   Attribute,
@@ -1591,4 +1591,4 @@ export {
   MatFormField,
   MatFormFieldModule
 };
-//# sourceMappingURL=chunk-O7QJX567.js.map
+//# sourceMappingURL=chunk-PETKXBW2.js.map

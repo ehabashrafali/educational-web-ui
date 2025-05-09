@@ -16,12 +16,6 @@ import {
   TemplatePortal
 } from "./chunk-6XIA4OHK.js";
 import {
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
-  coerceNumberProperty
-} from "./chunk-X2OMSDWJ.js";
-import {
   Platform,
   RtlScrollAxisType,
   _getEventTarget,
@@ -33,6 +27,12 @@ import {
   DOCUMENT,
   Location
 } from "./chunk-M4MUQ4C7.js";
+import {
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
+  coerceNumberProperty
+} from "./chunk-X2OMSDWJ.js";
 import {
   ANIMATION_MODULE_TYPE,
   ApplicationRef,
@@ -4444,4 +4444,4 @@ export {
   OverlayModule,
   FullscreenOverlayContainer
 };
-//# sourceMappingURL=chunk-AJZJROVH.js.map
+//# sourceMappingURL=chunk-7ALHR55N.js.map

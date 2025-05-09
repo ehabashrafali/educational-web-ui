@@ -1,6 +1,6 @@
 import {
   BreakpointObserver
-} from "./chunk-XLRJ3JNW.js";
+} from "./chunk-6MKS55QC.js";
 import {
   A,
   ALT,
@@ -26,11 +26,6 @@ import {
   hasModifierKey
 } from "./chunk-MVYBSZ2W.js";
 import {
-  coerceBooleanProperty,
-  coerceElement,
-  coerceNumberProperty
-} from "./chunk-X2OMSDWJ.js";
-import {
   Platform,
   _getEventTarget,
   _getFocusedElementPierceShadowDom,
@@ -41,6 +36,11 @@ import {
 import {
   DOCUMENT
 } from "./chunk-M4MUQ4C7.js";
+import {
+  coerceBooleanProperty,
+  coerceElement,
+  coerceNumberProperty
+} from "./chunk-X2OMSDWJ.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -4588,6 +4588,7 @@ export {
   FocusTrapFactory,
   isFakeMousedownFromScreenReader,
   isFakeTouchstartFromScreenReader,
+  LiveAnnouncer,
   FocusMonitor,
   A11yModule,
   VERSION2 as VERSION,
@@ -4636,4 +4637,4 @@ export {
   MatRippleLoader,
   _MatInternalFormField
 };
-//# sourceMappingURL=chunk-NPTODNBK.js.map
+//# sourceMappingURL=chunk-XYSZQPLI.js.map

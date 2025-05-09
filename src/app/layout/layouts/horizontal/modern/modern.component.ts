@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
 import {
@@ -27,21 +27,21 @@ import { FooterComponent } from "../footer/footer.component";
     encapsulation: ViewEncapsulation.None,
     standalone: true,
     imports: [
-    FuseLoadingBarComponent,
-    FuseVerticalNavigationComponent,
-    FuseHorizontalNavigationComponent,
-    MatButtonModule,
-    MatIconModule,
-    LanguagesComponent,
-    FuseFullscreenComponent,
-    SearchComponent,
-    ShortcutsComponent,
-    MessagesComponent,
-    NotificationsComponent,
-    UserComponent,
-    RouterOutlet,
-    FooterComponent
-],
+        FuseLoadingBarComponent,
+        FuseVerticalNavigationComponent,
+        FuseHorizontalNavigationComponent,
+        MatButtonModule,
+        MatIconModule,
+        LanguagesComponent,
+        FuseFullscreenComponent,
+        SearchComponent,
+        ShortcutsComponent,
+        MessagesComponent,
+        NotificationsComponent,
+        RouterOutlet,
+        FooterComponent,
+        RouterLink
+    ],
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {
     isScreenSmall: boolean;

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject, Injector } from '@angular/core';
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 import { CourseDetailsComponent } from "../course-details/course-details.component";
@@ -14,23 +14,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
 import { FuseCardComponent } from '@fuse/components/card';
-import {
-
-  MatButtonToggleModule,
-} from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [MatIcon, MatButtonToggleModule,
+  imports: [
+    MatIcon,
+    MatButtonToggleModule,
     FormsModule,
     FuseCardComponent,
     MatButtonModule,
     MatIconModule,
-    RouterLink,
-    NgClass,
     MatMenuModule,
     MatCheckboxModule,
     MatProgressBarModule,
@@ -39,12 +36,18 @@ import {
     TextFieldModule,
     MatDividerModule,
     MatTooltipModule,
-    TitleCasePipe,],
+    RouterLink
+  ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss'
 })
 export class CoursesComponent implements AfterViewInit {
 
+  /**
+   *
+   */
+  constructor(injector: Injector) {
+  }
   ngAfterViewInit(): void {
     new Swiper('.default-carousel', {
       loop: true,
