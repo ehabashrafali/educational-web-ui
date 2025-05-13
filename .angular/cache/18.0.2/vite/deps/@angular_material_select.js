@@ -8,13 +8,33 @@ import {
   MatLabel,
   MatPrefix,
   MatSuffix
-} from "./chunk-AFB67GCP.js";
+} from "./chunk-OWUELQFF.js";
 import {
   FormGroupDirective,
   NgControl,
   NgForm,
   Validators
-} from "./chunk-T7E2YVO6.js";
+} from "./chunk-A35VBP3Z.js";
+import {
+  CdkConnectedOverlay,
+  CdkOverlayOrigin,
+  CdkScrollableModule,
+  Overlay,
+  OverlayModule,
+  ViewportRuler
+} from "./chunk-5ZA5HLY2.js";
+import {
+  SelectionModel
+} from "./chunk-DWVSCHKR.js";
+import {
+  animate,
+  animateChild,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-3Y4EJHLV.js";
 import {
   ActiveDescendantKeyManager,
   ErrorStateMatcher,
@@ -30,28 +50,7 @@ import {
   _getOptionScrollPosition,
   addAriaReferencedId,
   removeAriaReferencedId
-} from "./chunk-OVOHUHU3.js";
-import "./chunk-RLEB46HN.js";
-import {
-  animate,
-  animateChild,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-A3OT5DDR.js";
-import {
-  CdkConnectedOverlay,
-  CdkOverlayOrigin,
-  CdkScrollableModule,
-  Overlay,
-  OverlayModule,
-  ViewportRuler
-} from "./chunk-WSBEOM54.js";
-import {
-  SelectionModel
-} from "./chunk-HXTJEGUJ.js";
+} from "./chunk-RQZSCTJO.js";
 import {
   A,
   DOWN_ARROW,
@@ -62,14 +61,15 @@ import {
   SPACE,
   UP_ARROW,
   hasModifierKey
-} from "./chunk-Q6PL6MO5.js";
-import "./chunk-EI2T3NOC.js";
-import "./chunk-CZE6RSLT.js";
-import "./chunk-ZGSMZQRC.js";
+} from "./chunk-IC6GANJB.js";
+import "./chunk-IVVXX6OU.js";
+import "./chunk-MFJOJNCW.js";
+import "./chunk-FCIMYJSV.js";
+import "./chunk-4NYOFWLZ.js";
 import {
   CommonModule,
   NgClass
-} from "./chunk-CMWNGCWW.js";
+} from "./chunk-2TPFPAF3.js";
 import {
   Attribute,
   ChangeDetectionStrategy,
@@ -129,7 +129,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-XQU24YB5.js";
+} from "./chunk-6MSDXA4P.js";
 import {
   Subject,
   defer,
@@ -141,8 +141,7 @@ import {
   switchMap,
   take,
   takeUntil
-} from "./chunk-SJDNSO6V.js";
-import "./chunk-AOF462FV.js";
+} from "./chunk-WSA2QMXP.js";
 import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/select.mjs
@@ -267,7 +266,7 @@ var MatSelectChange = class {
     this.value = value;
   }
 };
-var _MatSelect = class _MatSelect {
+var MatSelect = class _MatSelect {
   /** Scrolls a particular option into the view. */
   _scrollOptionIntoView(index) {
     const option = this.options.toArray()[index];
@@ -1012,145 +1011,148 @@ var _MatSelect = class _MatSelect {
   get shouldLabelFloat() {
     return this.panelOpen || !this.empty || this.focused && !!this.placeholder;
   }
+  static {
+    this.ɵfac = function MatSelect_Factory(t) {
+      return new (t || _MatSelect)(ɵɵdirectiveInject(ViewportRuler), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(ErrorStateMatcher), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(Directionality, 8), ɵɵdirectiveInject(NgForm, 8), ɵɵdirectiveInject(FormGroupDirective, 8), ɵɵdirectiveInject(MAT_FORM_FIELD, 8), ɵɵdirectiveInject(NgControl, 10), ɵɵinjectAttribute("tabindex"), ɵɵdirectiveInject(MAT_SELECT_SCROLL_STRATEGY), ɵɵdirectiveInject(LiveAnnouncer), ɵɵdirectiveInject(MAT_SELECT_CONFIG, 8));
+    };
+  }
+  static {
+    this.ɵcmp = ɵɵdefineComponent({
+      type: _MatSelect,
+      selectors: [["mat-select"]],
+      contentQueries: function MatSelect_ContentQueries(rf, ctx, dirIndex) {
+        if (rf & 1) {
+          ɵɵcontentQuery(dirIndex, MAT_SELECT_TRIGGER, 5);
+          ɵɵcontentQuery(dirIndex, MatOption, 5);
+          ɵɵcontentQuery(dirIndex, MAT_OPTGROUP, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.options = _t);
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.optionGroups = _t);
+        }
+      },
+      viewQuery: function MatSelect_Query(rf, ctx) {
+        if (rf & 1) {
+          ɵɵviewQuery(_c0, 5);
+          ɵɵviewQuery(_c1, 5);
+          ɵɵviewQuery(CdkConnectedOverlay, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.trigger = _t.first);
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.panel = _t.first);
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._overlayDir = _t.first);
+        }
+      },
+      hostAttrs: ["role", "combobox", "aria-autocomplete", "none", "aria-haspopup", "listbox", 1, "mat-mdc-select"],
+      hostVars: 19,
+      hostBindings: function MatSelect_HostBindings(rf, ctx) {
+        if (rf & 1) {
+          ɵɵlistener("keydown", function MatSelect_keydown_HostBindingHandler($event) {
+            return ctx._handleKeydown($event);
+          })("focus", function MatSelect_focus_HostBindingHandler() {
+            return ctx._onFocus();
+          })("blur", function MatSelect_blur_HostBindingHandler() {
+            return ctx._onBlur();
+          });
+        }
+        if (rf & 2) {
+          ɵɵattribute("id", ctx.id)("tabindex", ctx.disabled ? -1 : ctx.tabIndex)("aria-controls", ctx.panelOpen ? ctx.id + "-panel" : null)("aria-expanded", ctx.panelOpen)("aria-label", ctx.ariaLabel || null)("aria-required", ctx.required.toString())("aria-disabled", ctx.disabled.toString())("aria-invalid", ctx.errorState)("aria-activedescendant", ctx._getAriaActiveDescendant());
+          ɵɵclassProp("mat-mdc-select-disabled", ctx.disabled)("mat-mdc-select-invalid", ctx.errorState)("mat-mdc-select-required", ctx.required)("mat-mdc-select-empty", ctx.empty)("mat-mdc-select-multiple", ctx.multiple);
+        }
+      },
+      inputs: {
+        userAriaDescribedBy: [0, "aria-describedby", "userAriaDescribedBy"],
+        panelClass: "panelClass",
+        disabled: [2, "disabled", "disabled", booleanAttribute],
+        disableRipple: [2, "disableRipple", "disableRipple", booleanAttribute],
+        tabIndex: [2, "tabIndex", "tabIndex", (value) => value == null ? 0 : numberAttribute(value)],
+        hideSingleSelectionIndicator: [2, "hideSingleSelectionIndicator", "hideSingleSelectionIndicator", booleanAttribute],
+        placeholder: "placeholder",
+        required: [2, "required", "required", booleanAttribute],
+        multiple: [2, "multiple", "multiple", booleanAttribute],
+        disableOptionCentering: [2, "disableOptionCentering", "disableOptionCentering", booleanAttribute],
+        compareWith: "compareWith",
+        value: "value",
+        ariaLabel: [0, "aria-label", "ariaLabel"],
+        ariaLabelledby: [0, "aria-labelledby", "ariaLabelledby"],
+        errorStateMatcher: "errorStateMatcher",
+        typeaheadDebounceInterval: [2, "typeaheadDebounceInterval", "typeaheadDebounceInterval", numberAttribute],
+        sortComparator: "sortComparator",
+        id: "id",
+        panelWidth: "panelWidth"
+      },
+      outputs: {
+        openedChange: "openedChange",
+        _openedStream: "opened",
+        _closedStream: "closed",
+        selectionChange: "selectionChange",
+        valueChange: "valueChange"
+      },
+      exportAs: ["matSelect"],
+      standalone: true,
+      features: [ɵɵProvidersFeature([{
+        provide: MatFormFieldControl,
+        useExisting: _MatSelect
+      }, {
+        provide: MAT_OPTION_PARENT_COMPONENT,
+        useExisting: _MatSelect
+      }]), ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature, ɵɵStandaloneFeature],
+      ngContentSelectors: _c3,
+      decls: 11,
+      vars: 8,
+      consts: [["fallbackOverlayOrigin", "cdkOverlayOrigin", "trigger", ""], ["panel", ""], ["cdk-overlay-origin", "", 1, "mat-mdc-select-trigger", 3, "click"], [1, "mat-mdc-select-value"], [1, "mat-mdc-select-placeholder", "mat-mdc-select-min-line"], [1, "mat-mdc-select-value-text"], [1, "mat-mdc-select-arrow-wrapper"], [1, "mat-mdc-select-arrow"], ["viewBox", "0 0 24 24", "width", "24px", "height", "24px", "focusable", "false", "aria-hidden", "true"], ["d", "M7 10l5 5 5-5z"], ["cdk-connected-overlay", "", "cdkConnectedOverlayLockPosition", "", "cdkConnectedOverlayHasBackdrop", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "backdropClick", "attach", "detach", "cdkConnectedOverlayPanelClass", "cdkConnectedOverlayScrollStrategy", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayWidth"], [1, "mat-mdc-select-min-line"], ["role", "listbox", "tabindex", "-1", 3, "keydown", "ngClass"]],
+      template: function MatSelect_Template(rf, ctx) {
+        if (rf & 1) {
+          const _r1 = ɵɵgetCurrentView();
+          ɵɵprojectionDef(_c2);
+          ɵɵelementStart(0, "div", 2, 0);
+          ɵɵlistener("click", function MatSelect_Template_div_click_0_listener() {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx.open());
+          });
+          ɵɵelementStart(3, "div", 3);
+          ɵɵtemplate(4, MatSelect_Conditional_4_Template, 2, 1, "span", 4)(5, MatSelect_Conditional_5_Template, 3, 1, "span", 5);
+          ɵɵelementEnd();
+          ɵɵelementStart(6, "div", 6)(7, "div", 7);
+          ɵɵnamespaceSVG();
+          ɵɵelementStart(8, "svg", 8);
+          ɵɵelement(9, "path", 9);
+          ɵɵelementEnd()()()();
+          ɵɵtemplate(10, MatSelect_ng_template_10_Template, 3, 9, "ng-template", 10);
+          ɵɵlistener("backdropClick", function MatSelect_Template_ng_template_backdropClick_10_listener() {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx.close());
+          })("attach", function MatSelect_Template_ng_template_attach_10_listener() {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx._onAttached());
+          })("detach", function MatSelect_Template_ng_template_detach_10_listener() {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx.close());
+          });
+        }
+        if (rf & 2) {
+          const fallbackOverlayOrigin_r4 = ɵɵreference(1);
+          ɵɵadvance(3);
+          ɵɵattribute("id", ctx._valueId);
+          ɵɵadvance();
+          ɵɵconditional(ctx.empty ? 4 : 5);
+          ɵɵadvance(6);
+          ɵɵproperty("cdkConnectedOverlayPanelClass", ctx._overlayPanelClass)("cdkConnectedOverlayScrollStrategy", ctx._scrollStrategy)("cdkConnectedOverlayOrigin", ctx._preferredOverlayOrigin || fallbackOverlayOrigin_r4)("cdkConnectedOverlayOpen", ctx.panelOpen)("cdkConnectedOverlayPositions", ctx._positions)("cdkConnectedOverlayWidth", ctx._overlayWidth);
+        }
+      },
+      dependencies: [CdkOverlayOrigin, CdkConnectedOverlay, NgClass],
+      styles: ['.mat-mdc-select{display:inline-block;width:100%;outline:none;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;color:var(--mat-select-enabled-trigger-text-color);font-family:var(--mat-select-trigger-text-font);line-height:var(--mat-select-trigger-text-line-height);font-size:var(--mat-select-trigger-text-size);font-weight:var(--mat-select-trigger-text-weight);letter-spacing:var(--mat-select-trigger-text-tracking)}div.mat-mdc-select-panel{box-shadow:var(--mat-select-container-elevation-shadow)}.mat-mdc-select-disabled{color:var(--mat-select-disabled-trigger-text-color)}.mat-mdc-select-trigger{display:inline-flex;align-items:center;cursor:pointer;position:relative;box-sizing:border-box;width:100%}.mat-mdc-select-disabled .mat-mdc-select-trigger{-webkit-user-select:none;user-select:none;cursor:default}.mat-mdc-select-value{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-mdc-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-mdc-select-arrow-wrapper{height:24px;flex-shrink:0;display:inline-flex;align-items:center}.mat-form-field-appearance-fill .mdc-text-field--no-label .mat-mdc-select-arrow-wrapper{transform:none}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-invalid .mat-mdc-select-arrow,.mat-form-field-invalid:not(.mat-form-field-disabled) .mat-mdc-form-field-infix::after{color:var(--mat-select-invalid-arrow-color)}.mat-mdc-select-arrow{width:10px;height:5px;position:relative;color:var(--mat-select-enabled-arrow-color)}.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{color:var(--mat-select-focused-arrow-color)}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-disabled .mat-mdc-select-arrow{color:var(--mat-select-disabled-arrow-color)}.mat-mdc-select-arrow svg{fill:currentColor;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:CanvasText}.mat-mdc-select-disabled .cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:GrayText}div.mat-mdc-select-panel{width:100%;max-height:275px;outline:0;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-select-panel-background-color)}.cdk-high-contrast-active div.mat-mdc-select-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel{border-top-left-radius:0;border-top-right-radius:0;transform-origin:top center}.mat-mdc-select-panel-above div.mat-mdc-select-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:bottom center}div.mat-mdc-select-panel .mat-mdc-option{--mdc-list-list-item-container-color: var(--mat-select-panel-background-color)}.mat-mdc-select-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);color:var(--mat-select-placeholder-text-color)}._mat-animation-noopable .mat-mdc-select-placeholder{transition:none}.mat-form-field-hide-placeholder .mat-mdc-select-placeholder{color:rgba(0,0,0,0);-webkit-text-fill-color:rgba(0,0,0,0);transition:none;display:block}.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{cursor:pointer}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mat-mdc-floating-label{max-width:calc(100% - 18px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mdc-floating-label--float-above{max-width:calc(100%/0.75 - 24px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-text-field--label-floating .mdc-notched-outline__notch{max-width:calc(100% - 24px)}.mat-mdc-select-min-line:empty::before{content:" ";white-space:pre;width:1px;display:inline-block;visibility:hidden}.mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper{transform:var(--mat-select-arrow-transform)}'],
+      encapsulation: 2,
+      data: {
+        animation: [matSelectAnimations.transformPanel]
+      },
+      changeDetection: 0
+    });
+  }
 };
-_MatSelect.ɵfac = function MatSelect_Factory(t) {
-  return new (t || _MatSelect)(ɵɵdirectiveInject(ViewportRuler), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(ErrorStateMatcher), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(Directionality, 8), ɵɵdirectiveInject(NgForm, 8), ɵɵdirectiveInject(FormGroupDirective, 8), ɵɵdirectiveInject(MAT_FORM_FIELD, 8), ɵɵdirectiveInject(NgControl, 10), ɵɵinjectAttribute("tabindex"), ɵɵdirectiveInject(MAT_SELECT_SCROLL_STRATEGY), ɵɵdirectiveInject(LiveAnnouncer), ɵɵdirectiveInject(MAT_SELECT_CONFIG, 8));
-};
-_MatSelect.ɵcmp = ɵɵdefineComponent({
-  type: _MatSelect,
-  selectors: [["mat-select"]],
-  contentQueries: function MatSelect_ContentQueries(rf, ctx, dirIndex) {
-    if (rf & 1) {
-      ɵɵcontentQuery(dirIndex, MAT_SELECT_TRIGGER, 5);
-      ɵɵcontentQuery(dirIndex, MatOption, 5);
-      ɵɵcontentQuery(dirIndex, MAT_OPTGROUP, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.customTrigger = _t.first);
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.options = _t);
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.optionGroups = _t);
-    }
-  },
-  viewQuery: function MatSelect_Query(rf, ctx) {
-    if (rf & 1) {
-      ɵɵviewQuery(_c0, 5);
-      ɵɵviewQuery(_c1, 5);
-      ɵɵviewQuery(CdkConnectedOverlay, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.trigger = _t.first);
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx.panel = _t.first);
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._overlayDir = _t.first);
-    }
-  },
-  hostAttrs: ["role", "combobox", "aria-autocomplete", "none", "aria-haspopup", "listbox", 1, "mat-mdc-select"],
-  hostVars: 19,
-  hostBindings: function MatSelect_HostBindings(rf, ctx) {
-    if (rf & 1) {
-      ɵɵlistener("keydown", function MatSelect_keydown_HostBindingHandler($event) {
-        return ctx._handleKeydown($event);
-      })("focus", function MatSelect_focus_HostBindingHandler() {
-        return ctx._onFocus();
-      })("blur", function MatSelect_blur_HostBindingHandler() {
-        return ctx._onBlur();
-      });
-    }
-    if (rf & 2) {
-      ɵɵattribute("id", ctx.id)("tabindex", ctx.disabled ? -1 : ctx.tabIndex)("aria-controls", ctx.panelOpen ? ctx.id + "-panel" : null)("aria-expanded", ctx.panelOpen)("aria-label", ctx.ariaLabel || null)("aria-required", ctx.required.toString())("aria-disabled", ctx.disabled.toString())("aria-invalid", ctx.errorState)("aria-activedescendant", ctx._getAriaActiveDescendant());
-      ɵɵclassProp("mat-mdc-select-disabled", ctx.disabled)("mat-mdc-select-invalid", ctx.errorState)("mat-mdc-select-required", ctx.required)("mat-mdc-select-empty", ctx.empty)("mat-mdc-select-multiple", ctx.multiple);
-    }
-  },
-  inputs: {
-    userAriaDescribedBy: [0, "aria-describedby", "userAriaDescribedBy"],
-    panelClass: "panelClass",
-    disabled: [2, "disabled", "disabled", booleanAttribute],
-    disableRipple: [2, "disableRipple", "disableRipple", booleanAttribute],
-    tabIndex: [2, "tabIndex", "tabIndex", (value) => value == null ? 0 : numberAttribute(value)],
-    hideSingleSelectionIndicator: [2, "hideSingleSelectionIndicator", "hideSingleSelectionIndicator", booleanAttribute],
-    placeholder: "placeholder",
-    required: [2, "required", "required", booleanAttribute],
-    multiple: [2, "multiple", "multiple", booleanAttribute],
-    disableOptionCentering: [2, "disableOptionCentering", "disableOptionCentering", booleanAttribute],
-    compareWith: "compareWith",
-    value: "value",
-    ariaLabel: [0, "aria-label", "ariaLabel"],
-    ariaLabelledby: [0, "aria-labelledby", "ariaLabelledby"],
-    errorStateMatcher: "errorStateMatcher",
-    typeaheadDebounceInterval: [2, "typeaheadDebounceInterval", "typeaheadDebounceInterval", numberAttribute],
-    sortComparator: "sortComparator",
-    id: "id",
-    panelWidth: "panelWidth"
-  },
-  outputs: {
-    openedChange: "openedChange",
-    _openedStream: "opened",
-    _closedStream: "closed",
-    selectionChange: "selectionChange",
-    valueChange: "valueChange"
-  },
-  exportAs: ["matSelect"],
-  standalone: true,
-  features: [ɵɵProvidersFeature([{
-    provide: MatFormFieldControl,
-    useExisting: _MatSelect
-  }, {
-    provide: MAT_OPTION_PARENT_COMPONENT,
-    useExisting: _MatSelect
-  }]), ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature, ɵɵStandaloneFeature],
-  ngContentSelectors: _c3,
-  decls: 11,
-  vars: 8,
-  consts: [["fallbackOverlayOrigin", "cdkOverlayOrigin", "trigger", ""], ["panel", ""], ["cdk-overlay-origin", "", 1, "mat-mdc-select-trigger", 3, "click"], [1, "mat-mdc-select-value"], [1, "mat-mdc-select-placeholder", "mat-mdc-select-min-line"], [1, "mat-mdc-select-value-text"], [1, "mat-mdc-select-arrow-wrapper"], [1, "mat-mdc-select-arrow"], ["viewBox", "0 0 24 24", "width", "24px", "height", "24px", "focusable", "false", "aria-hidden", "true"], ["d", "M7 10l5 5 5-5z"], ["cdk-connected-overlay", "", "cdkConnectedOverlayLockPosition", "", "cdkConnectedOverlayHasBackdrop", "", "cdkConnectedOverlayBackdropClass", "cdk-overlay-transparent-backdrop", 3, "backdropClick", "attach", "detach", "cdkConnectedOverlayPanelClass", "cdkConnectedOverlayScrollStrategy", "cdkConnectedOverlayOrigin", "cdkConnectedOverlayOpen", "cdkConnectedOverlayPositions", "cdkConnectedOverlayWidth"], [1, "mat-mdc-select-min-line"], ["role", "listbox", "tabindex", "-1", 3, "keydown", "ngClass"]],
-  template: function MatSelect_Template(rf, ctx) {
-    if (rf & 1) {
-      const _r1 = ɵɵgetCurrentView();
-      ɵɵprojectionDef(_c2);
-      ɵɵelementStart(0, "div", 2, 0);
-      ɵɵlistener("click", function MatSelect_Template_div_click_0_listener() {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx.open());
-      });
-      ɵɵelementStart(3, "div", 3);
-      ɵɵtemplate(4, MatSelect_Conditional_4_Template, 2, 1, "span", 4)(5, MatSelect_Conditional_5_Template, 3, 1, "span", 5);
-      ɵɵelementEnd();
-      ɵɵelementStart(6, "div", 6)(7, "div", 7);
-      ɵɵnamespaceSVG();
-      ɵɵelementStart(8, "svg", 8);
-      ɵɵelement(9, "path", 9);
-      ɵɵelementEnd()()()();
-      ɵɵtemplate(10, MatSelect_ng_template_10_Template, 3, 9, "ng-template", 10);
-      ɵɵlistener("backdropClick", function MatSelect_Template_ng_template_backdropClick_10_listener() {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx.close());
-      })("attach", function MatSelect_Template_ng_template_attach_10_listener() {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx._onAttached());
-      })("detach", function MatSelect_Template_ng_template_detach_10_listener() {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx.close());
-      });
-    }
-    if (rf & 2) {
-      const fallbackOverlayOrigin_r4 = ɵɵreference(1);
-      ɵɵadvance(3);
-      ɵɵattribute("id", ctx._valueId);
-      ɵɵadvance();
-      ɵɵconditional(ctx.empty ? 4 : 5);
-      ɵɵadvance(6);
-      ɵɵproperty("cdkConnectedOverlayPanelClass", ctx._overlayPanelClass)("cdkConnectedOverlayScrollStrategy", ctx._scrollStrategy)("cdkConnectedOverlayOrigin", ctx._preferredOverlayOrigin || fallbackOverlayOrigin_r4)("cdkConnectedOverlayOpen", ctx.panelOpen)("cdkConnectedOverlayPositions", ctx._positions)("cdkConnectedOverlayWidth", ctx._overlayWidth);
-    }
-  },
-  dependencies: [CdkOverlayOrigin, CdkConnectedOverlay, NgClass],
-  styles: ['.mat-mdc-select{display:inline-block;width:100%;outline:none;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased;color:var(--mat-select-enabled-trigger-text-color);font-family:var(--mat-select-trigger-text-font);line-height:var(--mat-select-trigger-text-line-height);font-size:var(--mat-select-trigger-text-size);font-weight:var(--mat-select-trigger-text-weight);letter-spacing:var(--mat-select-trigger-text-tracking)}div.mat-mdc-select-panel{box-shadow:var(--mat-select-container-elevation-shadow)}.mat-mdc-select-disabled{color:var(--mat-select-disabled-trigger-text-color)}.mat-mdc-select-trigger{display:inline-flex;align-items:center;cursor:pointer;position:relative;box-sizing:border-box;width:100%}.mat-mdc-select-disabled .mat-mdc-select-trigger{-webkit-user-select:none;user-select:none;cursor:default}.mat-mdc-select-value{width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-mdc-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-mdc-select-arrow-wrapper{height:24px;flex-shrink:0;display:inline-flex;align-items:center}.mat-form-field-appearance-fill .mdc-text-field--no-label .mat-mdc-select-arrow-wrapper{transform:none}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-invalid .mat-mdc-select-arrow,.mat-form-field-invalid:not(.mat-form-field-disabled) .mat-mdc-form-field-infix::after{color:var(--mat-select-invalid-arrow-color)}.mat-mdc-select-arrow{width:10px;height:5px;position:relative;color:var(--mat-select-enabled-arrow-color)}.mat-mdc-form-field.mat-focused .mat-mdc-select-arrow{color:var(--mat-select-focused-arrow-color)}.mat-mdc-form-field .mat-mdc-select.mat-mdc-select-disabled .mat-mdc-select-arrow{color:var(--mat-select-disabled-arrow-color)}.mat-mdc-select-arrow svg{fill:currentColor;position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}.cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:CanvasText}.mat-mdc-select-disabled .cdk-high-contrast-active .mat-mdc-select-arrow svg{fill:GrayText}div.mat-mdc-select-panel{width:100%;max-height:275px;outline:0;overflow:auto;padding:8px 0;border-radius:4px;box-sizing:border-box;position:static;background-color:var(--mat-select-panel-background-color)}.cdk-high-contrast-active div.mat-mdc-select-panel{outline:solid 1px}.cdk-overlay-pane:not(.mat-mdc-select-panel-above) div.mat-mdc-select-panel{border-top-left-radius:0;border-top-right-radius:0;transform-origin:top center}.mat-mdc-select-panel-above div.mat-mdc-select-panel{border-bottom-left-radius:0;border-bottom-right-radius:0;transform-origin:bottom center}div.mat-mdc-select-panel .mat-mdc-option{--mdc-list-list-item-container-color: var(--mat-select-panel-background-color)}.mat-mdc-select-placeholder{transition:color 400ms 133.3333333333ms cubic-bezier(0.25, 0.8, 0.25, 1);color:var(--mat-select-placeholder-text-color)}._mat-animation-noopable .mat-mdc-select-placeholder{transition:none}.mat-form-field-hide-placeholder .mat-mdc-select-placeholder{color:rgba(0,0,0,0);-webkit-text-fill-color:rgba(0,0,0,0);transition:none;display:block}.mat-mdc-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-mdc-text-field-wrapper{cursor:pointer}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mat-mdc-floating-label{max-width:calc(100% - 18px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-fill .mdc-floating-label--float-above{max-width:calc(100%/0.75 - 24px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-notched-outline__notch{max-width:calc(100% - 60px)}.mat-mdc-form-field-type-mat-select.mat-form-field-appearance-outline .mdc-text-field--label-floating .mdc-notched-outline__notch{max-width:calc(100% - 24px)}.mat-mdc-select-min-line:empty::before{content:" ";white-space:pre;width:1px;display:inline-block;visibility:hidden}.mat-form-field-appearance-fill .mat-mdc-select-arrow-wrapper{transform:var(--mat-select-arrow-transform)}'],
-  encapsulation: 2,
-  data: {
-    animation: [matSelectAnimations.transformPanel]
-  },
-  changeDetection: 0
-});
-var MatSelect = _MatSelect;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSelect, [{
     type: Component,
@@ -1449,21 +1451,24 @@ var MatSelect = _MatSelect;
     }]
   });
 })();
-var _MatSelectTrigger = class _MatSelectTrigger {
+var MatSelectTrigger = class _MatSelectTrigger {
+  static {
+    this.ɵfac = function MatSelectTrigger_Factory(t) {
+      return new (t || _MatSelectTrigger)();
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatSelectTrigger,
+      selectors: [["mat-select-trigger"]],
+      standalone: true,
+      features: [ɵɵProvidersFeature([{
+        provide: MAT_SELECT_TRIGGER,
+        useExisting: _MatSelectTrigger
+      }])]
+    });
+  }
 };
-_MatSelectTrigger.ɵfac = function MatSelectTrigger_Factory(t) {
-  return new (t || _MatSelectTrigger)();
-};
-_MatSelectTrigger.ɵdir = ɵɵdefineDirective({
-  type: _MatSelectTrigger,
-  selectors: [["mat-select-trigger"]],
-  standalone: true,
-  features: [ɵɵProvidersFeature([{
-    provide: MAT_SELECT_TRIGGER,
-    useExisting: _MatSelectTrigger
-  }])]
-});
-var MatSelectTrigger = _MatSelectTrigger;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSelectTrigger, [{
     type: Directive,
@@ -1477,21 +1482,26 @@ var MatSelectTrigger = _MatSelectTrigger;
     }]
   }], null, null);
 })();
-var _MatSelectModule = class _MatSelectModule {
+var MatSelectModule = class _MatSelectModule {
+  static {
+    this.ɵfac = function MatSelectModule_Factory(t) {
+      return new (t || _MatSelectModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _MatSelectModule,
+      imports: [CommonModule, OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger],
+      exports: [CdkScrollableModule, MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER],
+      imports: [CommonModule, OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule, MatFormFieldModule, MatOptionModule, MatCommonModule]
+    });
+  }
 };
-_MatSelectModule.ɵfac = function MatSelectModule_Factory(t) {
-  return new (t || _MatSelectModule)();
-};
-_MatSelectModule.ɵmod = ɵɵdefineNgModule({
-  type: _MatSelectModule,
-  imports: [CommonModule, OverlayModule, MatOptionModule, MatCommonModule, MatSelect, MatSelectTrigger],
-  exports: [CdkScrollableModule, MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule]
-});
-_MatSelectModule.ɵinj = ɵɵdefineInjector({
-  providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER],
-  imports: [CommonModule, OverlayModule, MatOptionModule, MatCommonModule, CdkScrollableModule, MatFormFieldModule, MatOptionModule, MatCommonModule]
-});
-var MatSelectModule = _MatSelectModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatSelectModule, [{
     type: NgModule,

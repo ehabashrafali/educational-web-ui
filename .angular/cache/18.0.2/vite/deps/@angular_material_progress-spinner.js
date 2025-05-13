@@ -1,14 +1,14 @@
 import {
   MatCommonModule
-} from "./chunk-OVOHUHU3.js";
-import "./chunk-RLEB46HN.js";
-import "./chunk-Q6PL6MO5.js";
-import "./chunk-EI2T3NOC.js";
-import "./chunk-CZE6RSLT.js";
+} from "./chunk-RQZSCTJO.js";
+import "./chunk-IC6GANJB.js";
+import "./chunk-IVVXX6OU.js";
+import "./chunk-MFJOJNCW.js";
+import "./chunk-FCIMYJSV.js";
 import {
   CommonModule,
   NgTemplateOutlet
-} from "./chunk-CMWNGCWW.js";
+} from "./chunk-2TPFPAF3.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -48,9 +48,8 @@ import {
   ɵɵtemplate,
   ɵɵtemplateRefExtractor,
   ɵɵviewQuery
-} from "./chunk-XQU24YB5.js";
-import "./chunk-SJDNSO6V.js";
-import "./chunk-AOF462FV.js";
+} from "./chunk-6MSDXA4P.js";
+import "./chunk-WSA2QMXP.js";
 import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/material/fesm2022/progress-spinner.mjs
@@ -81,7 +80,7 @@ function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
 }
 var BASE_SIZE = 100;
 var BASE_STROKE_WIDTH = 10;
-var _MatProgressSpinner = class _MatProgressSpinner {
+var MatProgressSpinner = class _MatProgressSpinner {
   // TODO: should be typed as `ThemePalette` but internal apps pass in arbitrary strings.
   /** Theme palette color of the progress spinner. */
   get color() {
@@ -154,85 +153,88 @@ var _MatProgressSpinner = class _MatProgressSpinner {
   _circleStrokeWidth() {
     return this.strokeWidth / this.diameter * 100;
   }
+  static {
+    this.ɵfac = function MatProgressSpinner_Factory(t) {
+      return new (t || _MatProgressSpinner)(ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵdirectiveInject(MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS));
+    };
+  }
+  static {
+    this.ɵcmp = ɵɵdefineComponent({
+      type: _MatProgressSpinner,
+      selectors: [["mat-progress-spinner"], ["mat-spinner"]],
+      viewQuery: function MatProgressSpinner_Query(rf, ctx) {
+        if (rf & 1) {
+          ɵɵviewQuery(_c0, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._determinateCircle = _t.first);
+        }
+      },
+      hostAttrs: ["role", "progressbar", "tabindex", "-1", 1, "mat-mdc-progress-spinner", "mdc-circular-progress"],
+      hostVars: 18,
+      hostBindings: function MatProgressSpinner_HostBindings(rf, ctx) {
+        if (rf & 2) {
+          ɵɵattribute("aria-valuemin", 0)("aria-valuemax", 100)("aria-valuenow", ctx.mode === "determinate" ? ctx.value : null)("mode", ctx.mode);
+          ɵɵclassMap("mat-" + ctx.color);
+          ɵɵstyleProp("width", ctx.diameter, "px")("height", ctx.diameter, "px")("--mdc-circular-progress-size", ctx.diameter + "px")("--mdc-circular-progress-active-indicator-width", ctx.diameter + "px");
+          ɵɵclassProp("_mat-animation-noopable", ctx._noopAnimations)("mdc-circular-progress--indeterminate", ctx.mode === "indeterminate");
+        }
+      },
+      inputs: {
+        color: "color",
+        mode: "mode",
+        value: [2, "value", "value", numberAttribute],
+        diameter: [2, "diameter", "diameter", numberAttribute],
+        strokeWidth: [2, "strokeWidth", "strokeWidth", numberAttribute]
+      },
+      exportAs: ["matProgressSpinner"],
+      standalone: true,
+      features: [ɵɵInputTransformsFeature, ɵɵStandaloneFeature],
+      decls: 14,
+      vars: 11,
+      consts: [["circle", ""], ["determinateSpinner", ""], ["aria-hidden", "true", 1, "mdc-circular-progress__determinate-container"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mdc-circular-progress__determinate-circle-graphic"], ["cx", "50%", "cy", "50%", 1, "mdc-circular-progress__determinate-circle"], ["aria-hidden", "true", 1, "mdc-circular-progress__indeterminate-container"], [1, "mdc-circular-progress__spinner-layer"], [1, "mdc-circular-progress__circle-clipper", "mdc-circular-progress__circle-left"], [3, "ngTemplateOutlet"], [1, "mdc-circular-progress__gap-patch"], [1, "mdc-circular-progress__circle-clipper", "mdc-circular-progress__circle-right"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mdc-circular-progress__indeterminate-circle-graphic"], ["cx", "50%", "cy", "50%"]],
+      template: function MatProgressSpinner_Template(rf, ctx) {
+        if (rf & 1) {
+          ɵɵtemplate(0, MatProgressSpinner_ng_template_0_Template, 2, 8, "ng-template", null, 0, ɵɵtemplateRefExtractor);
+          ɵɵelementStart(2, "div", 2, 1);
+          ɵɵnamespaceSVG();
+          ɵɵelementStart(4, "svg", 3);
+          ɵɵelement(5, "circle", 4);
+          ɵɵelementEnd()();
+          ɵɵnamespaceHTML();
+          ɵɵelementStart(6, "div", 5)(7, "div", 6)(8, "div", 7);
+          ɵɵelementContainer(9, 8);
+          ɵɵelementEnd();
+          ɵɵelementStart(10, "div", 9);
+          ɵɵelementContainer(11, 8);
+          ɵɵelementEnd();
+          ɵɵelementStart(12, "div", 10);
+          ɵɵelementContainer(13, 8);
+          ɵɵelementEnd()()();
+        }
+        if (rf & 2) {
+          const circle_r2 = ɵɵreference(1);
+          ɵɵadvance(4);
+          ɵɵattribute("viewBox", ctx._viewBox());
+          ɵɵadvance();
+          ɵɵstyleProp("stroke-dasharray", ctx._strokeCircumference(), "px")("stroke-dashoffset", ctx._strokeDashOffset(), "px")("stroke-width", ctx._circleStrokeWidth(), "%");
+          ɵɵattribute("r", ctx._circleRadius());
+          ɵɵadvance(4);
+          ɵɵproperty("ngTemplateOutlet", circle_r2);
+          ɵɵadvance(2);
+          ɵɵproperty("ngTemplateOutlet", circle_r2);
+          ɵɵadvance(2);
+          ɵɵproperty("ngTemplateOutlet", circle_r2);
+        }
+      },
+      dependencies: [NgTemplateOutlet],
+      styles: ["@keyframes mdc-circular-progress-container-rotate{to{transform:rotate(360deg)}}@keyframes mdc-circular-progress-spinner-layer-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}@keyframes mdc-circular-progress-color-1-fade-in-out{from{opacity:.99}25%{opacity:.99}26%{opacity:0}89%{opacity:0}90%{opacity:.99}to{opacity:.99}}@keyframes mdc-circular-progress-color-2-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:.99}50%{opacity:.99}51%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-3-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:.99}75%{opacity:.99}76%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-4-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:.99}90%{opacity:.99}to{opacity:0}}@keyframes mdc-circular-progress-left-spin{from{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mdc-circular-progress-right-spin{from{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}.mdc-circular-progress{display:inline-flex;position:relative;direction:ltr;line-height:0;transition:opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-circular-progress__determinate-container,.mdc-circular-progress__indeterminate-circle-graphic,.mdc-circular-progress__indeterminate-container,.mdc-circular-progress__spinner-layer{position:absolute;width:100%;height:100%}.mdc-circular-progress__determinate-container{transform:rotate(-90deg)}.mdc-circular-progress__indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mdc-circular-progress__determinate-circle-graphic,.mdc-circular-progress__indeterminate-circle-graphic{fill:rgba(0,0,0,0)}.mdc-circular-progress__determinate-circle{transition:stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-circular-progress__gap-patch{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic{left:-900%;width:2000%;transform:rotate(180deg)}.mdc-circular-progress__circle-clipper{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic{width:200%}.mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{left:-100%}.mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container{opacity:0}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{opacity:1}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{animation:mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite}.mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-1{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-1-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-2{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-2-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-3{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-3-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-4{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-4-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-left .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--closed{opacity:0}.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{stroke:var(--mdc-circular-progress-active-indicator-color)}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}.mat-mdc-progress-spinner circle{stroke-width:var(--mdc-circular-progress-active-indicator-width)}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-1 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-2 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-3 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-4 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}.mat-mdc-progress-spinner .mdc-circular-progress{width:var(--mdc-circular-progress-size) !important;height:var(--mdc-circular-progress-size) !important}.mat-mdc-progress-spinner{display:block;overflow:hidden;line-height:0}.mat-mdc-progress-spinner._mat-animation-noopable,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__determinate-circle{transition:none}.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-circle-graphic,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__spinner-layer,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container{animation:none}.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container circle{stroke-dasharray:0 !important}.cdk-high-contrast-active .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic,.cdk-high-contrast-active .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle{stroke:currentColor;stroke:CanvasText}"],
+      encapsulation: 2,
+      changeDetection: 0
+    });
+  }
 };
-_MatProgressSpinner.ɵfac = function MatProgressSpinner_Factory(t) {
-  return new (t || _MatProgressSpinner)(ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵdirectiveInject(MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS));
-};
-_MatProgressSpinner.ɵcmp = ɵɵdefineComponent({
-  type: _MatProgressSpinner,
-  selectors: [["mat-progress-spinner"], ["mat-spinner"]],
-  viewQuery: function MatProgressSpinner_Query(rf, ctx) {
-    if (rf & 1) {
-      ɵɵviewQuery(_c0, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._determinateCircle = _t.first);
-    }
-  },
-  hostAttrs: ["role", "progressbar", "tabindex", "-1", 1, "mat-mdc-progress-spinner", "mdc-circular-progress"],
-  hostVars: 18,
-  hostBindings: function MatProgressSpinner_HostBindings(rf, ctx) {
-    if (rf & 2) {
-      ɵɵattribute("aria-valuemin", 0)("aria-valuemax", 100)("aria-valuenow", ctx.mode === "determinate" ? ctx.value : null)("mode", ctx.mode);
-      ɵɵclassMap("mat-" + ctx.color);
-      ɵɵstyleProp("width", ctx.diameter, "px")("height", ctx.diameter, "px")("--mdc-circular-progress-size", ctx.diameter + "px")("--mdc-circular-progress-active-indicator-width", ctx.diameter + "px");
-      ɵɵclassProp("_mat-animation-noopable", ctx._noopAnimations)("mdc-circular-progress--indeterminate", ctx.mode === "indeterminate");
-    }
-  },
-  inputs: {
-    color: "color",
-    mode: "mode",
-    value: [2, "value", "value", numberAttribute],
-    diameter: [2, "diameter", "diameter", numberAttribute],
-    strokeWidth: [2, "strokeWidth", "strokeWidth", numberAttribute]
-  },
-  exportAs: ["matProgressSpinner"],
-  standalone: true,
-  features: [ɵɵInputTransformsFeature, ɵɵStandaloneFeature],
-  decls: 14,
-  vars: 11,
-  consts: [["circle", ""], ["determinateSpinner", ""], ["aria-hidden", "true", 1, "mdc-circular-progress__determinate-container"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mdc-circular-progress__determinate-circle-graphic"], ["cx", "50%", "cy", "50%", 1, "mdc-circular-progress__determinate-circle"], ["aria-hidden", "true", 1, "mdc-circular-progress__indeterminate-container"], [1, "mdc-circular-progress__spinner-layer"], [1, "mdc-circular-progress__circle-clipper", "mdc-circular-progress__circle-left"], [3, "ngTemplateOutlet"], [1, "mdc-circular-progress__gap-patch"], [1, "mdc-circular-progress__circle-clipper", "mdc-circular-progress__circle-right"], ["xmlns", "http://www.w3.org/2000/svg", "focusable", "false", 1, "mdc-circular-progress__indeterminate-circle-graphic"], ["cx", "50%", "cy", "50%"]],
-  template: function MatProgressSpinner_Template(rf, ctx) {
-    if (rf & 1) {
-      ɵɵtemplate(0, MatProgressSpinner_ng_template_0_Template, 2, 8, "ng-template", null, 0, ɵɵtemplateRefExtractor);
-      ɵɵelementStart(2, "div", 2, 1);
-      ɵɵnamespaceSVG();
-      ɵɵelementStart(4, "svg", 3);
-      ɵɵelement(5, "circle", 4);
-      ɵɵelementEnd()();
-      ɵɵnamespaceHTML();
-      ɵɵelementStart(6, "div", 5)(7, "div", 6)(8, "div", 7);
-      ɵɵelementContainer(9, 8);
-      ɵɵelementEnd();
-      ɵɵelementStart(10, "div", 9);
-      ɵɵelementContainer(11, 8);
-      ɵɵelementEnd();
-      ɵɵelementStart(12, "div", 10);
-      ɵɵelementContainer(13, 8);
-      ɵɵelementEnd()()();
-    }
-    if (rf & 2) {
-      const circle_r2 = ɵɵreference(1);
-      ɵɵadvance(4);
-      ɵɵattribute("viewBox", ctx._viewBox());
-      ɵɵadvance();
-      ɵɵstyleProp("stroke-dasharray", ctx._strokeCircumference(), "px")("stroke-dashoffset", ctx._strokeDashOffset(), "px")("stroke-width", ctx._circleStrokeWidth(), "%");
-      ɵɵattribute("r", ctx._circleRadius());
-      ɵɵadvance(4);
-      ɵɵproperty("ngTemplateOutlet", circle_r2);
-      ɵɵadvance(2);
-      ɵɵproperty("ngTemplateOutlet", circle_r2);
-      ɵɵadvance(2);
-      ɵɵproperty("ngTemplateOutlet", circle_r2);
-    }
-  },
-  dependencies: [NgTemplateOutlet],
-  styles: ["@keyframes mdc-circular-progress-container-rotate{to{transform:rotate(360deg)}}@keyframes mdc-circular-progress-spinner-layer-rotate{12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}100%{transform:rotate(1080deg)}}@keyframes mdc-circular-progress-color-1-fade-in-out{from{opacity:.99}25%{opacity:.99}26%{opacity:0}89%{opacity:0}90%{opacity:.99}to{opacity:.99}}@keyframes mdc-circular-progress-color-2-fade-in-out{from{opacity:0}15%{opacity:0}25%{opacity:.99}50%{opacity:.99}51%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-3-fade-in-out{from{opacity:0}40%{opacity:0}50%{opacity:.99}75%{opacity:.99}76%{opacity:0}to{opacity:0}}@keyframes mdc-circular-progress-color-4-fade-in-out{from{opacity:0}65%{opacity:0}75%{opacity:.99}90%{opacity:.99}to{opacity:0}}@keyframes mdc-circular-progress-left-spin{from{transform:rotate(265deg)}50%{transform:rotate(130deg)}to{transform:rotate(265deg)}}@keyframes mdc-circular-progress-right-spin{from{transform:rotate(-265deg)}50%{transform:rotate(-130deg)}to{transform:rotate(-265deg)}}.mdc-circular-progress{display:inline-flex;position:relative;direction:ltr;line-height:0;transition:opacity 250ms 0ms cubic-bezier(0.4, 0, 0.6, 1)}.mdc-circular-progress__determinate-container,.mdc-circular-progress__indeterminate-circle-graphic,.mdc-circular-progress__indeterminate-container,.mdc-circular-progress__spinner-layer{position:absolute;width:100%;height:100%}.mdc-circular-progress__determinate-container{transform:rotate(-90deg)}.mdc-circular-progress__indeterminate-container{font-size:0;letter-spacing:0;white-space:nowrap;opacity:0}.mdc-circular-progress__determinate-circle-graphic,.mdc-circular-progress__indeterminate-circle-graphic{fill:rgba(0,0,0,0)}.mdc-circular-progress__determinate-circle{transition:stroke-dashoffset 500ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-circular-progress__gap-patch{position:absolute;top:0;left:47.5%;box-sizing:border-box;width:5%;height:100%;overflow:hidden}.mdc-circular-progress__gap-patch .mdc-circular-progress__indeterminate-circle-graphic{left:-900%;width:2000%;transform:rotate(180deg)}.mdc-circular-progress__circle-clipper{display:inline-flex;position:relative;width:50%;height:100%;overflow:hidden}.mdc-circular-progress__circle-clipper .mdc-circular-progress__indeterminate-circle-graphic{width:200%}.mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{left:-100%}.mdc-circular-progress--indeterminate .mdc-circular-progress__determinate-container{opacity:0}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{opacity:1}.mdc-circular-progress--indeterminate .mdc-circular-progress__indeterminate-container{animation:mdc-circular-progress-container-rotate 1568.2352941176ms linear infinite}.mdc-circular-progress--indeterminate .mdc-circular-progress__spinner-layer{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-1{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-1-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-2{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-2-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-3{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-3-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__color-4{animation:mdc-circular-progress-spinner-layer-rotate 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both,mdc-circular-progress-color-4-fade-in-out 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-left .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--indeterminate .mdc-circular-progress__circle-right .mdc-circular-progress__indeterminate-circle-graphic{animation:mdc-circular-progress-right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both}.mdc-circular-progress--closed{opacity:0}.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{stroke:var(--mdc-circular-progress-active-indicator-color)}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle,.mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}.mat-mdc-progress-spinner circle{stroke-width:var(--mdc-circular-progress-active-indicator-width)}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-1 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-2 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-3 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}@media screen and (forced-colors: active),(-ms-high-contrast: active){.mat-mdc-progress-spinner .mdc-circular-progress--four-color .mdc-circular-progress__color-4 .mdc-circular-progress__indeterminate-circle-graphic{stroke:CanvasText}}.mat-mdc-progress-spinner .mdc-circular-progress{width:var(--mdc-circular-progress-size) !important;height:var(--mdc-circular-progress-size) !important}.mat-mdc-progress-spinner{display:block;overflow:hidden;line-height:0}.mat-mdc-progress-spinner._mat-animation-noopable,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__determinate-circle{transition:none}.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-circle-graphic,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__spinner-layer,.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container{animation:none}.mat-mdc-progress-spinner._mat-animation-noopable .mdc-circular-progress__indeterminate-container circle{stroke-dasharray:0 !important}.cdk-high-contrast-active .mat-mdc-progress-spinner .mdc-circular-progress__indeterminate-circle-graphic,.cdk-high-contrast-active .mat-mdc-progress-spinner .mdc-circular-progress__determinate-circle{stroke:currentColor;stroke:CanvasText}"],
-  encapsulation: 2,
-  changeDetection: 0
-});
-var MatProgressSpinner = _MatProgressSpinner;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatProgressSpinner, [{
     type: Component,
@@ -312,20 +314,25 @@ var MatProgressSpinner = _MatProgressSpinner;
   });
 })();
 var MatSpinner = MatProgressSpinner;
-var _MatProgressSpinnerModule = class _MatProgressSpinnerModule {
+var MatProgressSpinnerModule = class _MatProgressSpinnerModule {
+  static {
+    this.ɵfac = function MatProgressSpinnerModule_Factory(t) {
+      return new (t || _MatProgressSpinnerModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _MatProgressSpinnerModule,
+      imports: [CommonModule, MatProgressSpinner, MatSpinner],
+      exports: [MatProgressSpinner, MatSpinner, MatCommonModule]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      imports: [CommonModule, MatCommonModule]
+    });
+  }
 };
-_MatProgressSpinnerModule.ɵfac = function MatProgressSpinnerModule_Factory(t) {
-  return new (t || _MatProgressSpinnerModule)();
-};
-_MatProgressSpinnerModule.ɵmod = ɵɵdefineNgModule({
-  type: _MatProgressSpinnerModule,
-  imports: [CommonModule, MatProgressSpinner, MatSpinner],
-  exports: [MatProgressSpinner, MatSpinner, MatCommonModule]
-});
-_MatProgressSpinnerModule.ɵinj = ɵɵdefineInjector({
-  imports: [CommonModule, MatCommonModule]
-});
-var MatProgressSpinnerModule = _MatProgressSpinnerModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatProgressSpinnerModule, [{
     type: NgModule,

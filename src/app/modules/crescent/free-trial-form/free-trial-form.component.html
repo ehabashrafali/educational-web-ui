@@ -1,122 +1,105 @@
-
 <div class="grid grid-row-2 max-w-full w-full">
     <div class="prose prose-sm ms-4 ">
        <h2 class="mt-12">Book Your Free Session</h2>
     </div>
     <div class="mb-4 flex justify-center">
-        <form [formGroup]="form" class="bg-card mt-4 flex flex-col overflow-hidden w-1/2 rounded px-8 pt-10 shadow">
-            <p class="text-lg font-medium">Profile</p>
-            <div class="gt-xs:flex-row flex flex-col">
-              <mat-form-field class="gt-xs:pr-3 flex-auto">
+       <form [formGroup]="form" (ngSubmit)="submitForm()" class="bg-card mt-4 flex flex-col overflow-hidden w-1/2 rounded px-8 pt-10 shadow">
+          <p class="font-medium">Profile</p>
+          <div class="gt-xs:flex-row flex flex-col">
+             <mat-form-field class="gt-xs:pr-3 flex-auto">
                 <input matInput placeholder="First name" formControlName="firstName" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-              </mat-form-field>
-              <mat-form-field class="gt-xs:pl-3 flex-auto">
+             </mat-form-field>
+             <mat-form-field class="gt-xs:pl-3 flex-auto">
                 <input matInput placeholder="Last name" formControlName="lastName" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
-              </mat-form-field>
-            </div>
-          
-            <div class="flex">
-              <mat-form-field class="flex-auto">
+             </mat-form-field>
+          </div>
+          <div class="flex">
+             <mat-form-field class="flex-auto">
                 <input matInput placeholder="Email Address" formControlName="email" />
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
-              </mat-form-field>
-            </div>
-          
-            <mat-divider class="mb-4 mt-2"></mat-divider>
-          
-
-          
-            <div class="gt-xs:flex-row flex flex-col">
-
-                  <label for="phone-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number:</label>
-    <div class="relative">
-        <div class="absolute inset-y-0 start-0 top-0 flex items-center ps-3.5 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
-                <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"/>
-            </svg>
-        </div>
-        <input type="text" id="phone-input" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
-    </div>
-    <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Select a phone number that matches the format.</p>
-
-              <div class="w-full grid items-center">
+             </mat-form-field>
+          </div>
+        
+          <div class="gt-xs:flex-row flex flex-col">
+            
+            <p class="font-medium">Phone (WhatsApp Preferred) (Country Code)</p>
+            <mat-form-field class="gt-xs:pr-3 flex-auto">
+                <mat-icon  class="icon-size-5" matPrefix svgIcon="heroicons_solid:phone"></mat-icon>
+                <input type="number" id="phone-input" aria-describedby="helper-text-explanation" matInput  formControlName="phone" />
+             </mat-form-field>
+             
+             <div class="w-full grid items-center">
                 <ng-country-select
-                  [lang]="'en'"
-                  [placeholder]="'Select Country'"
-                  (countrySelected)="handleSelection($event)"
-                  class="gt-xs:pr-3 flex-auto grid">
+                [lang]="'en'"
+                [placeholder]="'Select Country'"
+                (countrySelected)="handleSelection($event)"
+                class="gt-xs:pr-3 flex-auto grid">
                 </ng-country-select>
-              </div>
-              <p class="text-lg font-medium">How many students will join?</p>
-              <mat-form-field class="gt-xs:pl-3 flex-auto">
+             </div>
+             <p class="font-medium">How many students will join?</p>
+             <mat-form-field class="gt-xs:pl-3 flex-auto">
                 <mat-select formControlName="studentCount">
-                    <mat-option value="1"
-                    >1</mat-option
-                    >
-                 <mat-option value="2"
-                    >2</mat-option
-                    >
-                 <mat-option value="3"
-                    >3</mat-option
-                    >
-                 <mat-option value="4"
-                    >4</mat-option
-                    >
-                 <mat-option value="5"
-                    >5</mat-option
-                    >        
+                   <mat-option value="1"
+                      >1</mat-option
+                      >
+                   <mat-option value="2"
+                      >2</mat-option
+                      >
+                   <mat-option value="3"
+                      >3</mat-option
+                      >
+                   <mat-option value="4"
+                      >4</mat-option
+                      >
+                   <mat-option value="5"
+                      >5</mat-option
+                      >
                 </mat-select>
-              </mat-form-field>
-            </div>
+             </mat-form-field>
+          </div>
           
-            <mat-divider class="mb-4 mt-2"></mat-divider>
-          
-            <p class="text-lg font-medium mb-2">For your evaluation, do you prefer Teacher?</p>
-            <mat-radio-group formControlName="preferredTeacher" class="gt-sm:flex-row flex mb-4 flex-col">
-              <mat-radio-button class="mb-2" value="female" color="primary">Female</mat-radio-button>
-              <mat-radio-button class="mb-2" value="male" color="primary">Male</mat-radio-button>
-              <mat-radio-button class="mb-2" value="either" color="primary">Either</mat-radio-button>
-            </mat-radio-group>
-          
-            <p class="text-lg font-medium mb-2">Preferred Communication Channel?</p>
-            <mat-radio-group formControlName="preferredChannel" class="gt-sm:flex-row flex mb-4 flex-col">
-              <mat-radio-button class="mb-2" value="email" color="primary">Email</mat-radio-button>
-              <mat-radio-button class="mb-2" value="phone" color="primary">Phone</mat-radio-button>
-              <mat-radio-button class="mb-2" value="whatsapp" color="primary">WhatsApp</mat-radio-button>
-            </mat-radio-group>
-          
-            <p class="text-lg font-medium mb-2">How did you learn about Cescent?</p>
-            <mat-radio-group formControlName="learnAbout" class="gt-sm:flex-row flex mb-4 flex-col">
-              <mat-radio-button class="mb-2" value="social" color="primary">Social Media</mat-radio-button>
-              <mat-radio-button class="mb-2" value="friend" color="primary">Friend</mat-radio-button>
-              <mat-radio-button class="mb-2" value="website" color="primary">Website</mat-radio-button>
-            </mat-radio-group>
-          
-            <p class="text-lg font-medium mb-2">Interested In?</p>
-            <mat-radio-group formControlName="interestedIn" class="gt-sm:flex-row flex mb-4 flex-col">
-              <mat-radio-button class="mb-2" value="1to1" color="primary">1:1 Tutoring</mat-radio-button>
-              <mat-radio-button class="mb-2" value="group" color="primary">Group Class</mat-radio-button>
-            </mat-radio-group>
-          
-            <div class="flex">
-              <mat-form-field class="flex-auto">
+          <mat-divider class="mb-4 mt-2"></mat-divider>
+          <p class="font-medium mb-2">For your evaluation, do you prefer Teacher?</p>
+          <mat-radio-group formControlName="preferredTeacher" class="gt-sm:flex-row flex mb-4 flex-col">
+             <mat-radio-button class="mb-2" value="female" color="primary">Female</mat-radio-button>
+             <mat-radio-button class="mb-2" value="male" color="primary">Male</mat-radio-button>
+             <mat-radio-button class="mb-2" value="either" color="primary">Either</mat-radio-button>
+          </mat-radio-group>
+          <p class="font-medium mb-2">Preferred Communication Channel?</p>
+          <mat-radio-group formControlName="preferredChannel" class="gt-sm:flex-row flex mb-4 flex-col">
+             <mat-radio-button class="mb-2" value="email" color="primary">Email</mat-radio-button>
+             <mat-radio-button class="mb-2" value="phone" color="primary">Phone</mat-radio-button>
+             <mat-radio-button class="mb-2" value="whatsapp" color="primary">WhatsApp</mat-radio-button>
+          </mat-radio-group>
+          <p class="font-medium mb-2">How did you learn about Cescent?</p>
+          <mat-radio-group formControlName="learnAbout" class="gt-sm:flex-row flex mb-4 flex-col">
+             <mat-radio-button class="mb-2" value="social" color="primary">Social Media</mat-radio-button>
+             <mat-radio-button class="mb-2" value="friend" color="primary">Friend</mat-radio-button>
+             <mat-radio-button class="mb-2" value="website" color="primary">Website</mat-radio-button>
+          </mat-radio-group>
+          <p class="font-medium mb-2">Interested In?</p>
+          <mat-radio-group formControlName="interestedIn" class="gt-sm:flex-row flex mb-4 flex-col">
+             <mat-radio-button class="mb-2" value="1to1" color="primary">1:1 Tutoring</mat-radio-button>
+             <mat-radio-button class="mb-2" value="group" color="primary">Group Class</mat-radio-button>
+          </mat-radio-group>
+          <div class="flex">
+             <mat-form-field class="flex-auto">
                 <textarea
-                  matInput
-                  formControlName="notes"
-                  placeholder="Additional Notes, Please let us know about your level or your children’s level if you are applying for them."
-                  rows="3">
-                </textarea>
+                   matInput
+                   formControlName="notes"
+                   placeholder="Additional Notes, Please let us know about your level or your children’s level if you are applying for them."
+                   rows="3">
+                 </textarea>
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
-              </mat-form-field>
-            </div>
-          
-            <div class="-mx-8 mt-8 flex items-center justify-end border-t bg-gray-50 px-8 py-5 dark:bg-gray-700">
-              <button mat-button type="button">Cancel</button>
-              <button class="ml-3 px-6" mat-flat-button color="primary" type="submit">Save</button>
-            </div>
-        </form>
+             </mat-form-field>
+          </div>
+          <div class="-mx-8 mt-8 flex items-center justify-end border-t bg-gray-50 px-8 py-5 dark:bg-gray-700">
+             <button mat-button [routerLink]="['/home']" type="button">Cancel</button>
+             <button class="ml-3 px-6" mat-flat-button color="primary"  
+             type="submit">Save</button>
+          </div>
+       </form>
     </div>
-</div>
-  
+ </div>

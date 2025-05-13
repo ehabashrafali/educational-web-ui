@@ -52,22 +52,34 @@ export class SupportComponent implements OnInit {
    * Send the form
    */
   sendForm(): void {
-    // Send your form here using an http request
-    console.log('Your message has been sent!');
 
-    // Show a success message (it can also be an error message)
-    // and remove it after 5 seconds
-    this.alert = {
-      type: 'success',
-      message:
-        'Your request has been delivered! A member of our support staff will respond as soon as possible.',
-    };
+    if (this.supportForm.valid) {
+      const values = this.supportForm.value;
+      fetch('https://script.google.com/macros/s/AKfycbyT_xcrH91L7bFLvmt7n0_5LVct4oJhExkUoaGt6IeKdLfxg_P3Oop42l5OxFnce1rn/exec', {
+        method: 'POST',
+        mode: 'no-cors', 
+        body: JSON.stringify(values)
+      })
+        .then(() => {
+          console.log(values)
+          this.alert = {
+            type: 'success',
+            message:
+              'Thank You, We Will Contact You ASAP',
+          };
 
-    setTimeout(() => {
-      this.alert = null;
-    }, 7000);
+          setTimeout(() => {
+            this.alert = null;
+          }, 5000);
 
-    // Clear the form
-    this.clearForm();
+          this.clearForm();
+        })
+        .catch(err => {
+          console.error('Submission error:', err);
+          alert('Something went wrong');
+        });
+    } else {
+      console.log('Form is invalid');
+    }
   }
 }

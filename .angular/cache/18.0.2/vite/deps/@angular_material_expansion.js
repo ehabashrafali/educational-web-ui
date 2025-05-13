@@ -1,34 +1,34 @@
 import {
-  FocusKeyManager,
-  FocusMonitor,
-  MatCommonModule
-} from "./chunk-OVOHUHU3.js";
-import "./chunk-RLEB46HN.js";
+  UniqueSelectionDispatcher
+} from "./chunk-DWVSCHKR.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-A3OT5DDR.js";
+} from "./chunk-3Y4EJHLV.js";
 import {
-  UniqueSelectionDispatcher
-} from "./chunk-HXTJEGUJ.js";
+  FocusKeyManager,
+  FocusMonitor,
+  MatCommonModule
+} from "./chunk-RQZSCTJO.js";
 import {
   ENTER,
   SPACE,
   hasModifierKey
-} from "./chunk-Q6PL6MO5.js";
-import "./chunk-EI2T3NOC.js";
-import "./chunk-CZE6RSLT.js";
+} from "./chunk-IC6GANJB.js";
+import "./chunk-IVVXX6OU.js";
+import "./chunk-MFJOJNCW.js";
+import "./chunk-FCIMYJSV.js";
 import {
   CdkPortalOutlet,
   PortalModule,
   TemplatePortal
-} from "./chunk-ZGSMZQRC.js";
+} from "./chunk-4NYOFWLZ.js";
 import {
   DOCUMENT
-} from "./chunk-CMWNGCWW.js";
+} from "./chunk-2TPFPAF3.js";
 import {
   ANIMATION_MODULE_TYPE,
   Attribute,
@@ -90,7 +90,7 @@ import {
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-XQU24YB5.js";
+} from "./chunk-6MSDXA4P.js";
 import {
   EMPTY,
   Subject,
@@ -99,14 +99,13 @@ import {
   merge,
   startWith,
   take
-} from "./chunk-SJDNSO6V.js";
-import "./chunk-AOF462FV.js";
+} from "./chunk-WSA2QMXP.js";
 import "./chunk-X6JV76XL.js";
 
 // node_modules/@angular/cdk/fesm2022/accordion.mjs
 var nextId$1 = 0;
 var CDK_ACCORDION = new InjectionToken("CdkAccordion");
-var _CdkAccordion = class _CdkAccordion {
+var CdkAccordion = class _CdkAccordion {
   constructor() {
     this._stateChanges = new Subject();
     this._openCloseAllActions = new Subject();
@@ -130,24 +129,27 @@ var _CdkAccordion = class _CdkAccordion {
     this._stateChanges.complete();
     this._openCloseAllActions.complete();
   }
+  static {
+    this.ɵfac = function CdkAccordion_Factory(t) {
+      return new (t || _CdkAccordion)();
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _CdkAccordion,
+      selectors: [["cdk-accordion"], ["", "cdkAccordion", ""]],
+      inputs: {
+        multi: [2, "multi", "multi", booleanAttribute]
+      },
+      exportAs: ["cdkAccordion"],
+      standalone: true,
+      features: [ɵɵProvidersFeature([{
+        provide: CDK_ACCORDION,
+        useExisting: _CdkAccordion
+      }]), ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature]
+    });
+  }
 };
-_CdkAccordion.ɵfac = function CdkAccordion_Factory(t) {
-  return new (t || _CdkAccordion)();
-};
-_CdkAccordion.ɵdir = ɵɵdefineDirective({
-  type: _CdkAccordion,
-  selectors: [["cdk-accordion"], ["", "cdkAccordion", ""]],
-  inputs: {
-    multi: [2, "multi", "multi", booleanAttribute]
-  },
-  exportAs: ["cdkAccordion"],
-  standalone: true,
-  features: [ɵɵProvidersFeature([{
-    provide: CDK_ACCORDION,
-    useExisting: _CdkAccordion
-  }]), ɵɵInputTransformsFeature, ɵɵNgOnChangesFeature]
-});
-var CdkAccordion = _CdkAccordion;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkAccordion, [{
     type: Directive,
@@ -170,7 +172,7 @@ var CdkAccordion = _CdkAccordion;
   });
 })();
 var nextId = 0;
-var _CdkAccordionItem = class _CdkAccordionItem {
+var CdkAccordionItem = class _CdkAccordionItem {
   /** Whether the AccordionItem is expanded. */
   get expanded() {
     return this._expanded;
@@ -246,35 +248,38 @@ var _CdkAccordionItem = class _CdkAccordionItem {
       }
     });
   }
+  static {
+    this.ɵfac = function CdkAccordionItem_Factory(t) {
+      return new (t || _CdkAccordionItem)(ɵɵdirectiveInject(CDK_ACCORDION, 12), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(UniqueSelectionDispatcher));
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _CdkAccordionItem,
+      selectors: [["cdk-accordion-item"], ["", "cdkAccordionItem", ""]],
+      inputs: {
+        expanded: [2, "expanded", "expanded", booleanAttribute],
+        disabled: [2, "disabled", "disabled", booleanAttribute]
+      },
+      outputs: {
+        closed: "closed",
+        opened: "opened",
+        destroyed: "destroyed",
+        expandedChange: "expandedChange"
+      },
+      exportAs: ["cdkAccordionItem"],
+      standalone: true,
+      features: [ɵɵProvidersFeature([
+        // Provide `CDK_ACCORDION` as undefined to prevent nested accordion items from
+        // registering to the same accordion.
+        {
+          provide: CDK_ACCORDION,
+          useValue: void 0
+        }
+      ]), ɵɵInputTransformsFeature]
+    });
+  }
 };
-_CdkAccordionItem.ɵfac = function CdkAccordionItem_Factory(t) {
-  return new (t || _CdkAccordionItem)(ɵɵdirectiveInject(CDK_ACCORDION, 12), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(UniqueSelectionDispatcher));
-};
-_CdkAccordionItem.ɵdir = ɵɵdefineDirective({
-  type: _CdkAccordionItem,
-  selectors: [["cdk-accordion-item"], ["", "cdkAccordionItem", ""]],
-  inputs: {
-    expanded: [2, "expanded", "expanded", booleanAttribute],
-    disabled: [2, "disabled", "disabled", booleanAttribute]
-  },
-  outputs: {
-    closed: "closed",
-    opened: "opened",
-    destroyed: "destroyed",
-    expandedChange: "expandedChange"
-  },
-  exportAs: ["cdkAccordionItem"],
-  standalone: true,
-  features: [ɵɵProvidersFeature([
-    // Provide `CDK_ACCORDION` as undefined to prevent nested accordion items from
-    // registering to the same accordion.
-    {
-      provide: CDK_ACCORDION,
-      useValue: void 0
-    }
-  ]), ɵɵInputTransformsFeature]
-});
-var CdkAccordionItem = _CdkAccordionItem;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkAccordionItem, [{
     type: Directive,
@@ -332,18 +337,23 @@ var CdkAccordionItem = _CdkAccordionItem;
     }]
   });
 })();
-var _CdkAccordionModule = class _CdkAccordionModule {
+var CdkAccordionModule = class _CdkAccordionModule {
+  static {
+    this.ɵfac = function CdkAccordionModule_Factory(t) {
+      return new (t || _CdkAccordionModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _CdkAccordionModule,
+      imports: [CdkAccordion, CdkAccordionItem],
+      exports: [CdkAccordion, CdkAccordionItem]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({});
+  }
 };
-_CdkAccordionModule.ɵfac = function CdkAccordionModule_Factory(t) {
-  return new (t || _CdkAccordionModule)();
-};
-_CdkAccordionModule.ɵmod = ɵɵdefineNgModule({
-  type: _CdkAccordionModule,
-  imports: [CdkAccordion, CdkAccordionItem],
-  exports: [CdkAccordion, CdkAccordionItem]
-});
-_CdkAccordionModule.ɵinj = ɵɵdefineInjector({});
-var CdkAccordionModule = _CdkAccordionModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkAccordionModule, [{
     type: NgModule,
@@ -401,21 +411,24 @@ var matExpansionAnimations = {
   ])
 };
 var MAT_EXPANSION_PANEL = new InjectionToken("MAT_EXPANSION_PANEL");
-var _MatExpansionPanelContent = class _MatExpansionPanelContent {
+var MatExpansionPanelContent = class _MatExpansionPanelContent {
   constructor(_template, _expansionPanel) {
     this._template = _template;
     this._expansionPanel = _expansionPanel;
   }
+  static {
+    this.ɵfac = function MatExpansionPanelContent_Factory(t) {
+      return new (t || _MatExpansionPanelContent)(ɵɵdirectiveInject(TemplateRef), ɵɵdirectiveInject(MAT_EXPANSION_PANEL, 8));
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatExpansionPanelContent,
+      selectors: [["ng-template", "matExpansionPanelContent", ""]],
+      standalone: true
+    });
+  }
 };
-_MatExpansionPanelContent.ɵfac = function MatExpansionPanelContent_Factory(t) {
-  return new (t || _MatExpansionPanelContent)(ɵɵdirectiveInject(TemplateRef), ɵɵdirectiveInject(MAT_EXPANSION_PANEL, 8));
-};
-_MatExpansionPanelContent.ɵdir = ɵɵdefineDirective({
-  type: _MatExpansionPanelContent,
-  selectors: [["ng-template", "matExpansionPanelContent", ""]],
-  standalone: true
-});
-var MatExpansionPanelContent = _MatExpansionPanelContent;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanelContent, [{
     type: Directive,
@@ -437,7 +450,7 @@ var MatExpansionPanelContent = _MatExpansionPanelContent;
 })();
 var uniqueId = 0;
 var MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken("MAT_EXPANSION_PANEL_DEFAULT_OPTIONS");
-var _MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
+var MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
   /** Whether the toggle indicator should be hidden. */
   get hideToggle() {
     return this._hideToggle || this.accordion && this.accordion.hideToggle;
@@ -533,101 +546,104 @@ var _MatExpansionPanel = class _MatExpansionPanel extends CdkAccordionItem {
       }
     }
   }
+  static {
+    this.ɵfac = function MatExpansionPanel_Factory(t) {
+      return new (t || _MatExpansionPanel)(ɵɵdirectiveInject(MAT_ACCORDION, 12), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(UniqueSelectionDispatcher), ɵɵdirectiveInject(ViewContainerRef), ɵɵdirectiveInject(DOCUMENT), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵdirectiveInject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, 8));
+    };
+  }
+  static {
+    this.ɵcmp = ɵɵdefineComponent({
+      type: _MatExpansionPanel,
+      selectors: [["mat-expansion-panel"]],
+      contentQueries: function MatExpansionPanel_ContentQueries(rf, ctx, dirIndex) {
+        if (rf & 1) {
+          ɵɵcontentQuery(dirIndex, MatExpansionPanelContent, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._lazyContent = _t.first);
+        }
+      },
+      viewQuery: function MatExpansionPanel_Query(rf, ctx) {
+        if (rf & 1) {
+          ɵɵviewQuery(_c0, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._body = _t.first);
+        }
+      },
+      hostAttrs: [1, "mat-expansion-panel"],
+      hostVars: 6,
+      hostBindings: function MatExpansionPanel_HostBindings(rf, ctx) {
+        if (rf & 2) {
+          ɵɵclassProp("mat-expanded", ctx.expanded)("_mat-animation-noopable", ctx._animationsDisabled)("mat-expansion-panel-spacing", ctx._hasSpacing());
+        }
+      },
+      inputs: {
+        hideToggle: [2, "hideToggle", "hideToggle", booleanAttribute],
+        togglePosition: "togglePosition"
+      },
+      outputs: {
+        afterExpand: "afterExpand",
+        afterCollapse: "afterCollapse"
+      },
+      exportAs: ["matExpansionPanel"],
+      standalone: true,
+      features: [ɵɵProvidersFeature([
+        // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+        // to the same accordion.
+        {
+          provide: MAT_ACCORDION,
+          useValue: void 0
+        },
+        {
+          provide: MAT_EXPANSION_PANEL,
+          useExisting: _MatExpansionPanel
+        }
+      ]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature, ɵɵStandaloneFeature],
+      ngContentSelectors: _c2,
+      decls: 7,
+      vars: 4,
+      consts: [["body", ""], ["role", "region", 1, "mat-expansion-panel-content", 3, "id"], [1, "mat-expansion-panel-body"], [3, "cdkPortalOutlet"]],
+      template: function MatExpansionPanel_Template(rf, ctx) {
+        if (rf & 1) {
+          const _r1 = ɵɵgetCurrentView();
+          ɵɵprojectionDef(_c1);
+          ɵɵprojection(0);
+          ɵɵelementStart(1, "div", 1, 0);
+          ɵɵlistener("@bodyExpansion.start", function MatExpansionPanel_Template_div_animation_bodyExpansion_start_1_listener($event) {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx._animationStarted($event));
+          })("@bodyExpansion.done", function MatExpansionPanel_Template_div_animation_bodyExpansion_done_1_listener($event) {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx._animationDone($event));
+          });
+          ɵɵelementStart(3, "div", 2);
+          ɵɵprojection(4, 1);
+          ɵɵtemplate(5, MatExpansionPanel_ng_template_5_Template, 0, 0, "ng-template", 3);
+          ɵɵelementEnd();
+          ɵɵprojection(6, 2);
+          ɵɵelementEnd();
+        }
+        if (rf & 2) {
+          ɵɵadvance();
+          ɵɵproperty("@bodyExpansion", ctx._getExpandedState())("id", ctx.id);
+          ɵɵattribute("aria-labelledby", ctx._headerId);
+          ɵɵadvance(4);
+          ɵɵproperty("cdkPortalOutlet", ctx._portal);
+        }
+      },
+      dependencies: [CdkPortalOutlet],
+      styles: ['.mat-expansion-panel{box-sizing:content-box;display:block;margin:0;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative;background:var(--mat-expansion-container-background-color);color:var(--mat-expansion-container-text-color);border-radius:var(--mat-expansion-container-shape)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:var(--mat-expansion-container-shape);border-top-left-radius:var(--mat-expansion-container-shape)}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:var(--mat-expansion-container-shape);border-bottom-left-radius:var(--mat-expansion-container-shape)}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible;font-family:var(--mat-expansion-container-text-font);font-size:var(--mat-expansion-container-text-size);font-weight:var(--mat-expansion-container-text-weight);line-height:var(--mat-expansion-container-text-line-height);letter-spacing:var(--mat-expansion-container-text-tracking)}.mat-expansion-panel-content[style*="visibility: hidden"] *{visibility:hidden !important}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px;border-top-color:var(--mat-expansion-actions-divider-color)}.mat-action-row .mat-button-base,.mat-action-row .mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row .mat-button-base,[dir=rtl] .mat-action-row .mat-mdc-button-base{margin-left:0;margin-right:8px}'],
+      encapsulation: 2,
+      data: {
+        animation: [matExpansionAnimations.bodyExpansion]
+      },
+      changeDetection: 0
+    });
+  }
 };
-_MatExpansionPanel.ɵfac = function MatExpansionPanel_Factory(t) {
-  return new (t || _MatExpansionPanel)(ɵɵdirectiveInject(MAT_ACCORDION, 12), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(UniqueSelectionDispatcher), ɵɵdirectiveInject(ViewContainerRef), ɵɵdirectiveInject(DOCUMENT), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵdirectiveInject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, 8));
-};
-_MatExpansionPanel.ɵcmp = ɵɵdefineComponent({
-  type: _MatExpansionPanel,
-  selectors: [["mat-expansion-panel"]],
-  contentQueries: function MatExpansionPanel_ContentQueries(rf, ctx, dirIndex) {
-    if (rf & 1) {
-      ɵɵcontentQuery(dirIndex, MatExpansionPanelContent, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._lazyContent = _t.first);
-    }
-  },
-  viewQuery: function MatExpansionPanel_Query(rf, ctx) {
-    if (rf & 1) {
-      ɵɵviewQuery(_c0, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._body = _t.first);
-    }
-  },
-  hostAttrs: [1, "mat-expansion-panel"],
-  hostVars: 6,
-  hostBindings: function MatExpansionPanel_HostBindings(rf, ctx) {
-    if (rf & 2) {
-      ɵɵclassProp("mat-expanded", ctx.expanded)("_mat-animation-noopable", ctx._animationsDisabled)("mat-expansion-panel-spacing", ctx._hasSpacing());
-    }
-  },
-  inputs: {
-    hideToggle: [2, "hideToggle", "hideToggle", booleanAttribute],
-    togglePosition: "togglePosition"
-  },
-  outputs: {
-    afterExpand: "afterExpand",
-    afterCollapse: "afterCollapse"
-  },
-  exportAs: ["matExpansionPanel"],
-  standalone: true,
-  features: [ɵɵProvidersFeature([
-    // Provide MatAccordion as undefined to prevent nested expansion panels from registering
-    // to the same accordion.
-    {
-      provide: MAT_ACCORDION,
-      useValue: void 0
-    },
-    {
-      provide: MAT_EXPANSION_PANEL,
-      useExisting: _MatExpansionPanel
-    }
-  ]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature, ɵɵNgOnChangesFeature, ɵɵStandaloneFeature],
-  ngContentSelectors: _c2,
-  decls: 7,
-  vars: 4,
-  consts: [["body", ""], ["role", "region", 1, "mat-expansion-panel-content", 3, "id"], [1, "mat-expansion-panel-body"], [3, "cdkPortalOutlet"]],
-  template: function MatExpansionPanel_Template(rf, ctx) {
-    if (rf & 1) {
-      const _r1 = ɵɵgetCurrentView();
-      ɵɵprojectionDef(_c1);
-      ɵɵprojection(0);
-      ɵɵelementStart(1, "div", 1, 0);
-      ɵɵlistener("@bodyExpansion.start", function MatExpansionPanel_Template_div_animation_bodyExpansion_start_1_listener($event) {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx._animationStarted($event));
-      })("@bodyExpansion.done", function MatExpansionPanel_Template_div_animation_bodyExpansion_done_1_listener($event) {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx._animationDone($event));
-      });
-      ɵɵelementStart(3, "div", 2);
-      ɵɵprojection(4, 1);
-      ɵɵtemplate(5, MatExpansionPanel_ng_template_5_Template, 0, 0, "ng-template", 3);
-      ɵɵelementEnd();
-      ɵɵprojection(6, 2);
-      ɵɵelementEnd();
-    }
-    if (rf & 2) {
-      ɵɵadvance();
-      ɵɵproperty("@bodyExpansion", ctx._getExpandedState())("id", ctx.id);
-      ɵɵattribute("aria-labelledby", ctx._headerId);
-      ɵɵadvance(4);
-      ɵɵproperty("cdkPortalOutlet", ctx._portal);
-    }
-  },
-  dependencies: [CdkPortalOutlet],
-  styles: ['.mat-expansion-panel{box-sizing:content-box;display:block;margin:0;overflow:hidden;transition:margin 225ms cubic-bezier(0.4, 0, 0.2, 1),box-shadow 280ms cubic-bezier(0.4, 0, 0.2, 1);position:relative;background:var(--mat-expansion-container-background-color);color:var(--mat-expansion-container-text-color);border-radius:var(--mat-expansion-container-shape)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)}.mat-accordion .mat-expansion-panel:not(.mat-expanded),.mat-accordion .mat-expansion-panel:not(.mat-expansion-panel-spacing){border-radius:0}.mat-accordion .mat-expansion-panel:first-of-type{border-top-right-radius:var(--mat-expansion-container-shape);border-top-left-radius:var(--mat-expansion-container-shape)}.mat-accordion .mat-expansion-panel:last-of-type{border-bottom-right-radius:var(--mat-expansion-container-shape);border-bottom-left-radius:var(--mat-expansion-container-shape)}.cdk-high-contrast-active .mat-expansion-panel{outline:solid 1px}.mat-expansion-panel.ng-animate-disabled,.ng-animate-disabled .mat-expansion-panel,.mat-expansion-panel._mat-animation-noopable{transition:none}.mat-expansion-panel-content{display:flex;flex-direction:column;overflow:visible;font-family:var(--mat-expansion-container-text-font);font-size:var(--mat-expansion-container-text-size);font-weight:var(--mat-expansion-container-text-weight);line-height:var(--mat-expansion-container-text-line-height);letter-spacing:var(--mat-expansion-container-text-tracking)}.mat-expansion-panel-content[style*="visibility: hidden"] *{visibility:hidden !important}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>*:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>*:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px;border-top-color:var(--mat-expansion-actions-divider-color)}.mat-action-row .mat-button-base,.mat-action-row .mat-mdc-button-base{margin-left:8px}[dir=rtl] .mat-action-row .mat-button-base,[dir=rtl] .mat-action-row .mat-mdc-button-base{margin-left:0;margin-right:8px}'],
-  encapsulation: 2,
-  data: {
-    animation: [matExpansionAnimations.bodyExpansion]
-  },
-  changeDetection: 0
-});
-var MatExpansionPanel = _MatExpansionPanel;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanel, [{
     type: Component,
@@ -727,18 +743,21 @@ var MatExpansionPanel = _MatExpansionPanel;
 function isInitialAnimation(event) {
   return event.fromState === "void";
 }
-var _MatExpansionPanelActionRow = class _MatExpansionPanelActionRow {
+var MatExpansionPanelActionRow = class _MatExpansionPanelActionRow {
+  static {
+    this.ɵfac = function MatExpansionPanelActionRow_Factory(t) {
+      return new (t || _MatExpansionPanelActionRow)();
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatExpansionPanelActionRow,
+      selectors: [["mat-action-row"]],
+      hostAttrs: [1, "mat-action-row"],
+      standalone: true
+    });
+  }
 };
-_MatExpansionPanelActionRow.ɵfac = function MatExpansionPanelActionRow_Factory(t) {
-  return new (t || _MatExpansionPanelActionRow)();
-};
-_MatExpansionPanelActionRow.ɵdir = ɵɵdefineDirective({
-  type: _MatExpansionPanelActionRow,
-  selectors: [["mat-action-row"]],
-  hostAttrs: [1, "mat-action-row"],
-  standalone: true
-});
-var MatExpansionPanelActionRow = _MatExpansionPanelActionRow;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanelActionRow, [{
     type: Directive,
@@ -751,7 +770,7 @@ var MatExpansionPanelActionRow = _MatExpansionPanelActionRow;
     }]
   }], null, null);
 })();
-var _MatExpansionPanelHeader = class _MatExpansionPanelHeader {
+var MatExpansionPanelHeader = class _MatExpansionPanelHeader {
   constructor(panel, _element, _focusMonitor, _changeDetectorRef, defaultOptions, _animationMode, tabIndex) {
     this.panel = panel;
     this._element = _element;
@@ -857,64 +876,67 @@ var _MatExpansionPanelHeader = class _MatExpansionPanelHeader {
     this._parentChangeSubscription.unsubscribe();
     this._focusMonitor.stopMonitoring(this._element);
   }
+  static {
+    this.ɵfac = function MatExpansionPanelHeader_Factory(t) {
+      return new (t || _MatExpansionPanelHeader)(ɵɵdirectiveInject(MatExpansionPanel, 1), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(FocusMonitor), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, 8), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵinjectAttribute("tabindex"));
+    };
+  }
+  static {
+    this.ɵcmp = ɵɵdefineComponent({
+      type: _MatExpansionPanelHeader,
+      selectors: [["mat-expansion-panel-header"]],
+      hostAttrs: ["role", "button", 1, "mat-expansion-panel-header", "mat-focus-indicator"],
+      hostVars: 15,
+      hostBindings: function MatExpansionPanelHeader_HostBindings(rf, ctx) {
+        if (rf & 1) {
+          ɵɵlistener("click", function MatExpansionPanelHeader_click_HostBindingHandler() {
+            return ctx._toggle();
+          })("keydown", function MatExpansionPanelHeader_keydown_HostBindingHandler($event) {
+            return ctx._keydown($event);
+          });
+        }
+        if (rf & 2) {
+          ɵɵattribute("id", ctx.panel._headerId)("tabindex", ctx.disabled ? -1 : ctx.tabIndex)("aria-controls", ctx._getPanelId())("aria-expanded", ctx._isExpanded())("aria-disabled", ctx.panel.disabled);
+          ɵɵstyleProp("height", ctx._getHeaderHeight());
+          ɵɵclassProp("mat-expanded", ctx._isExpanded())("mat-expansion-toggle-indicator-after", ctx._getTogglePosition() === "after")("mat-expansion-toggle-indicator-before", ctx._getTogglePosition() === "before")("_mat-animation-noopable", ctx._animationMode === "NoopAnimations");
+        }
+      },
+      inputs: {
+        expandedHeight: "expandedHeight",
+        collapsedHeight: "collapsedHeight",
+        tabIndex: [2, "tabIndex", "tabIndex", (value) => value == null ? 0 : numberAttribute(value)]
+      },
+      standalone: true,
+      features: [ɵɵInputTransformsFeature, ɵɵStandaloneFeature],
+      ngContentSelectors: _c4,
+      decls: 5,
+      vars: 3,
+      consts: [[1, "mat-content"], [1, "mat-expansion-indicator"], ["xmlns", "http://www.w3.org/2000/svg", "viewBox", "0 -960 960 960", "aria-hidden", "true", "focusable", "false"], ["d", "M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"]],
+      template: function MatExpansionPanelHeader_Template(rf, ctx) {
+        if (rf & 1) {
+          ɵɵprojectionDef(_c3);
+          ɵɵelementStart(0, "span", 0);
+          ɵɵprojection(1);
+          ɵɵprojection(2, 1);
+          ɵɵprojection(3, 2);
+          ɵɵelementEnd();
+          ɵɵtemplate(4, MatExpansionPanelHeader_Conditional_4_Template, 3, 1, "span", 1);
+        }
+        if (rf & 2) {
+          ɵɵclassProp("mat-content-hide-toggle", !ctx._showToggle());
+          ɵɵadvance(4);
+          ɵɵconditional(ctx._showToggle() ? 4 : -1);
+        }
+      },
+      styles: ['.mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1);height:var(--mat-expansion-header-collapsed-state-height);font-family:var(--mat-expansion-header-text-font);font-size:var(--mat-expansion-header-text-size);font-weight:var(--mat-expansion-header-text-weight);line-height:var(--mat-expansion-header-text-line-height);letter-spacing:var(--mat-expansion-header-text-tracking)}.mat-expansion-panel-header.mat-expanded{height:var(--mat-expansion-header-expanded-state-height)}.mat-expansion-panel-header[aria-disabled=true]{color:var(--mat-expansion-header-disabled-state-text-color)}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-header-hover-state-layer-color)}@media(hover: none){.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-container-background-color)}}.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused,.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused{background:var(--mat-expansion-header-focus-state-layer-color)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-content.mat-content-hide-toggle{margin-right:8px}[dir=rtl] .mat-content.mat-content-hide-toggle{margin-right:0;margin-left:8px}.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-left:24px;margin-right:0}[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-right:24px;margin-left:0}.mat-expansion-panel-header-title{color:var(--mat-expansion-header-text-color)}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;flex-basis:0;margin-right:16px;align-items:center}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description{color:inherit}.mat-expansion-panel-header-description{flex-grow:2;color:var(--mat-expansion-header-description-color)}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:"";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle;color:var(--mat-expansion-header-indicator-color);display:inline-block;display:var(--mat-expansion-legacy-header-indicator-display, inline-block)}.mat-expansion-indicator svg{width:24px;height:24px;margin:0 -8px;vertical-align:middle;fill:var(--mat-expansion-header-indicator-color);display:none;display:var(--mat-expansion-header-indicator-display, none)}.cdk-high-contrast-active .mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}'],
+      encapsulation: 2,
+      data: {
+        animation: [matExpansionAnimations.indicatorRotate]
+      },
+      changeDetection: 0
+    });
+  }
 };
-_MatExpansionPanelHeader.ɵfac = function MatExpansionPanelHeader_Factory(t) {
-  return new (t || _MatExpansionPanelHeader)(ɵɵdirectiveInject(MatExpansionPanel, 1), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(FocusMonitor), ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(MAT_EXPANSION_PANEL_DEFAULT_OPTIONS, 8), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8), ɵɵinjectAttribute("tabindex"));
-};
-_MatExpansionPanelHeader.ɵcmp = ɵɵdefineComponent({
-  type: _MatExpansionPanelHeader,
-  selectors: [["mat-expansion-panel-header"]],
-  hostAttrs: ["role", "button", 1, "mat-expansion-panel-header", "mat-focus-indicator"],
-  hostVars: 15,
-  hostBindings: function MatExpansionPanelHeader_HostBindings(rf, ctx) {
-    if (rf & 1) {
-      ɵɵlistener("click", function MatExpansionPanelHeader_click_HostBindingHandler() {
-        return ctx._toggle();
-      })("keydown", function MatExpansionPanelHeader_keydown_HostBindingHandler($event) {
-        return ctx._keydown($event);
-      });
-    }
-    if (rf & 2) {
-      ɵɵattribute("id", ctx.panel._headerId)("tabindex", ctx.disabled ? -1 : ctx.tabIndex)("aria-controls", ctx._getPanelId())("aria-expanded", ctx._isExpanded())("aria-disabled", ctx.panel.disabled);
-      ɵɵstyleProp("height", ctx._getHeaderHeight());
-      ɵɵclassProp("mat-expanded", ctx._isExpanded())("mat-expansion-toggle-indicator-after", ctx._getTogglePosition() === "after")("mat-expansion-toggle-indicator-before", ctx._getTogglePosition() === "before")("_mat-animation-noopable", ctx._animationMode === "NoopAnimations");
-    }
-  },
-  inputs: {
-    expandedHeight: "expandedHeight",
-    collapsedHeight: "collapsedHeight",
-    tabIndex: [2, "tabIndex", "tabIndex", (value) => value == null ? 0 : numberAttribute(value)]
-  },
-  standalone: true,
-  features: [ɵɵInputTransformsFeature, ɵɵStandaloneFeature],
-  ngContentSelectors: _c4,
-  decls: 5,
-  vars: 3,
-  consts: [[1, "mat-content"], [1, "mat-expansion-indicator"], ["xmlns", "http://www.w3.org/2000/svg", "viewBox", "0 -960 960 960", "aria-hidden", "true", "focusable", "false"], ["d", "M480-345 240-585l56-56 184 184 184-184 56 56-240 240Z"]],
-  template: function MatExpansionPanelHeader_Template(rf, ctx) {
-    if (rf & 1) {
-      ɵɵprojectionDef(_c3);
-      ɵɵelementStart(0, "span", 0);
-      ɵɵprojection(1);
-      ɵɵprojection(2, 1);
-      ɵɵprojection(3, 2);
-      ɵɵelementEnd();
-      ɵɵtemplate(4, MatExpansionPanelHeader_Conditional_4_Template, 3, 1, "span", 1);
-    }
-    if (rf & 2) {
-      ɵɵclassProp("mat-content-hide-toggle", !ctx._showToggle());
-      ɵɵadvance(4);
-      ɵɵconditional(ctx._showToggle() ? 4 : -1);
-    }
-  },
-  styles: ['.mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px;border-radius:inherit;transition:height 225ms cubic-bezier(0.4, 0, 0.2, 1);height:var(--mat-expansion-header-collapsed-state-height);font-family:var(--mat-expansion-header-text-font);font-size:var(--mat-expansion-header-text-size);font-weight:var(--mat-expansion-header-text-weight);line-height:var(--mat-expansion-header-text-line-height);letter-spacing:var(--mat-expansion-header-text-tracking)}.mat-expansion-panel-header.mat-expanded{height:var(--mat-expansion-header-expanded-state-height)}.mat-expansion-panel-header[aria-disabled=true]{color:var(--mat-expansion-header-disabled-state-text-color)}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-header-hover-state-layer-color)}@media(hover: none){.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled=true]):hover{background:var(--mat-expansion-container-background-color)}}.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-keyboard-focused,.mat-expansion-panel .mat-expansion-panel-header:not([aria-disabled=true]).cdk-program-focused{background:var(--mat-expansion-header-focus-state-layer-color)}.mat-expansion-panel-header._mat-animation-noopable{transition:none}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:none}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before{flex-direction:row-reverse}.mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 16px 0 0}[dir=rtl] .mat-expansion-panel-header.mat-expansion-toggle-indicator-before .mat-expansion-indicator{margin:0 0 0 16px}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-content.mat-content-hide-toggle{margin-right:8px}[dir=rtl] .mat-content.mat-content-hide-toggle{margin-right:0;margin-left:8px}.mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-left:24px;margin-right:0}[dir=rtl] .mat-expansion-toggle-indicator-before .mat-content.mat-content-hide-toggle{margin-right:24px;margin-left:0}.mat-expansion-panel-header-title{color:var(--mat-expansion-header-text-color)}.mat-expansion-panel-header-title,.mat-expansion-panel-header-description{display:flex;flex-grow:1;flex-basis:0;margin-right:16px;align-items:center}[dir=rtl] .mat-expansion-panel-header-title,[dir=rtl] .mat-expansion-panel-header-description{margin-right:0;margin-left:16px}.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-title,.mat-expansion-panel-header[aria-disabled=true] .mat-expansion-panel-header-description{color:inherit}.mat-expansion-panel-header-description{flex-grow:2;color:var(--mat-expansion-header-description-color)}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:"";display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle;color:var(--mat-expansion-header-indicator-color);display:inline-block;display:var(--mat-expansion-legacy-header-indicator-display, inline-block)}.mat-expansion-indicator svg{width:24px;height:24px;margin:0 -8px;vertical-align:middle;fill:var(--mat-expansion-header-indicator-color);display:none;display:var(--mat-expansion-header-indicator-display, none)}.cdk-high-contrast-active .mat-expansion-panel-content{border-top:1px solid;border-top-left-radius:0;border-top-right-radius:0}'],
-  encapsulation: 2,
-  data: {
-    animation: [matExpansionAnimations.indicatorRotate]
-  },
-  changeDetection: 0
-});
-var MatExpansionPanelHeader = _MatExpansionPanelHeader;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanelHeader, [{
     type: Component,
@@ -991,18 +1013,21 @@ var MatExpansionPanelHeader = _MatExpansionPanelHeader;
     }]
   });
 })();
-var _MatExpansionPanelDescription = class _MatExpansionPanelDescription {
+var MatExpansionPanelDescription = class _MatExpansionPanelDescription {
+  static {
+    this.ɵfac = function MatExpansionPanelDescription_Factory(t) {
+      return new (t || _MatExpansionPanelDescription)();
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatExpansionPanelDescription,
+      selectors: [["mat-panel-description"]],
+      hostAttrs: [1, "mat-expansion-panel-header-description"],
+      standalone: true
+    });
+  }
 };
-_MatExpansionPanelDescription.ɵfac = function MatExpansionPanelDescription_Factory(t) {
-  return new (t || _MatExpansionPanelDescription)();
-};
-_MatExpansionPanelDescription.ɵdir = ɵɵdefineDirective({
-  type: _MatExpansionPanelDescription,
-  selectors: [["mat-panel-description"]],
-  hostAttrs: [1, "mat-expansion-panel-header-description"],
-  standalone: true
-});
-var MatExpansionPanelDescription = _MatExpansionPanelDescription;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanelDescription, [{
     type: Directive,
@@ -1015,18 +1040,21 @@ var MatExpansionPanelDescription = _MatExpansionPanelDescription;
     }]
   }], null, null);
 })();
-var _MatExpansionPanelTitle = class _MatExpansionPanelTitle {
+var MatExpansionPanelTitle = class _MatExpansionPanelTitle {
+  static {
+    this.ɵfac = function MatExpansionPanelTitle_Factory(t) {
+      return new (t || _MatExpansionPanelTitle)();
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatExpansionPanelTitle,
+      selectors: [["mat-panel-title"]],
+      hostAttrs: [1, "mat-expansion-panel-header-title"],
+      standalone: true
+    });
+  }
 };
-_MatExpansionPanelTitle.ɵfac = function MatExpansionPanelTitle_Factory(t) {
-  return new (t || _MatExpansionPanelTitle)();
-};
-_MatExpansionPanelTitle.ɵdir = ɵɵdefineDirective({
-  type: _MatExpansionPanelTitle,
-  selectors: [["mat-panel-title"]],
-  hostAttrs: [1, "mat-expansion-panel-header-title"],
-  standalone: true
-});
-var MatExpansionPanelTitle = _MatExpansionPanelTitle;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionPanelTitle, [{
     type: Directive,
@@ -1039,7 +1067,7 @@ var MatExpansionPanelTitle = _MatExpansionPanelTitle;
     }]
   }], null, null);
 })();
-var _MatAccordion = class _MatAccordion extends CdkAccordion {
+var MatAccordion = class _MatAccordion extends CdkAccordion {
   constructor() {
     super(...arguments);
     this._ownHeaders = new QueryList();
@@ -1066,45 +1094,48 @@ var _MatAccordion = class _MatAccordion extends CdkAccordion {
     this._keyManager?.destroy();
     this._ownHeaders.destroy();
   }
+  static {
+    this.ɵfac = /* @__PURE__ */ (() => {
+      let ɵMatAccordion_BaseFactory;
+      return function MatAccordion_Factory(t) {
+        return (ɵMatAccordion_BaseFactory || (ɵMatAccordion_BaseFactory = ɵɵgetInheritedFactory(_MatAccordion)))(t || _MatAccordion);
+      };
+    })();
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatAccordion,
+      selectors: [["mat-accordion"]],
+      contentQueries: function MatAccordion_ContentQueries(rf, ctx, dirIndex) {
+        if (rf & 1) {
+          ɵɵcontentQuery(dirIndex, MatExpansionPanelHeader, 5);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._headers = _t);
+        }
+      },
+      hostAttrs: [1, "mat-accordion"],
+      hostVars: 2,
+      hostBindings: function MatAccordion_HostBindings(rf, ctx) {
+        if (rf & 2) {
+          ɵɵclassProp("mat-accordion-multi", ctx.multi);
+        }
+      },
+      inputs: {
+        hideToggle: [2, "hideToggle", "hideToggle", booleanAttribute],
+        displayMode: "displayMode",
+        togglePosition: "togglePosition"
+      },
+      exportAs: ["matAccordion"],
+      standalone: true,
+      features: [ɵɵProvidersFeature([{
+        provide: MAT_ACCORDION,
+        useExisting: _MatAccordion
+      }]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature]
+    });
+  }
 };
-_MatAccordion.ɵfac = /* @__PURE__ */ (() => {
-  let ɵMatAccordion_BaseFactory;
-  return function MatAccordion_Factory(t) {
-    return (ɵMatAccordion_BaseFactory || (ɵMatAccordion_BaseFactory = ɵɵgetInheritedFactory(_MatAccordion)))(t || _MatAccordion);
-  };
-})();
-_MatAccordion.ɵdir = ɵɵdefineDirective({
-  type: _MatAccordion,
-  selectors: [["mat-accordion"]],
-  contentQueries: function MatAccordion_ContentQueries(rf, ctx, dirIndex) {
-    if (rf & 1) {
-      ɵɵcontentQuery(dirIndex, MatExpansionPanelHeader, 5);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._headers = _t);
-    }
-  },
-  hostAttrs: [1, "mat-accordion"],
-  hostVars: 2,
-  hostBindings: function MatAccordion_HostBindings(rf, ctx) {
-    if (rf & 2) {
-      ɵɵclassProp("mat-accordion-multi", ctx.multi);
-    }
-  },
-  inputs: {
-    hideToggle: [2, "hideToggle", "hideToggle", booleanAttribute],
-    displayMode: "displayMode",
-    togglePosition: "togglePosition"
-  },
-  exportAs: ["matAccordion"],
-  standalone: true,
-  features: [ɵɵProvidersFeature([{
-    provide: MAT_ACCORDION,
-    useExisting: _MatAccordion
-  }]), ɵɵInputTransformsFeature, ɵɵInheritDefinitionFeature]
-});
-var MatAccordion = _MatAccordion;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatAccordion, [{
     type: Directive,
@@ -1144,20 +1175,25 @@ var MatAccordion = _MatAccordion;
     }]
   });
 })();
-var _MatExpansionModule = class _MatExpansionModule {
+var MatExpansionModule = class _MatExpansionModule {
+  static {
+    this.ɵfac = function MatExpansionModule_Factory(t) {
+      return new (t || _MatExpansionModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _MatExpansionModule,
+      imports: [MatCommonModule, CdkAccordionModule, PortalModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent],
+      exports: [MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      imports: [MatCommonModule, CdkAccordionModule, PortalModule]
+    });
+  }
 };
-_MatExpansionModule.ɵfac = function MatExpansionModule_Factory(t) {
-  return new (t || _MatExpansionModule)();
-};
-_MatExpansionModule.ɵmod = ɵɵdefineNgModule({
-  type: _MatExpansionModule,
-  imports: [MatCommonModule, CdkAccordionModule, PortalModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent],
-  exports: [MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent]
-});
-_MatExpansionModule.ɵinj = ɵɵdefineInjector({
-  imports: [MatCommonModule, CdkAccordionModule, PortalModule]
-});
-var MatExpansionModule = _MatExpansionModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatExpansionModule, [{
     type: NgModule,

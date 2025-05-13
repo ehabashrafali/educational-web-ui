@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,9 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterLink } from '@angular/router';
 import { CountrySelectComponent } from '@wlucha/ng-country-select';
-import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
-import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-input';
 
 @Component({
   selector: 'app-free-trial-form',
@@ -28,8 +26,8 @@ import { SearchCountryField, CountryISO, PhoneNumberFormat } from 'ngx-intl-tel-
     MatCheckboxModule,
     MatRadioModule,
     MatButtonModule,
-    NgxIntlTelInputModule,
     ReactiveFormsModule,
+    RouterLink,
     CountrySelectComponent],
   templateUrl: './free-trial-form.component.html',
   styleUrl: './free-trial-form.component.scss'
@@ -38,11 +36,6 @@ export class FreeTrialFormComponent {
   preferredChannel: any;
   preferredTeacher: any;
   learnAbout: any;
-  SearchCountryField = SearchCountryField;
-  preferredCountries: CountryISO[] = [CountryISO.UnitedStates, CountryISO.UnitedKingdom];
-  PhoneNumberFormat = PhoneNumberFormat;
-
-
 
   form = new FormGroup({
     firstName: new FormControl('', Validators.required),
@@ -60,6 +53,28 @@ export class FreeTrialFormComponent {
 
   handleSelection($event: any) {
     throw new Error('Method not implemented.');
+  }
+
+  submitForm(): void {
+    if (this.form.valid) {
+      const values = this.form.value;
+      fetch('https://script.google.com/macros/s/AKfycbz05HBDif78nQQPONWqvtoUjg_KC6RA8JB7zE1EklKxZF8-o_J8N0iazJ5SpdaIrqCx1w/exec', {
+        method: 'POST',
+        mode: 'no-cors', // prevents CORS error, but hides response
+        body: JSON.stringify(values)
+      })
+        .then(() => {
+          console.log('Form submitted');
+          alert('Form submitted successfully!');
+          console.log(values)
+        })
+        .catch(err => {
+          console.error('Submission error:', err);
+          alert('Something went wrong');
+        });
+    } else {
+      console.log('Form is invalid');
+    }
   }
 
 }
