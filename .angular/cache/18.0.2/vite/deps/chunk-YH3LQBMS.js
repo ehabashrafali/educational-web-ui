@@ -1,9 +1,9 @@
 import {
-  Platform
-} from "./chunk-FUMEIF7Y.js";
-import {
   coerceArray
 } from "./chunk-SY2LTVRU.js";
+import {
+  Platform
+} from "./chunk-FUMEIF7Y.js";
 import {
   CSP_NONCE,
   Inject,
@@ -261,4 +261,4 @@ export {
   BreakpointObserver,
   Breakpoints
 };
-//# sourceMappingURL=chunk-5KE5SBO5.js.map
+//# sourceMappingURL=chunk-YH3LQBMS.js.map

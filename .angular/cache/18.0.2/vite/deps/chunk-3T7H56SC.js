@@ -1,10 +1,23 @@
 import {
   MAT_FORM_FIELD,
   MatFormField
-} from "./chunk-CL4B7ELX.js";
+} from "./chunk-EH6Q4ZZB.js";
 import {
   NG_VALUE_ACCESSOR
 } from "./chunk-EFOUEYSV.js";
+import {
+  ActiveDescendantKeyManager,
+  MAT_OPTGROUP,
+  MAT_OPTION_PARENT_COMPONENT,
+  MatCommonModule,
+  MatOption,
+  MatOptionModule,
+  MatOptionSelectionChange,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
+  addAriaReferencedId,
+  removeAriaReferencedId
+} from "./chunk-VEC3R6OU.js";
 import {
   animate,
   group,
@@ -19,23 +32,7 @@ import {
   OverlayConfig,
   OverlayModule,
   ViewportRuler
-} from "./chunk-DCF4F3Q5.js";
-import {
-  TemplatePortal
-} from "./chunk-7WBF3ZSW.js";
-import {
-  ActiveDescendantKeyManager,
-  MAT_OPTGROUP,
-  MAT_OPTION_PARENT_COMPONENT,
-  MatCommonModule,
-  MatOption,
-  MatOptionModule,
-  MatOptionSelectionChange,
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
-  addAriaReferencedId,
-  removeAriaReferencedId
-} from "./chunk-EVGGHAXP.js";
+} from "./chunk-PSDQCA7N.js";
 import {
   DOWN_ARROW,
   Directionality,
@@ -49,6 +46,9 @@ import {
   Platform,
   _getEventTarget
 } from "./chunk-FUMEIF7Y.js";
+import {
+  TemplatePortal
+} from "./chunk-7WBF3ZSW.js";
 import {
   CommonModule,
   DOCUMENT
@@ -1347,4 +1347,4 @@ export {
   MatAutocompleteTrigger,
   MatAutocompleteModule
 };
-//# sourceMappingURL=chunk-WQOO4SUH.js.map
+//# sourceMappingURL=chunk-3T7H56SC.js.map

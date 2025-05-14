@@ -1,4 +1,7 @@
 import {
+  BreakpointObserver
+} from "./chunk-YH3LQBMS.js";
+import {
   A,
   ALT,
   BidiModule,
@@ -23,8 +26,10 @@ import {
   hasModifierKey
 } from "./chunk-YGQTGOVI.js";
 import {
-  BreakpointObserver
-} from "./chunk-5KE5SBO5.js";
+  coerceBooleanProperty,
+  coerceElement,
+  coerceNumberProperty
+} from "./chunk-SY2LTVRU.js";
 import {
   Platform,
   _getEventTarget,
@@ -33,11 +38,6 @@ import {
   _isTestEnvironment,
   normalizePassiveListenerOptions
 } from "./chunk-FUMEIF7Y.js";
-import {
-  coerceBooleanProperty,
-  coerceElement,
-  coerceNumberProperty
-} from "./chunk-SY2LTVRU.js";
 import {
   DOCUMENT
 } from "./chunk-6N7TNYLE.js";
@@ -4770,4 +4770,4 @@ export {
   MatRippleLoader,
   _MatInternalFormField
 };
-//# sourceMappingURL=chunk-EVGGHAXP.js.map
+//# sourceMappingURL=chunk-VEC3R6OU.js.map

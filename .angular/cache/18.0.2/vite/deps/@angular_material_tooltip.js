@@ -1,4 +1,11 @@
 import {
+  A11yModule,
+  AriaDescriber,
+  FocusMonitor,
+  MatCommonModule
+} from "./chunk-VEC3R6OU.js";
+import "./chunk-YH3LQBMS.js";
+import {
   animate,
   state,
   style,
@@ -10,31 +17,24 @@ import {
   Overlay,
   OverlayModule,
   ScrollDispatcher
-} from "./chunk-DCF4F3Q5.js";
+} from "./chunk-PSDQCA7N.js";
 import "./chunk-4LDSYIZC.js";
-import {
-  ComponentPortal
-} from "./chunk-7WBF3ZSW.js";
-import {
-  A11yModule,
-  AriaDescriber,
-  FocusMonitor,
-  MatCommonModule
-} from "./chunk-EVGGHAXP.js";
 import {
   Directionality,
   ESCAPE,
   hasModifierKey
 } from "./chunk-YGQTGOVI.js";
-import "./chunk-5KE5SBO5.js";
+import {
+  coerceBooleanProperty,
+  coerceNumberProperty
+} from "./chunk-SY2LTVRU.js";
 import {
   Platform,
   normalizePassiveListenerOptions
 } from "./chunk-FUMEIF7Y.js";
 import {
-  coerceBooleanProperty,
-  coerceNumberProperty
-} from "./chunk-SY2LTVRU.js";
+  ComponentPortal
+} from "./chunk-7WBF3ZSW.js";
 import {
   CommonModule,
   DOCUMENT,

@@ -72,4 +72,11 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         icon: 'heroicons_outline:book-open',
         link: '/courses'
     },
+    {
+        id: 'pricing',
+        title: 'Subscription',
+        type: 'basic',
+        icon: 'heroicons_outline:credit-card',
+        link: '/pricing'
+    },
 ];
