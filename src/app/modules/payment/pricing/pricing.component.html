@@ -98,7 +98,7 @@
                             </div>
                         <!-- Features -->
                         <div class="mt-8 space-y-2">
-                            <mat-button-toggle-group (change)="selectedSessionsChanged($event)" name="favoriteColor" aria-label="Favorite Color">
+                            <mat-button-toggle-group value="3" (valueChange)="selectedSessionsChanged($event)" name="favoriteColor" aria-label="Favorite Color">
                                 <mat-button-toggle value="1" class="bg-gray-50">1 Session</mat-button-toggle>
                                 <mat-button-toggle value="3" class="bg-gray-50">3 Sessions</mat-button-toggle>
                                 <mat-button-toggle value="5" class="bg-gray-50">5 Sessions</mat-button-toggle>

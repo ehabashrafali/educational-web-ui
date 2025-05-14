@@ -41,11 +41,12 @@ export class PricingComponent implements OnInit {
     constructor() {}
     
     ngOnInit(): void {
-      
+
     }
 
-    selectedSessionsChanged(event:any){
-        switch(event.value){
+    selectedSessionsChanged(value:any){
+      if(value){
+        switch(value){
             case '1':
                 this.pricePerSession = 9;
                 break;
@@ -58,5 +59,6 @@ export class PricingComponent implements OnInit {
             default:
                 break;
         }
+      }
     }
 }
