@@ -1,6 +1,6 @@
 import {
   require_core
-} from "./chunk-2ZQTKRV7.js";
+} from "./chunk-UBJKCFPR.js";
 import {
   __commonJS
 } from "./chunk-X6JV76XL.js";

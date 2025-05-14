@@ -113,7 +113,17 @@ export const appRoutes: Route[] = [
         children: [
             { path: 'free-session', loadChildren: () => import('app/modules/crescent/free-trial-form/free-trail.routes') },
         ]
-    }
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'pricing', loadChildren: () => import('app/modules/payment/pricing/pricing.routes') },
+        ]
+    },
 ];
 
 
