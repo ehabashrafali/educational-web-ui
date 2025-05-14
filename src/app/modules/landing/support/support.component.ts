@@ -34,7 +34,6 @@ export class SupportComponent implements OnInit {
     private _formBuilder: UntypedFormBuilder,
   ) { }
   ngOnInit(): void {
-    // Create the support form
     this.supportForm = this._formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -44,7 +43,6 @@ export class SupportComponent implements OnInit {
   }
 
   clearForm(): void {
-    // Reset the form
     this.supportNgForm.resetForm();
   }
 
@@ -55,10 +53,15 @@ export class SupportComponent implements OnInit {
 
     if (this.supportForm.valid) {
       const values = this.supportForm.value;
+      const params = new URLSearchParams();
+      for (const key in values) {
+        params.append(key, values[key]);
+      }
+
       fetch('https://script.google.com/macros/s/AKfycbyT_xcrH91L7bFLvmt7n0_5LVct4oJhExkUoaGt6IeKdLfxg_P3Oop42l5OxFnce1rn/exec', {
         method: 'POST',
-        mode: 'no-cors', 
-        body: JSON.stringify(values)
+        mode: 'no-cors',
+        body: params
       })
         .then(() => {
           console.log(values)
