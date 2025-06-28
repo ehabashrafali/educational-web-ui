@@ -1,28 +1,10 @@
 import {
   MAT_FORM_FIELD,
   MatFormField
-} from "./chunk-HTBM2CLY.js";
-import {
-  CdkScrollableModule,
-  Overlay,
-  OverlayConfig,
-  OverlayModule,
-  ViewportRuler
-} from "./chunk-HY37QFTY.js";
+} from "./chunk-CGEOWEE7.js";
 import {
   NG_VALUE_ACCESSOR
-} from "./chunk-EFOUEYSV.js";
-import {
-  TemplatePortal
-} from "./chunk-7WBF3ZSW.js";
-import {
-  animate,
-  group,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-J6XPRMT7.js";
+} from "./chunk-L3NYK4UU.js";
 import {
   ActiveDescendantKeyManager,
   MAT_OPTGROUP,
@@ -35,7 +17,22 @@ import {
   _getOptionScrollPosition,
   addAriaReferencedId,
   removeAriaReferencedId
-} from "./chunk-DJZJNPP3.js";
+} from "./chunk-7WRG2SCQ.js";
+import {
+  animate,
+  group,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-SGOMWTIS.js";
+import {
+  CdkScrollableModule,
+  Overlay,
+  OverlayConfig,
+  OverlayModule,
+  ViewportRuler
+} from "./chunk-FIYGJV2J.js";
 import {
   DOWN_ARROW,
   Directionality,
@@ -44,15 +41,18 @@ import {
   TAB,
   UP_ARROW,
   hasModifierKey
-} from "./chunk-YN5EXCNC.js";
+} from "./chunk-LKP2EKVH.js";
+import {
+  TemplatePortal
+} from "./chunk-7DTUAW7T.js";
 import {
   Platform,
   _getEventTarget
-} from "./chunk-FUMEIF7Y.js";
+} from "./chunk-5DLXWVWP.js";
 import {
   CommonModule,
   DOCUMENT
-} from "./chunk-6N7TNYLE.js";
+} from "./chunk-3TOX5CQF.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -106,7 +106,7 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-M3UYDTIY.js";
+} from "./chunk-I4YZQQCI.js";
 import {
   Observable,
   Subject,
@@ -122,7 +122,7 @@ import {
   switchMap,
   take,
   tap
-} from "./chunk-T7RKEGOE.js";
+} from "./chunk-RK6UC7CF.js";
 
 // node_modules/@angular/material/fesm2022/autocomplete.mjs
 var _c0 = ["panel"];
@@ -1347,4 +1347,4 @@ export {
   MatAutocompleteTrigger,
   MatAutocompleteModule
 };
-//# sourceMappingURL=chunk-M2VSE62C.js.map
+//# sourceMappingURL=chunk-JIBQMD3G.js.map
