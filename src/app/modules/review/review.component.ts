@@ -27,7 +27,7 @@ export class ReviewComponent implements AfterViewInit {
             pagination: { clickable: true },
             keyboard: {
                 enabled: true,
-                onlyInViewport: true,
+                // onlyInViewport: true,
                 pageUpDown: true,
             },
         });
