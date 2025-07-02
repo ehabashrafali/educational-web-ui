@@ -13,7 +13,7 @@
          </a>
       </div>
    </div>
-   <div class="flex ">
+   <div class="flex justify-center max-w-screen w-full">
       <div class="grid grid-cols-1 mb-10 sm:grid-cols-2 justify-center md:grid-cols-3 gap-6">
          <fuse-card
          class="filter-article filter-interactive flex w-full max-w-80 ml-10 "
@@ -22,7 +22,7 @@
          #flippableCard01="fuseCard">
          <ng-container fuseCardFront>
             <img
-               class="object-cover"
+               class="object-cover h-[26rem]"
                src="images/cards/QuraanRecitation.jpeg"
                alt="Card cover image"
                />
@@ -89,11 +89,75 @@
          class="filter-article filter-interactive flex w-full max-w-80 ml-10 "
          [flippable]="true"
          [face]="'front'"
+         #flippableCard03="fuseCard">
+         <ng-container fuseCardFront>
+            <img
+               class="object-cover h-[26rem]"
+               src="images/cards/ArabicLanguage.jpeg"
+               alt="Card cover image"
+               />
+            <div class="m-8 mb-4">
+               <div class="text-2xl font-semibold leading-tight">
+                  Arabic Language Course
+               </div>
+               <div class="mt-4">
+                  Strengthens Arabic skills for better comprehension and engagement with the Quran.
+               </div>
+               <div class="-mx-3 mt-3">
+                  <button
+                  class="px-3"
+                  mat-button
+                  [color]="'primary'"
+                  (click)="
+                  flippableCard03.face =
+                  flippableCard03.face === 'front'
+                  ? 'back'
+                  : 'front'
+                  "
+                  >
+                  Read More
+                  </button>
+               </div>
+            </div>
+         </ng-container>
+         <ng-container fuseCardBack>
+            <div class="m-4 flex flex-auto flex-col">
+               <button
+                  class="ml-1.5"
+                  mat-icon-button
+                  (click)="
+                  flippableCard03.face =
+                  flippableCard03.face === 'front'
+                  ? 'back'
+                  : 'front'
+                  "
+                  >
+                  <mat-icon
+                     [svgIcon]="'heroicons_outline:arrow-long-left'"
+                     ></mat-icon>
+               </button>
+               <div class="m-4 mt-3">
+                  <div class="text-2xl font-semibold leading-tight">
+                     Arabic Language Course
+                  </div>
+                  <div class="mt-4">
+                     Enhance your child's linguistic abilities with our Arabic Language Course, specifically designed to develop their skills in reading and comprehending the Quran. 
+                     This course provides a comprehensive foundation in Arabic, enabling students to engage with the Quranic text more easily. 
+                     Through interactive lessons and engaging activities, children will not only learn the language but also appreciate its beauty and significance in Islamic teachings
+                  </div>
+               </div>
+            </div>
+         </ng-container>
+         </fuse-card>
+         <fuse-card
+         class="filter-article filter-interactive flex w-full max-w-80 ml-10 "
+         [flippable]="true"
+         [face]="'front'"
          #flippableCard02="fuseCard">
          <ng-container fuseCardFront>
             <img
-               class="object-cover h-[25rem]"
-               src="images/cards/Tajweed.jpeg"
+               class="object-cover h-[26rem]"
+               src="images/cards/Tajweed.png"
                alt="Card cover image"
                />
             <div class="m-8 mb-4">
@@ -157,74 +221,10 @@
          class="filter-article filter-interactive flex w-full max-w-80 ml-10 "
          [flippable]="true"
          [face]="'front'"
-         #flippableCard03="fuseCard">
-         <ng-container fuseCardFront>
-            <img
-               class="object-cover h-70"
-               src="images/cards/ArabicLanguage.jpeg"
-               alt="Card cover image"
-               />
-            <div class="m-8 mb-4">
-               <div class="text-2xl font-semibold leading-tight">
-                  Arabic Language Course
-               </div>
-               <div class="mt-4">
-                  Strengthens Arabic skills for better comprehension and engagement with the Quran.
-               </div>
-               <div class="-mx-3 mt-3">
-                  <button
-                  class="px-3"
-                  mat-button
-                  [color]="'primary'"
-                  (click)="
-                  flippableCard03.face =
-                  flippableCard03.face === 'front'
-                  ? 'back'
-                  : 'front'
-                  "
-                  >
-                  Read More
-                  </button>
-               </div>
-            </div>
-         </ng-container>
-         <ng-container fuseCardBack>
-            <div class="m-4 flex flex-auto flex-col">
-               <button
-                  class="ml-1.5"
-                  mat-icon-button
-                  (click)="
-                  flippableCard03.face =
-                  flippableCard03.face === 'front'
-                  ? 'back'
-                  : 'front'
-                  "
-                  >
-                  <mat-icon
-                     [svgIcon]="'heroicons_outline:arrow-long-left'"
-                     ></mat-icon>
-               </button>
-               <div class="m-4 mt-3">
-                  <div class="text-2xl font-semibold leading-tight">
-                     Arabic Language Course
-                  </div>
-                  <div class="mt-4">
-                     Enhance your child's linguistic abilities with our Arabic Language Course, specifically designed to develop their skills in reading and comprehending the Quran. 
-                     This course provides a comprehensive foundation in Arabic, enabling students to engage with the Quranic text more easily. 
-                     Through interactive lessons and engaging activities, children will not only learn the language but also appreciate its beauty and significance in Islamic teachings
-                  </div>
-               </div>
-            </div>
-         </ng-container>
-         </fuse-card>
-         <fuse-card
-         class="filter-article filter-interactive flex w-full max-w-80 ml-10 "
-         [flippable]="true"
-         [face]="'front'"
          #flippableCard04="fuseCard">
          <ng-container fuseCardFront>
             <img
-               class="object-cover h-[25rem]"
+               class="object-cover h-[20rem]"
                src="images/cards/Islamic-Studies-Course.png"
                alt="Card cover image"
                />
@@ -287,8 +287,8 @@
          #flippableCard05="fuseCard">
          <ng-container fuseCardFront>
             <img
-               class="object-cover h-[25rem]"
-               src="images/cards/QuranicArabic.jpg"
+               class="object-cover h-[20rem]"
+               src="images/cards/QuranicArabic.png"
                alt="Card cover image"
                />
             <div class="m-8 mb-4">
@@ -345,4 +345,4 @@
          </fuse-card>
       </div>
    </div>
-   <div>
+<div>
