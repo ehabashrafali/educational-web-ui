@@ -40,19 +40,6 @@ export class PricingComponent implements OnInit {
     oneToOneDefaultSessionCount = "3";
     groupDefaultSessionCount = "1";
 
-    pricing = {
-        oneToOne: {
-            "": "",
-            "": "",
-            "": "",
-        },
-        group: {
-            "": "",
-            "": "",
-            "": "",
-        },
-    };
-
     constructor() {}
 
     ngOnInit(): void {
