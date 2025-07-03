@@ -1,24 +1,31 @@
 import {
   MatIcon,
   MatIconModule
-} from "./chunk-ZJ46BGBK.js";
-import "./chunk-5KKGVBRH.js";
+} from "./chunk-XL42RKWU.js";
+import "./chunk-NJTBIYOL.js";
 import {
   MatInput,
   MatInputModule
-} from "./chunk-O3YMJJ2B.js";
-import "./chunk-4ERIIXJQ.js";
+} from "./chunk-NWS2DU3C.js";
 import {
   MatAutocomplete,
   MatAutocompleteModule,
   MatAutocompleteTrigger
-} from "./chunk-JIBQMD3G.js";
+} from "./chunk-F4JHPVLY.js";
 import {
+  MatError,
   MatFormField,
   MatFormFieldModule,
   MatLabel,
   MatSuffix
-} from "./chunk-CGEOWEE7.js";
+} from "./chunk-CYZK35IK.js";
+import {
+  CdkFixedSizeVirtualScroll,
+  CdkVirtualForOf,
+  CdkVirtualScrollViewport,
+  ScrollingModule
+} from "./chunk-7KTEG2ZB.js";
+import "./chunk-DWVSCHKR.js";
 import {
   DefaultValueAccessor,
   FormControl,
@@ -27,24 +34,18 @@ import {
   NgControlStatus,
   ReactiveFormsModule,
   RequiredValidator
-} from "./chunk-L3NYK4UU.js";
+} from "./chunk-A35VBP3Z.js";
 import {
   MatOption
-} from "./chunk-7WRG2SCQ.js";
-import "./chunk-E4KF4Q3W.js";
-import "./chunk-SGOMWTIS.js";
-import {
-  CdkFixedSizeVirtualScroll,
-  CdkVirtualForOf,
-  CdkVirtualScrollViewport,
-  ScrollingModule
-} from "./chunk-FIYGJV2J.js";
-import "./chunk-RP7VPY5J.js";
-import "./chunk-LKP2EKVH.js";
-import "./chunk-7DTUAW7T.js";
-import "./chunk-RBRJGHB2.js";
-import "./chunk-JW47PLYM.js";
-import "./chunk-5DLXWVWP.js";
+} from "./chunk-DYXP56MA.js";
+import "./chunk-Z2ZIPASW.js";
+import "./chunk-IVVXX6OU.js";
+import "./chunk-OJYVWOP2.js";
+import "./chunk-MFJOJNCW.js";
+import "./chunk-FCIMYJSV.js";
+import "./chunk-3Y4EJHLV.js";
+import "./chunk-4NYOFWLZ.js";
+import "./chunk-WYVCZEQA.js";
 import {
   AsyncPipe,
   CommonModule,
@@ -52,7 +53,7 @@ import {
   NgIf,
   NgStyle,
   UpperCasePipe
-} from "./chunk-3TOX5CQF.js";
+} from "./chunk-2TPFPAF3.js";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -82,15 +83,15 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate,
+  ɵɵtextInterpolate1,
   ɵɵtextInterpolate2
-} from "./chunk-I4YZQQCI.js";
+} from "./chunk-6MSDXA4P.js";
 import {
   debounceTime,
   map,
   startWith,
   tap
-} from "./chunk-RK6UC7CF.js";
-import "./chunk-UAZK63YF.js";
+} from "./chunk-WSA2QMXP.js";
 import "./chunk-X6JV76XL.js";
 
 // node_modules/@wlucha/ng-country-select/fesm2022/wlucha-ng-country-select.mjs
@@ -106,7 +107,19 @@ function CountrySelectComponent_Conditional_4_Template(rf, ctx) {
     ɵɵproperty("ngClass", "fi-" + (ctx_r1.formControl.value == null ? null : ctx_r1.formControl.value.alpha2));
   }
 }
-function CountrySelectComponent_mat_option_8_Conditional_2_Template(rf, ctx) {
+function CountrySelectComponent_Conditional_5_Template(rf, ctx) {
+  if (rf & 1) {
+    ɵɵelementStart(0, "mat-error");
+    ɵɵtext(1);
+    ɵɵelementEnd();
+  }
+  if (rf & 2) {
+    const ctx_r1 = ɵɵnextContext();
+    ɵɵadvance();
+    ɵɵtextInterpolate1(" ", ctx_r1.requiredErrorMessage, " ");
+  }
+}
+function CountrySelectComponent_mat_option_9_Conditional_2_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelement(0, "span", 9);
   }
@@ -115,7 +128,7 @@ function CountrySelectComponent_mat_option_8_Conditional_2_Template(rf, ctx) {
     ɵɵproperty("ngClass", "fi-" + (country_r3 == null ? null : country_r3.alpha2));
   }
 }
-function CountrySelectComponent_mat_option_8_Conditional_3_Template(rf, ctx) {
+function CountrySelectComponent_mat_option_9_Conditional_3_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "span", 10);
     ɵɵtext(1);
@@ -128,7 +141,7 @@ function CountrySelectComponent_mat_option_8_Conditional_3_Template(rf, ctx) {
     ɵɵtextInterpolate(ɵɵpipeBind1(2, 1, country_r3.alpha2));
   }
 }
-function CountrySelectComponent_mat_option_8_Conditional_4_Template(rf, ctx) {
+function CountrySelectComponent_mat_option_9_Conditional_4_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "span", 10);
     ɵɵtext(1);
@@ -141,7 +154,7 @@ function CountrySelectComponent_mat_option_8_Conditional_4_Template(rf, ctx) {
     ɵɵtextInterpolate(ɵɵpipeBind1(2, 1, country_r3.alpha3));
   }
 }
-function CountrySelectComponent_mat_option_8_Conditional_5_span_2_Template(rf, ctx) {
+function CountrySelectComponent_mat_option_9_Conditional_5_span_2_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "span", 12);
     ɵɵtext(1);
@@ -155,12 +168,12 @@ function CountrySelectComponent_mat_option_8_Conditional_5_span_2_Template(rf, c
     ɵɵtextInterpolate2(" (", ɵɵpipeBind1(2, 2, country_r3.alpha2), " / ", ɵɵpipeBind1(3, 4, country_r3.alpha3), ") ");
   }
 }
-function CountrySelectComponent_mat_option_8_Conditional_5_Template(rf, ctx) {
+function CountrySelectComponent_mat_option_9_Conditional_5_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "span", 10);
     ɵɵtext(1);
     ɵɵelementEnd();
-    ɵɵtemplate(2, CountrySelectComponent_mat_option_8_Conditional_5_span_2_Template, 4, 6, "span", 11);
+    ɵɵtemplate(2, CountrySelectComponent_mat_option_9_Conditional_5_span_2_Template, 4, 6, "span", 11);
   }
   if (rf & 2) {
     const country_r3 = ɵɵnextContext().$implicit;
@@ -171,10 +184,10 @@ function CountrySelectComponent_mat_option_8_Conditional_5_Template(rf, ctx) {
     ɵɵproperty("ngIf", ctx_r1.showCodes);
   }
 }
-function CountrySelectComponent_mat_option_8_Template(rf, ctx) {
+function CountrySelectComponent_mat_option_9_Template(rf, ctx) {
   if (rf & 1) {
     ɵɵelementStart(0, "mat-option", 7)(1, "div", 8);
-    ɵɵtemplate(2, CountrySelectComponent_mat_option_8_Conditional_2_Template, 1, 1, "span", 9)(3, CountrySelectComponent_mat_option_8_Conditional_3_Template, 3, 3, "span", 10)(4, CountrySelectComponent_mat_option_8_Conditional_4_Template, 3, 3, "span", 10)(5, CountrySelectComponent_mat_option_8_Conditional_5_Template, 3, 2);
+    ɵɵtemplate(2, CountrySelectComponent_mat_option_9_Conditional_2_Template, 1, 1, "span", 9)(3, CountrySelectComponent_mat_option_9_Conditional_3_Template, 3, 3, "span", 10)(4, CountrySelectComponent_mat_option_9_Conditional_4_Template, 3, 3, "span", 10)(5, CountrySelectComponent_mat_option_9_Conditional_5_Template, 3, 2);
     ɵɵelementEnd()();
   }
   if (rf & 2) {
@@ -4264,6 +4277,16 @@ var CountrySelectComponent = class _CountrySelectComponent {
    */
   required = false;
   /**
+   * The error message to show when the field does not have a value and is required
+   * @default 'A country is required'
+   */
+  requiredErrorMessage = "A country is required";
+  /**
+   * Whether to show an error message when the field does not have a value and is required
+   * @default false
+   */
+  showRequiredErrorMessage = false;
+  /**
    * Shows alpha2/alpha3 codes in the results
    * @default false
    */
@@ -4373,6 +4396,13 @@ var CountrySelectComponent = class _CountrySelectComponent {
   trackByAlpha2(index, country) {
     return country.alpha2;
   }
+  isFieldValid() {
+    if (this.formControl.errors?.["required"]) {
+      return false;
+    }
+    const value = this.formControl.value;
+    return !value || !value.alpha2;
+  }
   /**
    * Update the displayed language for countries
    */
@@ -4452,6 +4482,8 @@ var CountrySelectComponent = class _CountrySelectComponent {
       color: "color",
       disabled: "disabled",
       required: "required",
+      requiredErrorMessage: "requiredErrorMessage",
+      showRequiredErrorMessage: "showRequiredErrorMessage",
       showCodes: "showCodes",
       includeCountries: "includeCountries",
       excludeCountries: "excludeCountries",
@@ -4470,8 +4502,8 @@ var CountrySelectComponent = class _CountrySelectComponent {
       useExisting: forwardRef(() => _CountrySelectComponent),
       multi: true
     }]), ɵɵStandaloneFeature],
-    decls: 10,
-    vars: 17,
+    decls: 11,
+    vars: 18,
     consts: [["auto", "matAutocomplete"], [3, "appearance", "color"], ["matInput", "", 3, "formControl", "matAutocomplete", "disabled", "required"], ["matSuffix", "", 1, "flag-suffix", "fi", 3, "ngClass"], [3, "optionSelected", "closed", "displayWith"], [3, "itemSize", "ngStyle"], [3, "value", 4, "cdkVirtualFor", "cdkVirtualForOf", "cdkVirtualForTrackBy"], [3, "value"], [1, "country-option"], [1, "flag", "fi", 3, "ngClass"], [1, "name"], ["class", "codes", 4, "ngIf"], [1, "codes"]],
     template: function CountrySelectComponent_Template(rf, ctx) {
       if (rf & 1) {
@@ -4480,22 +4512,22 @@ var CountrySelectComponent = class _CountrySelectComponent {
         ɵɵtext(2);
         ɵɵelementEnd();
         ɵɵelement(3, "input", 2);
-        ɵɵtemplate(4, CountrySelectComponent_Conditional_4_Template, 1, 1, "mat-icon", 3);
-        ɵɵelementStart(5, "mat-autocomplete", 4, 0);
-        ɵɵlistener("optionSelected", function CountrySelectComponent_Template_mat_autocomplete_optionSelected_5_listener($event) {
+        ɵɵtemplate(4, CountrySelectComponent_Conditional_4_Template, 1, 1, "mat-icon", 3)(5, CountrySelectComponent_Conditional_5_Template, 2, 1, "mat-error");
+        ɵɵelementStart(6, "mat-autocomplete", 4, 0);
+        ɵɵlistener("optionSelected", function CountrySelectComponent_Template_mat_autocomplete_optionSelected_6_listener($event) {
           ɵɵrestoreView(_r1);
           return ɵɵresetView(ctx.onOptionSelected($event.option.value));
-        })("closed", function CountrySelectComponent_Template_mat_autocomplete_closed_5_listener() {
+        })("closed", function CountrySelectComponent_Template_mat_autocomplete_closed_6_listener() {
           ɵɵrestoreView(_r1);
           return ɵɵresetView(ctx.onAutocompleteClosed());
         });
-        ɵɵelementStart(7, "cdk-virtual-scroll-viewport", 5);
-        ɵɵtemplate(8, CountrySelectComponent_mat_option_8_Template, 6, 3, "mat-option", 6);
-        ɵɵpipe(9, "async");
+        ɵɵelementStart(8, "cdk-virtual-scroll-viewport", 5);
+        ɵɵtemplate(9, CountrySelectComponent_mat_option_9_Template, 6, 3, "mat-option", 6);
+        ɵɵpipe(10, "async");
         ɵɵelementEnd()()();
       }
       if (rf & 2) {
-        const auto_r4 = ɵɵreference(6);
+        const auto_r4 = ɵɵreference(7);
         ɵɵproperty("appearance", ctx.appearance)("color", ctx.color);
         ɵɵadvance(2);
         ɵɵtextInterpolate(ctx.placeholder);
@@ -4504,14 +4536,16 @@ var CountrySelectComponent = class _CountrySelectComponent {
         ɵɵadvance();
         ɵɵconditional(ctx.showFlag === true ? 4 : -1);
         ɵɵadvance();
+        ɵɵconditional(ctx.showRequiredErrorMessage && !ctx.isFieldValid() ? 5 : -1);
+        ɵɵadvance();
         ɵɵproperty("displayWith", ctx.displayFn.bind(ctx));
         ɵɵadvance(2);
-        ɵɵproperty("itemSize", "25")("ngStyle", ɵɵpureFunction1(15, _c0, ctx.height));
+        ɵɵproperty("itemSize", "25")("ngStyle", ɵɵpureFunction1(16, _c0, ctx.height));
         ɵɵadvance();
-        ɵɵproperty("cdkVirtualForOf", ɵɵpipeBind1(9, 13, ctx.filteredCountries$))("cdkVirtualForTrackBy", ctx.trackByAlpha2);
+        ɵɵproperty("cdkVirtualForOf", ɵɵpipeBind1(10, 14, ctx.filteredCountries$))("cdkVirtualForTrackBy", ctx.trackByAlpha2);
       }
     },
-    dependencies: [CommonModule, NgClass, NgIf, NgStyle, AsyncPipe, UpperCasePipe, ReactiveFormsModule, DefaultValueAccessor, NgControlStatus, RequiredValidator, FormControlDirective, MatAutocompleteModule, MatAutocomplete, MatOption, MatAutocompleteTrigger, MatInputModule, MatInput, MatFormField, MatLabel, MatSuffix, MatFormFieldModule, MatIconModule, MatIcon, ScrollingModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport],
+    dependencies: [CommonModule, NgClass, NgIf, NgStyle, AsyncPipe, UpperCasePipe, ReactiveFormsModule, DefaultValueAccessor, NgControlStatus, RequiredValidator, FormControlDirective, MatAutocompleteModule, MatAutocomplete, MatOption, MatAutocompleteTrigger, MatInputModule, MatInput, MatFormField, MatLabel, MatError, MatSuffix, MatFormFieldModule, MatIconModule, MatIcon, ScrollingModule, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport],
     styles: [".country-option[_ngcontent-%COMP%]{display:flex;align-items:center;gap:8px}.country-option[_ngcontent-%COMP%]   .flag[_ngcontent-%COMP%], .flag-suffix[_ngcontent-%COMP%]{font-size:1em;display:inline;margin-right:10px}.codes[_ngcontent-%COMP%]{margin-left:auto;font-size:.9em;color:#666}.codes[_ngcontent-%COMP%]   [_ngcontent-%COMP%]:empty{display:none}"],
     changeDetection: 0
   });
@@ -4534,6 +4568,12 @@ var CountrySelectComponent = class _CountrySelectComponent {
   <input matInput [formControl]="formControl" [matAutocomplete]="auto" [disabled]="disabled" [required]="required">
   @if (showFlag === true) {
   <mat-icon matSuffix class="flag-suffix fi" [ngClass]="'fi-' + formControl.value?.alpha2"></mat-icon>
+  }
+
+  @if (showRequiredErrorMessage && !isFieldValid()) {
+  <mat-error>
+    {{ requiredErrorMessage }}
+  </mat-error>
   }
 
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)"
@@ -4602,6 +4642,12 @@ var CountrySelectComponent = class _CountrySelectComponent {
       type: Input
     }],
     required: [{
+      type: Input
+    }],
+    requiredErrorMessage: [{
+      type: Input
+    }],
+    showRequiredErrorMessage: [{
       type: Input
     }],
     showCodes: [{

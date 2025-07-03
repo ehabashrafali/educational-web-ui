@@ -1,9 +1,8 @@
-import "./chunk-3DLZM52V.js";
 import {
   Swiper,
   defaults,
   setInnerHTML
-} from "./chunk-2XUFJKJV.js";
+} from "./chunk-XPNOZ5VT.js";
 import {
   __spreadProps,
   __spreadValues

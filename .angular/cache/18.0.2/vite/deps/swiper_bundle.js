@@ -1,7 +1,6 @@
-import "./chunk-3DLZM52V.js";
 import {
   Swiper
-} from "./chunk-2XUFJKJV.js";
+} from "./chunk-XPNOZ5VT.js";
 import "./chunk-X6JV76XL.js";
 export {
   Swiper,
