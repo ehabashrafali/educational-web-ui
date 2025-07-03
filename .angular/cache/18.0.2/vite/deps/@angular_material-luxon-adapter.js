@@ -6,12 +6,12 @@ import {
   DateAdapter,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE
-} from "./chunk-JK7R3JIZ.js";
-import "./chunk-6MKS55QC.js";
-import "./chunk-HN7ZVCGL.js";
-import "./chunk-JL7AZPIE.js";
-import "./chunk-M4MUQ4C7.js";
-import "./chunk-X2OMSDWJ.js";
+} from "./chunk-DYXP56MA.js";
+import "./chunk-Z2ZIPASW.js";
+import "./chunk-IVVXX6OU.js";
+import "./chunk-MFJOJNCW.js";
+import "./chunk-FCIMYJSV.js";
+import "./chunk-2TPFPAF3.js";
 import {
   Inject,
   Injectable,
@@ -23,7 +23,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-MTLPE3W7.js";
+} from "./chunk-6MSDXA4P.js";
 import "./chunk-WSA2QMXP.js";
 import "./chunk-X6JV76XL.js";
 
@@ -46,7 +46,7 @@ function range(length, valueFunction) {
   }
   return valuesArray;
 }
-var _LuxonDateAdapter = class _LuxonDateAdapter extends DateAdapter {
+var LuxonDateAdapter = class _LuxonDateAdapter extends DateAdapter {
   constructor(dateLocale, options) {
     super();
     this._useUTC = !!options?.useUtc;
@@ -210,15 +210,18 @@ var _LuxonDateAdapter = class _LuxonDateAdapter extends DateAdapter {
       outputCalendar: this._defaultOutputCalendar
     };
   }
+  static {
+    this.ɵfac = function LuxonDateAdapter_Factory(t) {
+      return new (t || _LuxonDateAdapter)(ɵɵinject(MAT_DATE_LOCALE, 8), ɵɵinject(MAT_LUXON_DATE_ADAPTER_OPTIONS, 8));
+    };
+  }
+  static {
+    this.ɵprov = ɵɵdefineInjectable({
+      token: _LuxonDateAdapter,
+      factory: _LuxonDateAdapter.ɵfac
+    });
+  }
 };
-_LuxonDateAdapter.ɵfac = function LuxonDateAdapter_Factory(t) {
-  return new (t || _LuxonDateAdapter)(ɵɵinject(MAT_DATE_LOCALE, 8), ɵɵinject(MAT_LUXON_DATE_ADAPTER_OPTIONS, 8));
-};
-_LuxonDateAdapter.ɵprov = ɵɵdefineInjectable({
-  token: _LuxonDateAdapter,
-  factory: _LuxonDateAdapter.ɵfac
-});
-var LuxonDateAdapter = _LuxonDateAdapter;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LuxonDateAdapter, [{
     type: Injectable
@@ -251,22 +254,27 @@ var MAT_LUXON_DATE_FORMATS = {
     monthYearA11yLabel: "LLLL yyyy"
   }
 };
-var _LuxonDateModule = class _LuxonDateModule {
+var LuxonDateModule = class _LuxonDateModule {
+  static {
+    this.ɵfac = function LuxonDateModule_Factory(t) {
+      return new (t || _LuxonDateModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _LuxonDateModule
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      providers: [{
+        provide: DateAdapter,
+        useClass: LuxonDateAdapter,
+        deps: [MAT_DATE_LOCALE, MAT_LUXON_DATE_ADAPTER_OPTIONS]
+      }]
+    });
+  }
 };
-_LuxonDateModule.ɵfac = function LuxonDateModule_Factory(t) {
-  return new (t || _LuxonDateModule)();
-};
-_LuxonDateModule.ɵmod = ɵɵdefineNgModule({
-  type: _LuxonDateModule
-});
-_LuxonDateModule.ɵinj = ɵɵdefineInjector({
-  providers: [{
-    provide: DateAdapter,
-    useClass: LuxonDateAdapter,
-    deps: [MAT_DATE_LOCALE, MAT_LUXON_DATE_ADAPTER_OPTIONS]
-  }]
-});
-var LuxonDateModule = _LuxonDateModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(LuxonDateModule, [{
     type: NgModule,
@@ -279,18 +287,23 @@ var LuxonDateModule = _LuxonDateModule;
     }]
   }], null, null);
 })();
-var _MatLuxonDateModule = class _MatLuxonDateModule {
+var MatLuxonDateModule = class _MatLuxonDateModule {
+  static {
+    this.ɵfac = function MatLuxonDateModule_Factory(t) {
+      return new (t || _MatLuxonDateModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _MatLuxonDateModule
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      providers: [provideLuxonDateAdapter()]
+    });
+  }
 };
-_MatLuxonDateModule.ɵfac = function MatLuxonDateModule_Factory(t) {
-  return new (t || _MatLuxonDateModule)();
-};
-_MatLuxonDateModule.ɵmod = ɵɵdefineNgModule({
-  type: _MatLuxonDateModule
-});
-_MatLuxonDateModule.ɵinj = ɵɵdefineInjector({
-  providers: [provideLuxonDateAdapter()]
-});
-var MatLuxonDateModule = _MatLuxonDateModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatLuxonDateModule, [{
     type: NgModule,

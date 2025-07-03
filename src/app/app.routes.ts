@@ -55,8 +55,6 @@ export const appRoutes: Route[] = [
     // Landing routes
     {
         path: '',
-        // canActivate: [AuthGuard, ],
-        // canActivateChild: [AuthGuard],        
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -67,8 +65,6 @@ export const appRoutes: Route[] = [
     },
     {
         path: '',
-        // canActivate: [AuthGuard, ],
-        // canActivateChild: [AuthGuard],        
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
@@ -77,20 +73,57 @@ export const appRoutes: Route[] = [
             { path: 'about', loadChildren: () => import('app/modules/landing/about/about.routes') },
         ]
     },
-
-    // Admin routes
     {
         path: '',
-        canActivate: [AuthGuard],
-        canActivateChild: [AuthGuard],
         component: LayoutComponent,
         resolve: {
             initialData: initialDataResolver
         },
         children: [
-            { path: 'crescent', loadChildren: () => import('app/modules/crescent/crescent-routes') },
+            { path: 'faqs', loadChildren: () => import('app/modules/landing/faqs/faqs.routes') },
         ]
-    }
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'support', loadChildren: () => import('app/modules/landing/support/support.routes') },
+        ]
+    },
+    // Admin routes
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'courses', loadChildren: () => import('app/modules/crescent/courses/courses.routes') },
+        ]
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'free-session', loadChildren: () => import('app/modules/crescent/free-trial-form/free-trail.routes') },
+        ]
+    },
+    {
+        path: '',
+        component: LayoutComponent,
+        resolve: {
+            initialData: initialDataResolver
+        },
+        children: [
+            { path: 'pricing', loadChildren: () => import('app/modules/payment/pricing/pricing.routes') },
+        ]
+    },
 ];
 
 

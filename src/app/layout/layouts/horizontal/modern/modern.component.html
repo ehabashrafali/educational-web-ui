@@ -13,10 +13,10 @@
         <!-- Navigation header hook -->
         <ng-container fuseVerticalNavigationContentHeader>
             <!-- Logo -->
-            <div class="flex h-30 items-center px-8 pt-6">
+            <div class="flex h-30 mb-10 items-center px-8 pt-6">
                 <img
                     class="w-24 h-30"
-                    src="images/logo/crescent School-01.svg"
+                    src="images/logo/crescent School-01.png"
                     alt="Logo image"
                 />
             </div>
@@ -63,12 +63,21 @@
         }
         <!-- Components -->
         <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
-            <languages></languages>
+            <div class="mt-5 mb-5 sm:mt-7 hidden sm:block">
+                <a mat-flat-button [color]="'primary'" [routerLink]="['/free-session']">
+                    <!-- <mat-icon
+                        [svgIcon]="'heroicons_outline:bookmark'"
+                    ></mat-icon> -->
+                    <span class="ml-2 mr-1 text-wrap">Book Free Session</span>
+                </a>
+            </div>
+            <!-- <languages></languages> -->
             <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-            <search [appearance]="'bar'"></search>
-            <shortcuts></shortcuts>
+            <!-- <search [appearance]="'bar'"></search> -->
+            <!-- <shortcuts></shortcuts>
             <messages></messages>
-            <notifications></notifications>
+            <notifications></notifications> -->
+            
             <!-- <button
                 class="lg:hidden"
                 mat-icon-button
@@ -90,9 +99,14 @@
             <router-outlet></router-outlet>
         }
     </div>
+    <!--whatsapp icon-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <a href="https://wa.link/3n70oi" class="float" target="_blank">
+        <i class="fa fa-whatsapp my-float"></i>
+        </a>
 
     <!-- Footer -->
-    <!-- <app-footer></app-footer> -->
+    <app-footer></app-footer>
 </div>
 
 <!-- Quick chat -->

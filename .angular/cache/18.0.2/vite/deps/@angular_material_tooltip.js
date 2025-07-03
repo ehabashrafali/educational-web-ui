@@ -1,44 +1,45 @@
 import {
+  CdkScrollableModule,
+  Overlay,
+  OverlayModule,
+  ScrollDispatcher
+} from "./chunk-7KTEG2ZB.js";
+import "./chunk-DWVSCHKR.js";
+import {
   A11yModule,
   AriaDescriber,
   FocusMonitor,
   MatCommonModule
-} from "./chunk-JK7R3JIZ.js";
+} from "./chunk-DYXP56MA.js";
+import {
+  Directionality,
+  ESCAPE,
+  hasModifierKey
+} from "./chunk-Z2ZIPASW.js";
+import "./chunk-IVVXX6OU.js";
+import {
+  coerceBooleanProperty,
+  coerceNumberProperty
+} from "./chunk-MFJOJNCW.js";
+import {
+  Platform,
+  normalizePassiveListenerOptions
+} from "./chunk-FCIMYJSV.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-RLD5MNEL.js";
-import "./chunk-6MKS55QC.js";
-import {
-  CdkScrollableModule,
-  Overlay,
-  OverlayModule,
-  ScrollDispatcher
-} from "./chunk-CXN36W4A.js";
-import {
-  Directionality,
-  ESCAPE,
-  hasModifierKey
-} from "./chunk-HN7ZVCGL.js";
-import {
-  Platform,
-  normalizePassiveListenerOptions
-} from "./chunk-JL7AZPIE.js";
+} from "./chunk-3Y4EJHLV.js";
 import {
   ComponentPortal
-} from "./chunk-6XIA4OHK.js";
+} from "./chunk-4NYOFWLZ.js";
 import {
   CommonModule,
   DOCUMENT,
   NgClass
-} from "./chunk-M4MUQ4C7.js";
-import {
-  coerceBooleanProperty,
-  coerceNumberProperty
-} from "./chunk-X2OMSDWJ.js";
+} from "./chunk-2TPFPAF3.js";
 import {
   ANIMATION_MODULE_TYPE,
   ChangeDetectionStrategy,
@@ -80,7 +81,7 @@ import {
   ɵɵtext,
   ɵɵtextInterpolate,
   ɵɵviewQuery
-} from "./chunk-MTLPE3W7.js";
+} from "./chunk-6MSDXA4P.js";
 import {
   Subject,
   takeUntil
@@ -134,7 +135,7 @@ var MIN_VIEWPORT_TOOLTIP_THRESHOLD = 8;
 var UNBOUNDED_ANCHOR_GAP = 8;
 var MIN_HEIGHT = 24;
 var MAX_WIDTH = 200;
-var _MatTooltip = class _MatTooltip {
+var MatTooltip = class _MatTooltip {
   /** Allows the user to define the position of the tooltip relative to the parent element */
   get position() {
     return this._position;
@@ -635,34 +636,37 @@ var _MatTooltip = class _MatTooltip {
       style2.webkitTapHighlightColor = "transparent";
     }
   }
+  static {
+    this.ɵfac = function MatTooltip_Factory(t) {
+      return new (t || _MatTooltip)(ɵɵdirectiveInject(Overlay), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ScrollDispatcher), ɵɵdirectiveInject(ViewContainerRef), ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(Platform), ɵɵdirectiveInject(AriaDescriber), ɵɵdirectiveInject(FocusMonitor), ɵɵdirectiveInject(MAT_TOOLTIP_SCROLL_STRATEGY), ɵɵdirectiveInject(Directionality), ɵɵdirectiveInject(MAT_TOOLTIP_DEFAULT_OPTIONS, 8), ɵɵdirectiveInject(DOCUMENT));
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _MatTooltip,
+      selectors: [["", "matTooltip", ""]],
+      hostAttrs: [1, "mat-mdc-tooltip-trigger"],
+      hostVars: 2,
+      hostBindings: function MatTooltip_HostBindings(rf, ctx) {
+        if (rf & 2) {
+          ɵɵclassProp("mat-mdc-tooltip-disabled", ctx.disabled);
+        }
+      },
+      inputs: {
+        position: [0, "matTooltipPosition", "position"],
+        positionAtOrigin: [0, "matTooltipPositionAtOrigin", "positionAtOrigin"],
+        disabled: [0, "matTooltipDisabled", "disabled"],
+        showDelay: [0, "matTooltipShowDelay", "showDelay"],
+        hideDelay: [0, "matTooltipHideDelay", "hideDelay"],
+        touchGestures: [0, "matTooltipTouchGestures", "touchGestures"],
+        message: [0, "matTooltip", "message"],
+        tooltipClass: [0, "matTooltipClass", "tooltipClass"]
+      },
+      exportAs: ["matTooltip"],
+      standalone: true
+    });
+  }
 };
-_MatTooltip.ɵfac = function MatTooltip_Factory(t) {
-  return new (t || _MatTooltip)(ɵɵdirectiveInject(Overlay), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ScrollDispatcher), ɵɵdirectiveInject(ViewContainerRef), ɵɵdirectiveInject(NgZone), ɵɵdirectiveInject(Platform), ɵɵdirectiveInject(AriaDescriber), ɵɵdirectiveInject(FocusMonitor), ɵɵdirectiveInject(MAT_TOOLTIP_SCROLL_STRATEGY), ɵɵdirectiveInject(Directionality), ɵɵdirectiveInject(MAT_TOOLTIP_DEFAULT_OPTIONS, 8), ɵɵdirectiveInject(DOCUMENT));
-};
-_MatTooltip.ɵdir = ɵɵdefineDirective({
-  type: _MatTooltip,
-  selectors: [["", "matTooltip", ""]],
-  hostAttrs: [1, "mat-mdc-tooltip-trigger"],
-  hostVars: 2,
-  hostBindings: function MatTooltip_HostBindings(rf, ctx) {
-    if (rf & 2) {
-      ɵɵclassProp("mat-mdc-tooltip-disabled", ctx.disabled);
-    }
-  },
-  inputs: {
-    position: [0, "matTooltipPosition", "position"],
-    positionAtOrigin: [0, "matTooltipPositionAtOrigin", "positionAtOrigin"],
-    disabled: [0, "matTooltipDisabled", "disabled"],
-    showDelay: [0, "matTooltipShowDelay", "showDelay"],
-    hideDelay: [0, "matTooltipHideDelay", "hideDelay"],
-    touchGestures: [0, "matTooltipTouchGestures", "touchGestures"],
-    message: [0, "matTooltip", "message"],
-    tooltipClass: [0, "matTooltipClass", "tooltipClass"]
-  },
-  exportAs: ["matTooltip"],
-  standalone: true
-});
-var MatTooltip = _MatTooltip;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatTooltip, [{
     type: Directive,
@@ -748,7 +752,7 @@ var MatTooltip = _MatTooltip;
     }]
   });
 })();
-var _TooltipComponent = class _TooltipComponent {
+var TooltipComponent = class _TooltipComponent {
   constructor(_changeDetectorRef, _elementRef, animationMode) {
     this._changeDetectorRef = _changeDetectorRef;
     this._elementRef = _elementRef;
@@ -893,64 +897,67 @@ var _TooltipComponent = class _TooltipComponent {
       this._finalizeAnimation(isVisible);
     }
   }
+  static {
+    this.ɵfac = function TooltipComponent_Factory(t) {
+      return new (t || _TooltipComponent)(ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8));
+    };
+  }
+  static {
+    this.ɵcmp = ɵɵdefineComponent({
+      type: _TooltipComponent,
+      selectors: [["mat-tooltip-component"]],
+      viewQuery: function TooltipComponent_Query(rf, ctx) {
+        if (rf & 1) {
+          ɵɵviewQuery(_c0, 7);
+        }
+        if (rf & 2) {
+          let _t;
+          ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._tooltip = _t.first);
+        }
+      },
+      hostAttrs: ["aria-hidden", "true"],
+      hostVars: 2,
+      hostBindings: function TooltipComponent_HostBindings(rf, ctx) {
+        if (rf & 1) {
+          ɵɵlistener("mouseleave", function TooltipComponent_mouseleave_HostBindingHandler($event) {
+            return ctx._handleMouseLeave($event);
+          });
+        }
+        if (rf & 2) {
+          ɵɵstyleProp("zoom", ctx.isVisible() ? 1 : null);
+        }
+      },
+      standalone: true,
+      features: [ɵɵStandaloneFeature],
+      decls: 4,
+      vars: 4,
+      consts: [["tooltip", ""], [1, "mdc-tooltip", "mdc-tooltip--shown", "mat-mdc-tooltip", 3, "animationend", "ngClass"], [1, "mdc-tooltip__surface", "mdc-tooltip__surface-animation"]],
+      template: function TooltipComponent_Template(rf, ctx) {
+        if (rf & 1) {
+          const _r1 = ɵɵgetCurrentView();
+          ɵɵelementStart(0, "div", 1, 0);
+          ɵɵlistener("animationend", function TooltipComponent_Template_div_animationend_0_listener($event) {
+            ɵɵrestoreView(_r1);
+            return ɵɵresetView(ctx._handleAnimationEnd($event));
+          });
+          ɵɵelementStart(2, "div", 2);
+          ɵɵtext(3);
+          ɵɵelementEnd()();
+        }
+        if (rf & 2) {
+          ɵɵclassProp("mdc-tooltip--multiline", ctx._isMultiline);
+          ɵɵproperty("ngClass", ctx.tooltipClass);
+          ɵɵadvance(3);
+          ɵɵtextInterpolate(ctx.message);
+        }
+      },
+      dependencies: [NgClass],
+      styles: ['.mdc-tooltip__surface{word-break:break-all;word-break:var(--mdc-tooltip-word-break, normal);overflow-wrap:anywhere}.mdc-tooltip--showing-transition .mdc-tooltip__surface-animation{transition:opacity 150ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-tooltip--hide-transition .mdc-tooltip__surface-animation{transition:opacity 75ms 0ms cubic-bezier(0.4, 0, 1, 1)}.mdc-tooltip{position:fixed;display:none;z-index:9}.mdc-tooltip-wrapper--rich{position:relative}.mdc-tooltip--shown,.mdc-tooltip--showing,.mdc-tooltip--hide{display:inline-flex}.mdc-tooltip--shown.mdc-tooltip--rich,.mdc-tooltip--showing.mdc-tooltip--rich,.mdc-tooltip--hide.mdc-tooltip--rich{display:inline-block;left:-320px;position:absolute}.mdc-tooltip__surface{line-height:16px;padding:4px 8px;min-width:40px;max-width:200px;min-height:24px;max-height:40vh;box-sizing:border-box;overflow:hidden;text-align:center}.mdc-tooltip__surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:"";pointer-events:none}@media screen and (forced-colors: active){.mdc-tooltip__surface::before{border-color:CanvasText}}.mdc-tooltip--rich .mdc-tooltip__surface{align-items:flex-start;display:flex;flex-direction:column;min-height:24px;min-width:40px;max-width:320px;position:relative}.mdc-tooltip--multiline .mdc-tooltip__surface{text-align:left}[dir=rtl] .mdc-tooltip--multiline .mdc-tooltip__surface,.mdc-tooltip--multiline .mdc-tooltip__surface[dir=rtl]{text-align:right}.mdc-tooltip__surface .mdc-tooltip__title{margin:0 8px}.mdc-tooltip__surface .mdc-tooltip__content{max-width:calc(200px - 2*8px);margin:8px;text-align:left}[dir=rtl] .mdc-tooltip__surface .mdc-tooltip__content,.mdc-tooltip__surface .mdc-tooltip__content[dir=rtl]{text-align:right}.mdc-tooltip--rich .mdc-tooltip__surface .mdc-tooltip__content{max-width:calc(320px - 2*8px);align-self:stretch}.mdc-tooltip__surface .mdc-tooltip__content-link{text-decoration:none}.mdc-tooltip--rich-actions,.mdc-tooltip__content,.mdc-tooltip__title{z-index:1}.mdc-tooltip__surface-animation{opacity:0;transform:scale(0.8);will-change:transform,opacity}.mdc-tooltip--shown .mdc-tooltip__surface-animation{transform:scale(1);opacity:1}.mdc-tooltip--hide .mdc-tooltip__surface-animation{transform:scale(1)}.mdc-tooltip__caret-surface-top,.mdc-tooltip__caret-surface-bottom{position:absolute;height:24px;width:24px;transform:rotate(35deg) skewY(20deg) scaleX(0.9396926208)}.mdc-tooltip__caret-surface-top .mdc-elevation-overlay,.mdc-tooltip__caret-surface-bottom .mdc-elevation-overlay{width:100%;height:100%;top:0;left:0}.mdc-tooltip__caret-surface-bottom{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);outline:1px solid rgba(0,0,0,0);z-index:-1}@media screen and (forced-colors: active){.mdc-tooltip__caret-surface-bottom{outline-color:CanvasText}}.mat-mdc-tooltip .mdc-tooltip__surface{background-color:var(--mdc-plain-tooltip-container-color)}.mat-mdc-tooltip .mdc-tooltip__surface{border-radius:var(--mdc-plain-tooltip-container-shape)}.mat-mdc-tooltip .mdc-tooltip__caret-surface-top,.mat-mdc-tooltip .mdc-tooltip__caret-surface-bottom{border-radius:var(--mdc-plain-tooltip-container-shape)}.mat-mdc-tooltip .mdc-tooltip__surface{color:var(--mdc-plain-tooltip-supporting-text-color)}.mat-mdc-tooltip .mdc-tooltip__surface{font-family:var(--mdc-plain-tooltip-supporting-text-font);line-height:var(--mdc-plain-tooltip-supporting-text-line-height);font-size:var(--mdc-plain-tooltip-supporting-text-size);font-weight:var(--mdc-plain-tooltip-supporting-text-weight);letter-spacing:var(--mdc-plain-tooltip-supporting-text-tracking)}.mat-mdc-tooltip{position:relative;transform:scale(0)}.mat-mdc-tooltip::before{content:"";top:0;right:0;bottom:0;left:0;z-index:-1;position:absolute}.mat-mdc-tooltip-panel-below .mat-mdc-tooltip::before{top:-8px}.mat-mdc-tooltip-panel-above .mat-mdc-tooltip::before{bottom:-8px}.mat-mdc-tooltip-panel-right .mat-mdc-tooltip::before{left:-8px}.mat-mdc-tooltip-panel-left .mat-mdc-tooltip::before{right:-8px}.mat-mdc-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.mat-mdc-tooltip-panel.mat-mdc-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-mdc-tooltip-show{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}@keyframes mat-mdc-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.8)}}.mat-mdc-tooltip-show{animation:mat-mdc-tooltip-show 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-mdc-tooltip-hide{animation:mat-mdc-tooltip-hide 75ms cubic-bezier(0.4, 0, 1, 1) forwards}'],
+      encapsulation: 2,
+      changeDetection: 0
+    });
+  }
 };
-_TooltipComponent.ɵfac = function TooltipComponent_Factory(t) {
-  return new (t || _TooltipComponent)(ɵɵdirectiveInject(ChangeDetectorRef), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(ANIMATION_MODULE_TYPE, 8));
-};
-_TooltipComponent.ɵcmp = ɵɵdefineComponent({
-  type: _TooltipComponent,
-  selectors: [["mat-tooltip-component"]],
-  viewQuery: function TooltipComponent_Query(rf, ctx) {
-    if (rf & 1) {
-      ɵɵviewQuery(_c0, 7);
-    }
-    if (rf & 2) {
-      let _t;
-      ɵɵqueryRefresh(_t = ɵɵloadQuery()) && (ctx._tooltip = _t.first);
-    }
-  },
-  hostAttrs: ["aria-hidden", "true"],
-  hostVars: 2,
-  hostBindings: function TooltipComponent_HostBindings(rf, ctx) {
-    if (rf & 1) {
-      ɵɵlistener("mouseleave", function TooltipComponent_mouseleave_HostBindingHandler($event) {
-        return ctx._handleMouseLeave($event);
-      });
-    }
-    if (rf & 2) {
-      ɵɵstyleProp("zoom", ctx.isVisible() ? 1 : null);
-    }
-  },
-  standalone: true,
-  features: [ɵɵStandaloneFeature],
-  decls: 4,
-  vars: 4,
-  consts: [["tooltip", ""], [1, "mdc-tooltip", "mdc-tooltip--shown", "mat-mdc-tooltip", 3, "animationend", "ngClass"], [1, "mdc-tooltip__surface", "mdc-tooltip__surface-animation"]],
-  template: function TooltipComponent_Template(rf, ctx) {
-    if (rf & 1) {
-      const _r1 = ɵɵgetCurrentView();
-      ɵɵelementStart(0, "div", 1, 0);
-      ɵɵlistener("animationend", function TooltipComponent_Template_div_animationend_0_listener($event) {
-        ɵɵrestoreView(_r1);
-        return ɵɵresetView(ctx._handleAnimationEnd($event));
-      });
-      ɵɵelementStart(2, "div", 2);
-      ɵɵtext(3);
-      ɵɵelementEnd()();
-    }
-    if (rf & 2) {
-      ɵɵclassProp("mdc-tooltip--multiline", ctx._isMultiline);
-      ɵɵproperty("ngClass", ctx.tooltipClass);
-      ɵɵadvance(3);
-      ɵɵtextInterpolate(ctx.message);
-    }
-  },
-  dependencies: [NgClass],
-  styles: ['.mdc-tooltip__surface{word-break:break-all;word-break:var(--mdc-tooltip-word-break, normal);overflow-wrap:anywhere}.mdc-tooltip--showing-transition .mdc-tooltip__surface-animation{transition:opacity 150ms 0ms cubic-bezier(0, 0, 0.2, 1),transform 150ms 0ms cubic-bezier(0, 0, 0.2, 1)}.mdc-tooltip--hide-transition .mdc-tooltip__surface-animation{transition:opacity 75ms 0ms cubic-bezier(0.4, 0, 1, 1)}.mdc-tooltip{position:fixed;display:none;z-index:9}.mdc-tooltip-wrapper--rich{position:relative}.mdc-tooltip--shown,.mdc-tooltip--showing,.mdc-tooltip--hide{display:inline-flex}.mdc-tooltip--shown.mdc-tooltip--rich,.mdc-tooltip--showing.mdc-tooltip--rich,.mdc-tooltip--hide.mdc-tooltip--rich{display:inline-block;left:-320px;position:absolute}.mdc-tooltip__surface{line-height:16px;padding:4px 8px;min-width:40px;max-width:200px;min-height:24px;max-height:40vh;box-sizing:border-box;overflow:hidden;text-align:center}.mdc-tooltip__surface::before{position:absolute;box-sizing:border-box;width:100%;height:100%;top:0;left:0;border:1px solid rgba(0,0,0,0);border-radius:inherit;content:"";pointer-events:none}@media screen and (forced-colors: active){.mdc-tooltip__surface::before{border-color:CanvasText}}.mdc-tooltip--rich .mdc-tooltip__surface{align-items:flex-start;display:flex;flex-direction:column;min-height:24px;min-width:40px;max-width:320px;position:relative}.mdc-tooltip--multiline .mdc-tooltip__surface{text-align:left}[dir=rtl] .mdc-tooltip--multiline .mdc-tooltip__surface,.mdc-tooltip--multiline .mdc-tooltip__surface[dir=rtl]{text-align:right}.mdc-tooltip__surface .mdc-tooltip__title{margin:0 8px}.mdc-tooltip__surface .mdc-tooltip__content{max-width:calc(200px - 2*8px);margin:8px;text-align:left}[dir=rtl] .mdc-tooltip__surface .mdc-tooltip__content,.mdc-tooltip__surface .mdc-tooltip__content[dir=rtl]{text-align:right}.mdc-tooltip--rich .mdc-tooltip__surface .mdc-tooltip__content{max-width:calc(320px - 2*8px);align-self:stretch}.mdc-tooltip__surface .mdc-tooltip__content-link{text-decoration:none}.mdc-tooltip--rich-actions,.mdc-tooltip__content,.mdc-tooltip__title{z-index:1}.mdc-tooltip__surface-animation{opacity:0;transform:scale(0.8);will-change:transform,opacity}.mdc-tooltip--shown .mdc-tooltip__surface-animation{transform:scale(1);opacity:1}.mdc-tooltip--hide .mdc-tooltip__surface-animation{transform:scale(1)}.mdc-tooltip__caret-surface-top,.mdc-tooltip__caret-surface-bottom{position:absolute;height:24px;width:24px;transform:rotate(35deg) skewY(20deg) scaleX(0.9396926208)}.mdc-tooltip__caret-surface-top .mdc-elevation-overlay,.mdc-tooltip__caret-surface-bottom .mdc-elevation-overlay{width:100%;height:100%;top:0;left:0}.mdc-tooltip__caret-surface-bottom{box-shadow:0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);outline:1px solid rgba(0,0,0,0);z-index:-1}@media screen and (forced-colors: active){.mdc-tooltip__caret-surface-bottom{outline-color:CanvasText}}.mat-mdc-tooltip .mdc-tooltip__surface{background-color:var(--mdc-plain-tooltip-container-color)}.mat-mdc-tooltip .mdc-tooltip__surface{border-radius:var(--mdc-plain-tooltip-container-shape)}.mat-mdc-tooltip .mdc-tooltip__caret-surface-top,.mat-mdc-tooltip .mdc-tooltip__caret-surface-bottom{border-radius:var(--mdc-plain-tooltip-container-shape)}.mat-mdc-tooltip .mdc-tooltip__surface{color:var(--mdc-plain-tooltip-supporting-text-color)}.mat-mdc-tooltip .mdc-tooltip__surface{font-family:var(--mdc-plain-tooltip-supporting-text-font);line-height:var(--mdc-plain-tooltip-supporting-text-line-height);font-size:var(--mdc-plain-tooltip-supporting-text-size);font-weight:var(--mdc-plain-tooltip-supporting-text-weight);letter-spacing:var(--mdc-plain-tooltip-supporting-text-tracking)}.mat-mdc-tooltip{position:relative;transform:scale(0)}.mat-mdc-tooltip::before{content:"";top:0;right:0;bottom:0;left:0;z-index:-1;position:absolute}.mat-mdc-tooltip-panel-below .mat-mdc-tooltip::before{top:-8px}.mat-mdc-tooltip-panel-above .mat-mdc-tooltip::before{bottom:-8px}.mat-mdc-tooltip-panel-right .mat-mdc-tooltip::before{left:-8px}.mat-mdc-tooltip-panel-left .mat-mdc-tooltip::before{right:-8px}.mat-mdc-tooltip._mat-animation-noopable{animation:none;transform:scale(1)}.mat-mdc-tooltip-panel.mat-mdc-tooltip-panel-non-interactive{pointer-events:none}@keyframes mat-mdc-tooltip-show{0%{opacity:0;transform:scale(0.8)}100%{opacity:1;transform:scale(1)}}@keyframes mat-mdc-tooltip-hide{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(0.8)}}.mat-mdc-tooltip-show{animation:mat-mdc-tooltip-show 150ms cubic-bezier(0, 0, 0.2, 1) forwards}.mat-mdc-tooltip-hide{animation:mat-mdc-tooltip-hide 75ms cubic-bezier(0.4, 0, 1, 1) forwards}'],
-  encapsulation: 2,
-  changeDetection: 0
-});
-var TooltipComponent = _TooltipComponent;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(TooltipComponent, [{
     type: Component,
@@ -1009,21 +1016,26 @@ var matTooltipAnimations = {
     transition("* => hidden", animate("75ms cubic-bezier(0.4, 0, 1, 1)"))
   ])
 };
-var _MatTooltipModule = class _MatTooltipModule {
+var MatTooltipModule = class _MatTooltipModule {
+  static {
+    this.ɵfac = function MatTooltipModule_Factory(t) {
+      return new (t || _MatTooltipModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _MatTooltipModule,
+      imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],
+      exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
+      imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule]
+    });
+  }
 };
-_MatTooltipModule.ɵfac = function MatTooltipModule_Factory(t) {
-  return new (t || _MatTooltipModule)();
-};
-_MatTooltipModule.ɵmod = ɵɵdefineNgModule({
-  type: _MatTooltipModule,
-  imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatTooltip, TooltipComponent],
-  exports: [MatTooltip, TooltipComponent, MatCommonModule, CdkScrollableModule]
-});
-_MatTooltipModule.ɵinj = ɵɵdefineInjector({
-  providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
-  imports: [A11yModule, CommonModule, OverlayModule, MatCommonModule, MatCommonModule, CdkScrollableModule]
-});
-var MatTooltipModule = _MatTooltipModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MatTooltipModule, [{
     type: NgModule,
