@@ -44,8 +44,6 @@ export class FreeTrialFormComponent {
     preferredChannel: any;
     preferredTeacher: any;
     learnAbout: any;
-    public toastService: ToastService;
-
     form = new FormGroup({
         firstName: new FormControl("", Validators.required),
         lastName: new FormControl("", Validators.required),
@@ -61,9 +59,6 @@ export class FreeTrialFormComponent {
     /**
      *
      */
-    constructor(public injector: Injector) {
-        this.toastService = this.injector.get(ToastService);
-    }
 
     submitForm(): void {
         if (this.form.valid) {
