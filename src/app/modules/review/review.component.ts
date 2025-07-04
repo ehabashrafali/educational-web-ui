@@ -23,7 +23,7 @@ export class ReviewComponent implements AfterViewInit {
         Object.assign(swiper, {
             slidesPerView: 1,
             spaceBetween: 5,
-            navigation: true,
+            // navigation: true,
             pagination: { clickable: true },
             keyboard: {
                 enabled: true,
