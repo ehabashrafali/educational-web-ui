@@ -45,6 +45,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         icon: "heroicons_outline:credit-card",
         link: "/pricing",
     },
+    {
+        id: "free-session",
+        title: "Book Free Session",
+        type: "basic",
+        icon: "heroicons_mini:academic-cap",
+        link: "/free-session",
+    },
 ];
 export const compactNavigation: FuseNavigationItem[] = [
     {
