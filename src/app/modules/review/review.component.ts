@@ -22,8 +22,8 @@ export class ReviewComponent implements AfterViewInit {
         const swiper = this.swiperEl.nativeElement;
         Object.assign(swiper, {
             slidesPerView: 1,
-            spaceBetween: 0,
-            // navigation: true,
+            spaceBetween: 5,
+            navigation: true,
             pagination: { clickable: true },
             keyboard: {
                 enabled: true,

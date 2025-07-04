@@ -72,11 +72,12 @@ export class FreeTrialFormComponent {
                 "https://script.google.com/macros/s/AKfycbz05HBDif78nQQPONWqvtoUjg_KC6RA8JB7zE1EklKxZF8-o_J8N0iazJ5SpdaIrqCx1w/exec",
                 {
                     method: "POST",
-                    mode: "no-cors", // prevents CORS error, but hides response
+                    mode: "no-cors",
                     body: JSON.stringify(values),
                 }
             )
                 .then(() => {
+                    this.form.reset();
                     alert("Form submitted successfully!");
                 })
                 .catch((err) => {
