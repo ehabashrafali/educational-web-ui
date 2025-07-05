@@ -91,7 +91,7 @@
                      <div class="">(Session are 30 minutes)</div>
                      }
                      @else {                     
-                     <div class="">(Session are 1 Hour)</div>
+                     <div class="">(Session are 1 Hour - Maximum number of students is 4)</div>
                      }
                   </div>
                   <!-- Features -->
@@ -107,9 +107,12 @@
                      </mat-button-toggle-group>
                      }
                      @else {
-                     <mat-button-toggle-group value="1" (valueChange)="selectedGroupSessionsChanged($event)" name="favoriteColor" aria-label="Favorite Color">
-                        <mat-button-toggle value="1" class="bg-gray-50">1 Session</mat-button-toggle>
-                        <mat-button-toggle value="2" class="bg-gray-50">2 Sessions</mat-button-toggle>
+                     <mat-button-toggle-group value="1" (valueChange)="selectedGroupSessionsChanged($event)" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3" name="favoriteColor" aria-label="Favorite Color">
+                        <mat-button-toggle value="1" class="bg-gray-50 text-sm">1 Session</mat-button-toggle>
+                        <mat-button-toggle value="2" class="bg-gray-50 text-sm">2 Sessions</mat-button-toggle>
+                        <mat-button-toggle value="3" class="bg-gray-50 text-sm">3 Sessions</mat-button-toggle>
+                        <mat-button-toggle value="4" class="bg-gray-50 text-sm">4 Sessions</mat-button-toggle>
+                        <mat-button-toggle value="5" class="bg-gray-50 text-sm">5 Sessions</mat-button-toggle>
                      </mat-button-toggle-group>
                      }
                      @if(pricePerHour != null){

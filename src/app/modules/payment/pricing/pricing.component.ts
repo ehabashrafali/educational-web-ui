@@ -95,6 +95,18 @@ export class PricingComponent implements OnInit {
                     this.pricePerHour = 6;
                     this.pricePerMonthGroup = 48;
                     break;
+                case "3":
+                    this.pricePerHour = 6;
+                    this.pricePerMonthGroup = 72;
+                    break;
+                case "4":
+                    this.pricePerHour = 6;
+                    this.pricePerMonthGroup = 96;
+                    break;
+                case "5":
+                    this.pricePerHour = 6;
+                    this.pricePerMonthGroup = 120;
+                    break;
             }
         }
     }
