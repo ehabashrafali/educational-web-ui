@@ -9,6 +9,7 @@ import { RouterLink } from "@angular/router";
 import { AboutComponent } from "../about/about.component";
 import Swiper from "swiper";
 import { ReviewComponent } from "../../review/review.component";
+import { InstructorsComponent } from "app/modules/landing/instructors/instructors.component";
 
 @Component({
     selector: "landing-home",
@@ -22,6 +23,7 @@ import { ReviewComponent } from "../../review/review.component";
         MatIconModule,
         AboutComponent,
         ReviewComponent,
+        InstructorsComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
