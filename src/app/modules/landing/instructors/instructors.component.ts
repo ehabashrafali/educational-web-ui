@@ -31,28 +31,16 @@ export class InstructorsComponent implements AfterViewInit, OnInit {
             spaceBetween: 16,
             centeredSlides: true,
             breakpoints: {
-                768: {
-                    // ≥ 768px (md)
-                    slidesPerView: 1,
-                    spaceBetween: 50,
-                },
-                1024: {
-                    // ≥ 1024px (lg)
-                    slidesPerView: 1,
-                    spaceBetween: 50,
-                },
-                1280: {
-                    // ≥ 1280px (xl)
-                    slidesPerView: 1,
-                    spaceBetween: 50,
-                },
+                640: { slidesPerView: 1 },
+                768: { slidesPerView: 1 },
+                1024: { slidesPerView: 1 },
             },
-            // loop: false,
-            // autoplay: {
-            //     delay: 4000,
-            //     disableOnInteraction: false,
-            // },
-            // speed: 1000,
+            loop: false,
+            autoplay: {
+                delay: 4000,
+                disableOnInteraction: false,
+            },
+            speed: 1000,
             // pagination: true,
         });
         this.instSwiper.nativeElement.initialize();
