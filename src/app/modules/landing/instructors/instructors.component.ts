@@ -17,28 +17,45 @@ import { register } from "swiper/element/bundle";
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class InstructorsComponent implements AfterViewInit, OnInit {
-    @ViewChild("insSwiper", { static: true })
-    insSwiper!: ElementRef;
+    @ViewChild("instSwiper", { static: true })
+    instSwiper!: ElementRef;
 
     ngOnInit(): void {
         register();
     }
 
     ngAfterViewInit(): void {
-        const swiper = this.insSwiper.nativeElement;
-        Object.assign(this.insSwiper.nativeElement, {
+        const swiper = this.instSwiper.nativeElement;
+        Object.assign(this.instSwiper.nativeElement, {
             slidesPerView: 1,
             spaceBetween: 16,
-            loop: false,
             centeredSlides: true,
-            autoplay: {
-                delay: 4000,
-                disableOnInteraction: false,
+            breakpoints: {
+                768: {
+                    // ≥ 768px (md)
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                },
+                1024: {
+                    // ≥ 1024px (lg)
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                },
+                1280: {
+                    // ≥ 1280px (xl)
+                    slidesPerView: 1,
+                    spaceBetween: 50,
+                },
             },
-            speed: 1000,
+            // loop: false,
+            // autoplay: {
+            //     delay: 4000,
+            //     disableOnInteraction: false,
+            // },
+            // speed: 1000,
             // pagination: true,
         });
-        this.insSwiper.nativeElement.initialize();
+        this.instSwiper.nativeElement.initialize();
 
         swiper.initialize();
     }
