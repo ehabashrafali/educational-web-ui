@@ -37,11 +37,27 @@ export class InstructorsComponent implements AfterViewInit, OnInit {
             },
             loop: false,
             autoplay: {
-                delay: 4000,
+                delay: 6000,
                 disableOnInteraction: false,
             },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true,
+            },
             speed: 1000,
-            // pagination: true,
+            on: {
+                keyPress: () => {
+                    const swiper = this.instSwiper.nativeElement.swiper;
+                    if (swiper.autoplay) {
+                        swiper.autoplay.stop();
+                    }
+
+                    // Disable loop for the next navigation
+                    swiper.loopDestroy(); // Remove loop clones
+                    swiper.params.loop = false;
+                    swiper.update();
+                },
+            },
         });
         this.instSwiper.nativeElement.initialize();
 
