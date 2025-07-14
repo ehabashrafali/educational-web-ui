@@ -39,6 +39,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
         link: "/courses",
     },
     {
+        id: "blogs",
+        title: "Blogs",
+        type: "basic",
+        icon: "feather:pen-tool",
+        link: "/blogs",
+    },
+    {
         id: "pricing",
         title: "Subscription",
         type: "basic",
@@ -107,6 +114,13 @@ export const horizontalNavigation: FuseNavigationItem[] = [
         type: "basic",
         icon: "heroicons_outline:book-open",
         link: "/courses",
+    },
+    {
+        id: "blogs",
+        title: "Blogs",
+        type: "basic",
+        icon: "feather:pen-tool",
+        link: "/blogs",
     },
     {
         id: "pricing",

@@ -1,0 +1,39 @@
+<div class="grid flex max-w-screen w-full mb-10">
+   <div class="flex mb-4 gap-4 justify-between w-full">
+      <div>
+         <p class="text-4xl ms-10 mt-5 mb-5 font-semibold">Blogs</p>
+      </div>
+   </div>
+   <div class="flex w-full ms-10">
+      <!-- Card 1 -->
+      <fuse-card class="filter-article flex w-full max-w-80 flex-col">
+         <img
+            class="object-cover"
+            src="images\blogs\Blogs1.jpg"
+            alt="Card cover image"
+            />
+         <div class="m-8 mb-4">
+            <div class="text-2xl font-semibold leading-tight">
+               How to Influence our children
+            </div>
+            <div class="text-secondary mt-1 text-md">
+               1 January 2024 by Osama El‑Bosili
+            </div>
+            <div class="mt-4">
+               Influencing children's lives by sharing childhood memories
+            </div>
+            <div class="-mx-3 mt-3">
+               <a
+               class="px-3"
+               mat-button
+               [color]="'primary'"
+               (click)="SetBlogId(1)"
+               [routerLink]="'/blogs/details'"
+               >
+               Read More
+               </a>
+            </div>
+         </div>
+      </fuse-card>
+   </div>
+</div>
