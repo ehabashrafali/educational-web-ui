@@ -8,7 +8,7 @@ export default [
         component: BlogsComponent,
     },
     {
-        path: "details",
+        path: "details/:id",
         component: BlogDetailsComponent,
     },
 ] as Routes;

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { BlogService } from "app/shared/sevices/bolg.service";
 import { map, Subject, takeUntil, tap } from "rxjs";
 
@@ -13,15 +14,28 @@ export class BlogDetailsComponent implements OnInit, OnDestroy {
     public blogId: number;
     destroyed$ = new Subject<void>();
 
-    constructor(public blogService: BlogService) {}
+    constructor(
+        public blogService: BlogService,
+        private route: ActivatedRoute
+    ) {}
 
     ngOnInit(): void {
-        debugger;
-        this.blogService.selectedBolgId$
+        // this.blogService.selectedBolgId$
+        //     .pipe(
+        //         takeUntil(this.destroyed$),
+        //         tap((id) => console.log(id)),
+        //         map((id: number) => (this.blogId = id))
+        //     )
+        //     .subscribe();
+
+        this.route.paramMap
             .pipe(
                 takeUntil(this.destroyed$),
-                tap((id) => console.log(id)),
-                map((id: number) => (this.blogId = id))
+                map((params) => params.get("id")),
+                map((id) => +id),
+                tap((id) => {
+                    this.blogId = id;
+                })
             )
             .subscribe();
     }
