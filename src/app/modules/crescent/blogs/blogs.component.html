@@ -5,8 +5,11 @@
 
    <!-- Cards Container -->
    <div class="flex flex-wrap w-full px-10 gap-6">
-      <!-- Card 1 -->
-      <fuse-card class="filter-article flex w-full max-w-80 flex-col bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <a 
+         class="filter-article flex w-full max-w-80 flex-col bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 no-underline text-inherit"
+         [routerLink]="'/blogs/details/1'"
+         (click)="SetBlogId(1)"
+      >
          <img
             class="object-cover w-full h-48"
             src="images/blogs/Blogs1.jpg"
@@ -22,18 +25,7 @@
             <div class="mt-4 text-gray-700 text-sm">
                Influencing children's lives by sharing childhood memories
             </div>
-            <div class="mt-5">
-               <a
-                  mat-button
-                  [color]="'primary'"
-                  (click)="SetBlogId(1)"
-                  [routerLink]="'/blogs/details/1'"
-                  class="text-primary hover:underline font-medium"
-               >
-               Read More
-               </a>
-            </div>
          </div>
-      </fuse-card>
+      </a>
    </div>
 </div>
