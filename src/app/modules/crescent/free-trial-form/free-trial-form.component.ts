@@ -64,7 +64,7 @@ export class FreeTrialFormComponent {
         if (this.form.valid) {
             const values = this.form.value;
             fetch(
-                "https://script.google.com/macros/s/AKfycbz05HBDif78nQQPONWqvtoUjg_KC6RA8JB7zE1EklKxZF8-o_J8N0iazJ5SpdaIrqCx1w/exec",
+                "https://script.google.com/macros/s/AKfycbx3uRkU9-x0PRLHpqpOEpI0Sbe346GcDPCC18FGx7ObcVxRnR8VUztu9mEsasZt7cnx/exec",
                 {
                     method: "POST",
                     mode: "no-cors",

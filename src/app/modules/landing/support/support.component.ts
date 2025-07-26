@@ -58,7 +58,7 @@ export class SupportComponent implements OnInit {
         params.append(key, values[key]);
       }
 
-      fetch('https://script.google.com/macros/s/AKfycbyT_xcrH91L7bFLvmt7n0_5LVct4oJhExkUoaGt6IeKdLfxg_P3Oop42l5OxFnce1rn/exec', {
+      fetch('https://script.google.com/macros/s/AKfycbxwXm5-rnh-1g48lQcIJeTvgbCgZA0QqEeDSvjGqvwwVzh18m2WZsTNjiVIN5yX8AsARg/exec', {
         method: 'POST',
         mode: 'no-cors',
         body: params
