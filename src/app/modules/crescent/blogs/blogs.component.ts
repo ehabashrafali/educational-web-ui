@@ -13,7 +13,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { RouterLink } from "@angular/router";
 import { FuseCardComponent } from "@fuse/components/card";
 import { BlogService } from "app/shared/sevices/bolg.service";
-import { extend } from "lodash";
 
 @Component({
     selector: "app-blogs",

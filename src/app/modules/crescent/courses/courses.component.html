@@ -175,7 +175,7 @@
 
       <!-- Card 4 -->
       <fuse-card
-        class="filter-article filter-interactive flex w-full max-w-80 md:col-start-4 md:col-span-3"
+        class="filter-article filter-interactive flex w-full max-w-80 md:col-start-2 md:col-span-3"
         [flippable]="true"
         [face]="'front'"
         #flippableCard04="fuseCard">
@@ -259,6 +259,52 @@
               <div class="mt-4">
                   Equip your child with the tools to engage directly with the Quran through our Quranic Arabic Course. This specialized program focuses on the vocabulary and grammar unique to Quranic Arabic, allowing students to read and understand the text with clarity.
                   By mastering these linguistic elements, learners will gain a deeper appreciation of the Quran's message and its relevance to their lives.              </div>
+            </div>
+          </div>
+        </ng-container>
+      </fuse-card>
+
+      <!-- Card 6 -->
+      <fuse-card
+        class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
+        [flippable]="true"
+        [face]="'front'"
+        #flippableCard06="fuseCard">
+        <ng-container fuseCardFront>
+          <img
+            class="object-cover h-[20rem]"
+            src="images/cards/Hafiz Course.jpeg"
+            alt="Card cover image" />
+          <div class="m-8 mb-4">
+            <div class="text-2xl font-semibold leading-tight">Hafiz Course</div>
+            <div class="mt-4">
+              Your journey to becoming a Hafiz starts here.
+            </div>
+            <div class="-mx-3 mt-3">
+              <button
+                class="px-3"
+                mat-button
+                [color]="'primary'"
+                (click)="flippableCard06.face = flippableCard06.face === 'front' ? 'back' : 'front'">
+                Read More
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container fuseCardBack>
+          <div class="m-4 flex flex-auto flex-col">
+            <button
+              class="ml-1.5"
+              mat-icon-button
+              (click)="flippableCard06.face = flippableCard06.face === 'front' ? 'back' : 'front'">
+              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+            </button>
+            <div class="m-4 mt-3">
+              <div class="text-2xl font-semibold leading-tight">Hafiz Course</div>
+              <div class="mt-4">
+                At Crescent Academy, our Qur’an Memorization Course helps students embark on a transformative journey to becoming confident Huffaz. With step-by-step guidance and a structured plan, learners memorize the Qur’an with precision and understanding.
+                This course builds strong memorization habits through daily revision, repetition, and consistent teacher support. Students develop discipline, strengthen their spiritual connection, and grow in love for the words of Allah. With experienced instructors and personalized attention, every student is empowered to achieve their memorization goals.                  
+              </div>
             </div>
           </div>
         </ng-container>

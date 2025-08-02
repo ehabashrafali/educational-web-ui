@@ -6,7 +6,7 @@
    <!-- Cards Container -->
    <div class="flex flex-wrap w-full px-10 gap-6">
       <a 
-         class="filter-article flex w-full max-w-80 flex-col bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 no-underline text-inherit"
+         class="filter-article flex max-w-80 flex-col bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 no-underline text-inherit"
          [routerLink]="'/blogs/details/1'"
          (click)="SetBlogId(1)"
       >
@@ -24,6 +24,28 @@
             </div>
             <div class="mt-4 text-gray-700 text-sm">
                Influencing children's lives by sharing childhood memories
+            </div>
+         </div>
+      </a>
+      <a 
+         class="filter-article flex max-w-80 flex-col bg-white shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 no-underline text-inherit"
+         [routerLink]="'/blogs/details/2'"
+         (click)="SetBlogId(2)"
+      >
+         <img
+            class="object-cover w-full h-48"
+            src="images/blogs/Tajweed.jpeg"
+            alt="Card cover image"
+         />
+         <div class="p-6">
+            <div class="text-xl font-semibold leading-tight mb-1">
+               Why Do We Learn Tajweed?
+            </div>
+            <div class="text-secondary mt-1 text-sm text-gray-500">
+               2 August 2025 by Ibrahim Ayman
+            </div>
+            <div class="mt-4 text-gray-700 text-sm">
+               Your Guide to Learning and Perfecting Qur’anic Recitation
             </div>
          </div>
       </a>
