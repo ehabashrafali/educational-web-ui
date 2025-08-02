@@ -64,7 +64,6 @@ export class SupportComponent implements OnInit {
         body: params
       })
         .then(() => {
-          console.log(values)
           this.alert = {
             type: 'success',
             message:

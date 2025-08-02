@@ -16,11 +16,9 @@ export class BlogDetailsComponent implements OnInit, OnDestroy {
     constructor(public blogService: BlogService) {}
 
     ngOnInit(): void {
-        debugger;
         this.blogService.selectedBolgId$
             .pipe(
                 takeUntil(this.destroyed$),
-                tap((id) => console.log(id)),
                 map((id: number) => (this.blogId = id))
             )
             .subscribe();
