@@ -11,29 +11,40 @@
     </div>
   </div>
   <div class="flex justify-center max-w-screen w-full">
-    <div class="grid grid-cols-1 mb-10 sm:grid-cols-2 md:grid-cols-12 gap-3 w-full justify-center">
+    <div
+      class="grid grid-cols-1 mb-10 sm:grid-cols-2 md:grid-cols-12 gap-3 w-full justify-center"
+    >
       <!-- Card 1 -->
       <fuse-card
         class="filter-article filter-interactive flex w-full max-w-80 md:col-start-2 md:col-span-3"
         [flippable]="true"
         [face]="'front'"
-        #flippableCard01="fuseCard">
+        #flippableCard01="fuseCard"
+      >
         <ng-container fuseCardFront>
           <img
             class="object-cover h-[26rem]"
             src="images/cards/QuraanRecitation.jpeg"
-            alt="Card cover image" />
+            alt="Card cover image"
+          />
           <div class="m-8 mb-4">
-            <div class="text-2xl font-semibold leading-tight">Basic Quran Recitation</div>
+            <div class="text-2xl font-semibold leading-tight">
+              Basic Quran Recitation
+            </div>
             <div class="mt-4">
-              Introduces the basics of Quranic reading, emphasizing pronunciation and reading skills.
+              Introduces the basics of Quranic reading, emphasizing
+              pronunciation and reading skills.
             </div>
             <div class="-mx-3 mt-3">
               <button
                 class="px-3"
                 mat-button
                 [color]="'primary'"
-                (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">
+                (click)="
+                  flippableCard01.face =
+                    flippableCard01.face === 'front' ? 'back' : 'front'
+                "
+              >
                 Read More
               </button>
             </div>
@@ -44,86 +55,57 @@
             <button
               class="ml-1.5"
               mat-icon-button
-              (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">
-              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+              (click)="
+                flippableCard01.face =
+                  flippableCard01.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
             </button>
             <div class="m-4 mt-3">
-              <div class="text-2xl font-semibold leading-tight">Basic Quran Recitation</div>
+              <div class="text-2xl font-semibold leading-tight">
+                Basic Quran Recitation
+              </div>
               <div class="mt-4">
-                     Embark on a transformative journey with the Noorani Qaidah Course at Crescent Islamic Academy, where the foundations of Quranic reading are laid with care and precision. 
-                     This essential course is designed to introduce children to the fundamentals of pronunciation and reading skills. 
-                     Through engaging lessons that cover the Arabic alphabet and essential Tajweed rules, students will gain confidence in their ability to read Arabic fluently              </div>
+                Embark on a transformative journey with the Noorani Qaidah
+                Course at Crescent Islamic Academy, where the foundations of
+                Quranic reading are laid with care and precision. This essential
+                course is designed to introduce children to the fundamentals of
+                pronunciation and reading skills. Through engaging lessons that
+                cover the Arabic alphabet and essential Tajweed rules, students
+                will gain confidence in their ability to read Arabic fluently
+              </div>
               <div class="mt-4">
-                     What is the Noorani Qaida course? Noorani Qaida course is the initial course for Quran reading. 
-                     This course is required for kids before starting the Quran.
-                     The interactive approach ensures that learning is not only effective but also enjoyable, 
-                     making it a perfect starting point for young learners eager to connect with the Quran.
+                What is the Noorani Qaida course? Noorani Qaida course is the
+                initial course for Quran reading. This course is required for
+                kids before starting the Quran. The interactive approach ensures
+                that learning is not only effective but also enjoyable, making
+                it a perfect starting point for young learners eager to connect
+                with the Quran.
               </div>
             </div>
           </div>
         </ng-container>
       </fuse-card>
-
       <!-- Card 2 -->
       <fuse-card
         class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
         [flippable]="true"
         [face]="'front'"
-        #flippableCard03="fuseCard">
-        <ng-container fuseCardFront>
-          <img
-            class="object-cover h-[26rem]"
-            src="images/cards/ArabicLanguage.jpeg"
-            alt="Card cover image" />
-          <div class="m-8 mb-4">
-            <div class="text-2xl font-semibold leading-tight">Arabic Language Course</div>
-            <div class="mt-4">
-              Strengthens Arabic skills for better comprehension and engagement with the Quran.
-            </div>
-            <div class="-mx-3 mt-3">
-              <button
-                class="px-3"
-                mat-button
-                [color]="'primary'"
-                (click)="flippableCard03.face = flippableCard03.face === 'front' ? 'back' : 'front'">
-                Read More
-              </button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container fuseCardBack>
-          <div class="m-4 flex flex-auto flex-col">
-            <button
-              class="ml-1.5"
-              mat-icon-button
-              (click)="flippableCard03.face = flippableCard03.face === 'front' ? 'back' : 'front'">
-              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
-            </button>
-            <div class="m-4 mt-3">
-              <div class="text-2xl font-semibold leading-tight">Arabic Language Course</div>
-              <div class="mt-4">
-                  Enhance your child's linguistic abilities with our Arabic Language Course, specifically designed to develop their skills in reading and comprehending the Quran. 
-                  This course provides a comprehensive foundation in Arabic, enabling students to engage with the Quranic text more easily. 
-                  Through interactive lessons and engaging activities, children will not only learn the language but also appreciate its beauty and significance in Islamic teachings
-              </div>
-            </div>
-          </div>
-        </ng-container>
-      </fuse-card>
-
-      <!-- Card 3 -->
-      <fuse-card
-        class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
-        [flippable]="true"
-        [face]="'front'"
-        #flippableCard02="fuseCard">
+        #flippableCard02="fuseCard"
+      >
         <ng-container fuseCardFront>
           <img
             class="object-cover h-[26rem]"
             src="images/cards/Tajweed.png"
-            alt="Card cover image" />
+            alt="Card cover image"
+          />
           <div class="m-8 mb-4">
-            <div class="text-2xl font-semibold leading-tight">Tajweed Course</div>
+            <div class="text-2xl font-semibold leading-tight">
+              Tajweed Course
+            </div>
             <div class="mt-4">
               Teaches the rules for accurate and melodious Quranic recitation.
             </div>
@@ -132,69 +114,11 @@
                 class="px-3"
                 mat-button
                 [color]="'primary'"
-                (click)="flippableCard02.face = flippableCard02.face === 'front' ? 'back' : 'front'">
-                Read More
-              </button>
-            </div>
-          </div>
-        </ng-container>
-       <ng-container fuseCardBack>
-            <div class="m-4 flex flex-auto flex-col">
-               <button
-                  class="ml-1.5"
-                  mat-icon-button
-                  (click)="
+                (click)="
                   flippableCard02.face =
-                  flippableCard02.face === 'front'
-                  ? 'back'
-                  : 'front'
-                  "
-                  >
-                  <mat-icon
-                     [svgIcon]="'heroicons_outline:arrow-long-left'"
-                     ></mat-icon>
-               </button>
-               <div class="m-4 mt-3">
-                  <div class="text-2xl font-semibold leading-tight">
-                     Tajweed Course
-
-                  </div>
-                  <div class="mt-4">
-                     At Crescent Academy, you’ll find the best online Tajweed Course for your kids. 
-                     Unlock the beauty of Quranic recitation with our Tajweed Course, where students master the art of reciting the Quran with accuracy and melodiousness. 
-                  </div>
-                  <div class="mt-4">
-                     This course delves into the intricate rules of Tajweed, teaching learners how to apply correct pronunciation, intonation, 
-                     and rhythm to every word of divine revelation. With a focus on practical application, students will develop the skills necessary to recite the Quran beautifully,
-                     enhancing their spiritual experience and connection to the text
-                  </div>
-               </div>
-            </div>
-         </ng-container>
-      </fuse-card>
-
-      <!-- Card 4 -->
-      <fuse-card
-        class="filter-article filter-interactive flex w-full max-w-80 md:col-start-2 md:col-span-3"
-        [flippable]="true"
-        [face]="'front'"
-        #flippableCard04="fuseCard">
-        <ng-container fuseCardFront>
-          <img
-            class="object-cover h-[20rem]"
-            src="images/cards/Islamic-Studies-Course.png"
-            alt="Card cover image" />
-          <div class="m-8 mb-4">
-            <div class="text-2xl font-semibold leading-tight">Islamic Studies Course</div>
-            <div class="mt-4">
-              Explores core Islamic principles and practices.
-            </div>
-            <div class="-mx-3 mt-3">
-              <button
-                class="px-3"
-                mat-button
-                [color]="'primary'"
-                (click)="flippableCard04.face = flippableCard04.face === 'front' ? 'back' : 'front'">
+                    flippableCard02.face === 'front' ? 'back' : 'front'
+                "
+              >
                 Read More
               </button>
             </div>
@@ -205,76 +129,50 @@
             <button
               class="ml-1.5"
               mat-icon-button
-              (click)="flippableCard04.face = flippableCard04.face === 'front' ? 'back' : 'front'">
-              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+              (click)="
+                flippableCard02.face =
+                  flippableCard02.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
             </button>
             <div class="m-4 mt-3">
-              <div class="text-2xl font-semibold leading-tight">Islamic Studies Course</div>
+              <div class="text-2xl font-semibold leading-tight">
+                Tajweed Course
+              </div>
               <div class="mt-4">
-                   Dive deep into the heart of Islam with our Islamic Studies Course, which explores the core principles and practices of the faith. This course fosters a strong foundation in understanding Islamic beliefs, values, and traditions. 
-                  Students will engage with essential topics that shape their faith and identity, encouraging them to reflect on their beliefs and develop a meaningful connection to their spirituality.
-               </div>
+                At Crescent Academy, you’ll find the best online Tajweed Course
+                for your kids. Unlock the beauty of Quranic recitation with our
+                Tajweed Course, where students master the art of reciting the
+                Quran with accuracy and melodiousness.
+              </div>
+              <div class="mt-4">
+                This course delves into the intricate rules of Tajweed, teaching
+                learners how to apply correct pronunciation, intonation, and
+                rhythm to every word of divine revelation. With a focus on
+                practical application, students will develop the skills
+                necessary to recite the Quran beautifully, enhancing their
+                spiritual experience and connection to the text
+              </div>
             </div>
           </div>
         </ng-container>
       </fuse-card>
-
-      <!-- Card 5 -->
+      <!-- Card 3 -->
       <fuse-card
         class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
         [flippable]="true"
         [face]="'front'"
-        #flippableCard05="fuseCard">
+        #flippableCard06="fuseCard"
+      >
         <ng-container fuseCardFront>
           <img
-            class="object-cover h-[20rem]"
-            src="images/cards/QuranicArabic.png"
-            alt="Card cover image" />
-          <div class="m-8 mb-4">
-            <div class="text-2xl font-semibold leading-tight">Quranic Arabic</div>
-            <div class="mt-4">
-              Equips students with vocabulary and grammar to understand the Quran directly.
-            </div>
-            <div class="-mx-3 mt-3">
-              <button
-                class="px-3"
-                mat-button
-                [color]="'primary'"
-                (click)="flippableCard05.face = flippableCard05.face === 'front' ? 'back' : 'front'">
-                Read More
-              </button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-container fuseCardBack>
-          <div class="m-4 flex flex-auto flex-col">
-            <button
-              class="ml-1.5"
-              mat-icon-button
-              (click)="flippableCard05.face = flippableCard05.face === 'front' ? 'back' : 'front'">
-              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
-            </button>
-            <div class="m-4 mt-3">
-              <div class="text-2xl font-semibold leading-tight">Quranic Arabic</div>
-              <div class="mt-4">
-                  Equip your child with the tools to engage directly with the Quran through our Quranic Arabic Course. This specialized program focuses on the vocabulary and grammar unique to Quranic Arabic, allowing students to read and understand the text with clarity.
-                  By mastering these linguistic elements, learners will gain a deeper appreciation of the Quran's message and its relevance to their lives.              </div>
-            </div>
-          </div>
-        </ng-container>
-      </fuse-card>
-
-      <!-- Card 6 -->
-      <fuse-card
-        class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
-        [flippable]="true"
-        [face]="'front'"
-        #flippableCard06="fuseCard">
-        <ng-container fuseCardFront>
-          <img
-            class="object-cover h-[20rem]"
+            class="object-cover h-[26rem]"
             src="images/cards/Hafiz Course.jpeg"
-            alt="Card cover image" />
+            alt="Card cover image"
+          />
           <div class="m-8 mb-4">
             <div class="text-2xl font-semibold leading-tight">Hafiz Course</div>
             <div class="mt-4">
@@ -285,7 +183,11 @@
                 class="px-3"
                 mat-button
                 [color]="'primary'"
-                (click)="flippableCard06.face = flippableCard06.face === 'front' ? 'back' : 'front'">
+                (click)="
+                  flippableCard06.face =
+                    flippableCard06.face === 'front' ? 'back' : 'front'
+                "
+              >
                 Read More
               </button>
             </div>
@@ -296,20 +198,233 @@
             <button
               class="ml-1.5"
               mat-icon-button
-              (click)="flippableCard06.face = flippableCard06.face === 'front' ? 'back' : 'front'">
-              <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
+              (click)="
+                flippableCard06.face =
+                  flippableCard06.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
             </button>
             <div class="m-4 mt-3">
-              <div class="text-2xl font-semibold leading-tight">Hafiz Course</div>
+              <div class="text-2xl font-semibold leading-tight">
+                Hafiz Course
+              </div>
               <div class="mt-4">
-                At Crescent Academy, our Qur’an Memorization Course helps students embark on a transformative journey to becoming confident Huffaz. With step-by-step guidance and a structured plan, learners memorize the Qur’an with precision and understanding.
-                This course builds strong memorization habits through daily revision, repetition, and consistent teacher support. Students develop discipline, strengthen their spiritual connection, and grow in love for the words of Allah. With experienced instructors and personalized attention, every student is empowered to achieve their memorization goals.                  
+                At Crescent Academy, our Qur’an Memorization Course helps
+                students embark on a transformative journey to becoming
+                confident Huffaz. With step-by-step guidance and a structured
+                plan, learners memorize the Qur’an with precision and
+                understanding. This course builds strong memorization habits
+                through daily revision, repetition, and consistent teacher
+                support. Students develop discipline, strengthen their spiritual
+                connection, and grow in love for the words of Allah. With
+                experienced instructors and personalized attention, every
+                student is empowered to achieve their memorization goals.
               </div>
             </div>
           </div>
         </ng-container>
       </fuse-card>
-      
+      <!-- Card 4 -->
+      <fuse-card
+        class="filter-article filter-interactive flex w-full max-w-80 md:col-start-2 md:col-span-3"
+        [flippable]="true"
+        [face]="'front'"
+        #flippableCard04="fuseCard"
+      >
+        <ng-container fuseCardFront>
+          <img
+            class="object-cover h-[24rem]"
+            src="images/cards/Islamic-Studies-Course.png"
+            alt="Card cover image"
+          />
+          <div class="m-8 mb-4">
+            <div class="text-2xl font-semibold leading-tight">
+              Islamic Studies Course
+            </div>
+            <div class="mt-4">
+              Explores core Islamic principles and practices.
+            </div>
+            <div class="-mx-3 mt-3">
+              <button
+                class="px-3"
+                mat-button
+                [color]="'primary'"
+                (click)="
+                  flippableCard04.face =
+                    flippableCard04.face === 'front' ? 'back' : 'front'
+                "
+              >
+                Read More
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container fuseCardBack>
+          <div class="m-4 flex flex-auto flex-col">
+            <button
+              class="ml-1.5"
+              mat-icon-button
+              (click)="
+                flippableCard04.face =
+                  flippableCard04.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
+            </button>
+            <div class="m-4 mt-3">
+              <div class="text-2xl font-semibold leading-tight">
+                Islamic Studies Course
+              </div>
+              <div class="mt-4">
+                Dive deep into the heart of Islam with our Islamic Studies
+                Course, which explores the core principles and practices of the
+                faith. This course fosters a strong foundation in understanding
+                Islamic beliefs, values, and traditions. Students will engage
+                with essential topics that shape their faith and identity,
+                encouraging them to reflect on their beliefs and develop a
+                meaningful connection to their spirituality.
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </fuse-card>
+      <!-- Card 5 -->
+      <fuse-card
+        class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
+        [flippable]="true"
+        [face]="'front'"
+        #flippableCard05="fuseCard"
+      >
+        <ng-container fuseCardFront>
+          <img
+            class="object-cover h-[24rem]"
+            src="images/cards/QuranicArabic.png"
+            alt="Card cover image"
+          />
+          <div class="m-8 mb-4">
+            <div class="text-2xl font-semibold leading-tight">
+              Quranic Arabic
+            </div>
+            <div class="mt-4">
+              Equips students with vocabulary and grammar to understand the
+              Quran directly.
+            </div>
+            <div class="-mx-3 mt-3">
+              <button
+                class="px-3"
+                mat-button
+                [color]="'primary'"
+                (click)="
+                  flippableCard05.face =
+                    flippableCard05.face === 'front' ? 'back' : 'front'
+                "
+              >
+                Read More
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container fuseCardBack>
+          <div class="m-4 flex flex-auto flex-col">
+            <button
+              class="ml-1.5"
+              mat-icon-button
+              (click)="
+                flippableCard05.face =
+                  flippableCard05.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
+            </button>
+            <div class="m-4 mt-3">
+              <div class="text-2xl font-semibold leading-tight">
+                Quranic Arabic
+              </div>
+              <div class="mt-4">
+                Equip your child with the tools to engage directly with the
+                Quran through our Quranic Arabic Course. This specialized
+                program focuses on the vocabulary and grammar unique to Quranic
+                Arabic, allowing students to read and understand the text with
+                clarity. By mastering these linguistic elements, learners will
+                gain a deeper appreciation of the Quran's message and its
+                relevance to their lives.
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </fuse-card>
+      <!-- Card 6 -->
+      <fuse-card
+        class="filter-article filter-interactive max-w-80 flex w-full md:col-span-3"
+        [flippable]="true"
+        [face]="'front'"
+        #flippableCard03="fuseCard"
+      >
+        <ng-container fuseCardFront>
+          <img
+            class="object-cover h-[24rem]"
+            src="images/cards/ArabicLanguage.jpeg"
+            alt="Card cover image"
+          />
+          <div class="m-8 mb-4">
+            <div class="text-2xl font-semibold leading-tight">
+              Arabic As A Second Language
+            </div>
+            <div class="mt-4">
+              Improve your Arabic comprehension and conversational ability.
+            </div>
+            <div class="-mx-3 mt-3">
+              <button
+                class="px-3"
+                mat-button
+                [color]="'primary'"
+                (click)="
+                  flippableCard03.face =
+                    flippableCard03.face === 'front' ? 'back' : 'front'
+                "
+              >
+                Read More
+              </button>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container fuseCardBack>
+          <div class="m-4 flex flex-auto flex-col">
+            <button
+              class="ml-1.5"
+              mat-icon-button
+              (click)="
+                flippableCard03.face =
+                  flippableCard03.face === 'front' ? 'back' : 'front'
+              "
+            >
+              <mat-icon
+                [svgIcon]="'heroicons_outline:arrow-long-left'"
+              ></mat-icon>
+            </button>
+            <div class="m-4 mt-3">
+              <div class="text-2xl font-semibold leading-tight">
+                Arabic As A Second Language
+              </div>
+              <div class="mt-4">
+                This Arabic as a second language course equips non-native
+                speakers with essential skills in reading, writing, listening,
+                and speaking. Through structured lessons and immersive practice,
+                learners will build foundational grammar, vocabulary, and
+                cultural insight, enabling them to communicate confidently in
+                everyday settings across Arabic contexts.
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </fuse-card>
     </div>
   </div>
 </div>
