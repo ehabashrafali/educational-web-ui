@@ -83,7 +83,7 @@ export class PricingComponent implements OnInit {
       }
     } else {
       this.pricePerHour = 10;
-      this.PricePerMonth = this.pricePerHour * value;
+      this.PricePerMonth = this.pricePerHour * value * 4;
     }
   }
 }
