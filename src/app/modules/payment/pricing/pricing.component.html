@@ -111,7 +111,7 @@
             <!-- Features -->
             <div class="mt-8 space-y-2">
               <mat-button-toggle-group
-                value="3"
+                [(ngModel)]="defaultSessionCount"
                 class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3"
                 (valueChange)="selectedNumberOfSessionsChanged($event)"
                 name="favoriteColor"

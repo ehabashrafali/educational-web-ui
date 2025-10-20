@@ -1,10 +1,13 @@
 import { NgClass } from "@angular/common";
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   ViewEncapsulation,
 } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
 import {
   MatButtonToggle,
@@ -13,6 +16,7 @@ import {
 import { MatIconModule } from "@angular/material/icon";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { FuseCardComponent } from "@fuse/components/card";
+import { map, Subject, takeUntil, tap } from "rxjs";
 
 @Component({
   selector: "app-pricing",
@@ -29,9 +33,11 @@ import { FuseCardComponent } from "@fuse/components/card";
     MatButtonToggle,
     MatButtonToggleGroup,
     RouterLink,
+    FormsModule,
   ],
 })
-export class PricingComponent implements OnInit {
+export class PricingComponent implements OnInit, OnDestroy {
+  destroyed$ = new Subject<void>();
   defaultPrice: Boolean = true;
   pricePerHour: number;
   PricePerMonth: number;
@@ -47,25 +53,35 @@ export class PricingComponent implements OnInit {
   ];
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.courseId = params.get("id");
-
-      if (this.courseId && this.defaultCourses.includes(this.courseId)) {
-        this.defaultPrice = true;
-      } else {
-        this.defaultPrice = false;
-      }
-
-      this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
-    });
+  ngOnDestroy(): void {
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
+  ngOnInit(): void {
+    this.route.paramMap
+      .pipe(
+        takeUntil(this.destroyed$),
+        map((params) => params.get("id")),
+        tap((id) => {
+          debugger;
+          console.log(id);
+          this.courseId = id;
+          this.defaultPrice = this.defaultCourses.includes(id || "");
+          console.log(this.defaultPrice);
+          this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
+          this.defaultSessionCount = "3";
+          this.cdr.markForCheck();
+        })
+      )
+      .subscribe();
+  }
   selectedNumberOfSessionsChanged(value: any) {
+    debugger;
     if (this.defaultPrice) {
       switch (value) {
         case "1":

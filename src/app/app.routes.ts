@@ -186,11 +186,6 @@ export const appRoutes: Route[] = [
         loadChildren: () =>
           import("app/modules/payment/pricing/pricing.routes"),
       },
-      {
-        path: "pricing",
-        loadChildren: () =>
-          import("app/modules/payment/pricing/pricing.routes"),
-      },
     ],
   },
 ];
