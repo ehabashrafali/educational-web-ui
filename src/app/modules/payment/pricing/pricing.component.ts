@@ -37,18 +37,32 @@ export class PricingComponent implements OnInit {
   PricePerMonth: number;
   defaultSessionCount = "3";
   customSessionPrice = 10;
+  courseId: string | null = null;
+  defaultCourses: string[] = [
+    "BasicQuranRecitation",
+    "Tajweed",
+    "Hafiz",
+    "IslamicStudies",
+    "QuranicArabic",
+  ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    debugger;
-    const currentPath = this.router.url;
-    if (currentPath.includes("pricing/default")) {
-      this.defaultPrice = true;
-    } else if (currentPath.includes("pricing/custom")) {
-      this.defaultPrice = false;
-    }
-    this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
+    this.route.paramMap.subscribe((params) => {
+      this.courseId = params.get("id");
+
+      if (this.courseId && this.defaultCourses.includes(this.courseId)) {
+        this.defaultPrice = true;
+      } else {
+        this.defaultPrice = false;
+      }
+
+      this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
+    });
   }
 
   selectedNumberOfSessionsChanged(value: any) {

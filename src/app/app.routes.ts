@@ -182,12 +182,12 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: "pricing/default",
+        path: "pricing",
         loadChildren: () =>
           import("app/modules/payment/pricing/pricing.routes"),
       },
       {
-        path: "pricing/custom",
+        path: "pricing",
         loadChildren: () =>
           import("app/modules/payment/pricing/pricing.routes"),
       },

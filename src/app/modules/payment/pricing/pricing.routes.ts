@@ -1,9 +1,13 @@
-import { Routes } from '@angular/router';
-import { PricingComponent } from './pricing.component';
+import { Routes } from "@angular/router";
+import { PricingComponent } from "./pricing.component";
 
 export default [
-    {
-        path: '',
-        component: PricingComponent,
-    },
+  {
+    path: "",
+    component: PricingComponent,
+  },
+  {
+    path: ":id",
+    component: PricingComponent,
+  },
 ] as Routes;
