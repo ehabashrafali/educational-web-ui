@@ -1,0 +1,6 @@
+{
+  "Production": false,
+  "CrescentUrls": {
+    "baseUrl": "##{HttpClients_CrescentServiceHttpClient}##"
+  }
+}

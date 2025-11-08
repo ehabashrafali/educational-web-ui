@@ -1,0 +1,6 @@
+{
+  "Production": false,
+  "CrescentUrls": {
+    "baseUrl": "http://localhost:5083/api"
+  }
+}
