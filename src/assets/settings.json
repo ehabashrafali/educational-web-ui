@@ -1,6 +1,6 @@
 {
-  "Production": false,
-  "CrescentUrls": {
+  "production": false,
+  "crescentUrls": {
     "baseUrl": "##{HttpClients_CrescentServiceHttpClient}##"
   }
 }

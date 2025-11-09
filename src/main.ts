@@ -10,7 +10,7 @@ const configureProduction = () => {
     .then((config) => {
       console.log("configuring production");
       // if (window) window.console.log = function () {};
-      environment.Config = config;
+      Object.assign(environment.Config, config);
       environment.Config.Production = true;
       console.log("environment", environment);
       bootstrap();
@@ -22,7 +22,7 @@ const configureDevelopment = () => {
     .then((response) => response.json())
     .then((config) => {
       console.log("configuring development");
-      environment.Config = config;
+      Object.assign(environment.Config, config);
       environment.Config.Production = false;
       console.log("environment", environment);
       bootstrap();

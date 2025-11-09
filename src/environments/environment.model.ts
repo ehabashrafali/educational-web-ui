@@ -5,7 +5,7 @@ export interface IEnvironmentModel {
 export interface IConfigModel {
   Production?: boolean;
   EnvironmentName?: string;
-  CrescentUrls?: ICrescentUrls;
+  crescentUrls?: ICrescentUrls;
   ApiConfig?: IApiConfig;
   ClientConfig?: IClientConfig;
 }

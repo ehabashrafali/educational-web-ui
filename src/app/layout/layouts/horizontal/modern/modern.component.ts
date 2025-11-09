@@ -23,9 +23,10 @@ import { NotificationsComponent } from "app/layout/common/notifications/notifica
 import { SearchComponent } from "app/layout/common/search/search.component";
 import { ShortcutsComponent } from "app/layout/common/shortcuts/shortcuts.component";
 import { UserComponent } from "app/layout/common/user/user.component";
-import { Subject, takeUntil } from "rxjs";
+import { map, Subject, takeUntil } from "rxjs";
 import { FooterComponent } from "../footer/footer.component";
 import { user } from "app/mock-api/common/user/data";
+import { UserService } from "app/core/user/user.service";
 
 @Component({
   selector: "modern-layout",
@@ -53,6 +54,7 @@ import { user } from "app/mock-api/common/user/data";
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean;
+  isUserVisible: boolean = false;
   navigation: Navigation;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -64,7 +66,8 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _navigationService: NavigationService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
-    private _fuseNavigationService: FuseNavigationService
+    private _fuseNavigationService: FuseNavigationService,
+    private _userService: UserService
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -100,6 +103,16 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
         // Check if the screen is small
         this.isScreenSmall = !matchingAliases.includes("md");
       });
+
+    // Subscribe to user data
+    this._userService.user$
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        map((user) => {
+          this.isUserVisible = user ? true : false;
+        })
+      )
+      .subscribe();
   }
 
   /**
