@@ -17,6 +17,8 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { fuseAnimations } from "@fuse/animations";
 import { FuseAlertComponent, FuseAlertType } from "@fuse/components/alert";
 import { AuthService } from "app/core/auth/auth.service";
+import { ToastService } from "app/shared/sevices/toasts.service";
+import { catchError, of, tap } from "rxjs";
 
 @Component({
   selector: "auth-sign-in",
@@ -54,7 +56,8 @@ export class AuthSignInComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
-    private _router: Router
+    private _router: Router,
+    private toastService: ToastService
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -81,48 +84,40 @@ export class AuthSignInComponent implements OnInit {
    * Sign in
    */
   signIn(): void {
-    // Return if the form is invalid
     if (this.signInForm.invalid) {
       return;
     }
 
-    // // Disable the form
-    // this.signInForm.disable();
+    this.signInForm.disable();
+    this.showAlert = false;
 
-    // // Hide the alert
-    // this.showAlert = false;
+    this._authService
+      .signIn(this.signInForm.value)
+      .pipe(
+        tap(() => {
+          const redirectURL = "/signed-in-redirect";
+          console.log(redirectURL);
 
-    // // Sign in
-    // this._authService.signIn(this.signInForm.value).subscribe(
-    //   () => {
-    //     debugger;
-    //     // Set the redirect url.
-    //     // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-    //     // to the correct page after a successful sign in. This way, that url can be set via
-    //     // routing file and we don't have to touch here.
-    //     const redirectURL =
-    //       this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
-    //       "/signed-in-redirect";
+          this._router.navigateByUrl(redirectURL);
+        }),
+        catchError((response) => {
+          this.signInForm.enable();
+          this.signInNgForm.resetForm();
 
-    //     // Navigate to the redirect url
-    //     this._router.navigateByUrl(redirectURL);
-    //   },
-    //   (response) => {
-    //     // Re-enable the form
-    //     this.signInForm.enable();
+          const message =
+            response?.error?.message ??
+            response?.message ??
+            response ??
+            "Something went wrong";
 
-    //     // Reset the form
-    //     this.signInNgForm.resetForm();
+          this.toastService.error({
+            title: "Sign In Failed",
+            message,
+          });
 
-    //     // Set the alert
-    //     this.alert = {
-    //       type: "error",
-    //       message: "Wrong email or password",
-    //     };
-
-    //     // Show the alert
-    //     this.showAlert = true;
-    //   }
-    // );
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 }

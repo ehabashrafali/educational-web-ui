@@ -68,7 +68,6 @@ export class PricingComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$),
         map((params) => params.get("id")),
         tap((id) => {
-          debugger;
           console.log(id);
           this.courseId = id;
           this.defaultPrice = this.defaultCourses.includes(id || "");
@@ -81,7 +80,6 @@ export class PricingComponent implements OnInit, OnDestroy {
       .subscribe();
   }
   selectedNumberOfSessionsChanged(value: any) {
-    debugger;
     if (this.defaultPrice) {
       switch (value) {
         case "1":

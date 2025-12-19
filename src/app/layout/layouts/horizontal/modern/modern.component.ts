@@ -23,7 +23,7 @@ import { NotificationsComponent } from "app/layout/common/notifications/notifica
 import { SearchComponent } from "app/layout/common/search/search.component";
 import { ShortcutsComponent } from "app/layout/common/shortcuts/shortcuts.component";
 import { UserComponent } from "app/layout/common/user/user.component";
-import { map, Subject, takeUntil } from "rxjs";
+import { filter, map, Subject, takeUntil } from "rxjs";
 import { FooterComponent } from "../footer/footer.component";
 import { user } from "app/mock-api/common/user/data";
 import { UserService } from "app/core/user/user.service";
@@ -54,7 +54,7 @@ import { UserService } from "app/core/user/user.service";
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean;
-  isUserVisible: boolean = false;
+  isUserVisible: boolean = true;
   navigation: Navigation;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -108,6 +108,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     this._userService.user$
       .pipe(
         takeUntil(this._unsubscribeAll),
+        filter((u) => !!u),
         map((user) => {
           this.isUserVisible = user ? true : false;
         })

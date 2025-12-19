@@ -1,0 +1,56 @@
+<div class="grid max-w-screen w-full mb-10">
+  <div class="flex mb-4 gap-4 justify-between w-full">
+    <p class="text-4xl ms-10 mt-5 mb-5 font-semibold">Your Information</p>
+  </div>
+
+  <div class="flex justify-center">
+    <fuse-card class="w-full max-w-4xl">
+      <div class="p-8 sm:p-6">
+        <div class="flex flex-col lg:flex-row lg:gap-20">
+          <!-- Content -->
+          <div class="mt-8 lg:mt-12 flex-1">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-60 gap-y-15">
+              <!-- Row 1 -->
+              <div>
+                <div class="text-secondary opacity-70">Name</div>
+                <div class="mt-1 font-semibold">{{ userProfile?.name }}</div>
+              </div>
+
+              <div>
+                <div class="text-secondary opacity-70">Country</div>
+                <div class="mt-1 font-semibold">{{ userProfile?.country }}</div>
+              </div>
+
+              <div>
+                <div class="text-secondary opacity-70">Duration</div>
+                <div class="mt-1 font-semibold">
+                  {{ "30 Min" }}
+                </div>
+              </div>
+              <div>
+                <div class="text-secondary opacity-70">Teacher</div>
+                <div class="mt-1 font-semibold">ehab</div>
+              </div>
+
+              <!-- Row 2 -->
+              <!-- <div>
+                <div class="text-secondary opacity-70">Teacher</div>
+                <div class="mt-1 font-semibold">ehab</div>
+              </div> -->
+
+              <div class="sm:col-span-2">
+                <div class="text-secondary opacity-70">Days &amp; Times</div>
+
+                <div class="mt-2 space-y-1">
+                  <!-- Fallback if you don't have daysAndTimes yet -->
+                  <div class="font-semibold">Sun 12:00 - 12:30</div>
+                  <div class="font-semibold">Wed 17:00 - 17:30</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fuse-card>
+  </div>
+</div>

@@ -18,7 +18,7 @@ import { UserService } from "app/core/user/user.service";
 import { User } from "app/core/user/user.types";
 import { PipesModule } from "app/modules/pipes.module";
 import { InitialsPipe } from "app/pipes/initials.pipe";
-import { Subject, takeUntil } from "rxjs";
+import { filter, Subject, takeUntil } from "rxjs";
 
 @Component({
   selector: "user",
@@ -39,8 +39,8 @@ import { Subject, takeUntil } from "rxjs";
 export class UserComponent implements OnInit, OnDestroy {
   user: User;
 
-  @Input() visible: boolean = false;
-  name: string = "Guest User";
+  @Input() visible: boolean = true;
+  name: string = "Hello";
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -62,7 +62,10 @@ export class UserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to user changes
     this._userService.user$
-      .pipe(takeUntil(this._unsubscribeAll))
+      .pipe(
+        takeUntil(this._unsubscribeAll),
+        filter((u) => !!u)
+      )
       .subscribe((user: User) => {
         this.user = user;
         // Mark for check
@@ -111,5 +114,17 @@ export class UserComponent implements OnInit, OnDestroy {
    */
   signOut(): void {
     this._router.navigate(["/sign-out"]);
+  }
+
+  signIn(): void {
+    this._router.navigate(["/sign-in"]);
+  }
+
+  getProfiles(): void {
+    this._router.navigate(["/profiles/" + this.user.id]);
+  }
+
+  getUserInfo(): void {
+    this._router.navigate(["/user-info"]);
   }
 }

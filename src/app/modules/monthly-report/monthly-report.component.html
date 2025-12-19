@@ -1,0 +1,111 @@
+<div class="grid w-full mb-10 justify-items-center">
+  <div class="flex justify-between w-full">
+    <p class="text-4xl ms-10 mt-5 font-semibold">Monthly Report</p>
+  </div>
+
+  <div
+    class="bg-card flex w-full flex-auto flex-col overflow-x-auto overflow-hidden rounded-2xl shadow xl:col-span-2"
+  >
+    <div class="mx-6 overflow-x-auto">
+      <table
+        class="w-full bg-transparent"
+        mat-table
+        matSort
+        [dataSource]="dataSource"
+        [trackBy]="trackByFn"
+      >
+        <!-- Report ID -->
+        <ng-container matColumnDef="Id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
+          <td mat-cell *matCellDef="let report">
+            <span
+              class="text-secondary whitespace-nowrap pr-6 text-sm font-medium"
+            >
+              {{ report.id }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Month -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>التاريخ</th>
+          <td mat-cell *matCellDef="let report">
+            <span class="whitespace-nowrap pr-6">
+              {{ report.month | date: "MMM y" }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Reading -->
+        <ng-container matColumnDef="Reading">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>القراءة</th>
+          <td mat-cell *matCellDef="let report">
+            {{ report.Reading }}
+          </td>
+        </ng-container>
+
+        <!-- Tajweed -->
+        <ng-container matColumnDef="Tajweed">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            القرائيه/ التجويد
+          </th>
+          <td mat-cell *matCellDef="let report">
+            {{ report.Tajweed }}
+          </td>
+        </ng-container>
+
+        <!-- Writing -->
+        <ng-container matColumnDef="Writing">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>الكتاب</th>
+          <td mat-cell *matCellDef="let report">
+            {{ report.Writing }}
+          </td>
+        </ng-container>
+
+        <!-- Subjects count -->
+        <ng-container matColumnDef="subjects">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>الموضوعات</th>
+          <td mat-cell *matCellDef="let report">
+            {{ report.subjects }}
+          </td>
+        </ng-container>
+
+        <!-- Performance -->
+        <ng-container matColumnDef="Performance">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            التقدم/ الأداء
+          </th>
+          <td mat-cell *matCellDef="let report">
+            {{ report.Performance }}
+          </td>
+        </ng-container>
+
+        <!-- Comments -->
+        <ng-container matColumnDef="Comments">
+          <th mat-header-cell *matHeaderCellDef>توصيات</th>
+          <td mat-cell *matCellDef="let report">
+            <span class="text-secondary">
+              {{ report.Comments || "-" }}
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- Header & Row -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: displayedColumns"
+          class="hover:bg-hover"
+        ></tr>
+      </table>
+
+      <!-- Optional empty state -->
+      <div
+        *ngIf="dataSource.data.length === 0"
+        class="text-secondary p-6 text-sm"
+      >
+        No reports available yet.
+      </div>
+    </div>
+  </div>
+</div>

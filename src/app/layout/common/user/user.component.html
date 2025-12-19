@@ -11,11 +11,15 @@
         <div
           class="flex h-full w-full items-center justify-center rounded-full bg-gray-200 text-2xl font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-200"
         >
-          {{ name | initials }}
+          @if (!user) {
+            Hi
+          } @else {
+            {{ name | initials }}
+          }
         </div>
       </div>
       <!-- } -->
-      <span
+      <!-- <span
         class="absolute bottom-0 right-0 h-2 w-2 rounded-full"
         [ngClass]="{
           'bg-green-500': user.status === 'online',
@@ -23,26 +27,38 @@
           'bg-red-500': user.status === 'busy',
           'bg-gray-400': user.status === 'not-visible',
         }"
-      ></span>
+      ></span> -->
     </span>
   </button>
 
   <mat-menu [xPosition]="'before'" #userActions="matMenu">
     <button mat-menu-item>
       <span class="flex flex-col leading-none">
-        <span>Signed in as</span>
+        @if (user) {
+          <span>Welcome {{ user?.name }}</span>
+        } @else {
+          <span>Welcome Guest</span>
+        }
         <!-- <span class="mt-1.5 text-md font-medium">{{ user.email }}</span> -->
       </span>
     </button>
     <mat-divider class="my-2"></mat-divider>
-    <button mat-menu-item>
+    <!-- @if (user) { -->
+    <button mat-menu-item (click)="getUserInfo()">
       <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
       <span>Profile</span>
     </button>
-    <button mat-menu-item>
+    <!-- } -->
+    <!-- @if (user.role === "instructor") { -->
+    <button mat-menu-item (click)="getProfiles()">
+      <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
+      <span>My Students</span>
+    </button>
+    <!-- } -->
+    <!-- <button mat-menu-item>
       <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
       <span>Settings</span>
-    </button>
+    </button> -->
     <!-- <button mat-menu-item [matMenuTriggerFor]="userStatus">
     <mat-icon
       [svgIcon]="'heroicons_outline:ellipsis-horizontal-circle'"
@@ -50,12 +66,21 @@
     <span>Status</span>
   </button> -->
     <mat-divider class="my-2"></mat-divider>
-    <button mat-menu-item (click)="signOut()">
-      <mat-icon
-        [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
-      ></mat-icon>
-      <span>Sign out</span>
-    </button>
+    @if (user) {
+      <button mat-menu-item (click)="signOut()">
+        <mat-icon
+          [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
+        ></mat-icon>
+        <span>Sign out</span>
+      </button>
+    } @else {
+      <button mat-menu-item (click)="signIn()">
+        <mat-icon
+          [svgIcon]="'heroicons_outline:arrow-left-on-rectangle'"
+        ></mat-icon>
+        <span>Sign In</span>
+      </button>
+    }
   </mat-menu>
   <!-- 
 <mat-menu class="user-status-menu" #userStatus="matMenu">

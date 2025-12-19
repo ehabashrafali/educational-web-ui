@@ -17,6 +17,7 @@ import { fuseAnimations } from "@fuse/animations";
 import { FuseAlertComponent, FuseAlertType } from "@fuse/components/alert";
 import { AuthService } from "app/core/auth/auth.service";
 import { UserService } from "app/core/user/user.service";
+import { filter, takeUntil } from "rxjs";
 
 @Component({
   selector: "auth-unlock-session",
@@ -68,7 +69,7 @@ export class AuthUnlockSessionComponent implements OnInit {
    */
   ngOnInit(): void {
     // Get the user's name
-    this._userService.user$.subscribe((user) => {
+    this._userService.user$.pipe(filter((u) => !!u)).subscribe((user) => {
       this.name = user.name;
       this._email = user.email;
     });

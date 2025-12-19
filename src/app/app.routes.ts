@@ -53,6 +53,13 @@ export const appRoutes: Route[] = [
         path: "sign-up",
         loadChildren: () => import("app/modules/auth/sign-up/sign-up.routes"),
       },
+      {
+        path: "signed-in-redirect",
+        loadChildren: () =>
+          import(
+            "app/modules/auth/signed-in-redirect/signed-in-redirect.routes"
+          ),
+      },
     ],
   },
 
@@ -185,6 +192,47 @@ export const appRoutes: Route[] = [
         path: "pricing",
         loadChildren: () =>
           import("app/modules/payment/pricing/pricing.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "profiles",
+        loadChildren: () => import("app/modules/profiles/profiles.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "user-info",
+        loadChildren: () =>
+          import("app/modules/user-information/user-information.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "monthly-report",
+        loadChildren: () =>
+          import("app/modules/monthly-report/monthly-report.routes"),
       },
     ],
   },

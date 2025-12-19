@@ -3,7 +3,16 @@ import { inject, Injectable } from "@angular/core";
 import { AuthUtils } from "app/core/auth/auth.utils";
 import { UserService } from "app/core/user/user.service";
 import { AuthController } from "app/shared/controllers/auth.controller";
-import { catchError, Observable, of, switchMap, throwError } from "rxjs";
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+  throwError,
+} from "rxjs";
 import { Role } from "../user/user.types";
 
 @Injectable({ providedIn: "root" })
@@ -13,6 +22,10 @@ export class AuthService {
   private _userService = inject(UserService);
 
   public roles: Role[] | null = null;
+  private _accessToken$ = new BehaviorSubject<{
+    token: string;
+    isAuthenticated: boolean;
+  } | null>(null);
 
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
@@ -23,6 +36,10 @@ export class AuthService {
    */
   set accessToken(token: string) {
     localStorage.setItem("accessToken", token);
+  }
+
+  get accessToken$() {
+    return this._accessToken$.asObservable();
   }
 
   get accessToken(): string {
@@ -57,17 +74,42 @@ export class AuthService {
    * @param credentials
    */
   signIn(credentials: { email: string; password: string }): Observable<any> {
-    // Throw error, if the user is already logged in
     if (this._authenticated) {
-      return throwError("User is already logged in.");
+      return throwError(() => new Error("User is already logged in."));
     }
-    var authUrl = AuthController.login;
+    const authUrl = AuthController.login;
+
     return this._httpClient.post(authUrl, credentials).pipe(
-      switchMap((response: any) => {
-        this.accessToken = response.accessToken;
+      map((response: any) => {
+        if (!response?.token) {
+          throw new Error("Token was not returned from server.");
+        }
+        this._accessToken$.next({
+          token: response.token,
+          isAuthenticated: true,
+        });
+
+        const payload = AuthUtils._decodeToken(response.token);
+
+        const CLAIMS = {
+          ID: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+          NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+          EMAIL:
+            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+          ROLE: "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+        };
+
+        const user = {
+          id: payload[CLAIMS.ID],
+          name: payload[CLAIMS.NAME],
+          email: payload[CLAIMS.EMAIL],
+          roles: payload[CLAIMS.ROLE],
+        };
+
         this._authenticated = true;
-        this._userService.user = response.user;
-        return of(response);
+        this._userService.user = user;
+
+        return response;
       })
     );
   }

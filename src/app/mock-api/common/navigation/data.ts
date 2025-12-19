@@ -204,4 +204,11 @@ export const horizontalNavigation: FuseNavigationItem[] = [
       },
     ],
   },
+  {
+    id: " monthly-report",
+    title: "Monthly Report",
+    type: "basic",
+    icon: "heroicons_mini:chart-bar",
+    link: "/monthly-report",
+  },
 ];

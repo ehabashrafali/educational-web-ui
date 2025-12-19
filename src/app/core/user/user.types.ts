@@ -1,9 +1,10 @@
 export interface User {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   avatar?: string;
   status?: string;
+  roles: Role[];
 }
 export enum Role {
   Admin = "Admin",
