@@ -88,6 +88,7 @@ export class AuthService {
           token: response.token,
           isAuthenticated: true,
         });
+        this.accessToken = response.token;
 
         const payload = AuthUtils._decodeToken(response.token);
 
@@ -117,37 +118,52 @@ export class AuthService {
   /**
    * Sign in using the access token
    */
-  signInUsingToken(): Observable<any> {
-    // Sign in using the token
+  signInUsingToken(): Observable<boolean> {
+    console.log("signInUsingToken");
+
+    const url = AuthController.SignInWithToken;
+
     return this._httpClient
-      .post("api/auth/sign-in-with-token", {
-        accessToken: this.accessToken,
-      })
+      .post<any>(url, { accessToken: this.accessToken })
       .pipe(
-        catchError(() =>
-          // Return false
-          of(false)
-        ),
-        switchMap((response: any) => {
-          // Replace the access token with the new one if it's available on
-          // the response object.
-          //
-          // This is an added optional step for better security. Once you sign
-          // in using the token, you should generate a new one on the server
-          // side and attach it to the response object. Then the following
-          // piece of code can replace the token with the refreshed one.
-          if (response.accessToken) {
-            this.accessToken = response.accessToken;
+        map((response) => {
+          if (!response?.token) {
+            throw new Error("Token refresh failed");
           }
+          debugger;
 
-          // Set the authenticated flag to true
+          this.accessToken = response.token.result;
+          this._accessToken$.next({
+            token: response.token.result,
+            isAuthenticated: true,
+          });
+
+          const payload = AuthUtils._decodeToken(response.token.result);
+
+          const CLAIMS = {
+            ID: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
+            NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
+            EMAIL:
+              "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress",
+            ROLE: "http://schemas.microsoft.com/ws/2008/06/identity/claims/role",
+          };
+
+          const user = {
+            id: payload[CLAIMS.ID],
+            name: payload[CLAIMS.NAME],
+            email: payload[CLAIMS.EMAIL],
+            roles: payload[CLAIMS.ROLE],
+          };
           this._authenticated = true;
+          this._userService.user = user;
+          this.roles = user.roles;
 
-          // Store the user on the user service
-          this._userService.user = response.user;
-
-          // Return true
-          return of(true);
+          debugger;
+          return true;
+        }),
+        catchError(() => {
+          this.signOut();
+          return of(false);
         })
       );
   }
@@ -191,31 +207,23 @@ export class AuthService {
   }): Observable<any> {
     return this._httpClient.post("api/auth/unlock-session", credentials);
   }
-  check() {
-    /**
-     * Check the authentication status
-     */
-    //check(): Observable<{ authenticated: boolean; roles?: Role[] }> {
-    // Check if the user is logged in
+
+  check(): Observable<{ authenticated: boolean; roles?: Role[] }> {
+    console.log("check");
+
     if (!this.accessToken) {
       return of({ authenticated: false });
     }
-    this._authenticated = true;
-    this.roles = AuthUtils.getClaim(this.accessToken, "role");
-    // Optional: Check the access token expiration
-    // if (AuthUtils.isTokenExpired(this.accessToken)) {
-    //     return of({ authenticated: false });
-    // }
-    // If the access token exists, and it didn't expire, sign in using it
+
     return this.signInUsingToken().pipe(
-      switchMap(() =>
-        of({ authenticated: this._authenticated, roles: this.roles })
-      ),
+      map((success) => {
+        if (!success) {
+          return { authenticated: false };
+        }
+
+        return { authenticated: true, roles: this.roles };
+      }),
       catchError(() => of({ authenticated: false }))
     );
-  }
-
-  private getRoles(claims: any): Role[] {
-    return typeof claims.role === "string" ? [claims.role] : claims.role;
   }
 }
