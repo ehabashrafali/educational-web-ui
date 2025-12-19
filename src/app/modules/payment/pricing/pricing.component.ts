@@ -68,10 +68,8 @@ export class PricingComponent implements OnInit, OnDestroy {
         takeUntil(this.destroyed$),
         map((params) => params.get("id")),
         tap((id) => {
-          console.log(id);
           this.courseId = id;
           this.defaultPrice = this.defaultCourses.includes(id || "");
-          console.log(this.defaultPrice);
           this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
           this.defaultSessionCount = "3";
           this.cdr.markForCheck();

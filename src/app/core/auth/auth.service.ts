@@ -119,8 +119,6 @@ export class AuthService {
    * Sign in using the access token
    */
   signInUsingToken(): Observable<boolean> {
-    console.log("signInUsingToken");
-
     const url = AuthController.SignInWithToken;
 
     return this._httpClient
@@ -130,8 +128,6 @@ export class AuthService {
           if (!response?.token) {
             throw new Error("Token refresh failed");
           }
-          debugger;
-
           this.accessToken = response.token.result;
           this._accessToken$.next({
             token: response.token.result,
@@ -158,7 +154,6 @@ export class AuthService {
           this._userService.user = user;
           this.roles = user.roles;
 
-          debugger;
           return true;
         }),
         catchError(() => {
@@ -209,8 +204,6 @@ export class AuthService {
   }
 
   check(): Observable<{ authenticated: boolean; roles?: Role[] }> {
-    console.log("check");
-
     if (!this.accessToken) {
       return of({ authenticated: false });
     }

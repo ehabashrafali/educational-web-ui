@@ -1,14 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { InstructorService } from "app/shared/sevices/instructor.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { AsyncPipe } from "@angular/common";
 import { StudentDTO } from "../models/student.dto";
 
 @Component({
   selector: "app-profiles",
   standalone: true,
-  imports: [AsyncPipe],
+  imports: [AsyncPipe, RouterLink],
   templateUrl: "./profiles.component.html",
   styleUrl: "./profiles.component.scss",
 })

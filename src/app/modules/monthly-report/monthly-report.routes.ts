@@ -6,4 +6,8 @@ export default [
     path: "",
     component: MonthlyReportComponent,
   },
+  {
+    path: ":id",
+    component: MonthlyReportComponent,
+  },
 ] as Routes;

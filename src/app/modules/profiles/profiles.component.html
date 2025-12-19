@@ -1,37 +1,27 @@
 <div class="grid max-w-screen w-full mb-10">
-  <div class="flex mb-4 gap-4 justify-between w-full">
-    <p class="text-4xl ms-10 mt-5 mb-5 font-semibold">Profiles</p>
+  <div class="flex gap-4 justify-between w-full">
+    <p class="text-4xl ms-10 mt-5 mb-5 font-semibold">My Students</p>
   </div>
 
   <div
     class="grid w-full min-w-0 p-6 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6"
   >
     @for (student of students$ | async; track student) {
-      <div
-        class="bg-card flex flex-auto flex-col items-center overflow-hidden rounded-2xl shadow"
-      >
-        <!-- Avatar & Info -->
-        <div class="flex w-full flex-auto flex-col p-8 text-center">
-          <!-- <div class="mx-auto h-32 w-32 overflow-hidden rounded-full">
-          <img class="h-full w-full object-cover" [src]="student.avatar" />
-        </div> -->
-          <div class="mt-6 font-medium">
-            {{ student.fullName }}
-          </div>
-          <div class="text-secondary">
-            {{ student.country }}
-          </div>
-          <div class="text-secondary">
-            {{ student.age }}
-          </div>
-          <div class="text-secondary">
-            {{ student.email }}
-          </div>
-          <div class="text-secondary">
-            {{ student.phoneNumber }}
+      <a [routerLink]="['/student-report', student.id]" class="block h-full">
+        <div
+          class="bg-card flex h-full flex-auto flex-col items-center overflow-hidden rounded-2xl shadow cursor-pointer hover:shadow-lg transition"
+        >
+          <div class="flex w-full flex-auto flex-col p-8 text-center">
+            <div class="mt-6 font-medium text-lg">
+              {{ student.fullName }}
+            </div>
+            <div class="text-secondary">{{ student.country }}</div>
+            <div class="text-secondary">{{ student.age }}</div>
+            <div class="text-secondary">{{ student.email }}</div>
+            <div class="text-secondary">{{ student.phoneNumber }}</div>
           </div>
         </div>
-      </div>
+      </a>
     }
   </div>
 </div>
