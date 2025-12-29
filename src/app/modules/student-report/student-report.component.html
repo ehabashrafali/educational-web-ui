@@ -1,1 +1,280 @@
-<p>student-report works!</p>
+<div class="rounded-3 m-3 p-5 w-full">
+  <div class="w-full">
+    <form
+      class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+      [formGroup]="monthlyReportForm"
+    >
+      <h5 class="text-4xl mb-5 font-semibold">Student Report</h5>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Date -->
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput type="date" formControlName="date" />
+
+          @if (
+            monthlyReportForm.get("date")?.invalid &&
+            (monthlyReportForm.get("date")?.touched ||
+              monthlyReportForm.get("date")?.dirty)
+          ) {
+            <mat-error>Date is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Memorization -->
+        <mat-form-field>
+          <mat-label>Memorization</mat-label>
+          <mat-select formControlName="memorization">
+            @for (surah of quranSurah | enumToList; track surah.id) {
+              <mat-option [value]="surah.id">
+                {{ surah.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("memorization")?.invalid &&
+            (monthlyReportForm.get("memorization")?.touched ||
+              monthlyReportForm.get("memorization")?.dirty)
+          ) {
+            <mat-error>Memorization is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- No. Of Memorized Ayah -->
+        <mat-form-field>
+          <mat-label>No. Of Memorized Ayah</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="noOfMemorizationAyah"
+          />
+
+          @if (
+            monthlyReportForm.get("noOfMemorizationAyah")?.invalid &&
+            (monthlyReportForm.get("noOfMemorizationAyah")?.touched ||
+              monthlyReportForm.get("noOfMemorizationAyah")?.dirty)
+          ) {
+            <mat-error>Memorized Ayah count is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Reading -->
+        <mat-form-field>
+          <mat-label>Reading</mat-label>
+          <mat-select formControlName="reading">
+            @for (surah of quranSurah | enumToList; track surah.id) {
+              <mat-option [value]="surah.id">
+                {{ surah.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("reading")?.invalid &&
+            (monthlyReportForm.get("reading")?.touched ||
+              monthlyReportForm.get("reading")?.dirty)
+          ) {
+            <mat-error>Reading is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- No. Of Reading Ayah -->
+        <mat-form-field>
+          <mat-label>No. Of Reading Ayah</mat-label>
+          <input matInput type="number" formControlName="noOfReadingAyah" />
+
+          @if (
+            monthlyReportForm.get("noOfReadingAyah")?.invalid &&
+            (monthlyReportForm.get("noOfReadingAyah")?.touched ||
+              monthlyReportForm.get("noOfReadingAyah")?.dirty)
+          ) {
+            <mat-error>Reading Ayah count is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Grade -->
+        <mat-form-field>
+          <mat-label>Grade</mat-label>
+          <mat-select formControlName="grade">
+            @for (grade of grades | enumToList; track grade.id) {
+              <mat-option [value]="grade.id">
+                {{ grade.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("grade")?.invalid &&
+            (monthlyReportForm.get("grade")?.touched ||
+              monthlyReportForm.get("grade")?.dirty)
+          ) {
+            <mat-error>Grade is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Basic Quran Recitation Rules -->
+        <mat-form-field>
+          <mat-label>Basic Quran Recitation Rules</mat-label>
+          <mat-select formControlName="basicQuranRecitationRules">
+            @for (topic of quranRecitationTopics | enumToList; track topic.id) {
+              <mat-option [value]="topic.id">
+                {{ topic.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("basicQuranRecitationRules")?.invalid &&
+            (monthlyReportForm.get("basicQuranRecitationRules")?.touched ||
+              monthlyReportForm.get("basicQuranRecitationRules")?.dirty)
+          ) {
+            <mat-error>Recitation rule is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Tajweed Rules -->
+        <mat-form-field>
+          <mat-label>Tajweed Rules</mat-label>
+          <mat-select formControlName="tajweedRules">
+            @for (rule of tajweedRules | enumToList; track rule.id) {
+              <mat-option [value]="rule.id">
+                {{ rule.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("tajweedRules")?.invalid &&
+            (monthlyReportForm.get("tajweedRules")?.touched ||
+              monthlyReportForm.get("tajweedRules")?.dirty)
+          ) {
+            <mat-error>Tajweed rule is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Progress -->
+        <mat-form-field>
+          <mat-label>Progress</mat-label>
+          <mat-select formControlName="progress">
+            @for (grade of grades | enumToList; track grade.id) {
+              <mat-option [value]="grade.id">
+                {{ grade.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("progress")?.invalid &&
+            (monthlyReportForm.get("progress")?.touched ||
+              monthlyReportForm.get("progress")?.dirty)
+          ) {
+            <mat-error>Progress is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Quran Comments -->
+        <mat-form-field class="lg:col-span-3">
+          <mat-label>Quran Comments</mat-label>
+          <textarea
+            matInput
+            rows="3"
+            formControlName="quranComments"
+          ></textarea>
+
+          @if (
+            monthlyReportForm.get("quranComments")?.invalid &&
+            (monthlyReportForm.get("quranComments")?.touched ||
+              monthlyReportForm.get("quranComments")?.dirty)
+          ) {
+            <mat-error>Comments are required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Islamic Studies Topics -->
+        <mat-form-field>
+          <mat-label>Islamic Studies Topics</mat-label>
+          <input matInput formControlName="islamicStudiesTopics" />
+
+          @if (
+            monthlyReportForm.get("islamicStudiesTopics")?.invalid &&
+            (monthlyReportForm.get("islamicStudiesTopics")?.touched ||
+              monthlyReportForm.get("islamicStudiesTopics")?.dirty)
+          ) {
+            <mat-error>Topic is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Islamic Studies Book -->
+        <mat-form-field>
+          <mat-label>Islamic Studies Book</mat-label>
+          <mat-select formControlName="islamicStudiesBook">
+            @for (book of islamicStudiesBooks | enumToList; track book.id) {
+              <mat-option [value]="book.id">
+                {{ book.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("islamicStudiesBook")?.invalid &&
+            (monthlyReportForm.get("islamicStudiesBook")?.touched ||
+              monthlyReportForm.get("islamicStudiesBook")?.dirty)
+          ) {
+            <mat-error>Book is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Islamic Studies Progress -->
+        <mat-form-field>
+          <mat-label>Islamic Studies Progress</mat-label>
+          <mat-select formControlName="islamicStudiesProgress">
+            @for (grade of grades | enumToList; track grade.id) {
+              <mat-option [value]="grade.id">
+                {{ grade.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            monthlyReportForm.get("islamicStudiesProgress")?.invalid &&
+            (monthlyReportForm.get("islamicStudiesProgress")?.touched ||
+              monthlyReportForm.get("islamicStudiesProgress")?.dirty)
+          ) {
+            <mat-error>Progress is required</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- Islamic Studies Comments -->
+        <mat-form-field class="lg:col-span-3">
+          <mat-label>Islamic Studies Comments</mat-label>
+          <textarea
+            matInput
+            rows="3"
+            formControlName="islamicStudiesComments"
+          ></textarea>
+
+          @if (
+            monthlyReportForm.get("islamicStudiesComments")?.invalid &&
+            (monthlyReportForm.get("islamicStudiesComments")?.touched ||
+              monthlyReportForm.get("islamicStudiesComments")?.dirty)
+          ) {
+            <mat-error>Comments are required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="d-flex justify-content-end flex-row justify-self-end">
+    <div class="p-4">
+      <button
+        class="primary h-10 sm:order-last"
+        mat-flat-button
+        [color]="'primary'"
+        (click)="submitMonthlyReport()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

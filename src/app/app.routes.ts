@@ -253,4 +253,19 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "timetable",
+        loadChildren: () => import("app/modules/timetable/timetable.routes"),
+      },
+    ],
+  },
 ];

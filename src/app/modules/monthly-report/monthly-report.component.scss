@@ -1,0 +1,17 @@
+/* Monthly Report table header styles */
+:host {
+  .bg-card table {
+    /* Header cells (group headers and column headers) */
+    th[mat-header-cell] {
+      background-color: #0d9488;
+      border-radius: 3px;
+      border-color: wheat;
+    }
+
+    /* Slightly different background for the group header row */
+    tr.mat-header-row:first-of-type th[mat-header-cell] {
+      background-color: white;
+      border-radius: 4px;
+    }
+  }
+}

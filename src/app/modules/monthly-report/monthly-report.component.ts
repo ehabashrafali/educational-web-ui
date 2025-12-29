@@ -34,8 +34,7 @@ import { StudentService } from "app/shared/sevices/student.service";
 export class MonthlyReportComponent implements OnInit, AfterViewInit {
   public reportDto: ReportDTO[] = [];
   public dataSource = new MatTableDataSource<ReportDTO>([]);
-
-  public displayedColumns: string[] = [
+  displayedColumns: string[] = [
     "Id",
     "date",
     "Reading",
@@ -45,6 +44,8 @@ export class MonthlyReportComponent implements OnInit, AfterViewInit {
     "Performance",
     "Comments",
   ];
+
+  groupHeaderColumns: string[] = ["group1", "group2"];
 
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -67,6 +68,94 @@ export class MonthlyReportComponent implements OnInit, AfterViewInit {
 
     // Temporary demo data to ensure the UI works without errors:
     this.reportDto = [
+      {
+        id: "R-001",
+        studentId: "S-01",
+        month: new Date(2025, 0, 1),
+        Reading: 80,
+        Tajweed: 75,
+        Writing: 70,
+        subjects: 3,
+        Performance: 78,
+        Comments: "Good progress",
+      },
+      {
+        id: "R-002",
+        studentId: "S-01",
+        month: new Date(2025, 1, 1),
+        Reading: 85,
+        Tajweed: 82,
+        Writing: 76,
+        subjects: 3,
+        Performance: 82,
+        Comments: "Improving well",
+      },
+      {
+        id: "R-001",
+        studentId: "S-01",
+        month: new Date(2025, 0, 1),
+        Reading: 80,
+        Tajweed: 75,
+        Writing: 70,
+        subjects: 3,
+        Performance: 78,
+        Comments: "Good progress",
+      },
+      {
+        id: "R-002",
+        studentId: "S-01",
+        month: new Date(2025, 1, 1),
+        Reading: 85,
+        Tajweed: 82,
+        Writing: 76,
+        subjects: 3,
+        Performance: 82,
+        Comments: "Improving well",
+      },
+      {
+        id: "R-001",
+        studentId: "S-01",
+        month: new Date(2025, 0, 1),
+        Reading: 80,
+        Tajweed: 75,
+        Writing: 70,
+        subjects: 3,
+        Performance: 78,
+        Comments: "Good progress",
+      },
+      {
+        id: "R-002",
+        studentId: "S-01",
+        month: new Date(2025, 1, 1),
+        Reading: 85,
+        Tajweed: 82,
+        Writing: 76,
+        subjects: 3,
+        Performance: 82,
+        Comments: "Improving well",
+      },
+      {
+        id: "R-001",
+        studentId: "S-01",
+        month: new Date(2025, 0, 1),
+        Reading: 80,
+        Tajweed: 75,
+        Writing: 70,
+        subjects: 3,
+        Performance: 78,
+        Comments: "Good progress",
+      },
+      {
+        id: "R-002",
+        studentId: "S-01",
+        month: new Date(2025, 1, 1),
+        Reading: 85,
+        Tajweed: 82,
+        Writing: 76,
+        subjects: 3,
+        Performance: 82,
+        Comments: "Improving well",
+      },
       {
         id: "R-001",
         studentId: "S-01",

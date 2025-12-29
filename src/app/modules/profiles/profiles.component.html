@@ -11,14 +11,24 @@
         <div
           class="bg-card flex h-full flex-auto flex-col items-center overflow-hidden rounded-2xl shadow cursor-pointer hover:shadow-lg transition"
         >
-          <div class="flex w-full flex-auto flex-col p-8 text-center">
-            <div class="mt-6 font-medium text-lg">
+          <div class="flex w-full flex-auto flex-col p-4 text-center">
+            <div class="mt-2 font-medium text-bold text-lg">
               {{ student.fullName }}
             </div>
-            <div class="text-secondary">{{ student.country }}</div>
-            <div class="text-secondary">{{ student.age }}</div>
-            <div class="text-secondary">{{ student.email }}</div>
-            <div class="text-secondary">{{ student.phoneNumber }}</div>
+            <div class="text-decoration-solid">
+              <span class="font-medium">Country:</span>
+              {{ student.country }}
+            </div>
+            <div class="text-decoration-solid">
+              <span class="font-medium">Age:</span> {{ student.age }}
+            </div>
+            <div class="text-decoration-solid">
+              <span class="font-medium">Email:</span>
+              {{ student.email }}
+            </div>
+            <div class="text-decoration-solid">
+              <span class="font-medium">Phone:</span> {{ student.phoneNumber }}
+            </div>
           </div>
         </div>
       </a>
