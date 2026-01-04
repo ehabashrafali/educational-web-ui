@@ -200,8 +200,9 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
-        path: "profiles",
-        loadChildren: () => import("app/modules/profiles/profiles.routes"),
+        path: "my-students",
+        loadChildren: () =>
+          import("app/modules/my-students/my-students.routes"),
       },
     ],
   },

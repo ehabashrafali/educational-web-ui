@@ -1,3 +1,6 @@
+import { MonthlyReportDto } from "./monthly-report.dto";
+import { WeeklyAppointmentDto } from "./weekly.appointment.dto";
+
 export interface StudentDTO {
   id: string;
   fullName: string;
@@ -6,4 +9,6 @@ export interface StudentDTO {
   phoneNumber: string;
   ZoomMeeting: string;
   age: number;
+  monthlyReportDtos: MonthlyReportDto[];
+  weeklyAppointments: WeeklyAppointmentDto[];
 }

@@ -91,7 +91,6 @@ export class AuthService {
         this.accessToken = response.token;
 
         const payload = AuthUtils._decodeToken(response.token);
-
         const CLAIMS = {
           ID: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
           NAME: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
@@ -106,7 +105,6 @@ export class AuthService {
           email: payload[CLAIMS.EMAIL],
           roles: payload[CLAIMS.ROLE],
         };
-
         this._authenticated = true;
         this._userService.user = user;
 

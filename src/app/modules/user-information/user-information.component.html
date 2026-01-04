@@ -15,7 +15,9 @@
               <!-- Row 1 -->
               <div>
                 <div class="text-secondary opacity-70">Name</div>
-                <div class="mt-1 font-semibold">{{ userProfile?.name }}</div>
+                <div class="mt-1 font-semibold">
+                  {{ userProfile?.fullName }}
+                </div>
               </div>
 
               <div>
@@ -24,29 +26,33 @@
               </div>
 
               <div>
-                <div class="text-secondary opacity-70">Duration</div>
+                <div class="text-secondary opacity-70">Status</div>
                 <div class="mt-1 font-semibold">
-                  {{ "30 Min" }}
+                  {{ userProfile?.isActive ? "Active" : "InActive" }}
                 </div>
               </div>
               <div>
-                <div class="text-secondary opacity-70">Teacher</div>
-                <div class="mt-1 font-semibold">ehab</div>
+                <div class="text-secondary opacity-70">Age</div>
+                <div class="mt-1 font-semibold">{{ userProfile?.age }}</div>
               </div>
 
               <!-- Row 2 -->
-              <!-- <div>
-                <div class="text-secondary opacity-70">Teacher</div>
-                <div class="mt-1 font-semibold">ehab</div>
-              </div> -->
-
               <div class="sm:col-span-2">
                 <div class="text-secondary opacity-70">Days &amp; Times</div>
-
                 <div class="mt-2 space-y-1">
                   <!-- Fallback if you don't have daysAndTimes yet -->
-                  <div class="font-semibold">Sun 12:00 - 12:30</div>
-                  <div class="font-semibold">Wed 17:00 - 17:30</div>
+                  @if (!userProfile?.weeklyAppointments) {
+                    -
+                  } @else {
+                    @for (
+                      appointment of userProfile.weeklyAppointments;
+                      track appointment
+                    ) {
+                      <div class="font-semibold">
+                        {{ appointment.dayOfWeek }} {{ appointment.time }}
+                      </div>
+                    }
+                  }
                 </div>
               </div>
             </div>

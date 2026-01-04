@@ -1,12 +1,21 @@
 import { environment } from "environments/environment";
 
-const baseUrl = environment.Config?.crescentUrls?.baseUrl;
 export const StudentController = {
   get student() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students/GetStudent`;
   },
 
   get UserStudentInfo() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students/GetStudentProfile`;
+  },
+  get CreateMonthlyReport() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students`;
+  },
+  get GetMonthlyReports() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students`;
   },
 };

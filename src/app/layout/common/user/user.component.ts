@@ -17,7 +17,6 @@ import { Router } from "@angular/router";
 import { UserService } from "app/core/user/user.service";
 import { User } from "app/core/user/user.types";
 import { PipesModule } from "app/modules/pipes.module";
-import { InitialsPipe } from "app/pipes/initials.pipe";
 import { filter, Subject, takeUntil } from "rxjs";
 
 @Component({
@@ -120,8 +119,8 @@ export class UserComponent implements OnInit, OnDestroy {
     this._router.navigate(["/sign-in"]);
   }
 
-  getProfiles(): void {
-    this._router.navigate(["/profiles/" + this.user.id]);
+  getMyStudents(): void {
+    this._router.navigate(["/my-students/" + this.user.id]);
   }
 
   getUserInfo(): void {

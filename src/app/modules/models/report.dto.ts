@@ -1,15 +1,3 @@
-export interface ReportDTO {
-  id: string;
-  studentId: string;
-  month: Date;
-  Reading: number;
-  Tajweed: number;
-  Writing: number;
-  subjects: number;
-  Performance: number;
-  Comments: string;
-}
-
 export enum QuranSurah {
   AlFatiha = 1,
   AlBaqarah = 2,

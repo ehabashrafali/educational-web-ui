@@ -18,7 +18,6 @@ import {
   MatDatepickerInput,
   MatDatepickerToggle,
 } from "@angular/material/datepicker";
-import { values } from "lodash";
 import {
   Grade,
   IslamicStudiesBooks,
@@ -27,6 +26,14 @@ import {
   TajweedRules,
 } from "../models/report.dto";
 import { PipesModule } from "../pipes.module";
+import { StudentService } from "app/shared/sevices/student.service";
+import { filter, map, tap } from "rxjs";
+import { ActivatedRoute, Router } from "@angular/router";
+import {
+  showToastOnSuccess,
+  ToastService,
+} from "app/shared/sevices/toasts.service";
+import { UserService } from "app/core/user/user.service";
 
 @Component({
   selector: "app-student-report",
@@ -58,9 +65,18 @@ export class StudentReportComponent implements OnInit {
   islamicStudiesBooks = IslamicStudiesBooks;
   tajweedRules = TajweedRules;
 
+  userId: string;
   public monthlyReportForm: FormGroup;
+  private studentId: string;
   toDayDate = new Date().toISOString().substring(0, 10);
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private studentService: StudentService,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    public toastService: ToastService,
+    public userService: UserService,
+    private router: Router
+  ) {
     this.monthlyReportForm = this.fb.group({
       date: [{ value: this.toDayDate, disabled: true }, Validators.required],
       memorization: [null, Validators.required],
@@ -79,15 +95,44 @@ export class StudentReportComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.user$
+      .pipe(
+        filter((user) => !!user),
+        tap((user) => {
+          this.userId = user.id;
+        })
+      )
+      .subscribe();
 
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get("id")),
+        tap((id) => {
+          this.studentId = id;
+        })
+      )
+      .subscribe();
+  }
   submitMonthlyReport() {
-    debugger;
     if (this.monthlyReportForm.invalid) {
       this.monthlyReportForm.markAllAsTouched();
       return;
     }
+
     const formVal = this.monthlyReportForm.getRawValue();
-    console.log(formVal);
+
+    this.studentService
+      .createMonthlyReport(this.studentId, formVal)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "Report created successfully",
+        }),
+        tap(() => {
+          this.router.navigate([`/profiles/${this.userId}`]);
+        })
+      )
+      .subscribe();
   }
 }

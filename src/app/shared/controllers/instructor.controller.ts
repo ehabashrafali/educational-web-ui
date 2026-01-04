@@ -6,6 +6,6 @@ export const InstructorController = {
     return `${baseUrl}/api/instructors/GetInstructorStudents`;
   },
   get InstructorInfo() {
-    return `${baseUrl}/api/instructors/GetInstructorInfo`;
+    return `${baseUrl}/api/instructors/GetInstructorProfile`;
   },
 };

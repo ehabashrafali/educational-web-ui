@@ -8,6 +8,7 @@ import { StudentService } from "app/shared/sevices/student.service";
 import { UserProfile } from "../models/user.profile";
 import { filter, map, of, switchMap, tap } from "rxjs";
 import { Role } from "app/core/user/user.types";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-user-information",
@@ -17,40 +18,45 @@ import { Role } from "app/core/user/user.types";
   styleUrl: "./user-information.component.scss",
 })
 export class UserInformationComponent implements OnInit {
+  studentId: string;
   constructor(
     private _studentService: StudentService,
     private _instructorService: InstructorService,
-    private _userService: UserService
+    private _userService: UserService,
+    private route: ActivatedRoute
   ) {}
 
   userProfile: UserProfile | null = null;
 
   ngOnInit(): void {
-    // this._userService.user$
-    //   .pipe(
-    //     filter((user) => !!user),
-    //     switchMap((user) => {
-    //       if (user!.roles?.includes(Role.Student)) {
-    //         return this._studentService.getStudentProfile(user!.id);
-    //       }
-    //       if (user!.roles?.includes(Role.Instructor)) {
-    //         return this._instructorService.getInstructorProfile(user!.id);
-    //       }
-    //       return of(null);
-    //     }),
-    //     map((profile) => profile as UserProfile),
-    //     tap((profile) => {
-    //       this.userProfile = profile;
-    //     })
-    //   )
-    //   .subscribe();
-    this.userProfile = {
-      id: "1",
-      name: "John Doe",
-      email: "john.doe@example.com",
-      roles: ["Student"],
-      sessionsTimes: [new Date()],
-      country: "USA",
-    } as UserProfile;
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get("id")),
+        tap((id) => {
+          this.studentId = id;
+        })
+      )
+      .subscribe();
+
+    this._userService.user$
+      .pipe(
+        filter((user) => !!user),
+        switchMap((user) => {
+          if (this.studentId) {
+            return this._studentService.getStudentProfile(this.studentId);
+          } else if (user!.roles?.includes(Role.Student)) {
+            return this._studentService.getStudentProfile(user!.id);
+          } else if (user!.roles?.includes(Role.Instructor)) {
+            return this._instructorService.getInstructorProfile(user!.id);
+          }
+          return of(null);
+        }),
+        map((profile) => profile as UserProfile),
+        tap((profile) => {
+          debugger;
+          this.userProfile = profile;
+        })
+      )
+      .subscribe();
   }
 }

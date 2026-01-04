@@ -7,10 +7,11 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatSort, MatSortModule } from "@angular/material/sort";
-
 import { UserService } from "app/core/user/user.service";
-import { ReportDTO } from "../models/report.dto";
 import { StudentService } from "app/shared/sevices/student.service";
+import { tap } from "rxjs";
+import { MonthlyReportDto } from "../models/monthly-report.dto";
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 @Component({
   selector: "app-monthly-report",
@@ -18,13 +19,12 @@ import { StudentService } from "app/shared/sevices/student.service";
   imports: [
     CommonModule,
     NgClass,
-
+    MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
     MatProgressBarModule,
-
     MatTableModule,
     MatSortModule,
   ],
@@ -32,10 +32,10 @@ import { StudentService } from "app/shared/sevices/student.service";
   styleUrl: "./monthly-report.component.scss",
 })
 export class MonthlyReportComponent implements OnInit, AfterViewInit {
-  public reportDto: ReportDTO[] = [];
-  public dataSource = new MatTableDataSource<ReportDTO>([]);
+  public reportDto: MonthlyReportDto[] = [];
+  public dataSource = new MatTableDataSource<MonthlyReportDto>([]);
+  public studentId: string;
   displayedColumns: string[] = [
-    "Id",
     "date",
     "Reading",
     "Tajweed",
@@ -55,139 +55,28 @@ export class MonthlyReportComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    /**
-     * Replace this with your real API call.
-     * Example idea (adjust to your actual service methods):
-     *
-     * const studentId = this._userService.user?.id;
-     * this._StudentService.getMonthlyReports(studentId).subscribe(reports => {
-     *   this.reportDto = reports;
-     *   this.dataSource.data = reports;
-     * });
-     */
-
-    // Temporary demo data to ensure the UI works without errors:
-    this.reportDto = [
-      {
-        id: "R-001",
-        studentId: "S-01",
-        month: new Date(2025, 0, 1),
-        Reading: 80,
-        Tajweed: 75,
-        Writing: 70,
-        subjects: 3,
-        Performance: 78,
-        Comments: "Good progress",
-      },
-      {
-        id: "R-002",
-        studentId: "S-01",
-        month: new Date(2025, 1, 1),
-        Reading: 85,
-        Tajweed: 82,
-        Writing: 76,
-        subjects: 3,
-        Performance: 82,
-        Comments: "Improving well",
-      },
-      {
-        id: "R-001",
-        studentId: "S-01",
-        month: new Date(2025, 0, 1),
-        Reading: 80,
-        Tajweed: 75,
-        Writing: 70,
-        subjects: 3,
-        Performance: 78,
-        Comments: "Good progress",
-      },
-      {
-        id: "R-002",
-        studentId: "S-01",
-        month: new Date(2025, 1, 1),
-        Reading: 85,
-        Tajweed: 82,
-        Writing: 76,
-        subjects: 3,
-        Performance: 82,
-        Comments: "Improving well",
-      },
-      {
-        id: "R-001",
-        studentId: "S-01",
-        month: new Date(2025, 0, 1),
-        Reading: 80,
-        Tajweed: 75,
-        Writing: 70,
-        subjects: 3,
-        Performance: 78,
-        Comments: "Good progress",
-      },
-      {
-        id: "R-002",
-        studentId: "S-01",
-        month: new Date(2025, 1, 1),
-        Reading: 85,
-        Tajweed: 82,
-        Writing: 76,
-        subjects: 3,
-        Performance: 82,
-        Comments: "Improving well",
-      },
-      {
-        id: "R-001",
-        studentId: "S-01",
-        month: new Date(2025, 0, 1),
-        Reading: 80,
-        Tajweed: 75,
-        Writing: 70,
-        subjects: 3,
-        Performance: 78,
-        Comments: "Good progress",
-      },
-      {
-        id: "R-002",
-        studentId: "S-01",
-        month: new Date(2025, 1, 1),
-        Reading: 85,
-        Tajweed: 82,
-        Writing: 76,
-        subjects: 3,
-        Performance: 82,
-        Comments: "Improving well",
-      },
-      {
-        id: "R-001",
-        studentId: "S-01",
-        month: new Date(2025, 0, 1),
-        Reading: 80,
-        Tajweed: 75,
-        Writing: 70,
-        subjects: 3,
-        Performance: 78,
-        Comments: "Good progress",
-      },
-      {
-        id: "R-002",
-        studentId: "S-01",
-        month: new Date(2025, 1, 1),
-        Reading: 85,
-        Tajweed: 82,
-        Writing: 76,
-        subjects: 3,
-        Performance: 82,
-        Comments: "Improving well",
-      },
-    ];
-
-    this.dataSource.data = this.reportDto;
+    this._userService.user$
+      .pipe(
+        tap((user) => {
+          this.studentId = user.id;
+        })
+      )
+      .subscribe();
+    this._StudentService
+      .getMonthlyReports(this.studentId)
+      .pipe(
+        tap((reports) => {
+          this.dataSource.data = reports;
+        })
+      )
+      .subscribe();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
 
-  trackByFn(index: number, item: ReportDTO): string {
+  trackByFn(index: number, item: MonthlyReportDto): string {
     return item.id;
   }
 }
