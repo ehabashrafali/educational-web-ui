@@ -3,36 +3,14 @@
   <div class="flex justify-between mb-3 w-full">
     <p class="text-4xl ms-10 mt-5 font-semibold">Timetable</p>
   </div>
-
-  <!-- Date Range Picker -->
-  <div class="w-full max-w-[90%] md:max-w-[80%] mx-auto">
-    <div class="flex justify-end">
-      <mat-form-field appearance="outline" class="w-[320px]">
-        <mat-label>Select a date range</mat-label>
-        <mat-date-range-input [rangePicker]="picker">
-          <input matStartDate placeholder="Start date" />
-          <input matEndDate placeholder="End date" />
-        </mat-date-range-input>
-
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
-
-        <mat-date-range-picker #picker></mat-date-range-picker>
-      </mat-form-field>
-    </div>
-  </div>
-
-  <!-- Cards -->
   <div class="w-full">
-    @for (session of sessions; track session.title) {
+    @for (session of sessions$ | async; track session) {
       <fuse-card
         class="filter-listing mx-auto flex w-full max-w-[90%] md:max-w-[80%] flex-col md:flex-row mb-4"
       >
         <div class="m-8 mb-4 flex flex-auto flex-col">
           <div class="text-lg font-medium text-dark mb-2">
-            {{ session.date | date: "fullDate" }}
+            {{ session.sessionDateTime | date: "fullDate" }}
           </div>
 
           <div class="flex gap-4">
@@ -40,17 +18,19 @@
               <img
                 class="h-[80%] w-full object-cover"
                 src="images/ui/angular-material/scenes/record-icon.png"
-                alt="Card cover image"
+                alt="session"
               />
             </div>
 
             <div class="text-2xl font-semibold leading-tight">
-              {{ session.title }}
-              <div class="text-base text-[#8E8E8E] font-Poppins mt-2">
-                {{ session.instructor }}
+              {{ session.courseName.join(" || ") }}
+
+              <div class="text-base text-[#8E8E8E] mt-2">
+                {{ session.instructorName.join(" || ") }}
               </div>
-              <div class="text-base text-[#8E8E8E] font-Poppins mt-2">
-                {{ session.startTime }}
+
+              <div class="text-base text-[#8E8E8E] mt-2">
+                {{ session.sessionDateTime | date: "shortTime" }}
               </div>
             </div>
 
@@ -58,8 +38,8 @@
               <button
                 mat-flat-button
                 color="primary"
-                class="text-white"
-                (click)="joinSession(session.link)"
+                [disabled]="!session.zoomMeeting"
+                (click)="joinSession(session)"
               >
                 Join
               </button>

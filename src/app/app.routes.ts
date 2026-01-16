@@ -269,4 +269,34 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "attendance",
+        loadChildren: () => import("app/modules/attendance/attendance.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "invoice",
+        loadChildren: () => import("app/modules/invoice/invoice.routes"),
+      },
+    ],
+  },
 ];

@@ -53,7 +53,6 @@ export class UserInformationComponent implements OnInit {
         }),
         map((profile) => profile as UserProfile),
         tap((profile) => {
-          debugger;
           this.userProfile = profile;
         })
       )

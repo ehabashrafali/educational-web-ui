@@ -1,0 +1,213 @@
+<div class="grid w-full justify-items-center">
+  <!-- Header -->
+  <div class="flex justify-between mb-3 w-full">
+    <p class="text-4xl ms-10 mt-5 font-semibold">Attendance</p>
+  </div>
+
+  <div class="w-full">
+    <fuse-card
+      class="filter-listing mx-auto flex w-full max-w-[90%] md:max-w-[80%] flex-col md:flex-row mb-4"
+    >
+      <div class="container mx-auto mt-10">
+        <div class="wrapper bg-white rounded shadow w-full">
+          <div class="header flex justify-between border-b p-2">
+            <span class="text-xl font-bold self-center">
+              {{ monthLabel }}
+            </span>
+
+            <div>
+              <button
+                type="button"
+                mat-stroked-button
+                color="primary"
+                class="sm:order-last"
+                (click)="getInvoice()"
+              >
+                <span class="pl-2">Invoice</span>
+                <mat-icon svgIcon="heroicons_solid:arrow-down-tray"></mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Sunday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Sun</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Monday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Mon</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Tuesday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Tue</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Wednesday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Wed</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Thursday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Thu</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Friday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Fri</span
+                  >
+                </th>
+                <th
+                  class="p-2 border-r h-10 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 xl:text-sm text-xs"
+                >
+                  <span class="xl:block lg:block md:block sm:block hidden"
+                    >Saturday</span
+                  >
+                  <span class="xl:hidden lg:hidden md:hidden sm:hidden block"
+                    >Sat</span
+                  >
+                </th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr class="text-center h-20" *ngFor="let week of calendarWeeks">
+                <td
+                  *ngFor="let day of week.days"
+                  class="border p-1 h-20 xl:w-40 lg:w-30 md:w-30 sm:w-20 w-10 overflow-auto transition cursor-pointer duration-500 ease hover:bg-gray-300"
+                  [ngClass]="{
+                    'bg-gray-100': !day.inMonth,
+                    'ring-2 ring-blue-400': day.isToday,
+                  }"
+                >
+                  <div
+                    class="flex flex-col h-20 mx-auto xl:w-40 lg:w-30 md:w-30 sm:w-full w-10 overflow-hidden"
+                  >
+                    <div class="top h-5 w-full">
+                      <span
+                        class="text-sm"
+                        [ngClass]="{
+                          'text-gray-500': day.inMonth,
+                          'text-gray-400': !day.inMonth,
+                        }"
+                      >
+                        {{ day.date.day }}
+                      </span>
+                    </div>
+
+                    <div
+                      class="bottom flex-grow h-30 py-1 w-full cursor-pointer overflow-auto"
+                    >
+                      <div
+                        *ngFor="let s of day.sessions"
+                        class="rounded p-1 text-sm mb-1"
+                        [ngClass]="statusClass(s.status)"
+                      >
+                        <!-- <span class="event-name">Session</span> -->
+                        <span class="time"> {{ getSessionTimeLabel(s) }} </span>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </fuse-card>
+  </div>
+
+  <div class="w-full">
+    <fuse-card
+      class="mx-auto w-full max-w-[90%] md:max-w-[80%] flex-col md:flex-row mb-4"
+    >
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-6 p-6 w-full"
+      >
+        <div>
+          <div class="label">Attend</div>
+          <div class="px-2 py-1 rounded bg-green-100 text-green-800">
+            {{ attendCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Cancel T</div>
+          <div class="px-2 py-1 rounded bg-yellow-100 text-yellow-800">
+            {{ cancelledByInstructorCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Cancel S</div>
+          <div class="px-2 py-1 rounded bg-red-100 text-red-900">
+            {{ cancelledByStudentCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Absent T</div>
+          <div class="px-2 py-1 rounded bg-red-100 text-red-800">
+            {{ absentInstructorCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Absent S</div>
+          <div class="px-2 py-1 rounded bg-red-100 text-red-700">
+            {{ absentStudentCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Late S</div>
+          <div class="px-2 py-1 rounded bg-gray-100 text-gray-800">
+            {{ lateCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Total Classes</div>
+          <div class="px-2 py-1 rounded bg-blue-100 text-blue-800">
+            {{ totalCount }}
+          </div>
+        </div>
+      </div>
+    </fuse-card>
+  </div>
+</div>

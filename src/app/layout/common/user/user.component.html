@@ -49,6 +49,11 @@
 
         <span>Profile</span>
       </button>
+      <button mat-menu-item (click)="getUserAttendance()">
+        <mat-icon [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+
+        <span>Attendance</span>
+      </button>
     }
     @if (user) {
       <button mat-menu-item (click)="getMyStudents()">

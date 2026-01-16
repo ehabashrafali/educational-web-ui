@@ -1,0 +1,117 @@
+<div class="w-full">
+  <div class="min-h-screen w-full overflow-auto bg-transparent text-center">
+    <!-- Main -->
+    <div class="mx-auto w-full max-w-5xl p-4 text-left sm:p-8 print:p-0">
+      <!-- Invoice -->
+      <div
+        class="w-full rounded-2xl bg-card p-6 shadow sm:p-10 lg:p-12 print:rounded-none print:bg-transparent print:p-0 print:shadow-none"
+      >
+        <!-- Header -->
+        <div
+          class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"
+        >
+          <!-- Invoice meta -->
+          <div class="grid grid-cols-2 gap-x-4 gap-y-2">
+            <div class="text-secondary text-2xl tracking-tight sm:text-3xl">
+              INVOICE
+            </div>
+            <div class="text-2xl sm:text-3xl">{{ invoiceNumber }}</div>
+
+            <div class="text-secondary font-medium tracking-tight">
+              INVOICE DATE
+            </div>
+            <div class="font-medium">{{ date | date }}</div>
+
+            <div class="text-secondary font-medium tracking-tight">
+              TOTAL DUE
+            </div>
+            <div class="font-medium">${{ total }}</div>
+          </div>
+
+          <!-- Brand / Purchased by -->
+          <div
+            class="grid w-full grid-cols-[auto,1fr] items-center gap-x-6 rounded-2xl bg-accent px-6 py-5 md:w-auto md:rounded-l-2xl md:rounded-r-none md:-mr-6 lg:-mr-12 print:mr-0 print:rounded-none"
+          >
+            <div class="w-16 sm:w-20">
+              <img class="w-full" src="images/logo/crescent School-01.png" />
+            </div>
+            <div class="border-l pl-6 text-sm sm:text-base text-white">
+              <div class="font-medium text-white/90">Purchased by:</div>
+              <div>Osama Elbosili</div>
+              <div>Arabic & Quran Teacher</div>
+              <div>+201551494362</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- User Info -->
+        <div class="mt-8">
+          <div
+            class="text-secondary text-lg font-medium tracking-tight sm:text-xl"
+          >
+            User Info:
+          </div>
+          <div class="text-base font-medium sm:text-lg">{{ user.name }}</div>
+          <div class="text-base sm:text-lg">{{ user.email }}</div>
+        </div>
+
+        <!-- Table -->
+        <div class="mt-10">
+          <!-- Table header -->
+          <div
+            class="hidden grid-cols-12 gap-x-4 border-b pb-3 text-sm font-medium text-secondary md:grid"
+          >
+            <div class="col-span-6">Session</div>
+            <div class="col-span-4 text-center">Date</div>
+            <div class="col-span-2 text-right">Price</div>
+          </div>
+
+          <!-- Rows -->
+          <div class="divide-y">
+            @for (session of sessions; track session) {
+              <div
+                class="grid grid-cols-1 gap-y-2 py-4 md:grid-cols-12 md:gap-x-4 md:gap-y-0"
+              >
+                <!-- Session -->
+                <div class="md:col-span-6">
+                  <div class="text-secondary text-xs font-medium md:hidden">
+                    Session
+                  </div>
+                  <div class="font-medium">{{ session.courseName }}</div>
+                </div>
+
+                <!-- Date -->
+                <div class="md:col-span-4 md:text-center">
+                  <div class="text-secondary text-xs font-medium md:hidden">
+                    Date
+                  </div>
+                  <div>{{ session.joiningTime | datetime }}</div>
+                </div>
+
+                <!-- Price -->
+                <div class="md:col-span-2 md:text-right">
+                  <div class="text-secondary text-xs font-medium md:hidden">
+                    Price
+                  </div>
+                  <div class="font-medium">
+                    ${{ session.coursePricePerHoure / 2 }}
+                  </div>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Total -->
+          <div class="mt-8 flex items-center justify-between border-t pt-6">
+            <div
+              class="text-secondary text-xl font-medium tracking-tight sm:text-2xl"
+            >
+              TOTAL
+            </div>
+            <div class="text-xl font-medium sm:text-2xl">${{ total }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

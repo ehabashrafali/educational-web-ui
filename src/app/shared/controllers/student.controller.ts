@@ -18,4 +18,12 @@ export const StudentController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students`;
   },
+  get GetTimeTable() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/time-table`;
+  },
+  get CreateSession() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/join-session`;
+  },
 };

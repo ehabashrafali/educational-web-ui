@@ -1,4 +1,3 @@
-import { BooleanInput } from "@angular/cdk/coercion";
 import { NgClass } from "@angular/common";
 import {
   ChangeDetectionStrategy,
@@ -125,5 +124,8 @@ export class UserComponent implements OnInit, OnDestroy {
 
   getUserInfo(): void {
     this._router.navigate(["/user-info"]);
+  }
+  getUserAttendance() {
+    this._router.navigate(["/attendance"]);
   }
 }
