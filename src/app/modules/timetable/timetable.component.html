@@ -38,7 +38,7 @@
               <button
                 mat-flat-button
                 color="primary"
-                [disabled]="!session.zoomMeeting"
+                [disabled]="isDisabled(session)"
                 (click)="joinSession(session)"
               >
                 Join

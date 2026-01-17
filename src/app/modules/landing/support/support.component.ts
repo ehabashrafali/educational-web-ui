@@ -1,15 +1,22 @@
-import { TextFieldModule } from '@angular/cdk/text-field';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { RouterLink } from '@angular/router';
-import { FuseAlertComponent } from '@fuse/components/alert';
+import { TextFieldModule } from "@angular/cdk/text-field";
+import { Component, OnInit, ViewChild } from "@angular/core";
+import {
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from "@angular/forms";
+import { MatButtonModule } from "@angular/material/button";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatIconModule } from "@angular/material/icon";
+import { MatInputModule } from "@angular/material/input";
+import { RouterLink } from "@angular/router";
+import { FuseAlertComponent } from "@fuse/components/alert";
 
 @Component({
-  selector: 'app-support',
+  selector: "app-support",
   standalone: true,
   imports: [
     MatButtonModule,
@@ -22,23 +29,21 @@ import { FuseAlertComponent } from '@fuse/components/alert';
     MatInputModule,
     TextFieldModule,
   ],
-  templateUrl: './support.component.html',
-  styleUrl: './support.component.scss'
+  templateUrl: "./support.component.html",
+  styleUrl: "./support.component.scss",
 })
 export class SupportComponent implements OnInit {
-  @ViewChild('supportNgForm') supportNgForm: NgForm;
+  @ViewChild("supportNgForm") supportNgForm: NgForm;
   alert: any;
   supportForm: UntypedFormGroup;
 
-  constructor(
-    private _formBuilder: UntypedFormBuilder,
-  ) { }
+  constructor(private _formBuilder: UntypedFormBuilder) {}
   ngOnInit(): void {
     this.supportForm = this._formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      subject: ['', Validators.required],
-      message: ['', Validators.required],
+      name: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      subject: ["", Validators.required],
+      message: ["", Validators.required],
     });
   }
 
@@ -50,7 +55,6 @@ export class SupportComponent implements OnInit {
    * Send the form
    */
   sendForm(): void {
-
     if (this.supportForm.valid) {
       const values = this.supportForm.value;
       const params = new URLSearchParams();
@@ -58,16 +62,18 @@ export class SupportComponent implements OnInit {
         params.append(key, values[key]);
       }
 
-      fetch('https://script.google.com/macros/s/AKfycbxwXm5-rnh-1g48lQcIJeTvgbCgZA0QqEeDSvjGqvwwVzh18m2WZsTNjiVIN5yX8AsARg/exec', {
-        method: 'POST',
-        mode: 'no-cors',
-        body: params
-      })
+      fetch(
+        "https://script.google.com/macros/s/AKfycbxwXm5-rnh-1g48lQcIJeTvgbCgZA0QqEeDSvjGqvwwVzh18m2WZsTNjiVIN5yX8AsARg/exec",
+        {
+          method: "POST",
+          mode: "no-cors",
+          body: params,
+        }
+      )
         .then(() => {
           this.alert = {
-            type: 'success',
-            message:
-              'Thank You, We Will Contact You ASAP',
+            type: "success",
+            message: "Thank You, We Will Contact You ASAP",
           };
 
           setTimeout(() => {
@@ -76,12 +82,12 @@ export class SupportComponent implements OnInit {
 
           this.clearForm();
         })
-        .catch(err => {
-          console.error('Submission error:', err);
-          alert('Something went wrong');
+        .catch((err) => {
+          console.error("Submission error:", err);
+          alert("Something went wrong");
         });
     } else {
-      console.log('Form is invalid');
+      console.log("Form is invalid");
     }
   }
 }

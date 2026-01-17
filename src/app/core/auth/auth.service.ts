@@ -9,8 +9,6 @@ import {
   map,
   Observable,
   of,
-  switchMap,
-  tap,
   throwError,
 } from "rxjs";
 import { Role } from "../user/user.types";
@@ -21,7 +19,7 @@ export class AuthService {
   private _httpClient = inject(HttpClient);
   private _userService = inject(UserService);
 
-  public roles: Role[] | null = null;
+  public role: Role;
   private _accessToken$ = new BehaviorSubject<{
     token: string;
     isAuthenticated: boolean;
@@ -103,7 +101,7 @@ export class AuthService {
           id: payload[CLAIMS.ID],
           name: payload[CLAIMS.NAME],
           email: payload[CLAIMS.EMAIL],
-          roles: payload[CLAIMS.ROLE],
+          role: payload[CLAIMS.ROLE],
         };
         this._authenticated = true;
         this._userService.user = user;
@@ -146,12 +144,11 @@ export class AuthService {
             id: payload[CLAIMS.ID],
             name: payload[CLAIMS.NAME],
             email: payload[CLAIMS.EMAIL],
-            roles: payload[CLAIMS.ROLE],
+            role: payload[CLAIMS.ROLE],
           };
           this._authenticated = true;
           this._userService.user = user;
-          this.roles = user.roles;
-
+          this.role = user.role;
           return true;
         }),
         catchError(() => {
@@ -212,7 +209,7 @@ export class AuthService {
           return { authenticated: false };
         }
 
-        return { authenticated: true, roles: this.roles };
+        return { authenticated: true, role: this.role };
       }),
       catchError(() => of({ authenticated: false }))
     );

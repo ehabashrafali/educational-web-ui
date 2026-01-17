@@ -3,6 +3,7 @@ import { inject, Injectable } from "@angular/core";
 import { SessionController } from "../controllers/session.controller";
 import { SessionDto } from "app/modules/models/session.dto";
 import { DateTime } from "luxon";
+import { Role } from "app/core/user/user.types";
 
 @Injectable({
   providedIn: "root",
@@ -14,10 +15,10 @@ export class SessionService {
     const url = SessionController.CreateSession;
     return this._httpClient.post(`${url}/${id}`, sessionDto);
   }
-  GetOfCurrentMonthAndYear(id: string, date: string) {
+  GetOfCurrentMonthAndYear(id: string, role: Role, date: string) {
     const url = SessionController.GetSessions;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
-      params: { date: date },
+      params: { date: date, role: role },
     });
   }
 }

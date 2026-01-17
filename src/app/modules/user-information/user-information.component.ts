@@ -44,9 +44,9 @@ export class UserInformationComponent implements OnInit {
         switchMap((user) => {
           if (this.studentId) {
             return this._studentService.getStudentProfile(this.studentId);
-          } else if (user!.roles?.includes(Role.Student)) {
+          } else if (user!.role == Role.Student) {
             return this._studentService.getStudentProfile(user!.id);
-          } else if (user!.roles?.includes(Role.Instructor)) {
+          } else if (user!.role == Role.Instructor) {
             return this._instructorService.getInstructorProfile(user!.id);
           }
           return of(null);

@@ -38,7 +38,11 @@ export class InvoiceComponent implements OnInit {
       )
       .subscribe();
     this.sessionService
-      .GetOfCurrentMonthAndYear(this.user.id, this.date.toDateString())
+      .GetOfCurrentMonthAndYear(
+        this.user.id,
+        this.user.role,
+        this.date.toDateString()
+      )
       .pipe(
         tap((sessions) => {
           this.sessions = sessions;
@@ -49,7 +53,6 @@ export class InvoiceComponent implements OnInit {
   }
 
   private totalSum() {
-    debugger;
     return (
       this.sessions?.reduce(
         (sum, se) => sum + (Number(se.coursePricePerHoure) || 0),

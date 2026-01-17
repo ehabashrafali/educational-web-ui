@@ -35,7 +35,7 @@ type CalendarWeek = {
 })
 export class AttendanceComponent implements OnInit {
   sessions: SessionDto[] = [];
-  studentId: string;
+  userId: string;
 
   readonly viewMonth = DateTime.now().startOf("month");
   calendarWeeks: CalendarWeek[] = [];
@@ -61,15 +61,14 @@ export class AttendanceComponent implements OnInit {
     this.userService.user$
       .pipe(
         filter((u) => !!u.id),
-        tap((u) => (this.studentId = u.id)),
+        tap((u) => (this.userId = u.id)),
         switchMap((u) =>
-          this.sessionsService.GetOfCurrentMonthAndYear(u.id, dateIso)
+          this.sessionsService.GetOfCurrentMonthAndYear(u.id, u.role, dateIso)
         ),
         tap((sessionsDto) => {
           this.sessions = sessionsDto;
           this.computeCounts();
           this.buildCalendar();
-          console.log(this.calendarWeeks);
         })
       )
       .subscribe();
@@ -123,7 +122,6 @@ export class AttendanceComponent implements OnInit {
     for (let i = 0; i < 42; i++) {
       const d = gridStart.plus({ days: i });
       const isoDate = d.toISODate()!;
-      console.log(isoDate);
 
       allDays.push({
         date: d,
@@ -171,6 +169,6 @@ export class AttendanceComponent implements OnInit {
   }
 
   public getInvoice() {
-    this.router.navigate([`/invoice/${this.studentId}`]);
+    this.router.navigate([`/invoice/${this.userId}`]);
   }
 }
