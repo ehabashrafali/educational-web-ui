@@ -1,6 +1,6 @@
 {
-  "production": false,
+  "production": true,
   "crescentUrls": {
-    "baseUrl": "##{HttpClients_CrescentServiceHttpClient}##"
+    "baseUrl": "https://crescentschool.onrender.com"
   }
 }
