@@ -56,9 +56,17 @@
       </button>
     }
     @if (user) {
+      <button mat-menu-item (click)="getmMnthlyReport()">
+        <mat-icon [svgIcon]="'heroicons_mini:chart-bar'"></mat-icon>
+        <span>My Students</span>
+      </button>
       <button mat-menu-item (click)="getMyStudents()">
         <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
-        <span>My Students</span>
+        <span>Monthly Report</span>
+      </button>
+      <button mat-menu-item (click)="addSessionInfo()">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span>Add Session Info</span>
       </button>
     }
     <!-- <button mat-menu-item>

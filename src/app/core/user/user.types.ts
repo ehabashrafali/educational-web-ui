@@ -5,6 +5,7 @@ export interface User {
   avatar?: string;
   status?: string;
   role: Role;
+  fees?: number;
 }
 export enum Role {
   Admin = "Admin",

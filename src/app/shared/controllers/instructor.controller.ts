@@ -8,4 +8,7 @@ export const InstructorController = {
   get InstructorInfo() {
     return `${baseUrl}/api/instructors/GetInstructorProfile`;
   },
+  get Instructors() {
+    return `${baseUrl}/api/instructors`;
+  },
 };

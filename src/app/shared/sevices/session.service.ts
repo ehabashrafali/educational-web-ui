@@ -11,9 +11,9 @@ import { Role } from "app/core/user/user.types";
 export class SessionService {
   private _httpClient = inject(HttpClient);
   constructor() {}
-  CreateSession(id: string, sessionDto: SessionDto) {
+  CreateSession(sessionDto: SessionDto) {
     const url = SessionController.CreateSession;
-    return this._httpClient.post(`${url}/${id}`, sessionDto);
+    return this._httpClient.post(`${url}`, sessionDto);
   }
   GetOfCurrentMonthAndYear(id: string, role: Role, date: string) {
     const url = SessionController.GetSessions;

@@ -1,0 +1,107 @@
+<div class="rounded-3 m-3 p-5 w-full">
+  <div class="w-full">
+    <form
+      class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+      [formGroup]="sessionForm"
+    >
+      <h5 class="text-4xl mb-5 font-semibold">Add Session</h5>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Date -->
+        <mat-form-field>
+          <mat-label>Date</mat-label>
+          <input matInput [value]="date" type="date" formControlName="date" />
+
+          @if (
+            sessionForm.get("date")?.invalid &&
+            (sessionForm.get("date")?.touched || sessionForm.get("date")?.dirty)
+          ) {
+            <mat-error>Date is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Instructor</mat-label>
+          <mat-select formControlName="instructorId">
+            @for (instructor of _instructors$ | async; track instructor.id) {
+              <mat-option [value]="instructor.id">
+                {{ instructor.firstName }} {{ instructor.lastName }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (
+            sessionForm.get("instructorId")?.invalid &&
+            (sessionForm.get("instructorId")?.touched ||
+              sessionForm.get("instructorId")?.dirty)
+          ) {
+            <mat-error>Instructor is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Instructor Session Status</mat-label>
+          <mat-select formControlName="instructorSessionStatus">
+            @for (status of SessionStatus | enumToList; track status.id) {
+              <mat-option [value]="status.id">
+                {{ status.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            sessionForm.get("instructorSessionStatus")?.invalid &&
+            (sessionForm.get("instructorSessionStatus")?.touched ||
+              sessionForm.get("instructorSessionStatus")?.dirty)
+          ) {
+            <mat-error>Session Status is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Student</mat-label>
+          <mat-select formControlName="studentId">
+            @for (student of _students$ | async; track student.id) {
+              <mat-option [value]="student.id">
+                {{ student.firstName }} {{ student.lastName }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (
+            sessionForm.get("studentId")?.invalid &&
+            (sessionForm.get("studentId")?.touched ||
+              sessionForm.get("studentId")?.dirty)
+          ) {
+            <mat-error>Student is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Student Session Status</mat-label>
+          <mat-select formControlName="studentSessionStatus">
+            @for (status of SessionStatus | enumToList; track status.id) {
+              <mat-option [value]="status.id">
+                {{ status.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+
+          @if (
+            sessionForm.get("studentSessionStatus")?.invalid &&
+            (sessionForm.get("studentSessionStatus")?.touched ||
+              sessionForm.get("studentSessionStatus")?.dirty)
+          ) {
+            <mat-error>Session Status is required</mat-error>
+          }
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="d-flex justify-content-end flex-row justify-self-end">
+    <div class="p-4">
+      <button
+        class="primary h-10 sm:order-last"
+        mat-flat-button
+        [color]="'primary'"
+        (click)="submitSession()"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>

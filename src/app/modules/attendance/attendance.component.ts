@@ -10,6 +10,7 @@ import { filter, switchMap, tap } from "rxjs";
 import { DateTime } from "luxon";
 import moment from "moment";
 import { Router } from "@angular/router";
+import { Role } from "app/core/user/user.types";
 
 type CalendarDay = {
   date: DateTime;
@@ -46,13 +47,14 @@ export class AttendanceComponent implements OnInit {
   cancelledByStudentCount = 0;
   lateCount = 0;
   totalCount = 0;
+  role: Role;
 
   AttendanceStatus = AttendanceStatus;
 
   constructor(
     private sessionsService: SessionService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -62,14 +64,19 @@ export class AttendanceComponent implements OnInit {
       .pipe(
         filter((u) => !!u.id),
         tap((u) => (this.userId = u.id)),
+        tap((u) => (this.role = u.role)),
         switchMap((u) =>
-          this.sessionsService.GetOfCurrentMonthAndYear(u.id, u.role, dateIso)
+          this.sessionsService.GetOfCurrentMonthAndYear(u.id, u.role, dateIso),
         ),
         tap((sessionsDto) => {
           this.sessions = sessionsDto;
-          this.computeCounts();
+          if (this.role === Role.Student) {
+            this.computeStudentCounts();
+          } else {
+            this.computeInstructorCounts();
+          }
           this.buildCalendar();
-        })
+        }),
       )
       .subscribe();
   }
@@ -97,7 +104,7 @@ export class AttendanceComponent implements OnInit {
   }
 
   getSessionTimeLabel(session: SessionDto): string {
-    return moment.utc(session.joiningTime).local().format("hh:mm a");
+    return moment.utc(session.date).local().format("hh:mm a");
   }
 
   private buildCalendar(): void {
@@ -107,7 +114,7 @@ export class AttendanceComponent implements OnInit {
 
     const sessionsByDay = new Map<string, SessionDto[]>();
     for (const s of this.sessions) {
-      const date = new Date(s.joiningTime);
+      const date = new Date(s.date);
       const key = date.toISOString().split("T")[0];
       const arr = sessionsByDay.get(key) ?? [];
       arr.push(s);
@@ -146,24 +153,48 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
-  private computeCounts(): void {
+  private computeStudentCounts(): void {
     this.attendCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.Attend
+      (s) => s.studentSessionStatus === AttendanceStatus.Attend,
     ).length;
     this.absentStudentCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.AbsentStudent
+      (s) => s.studentSessionStatus === AttendanceStatus.AbsentStudent,
     ).length;
     this.absentInstructorCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.AbsentInstructor
+      (s) => s.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
     ).length;
     this.cancelledByInstructorCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.CancelledByInstructor
+      (s) =>
+        s.instructorSessionStatus === AttendanceStatus.CancelledByInstructor,
     ).length;
     this.cancelledByStudentCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.CancelledByStudent
+      (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
     ).length;
     this.lateCount = this.sessions.filter(
-      (s) => s.status === AttendanceStatus.Late
+      (s) => s.studentSessionStatus === AttendanceStatus.Late,
+    ).length;
+    this.totalCount = this.sessions.length;
+  }
+
+  private computeInstructorCounts(): void {
+    this.attendCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === AttendanceStatus.Attend,
+    ).length;
+    this.absentStudentCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === AttendanceStatus.AbsentStudent,
+    ).length;
+    this.absentInstructorCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
+    ).length;
+    this.cancelledByInstructorCount = this.sessions.filter(
+      (s) =>
+        s.instructorSessionStatus === AttendanceStatus.CancelledByInstructor,
+    ).length;
+    this.cancelledByStudentCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
+    ).length;
+    this.lateCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === AttendanceStatus.Late,
     ).length;
     this.totalCount = this.sessions.length;
   }

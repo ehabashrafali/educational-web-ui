@@ -2,10 +2,14 @@ import { CdkScrollable } from "@angular/cdk/scrolling";
 import { Component, OnInit } from "@angular/core";
 import { PipesModule } from "../pipes.module";
 import { UserService } from "app/core/user/user.service";
-import { filter, tap } from "rxjs";
-import { User } from "app/core/user/user.types";
+import { EMPTY, filter, map, of, switchMap, tap } from "rxjs";
+import { Role, User } from "app/core/user/user.types";
 import { SessionDto } from "../models/session.dto";
 import { SessionService } from "app/shared/sevices/session.service";
+import { toDateOnly } from "../add-session/add-session.component";
+import { InstructorService } from "app/shared/sevices/instructor.service";
+import { StudentService } from "app/shared/sevices/student.service";
+import { UserProfile } from "../models/user.profile";
 
 @Component({
   selector: "app-invoice",
@@ -16,49 +20,60 @@ import { SessionService } from "app/shared/sevices/session.service";
 })
 export class InvoiceComponent implements OnInit {
   invoiceNumber: number;
-  date: Date;
-  user: User;
-  rolesText = "";
+  date: string;
+  userProfile: UserProfile;
   total: number;
   sessions: SessionDto[];
 
   constructor(
     private userService: UserService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private _studentService: StudentService,
+    private _instructorService: InstructorService,
   ) {}
+
   ngOnInit(): void {
     this.invoiceNumber = this.generateInvoiceNo();
-    this.date = new Date();
+    this.date = toDateOnly(new Date());
+
     this.userService.user$
       .pipe(
-        filter((u) => !!u),
-        tap((user) => {
-          this.user = user;
-        })
-      )
-      .subscribe();
-    this.sessionService
-      .GetOfCurrentMonthAndYear(
-        this.user.id,
-        this.user.role,
-        this.date.toDateString()
-      )
-      .pipe(
+        filter((user): user is User => !!user),
+
+        switchMap((user) => {
+          if (user.role === Role.Student) {
+            return this._studentService.getStudentProfile(user.id);
+          }
+          if (user.role === Role.Instructor) {
+            return this._instructorService.getInstructorProfile(user.id);
+          }
+          return EMPTY;
+        }),
+
+        filter((profile): profile is UserProfile => !!profile),
+
+        tap((profile) => {
+          this.userProfile = profile;
+        }),
+
+        switchMap((profile) =>
+          this.sessionService.GetOfCurrentMonthAndYear(
+            profile.id,
+            profile.role,
+            this.date,
+          ),
+        ),
+
         tap((sessions) => {
           this.sessions = sessions;
-          this.total = this.totalSum() / 2;
-        })
+          this.total = this.totalSum();
+        }),
       )
       .subscribe();
   }
 
   private totalSum() {
-    return (
-      this.sessions?.reduce(
-        (sum, se) => sum + (Number(se.coursePricePerHoure) || 0),
-        0
-      ) ?? 0
-    );
+    return this.sessions.length * (this.userProfile.fees ?? 0);
   }
   private generateInvoiceNo() {
     return Math.floor(new Date().valueOf() * Math.random());

@@ -5,6 +5,8 @@ import { UserProfile } from "app/modules/models/user.profile";
 import { MonthlyReportDto } from "app/modules/models/monthly-report.dto";
 import { UpcomingSessionsDto } from "app/modules/models/upcoming-sessions.dto";
 import { SessionDto } from "app/modules/models/session.dto";
+import { StudentDTO } from "app/modules/models/student.dto";
+import { BehaviorSubject, first, Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
@@ -12,6 +14,10 @@ import { SessionDto } from "app/modules/models/session.dto";
 export class StudentService {
   private _httpClient = inject(HttpClient);
   constructor() {}
+  private readonly _students$ = new BehaviorSubject<StudentDTO[]>([]);
+  get students$(): Observable<StudentDTO[]> {
+    return this._students$.asObservable();
+  }
 
   getStudentProfile(studentId: string): any {
     const url = StudentController.UserStudentInfo;
@@ -21,7 +27,7 @@ export class StudentService {
   createMonthlyReport(studentId: string, monthlyReportDto: MonthlyReportDto) {
     return this._httpClient.post(
       `${StudentController.CreateMonthlyReport}/${studentId}`,
-      monthlyReportDto
+      monthlyReportDto,
     );
   }
   getMonthlyReports(id: string) {
@@ -31,5 +37,14 @@ export class StudentService {
   getTimeTable(id: string) {
     const url = StudentController.GetTimeTable;
     return this._httpClient.get<UpcomingSessionsDto[]>(`${url}/${id}`);
+  }
+  getStudents(studentsId: string[]) {
+    this._httpClient
+      .post(StudentController.Students, studentsId, {})
+      .pipe(
+        tap((students: StudentDTO[]) => this._students$.next(students)),
+        first(),
+      )
+      .subscribe();
   }
 }

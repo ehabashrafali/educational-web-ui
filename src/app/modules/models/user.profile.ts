@@ -1,3 +1,4 @@
+import { Role } from "app/core/user/user.types";
 import { WeeklyAppointmentDto } from "./weekly.appointment.dto";
 
 export interface UserProfile {
@@ -10,4 +11,6 @@ export interface UserProfile {
   isActive: boolean;
   age: number;
   weeklyAppointments: WeeklyAppointmentDto[];
+  fees: number;
+  role: Role;
 }

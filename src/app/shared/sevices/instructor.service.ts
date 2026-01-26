@@ -4,6 +4,7 @@ import { BehaviorSubject, tap } from "rxjs";
 import { InstructorController } from "../controllers/instructor.controller";
 import { StudentDTO } from "app/modules/models/student.dto";
 import { UserProfile } from "app/modules/models/user.profile";
+import { InstrctorDto } from "app/modules/models/instructor.dto";
 
 @Injectable({
   providedIn: "root",
@@ -11,6 +12,13 @@ import { UserProfile } from "app/modules/models/user.profile";
 export class InstructorService {
   private _httpClient = inject(HttpClient);
   private _students = new BehaviorSubject<StudentDTO>(null);
+  private _instructors = new BehaviorSubject<InstrctorDto[]>(null);
+  get students$() {
+    return this._students.asObservable();
+  }
+  get instructors$() {
+    return this._instructors.asObservable();
+  }
   constructor() {}
 
   GetInstructorStudent(instructorId: string) {
@@ -21,7 +29,7 @@ export class InstructorService {
         .pipe(
           tap((students) => {
             this._students.next(students);
-          })
+          }),
         );
     }
   }
@@ -29,7 +37,19 @@ export class InstructorService {
   getInstructorProfile(instructorId: string) {
     const url = InstructorController.InstructorInfo;
     return this._httpClient.get<UserProfile>(
-      `${url}?instructorId=${instructorId}`
+      `${url}?instructorId=${instructorId}`,
     );
+  }
+
+  getInstructors(instructorIds: string[]) {
+    const url = InstructorController.Instructors;
+    return this._httpClient
+      .post<InstrctorDto[]>(url, instructorIds)
+      .pipe(
+        tap((instructors: InstrctorDto[]) => {
+          this._instructors.next(instructors);
+        }),
+      )
+      .subscribe();
   }
 }

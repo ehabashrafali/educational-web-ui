@@ -1,6 +1,6 @@
 {
   "production": false,
   "crescentUrls": {
-    "baseUrl": "http://localhost:5083"
+    "baseUrl": "http://localhost:5276"
   }
 }

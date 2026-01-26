@@ -1,12 +1,9 @@
 export interface SessionDto {
-  startTime: Date;
-  courseId: string | null;
+  date: Date;
   instructorId: string;
   studentId: string;
-  joiningTime: Date;
-  status: AttendanceStatus;
-  coursePricePerHoure: number | null;
-  courseName: string | null;
+  studentSessionStatus: AttendanceStatus;
+  instructorSessionStatus: AttendanceStatus;
 }
 
 export enum AttendanceStatus {

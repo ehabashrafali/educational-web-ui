@@ -47,7 +47,7 @@ export class UserComponent implements OnInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _router: Router,
-    private _userService: UserService
+    private _userService: UserService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ export class UserComponent implements OnInit, OnDestroy {
     this._userService.user$
       .pipe(
         takeUntil(this._unsubscribeAll),
-        filter((u) => !!u)
+        filter((u) => !!u),
       )
       .subscribe((user: User) => {
         this.user = user;
@@ -125,7 +125,13 @@ export class UserComponent implements OnInit, OnDestroy {
   getUserInfo(): void {
     this._router.navigate(["/user-info"]);
   }
+  getmMnthlyReport(): void {
+    this._router.navigate(["/monthly-report"]);
+  }
   getUserAttendance() {
     this._router.navigate(["/attendance"]);
+  }
+  addSessionInfo(): void {
+    this._router.navigate(["/add-session"]);
   }
 }
