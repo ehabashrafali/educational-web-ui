@@ -4,7 +4,7 @@ import { PipesModule } from "../pipes.module";
 import { UserService } from "app/core/user/user.service";
 import { EMPTY, filter, map, of, switchMap, tap } from "rxjs";
 import { Role, User } from "app/core/user/user.types";
-import { SessionDto } from "../models/session.dto";
+import { AttendanceStatus, SessionDto } from "../models/session.dto";
 import { SessionService } from "app/shared/sevices/session.service";
 import { toDateOnly } from "../add-session/add-session.component";
 import { InstructorService } from "app/shared/sevices/instructor.service";
@@ -24,6 +24,7 @@ export class InvoiceComponent implements OnInit {
   userProfile: UserProfile;
   total: number;
   sessions: SessionDto[];
+  AttendanceStatus = AttendanceStatus;
 
   constructor(
     private userService: UserService,

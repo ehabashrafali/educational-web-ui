@@ -136,7 +136,11 @@
                       <div
                         *ngFor="let s of day.sessions"
                         class="rounded p-1 text-sm mb-1"
-                        [ngClass]="statusClass(s.status)"
+                        [ngClass]="
+                          role === 'Student'
+                            ? statusClass(s.studentSessionStatus)
+                            : statusClass(s.instructorSessionStatus)
+                        "
                       >
                         <!-- <span class="event-name">Session</span> -->
                         <span class="time"> {{ getSessionTimeLabel(s) }} </span>

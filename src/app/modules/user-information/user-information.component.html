@@ -40,11 +40,10 @@
               <div>
                 <div class="text-secondary opacity-70">Fees</div>
                 <div class="mt-1 font-semibold">
-                  {{ userProfile?.fees === 0 ? "--" : userProfile?.fees }}
+                  ${{ userProfile?.fees === 0 ? "--" : userProfile?.fees }}
                 </div>
               </div>
-
-              <div class="col-span-2">
+              <div class="col-span-1">
                 <div class="text-secondary opacity-70">Days &amp; Times</div>
                 <div class="mt-2 space-y-1">
                   <!-- Fallback if you don't have daysAndTimes yet -->
@@ -60,6 +59,22 @@
                       </div>
                     }
                   }
+                </div>
+              </div>
+              <div>
+                <div class="text-secondary opacity-70">Phone Number</div>
+                <div class="mt-1 font-semibold">
+                  {{
+                    userProfile?.phoneNumber ? userProfile?.phoneNumber : "--"
+                  }}
+                </div>
+              </div>
+              <div>
+                <div class="text-secondary opacity-70">Zoom Link</div>
+                <div class="mt-1 font-semibold">
+                  {{
+                    userProfile?.zoomMeeting ? userProfile?.zoomMeeting : "--"
+                  }}
                 </div>
               </div>
             </div>

@@ -1,12 +1,6 @@
 @if (visible) {
-  <!-- Button -->
-  <!-- <button mat-icon-button [matMenuTriggerFor]="userActions"> -->
   <button mat-icon-button [matMenuTriggerFor]="userActions">
     <span class="relative">
-      <!-- @if (showAvatar && user.avatar) {
-      <img class="h-7 w-7 rounded-full" [src]="user.avatar" />
-    }
-    @if (!showAvatar || !user.avatar) { -->
       <div class="h-10 w-10 rounded-full">
         <div
           class="flex h-full w-full items-center justify-center rounded-full bg-gray-200 text-2xl font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-200"
@@ -18,16 +12,6 @@
           }
         </div>
       </div>
-      <!-- } -->
-      <!-- <span
-        class="absolute bottom-0 right-0 h-2 w-2 rounded-full"
-        [ngClass]="{
-          'bg-green-500': user.status === 'online',
-          'bg-amber-500': user.status === 'away',
-          'bg-red-500': user.status === 'busy',
-          'bg-gray-400': user.status === 'not-visible',
-        }"
-      ></span> -->
     </span>
   </button>
 
@@ -35,52 +19,51 @@
     <button mat-menu-item>
       <span class="flex flex-col leading-none">
         @if (user) {
-          <span>Welcome {{ user?.name }}</span>
+          <span>Welcome {{ user.name }}</span>
         } @else {
           <span>Welcome Guest</span>
         }
-        <!-- <span class="mt-1.5 text-md font-medium">{{ user.email }}</span> -->
       </span>
     </button>
+
     <mat-divider class="my-2"></mat-divider>
+
     @if (user) {
       <button mat-menu-item (click)="getUserInfo()">
         <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-
         <span>Profile</span>
       </button>
-      <button mat-menu-item (click)="getUserAttendance()">
-        <mat-icon [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
 
-        <span>Attendance</span>
-      </button>
-    }
-    @if (user) {
-      <button mat-menu-item (click)="getmMnthlyReport()">
-        <mat-icon [svgIcon]="'heroicons_mini:chart-bar'"></mat-icon>
-        <span>My Students</span>
-      </button>
-      <button mat-menu-item (click)="getMyStudents()">
-        <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
-        <span>Monthly Report</span>
-      </button>
-      <button mat-menu-item (click)="addSessionInfo()">
-        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-        <span>Add Session Info</span>
-      </button>
-    }
-    <!-- <button mat-menu-item>
-      <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
-      <span>Settings</span>
-    </button> -->
-    <!-- <button mat-menu-item [matMenuTriggerFor]="userStatus">
-    <mat-icon
-      [svgIcon]="'heroicons_outline:ellipsis-horizontal-circle'"
-    ></mat-icon>
-    <span>Status</span>
-  </button> -->
-    <mat-divider class="my-2"></mat-divider>
-    @if (user) {
+      @if (user.role === "Student") {
+        <button mat-menu-item (click)="getmMnthlyReport()">
+          <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
+          <span>Monthly Report</span>
+        </button>
+      }
+
+      @if (user.role === "Instructor") {
+        <button mat-menu-item (click)="getMyStudents()">
+          <mat-icon [svgIcon]="'heroicons_mini:chart-bar'"></mat-icon>
+          <span>My Students</span>
+        </button>
+      }
+
+      @if (user.role === "Instructor" || user.role === "Student") {
+        <button mat-menu-item (click)="getUserAttendance()">
+          <mat-icon [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+          <span>Attendance</span>
+        </button>
+      }
+
+      @if (user.role === "Supervisor" || user.role === "Admin") {
+        <button mat-menu-item (click)="addSessionInfo()">
+          <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+          <span>Add Session Info</span>
+        </button>
+      }
+
+      <mat-divider class="my-2"></mat-divider>
+
       <button mat-menu-item (click)="signOut()">
         <mat-icon
           [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"
@@ -96,23 +79,4 @@
       </button>
     }
   </mat-menu>
-  <!-- 
-<mat-menu class="user-status-menu" #userStatus="matMenu">
-  <button mat-menu-item (click)="updateUserStatus('online')">
-    <span class="mr-3 inline-flex h-4 w-4 rounded-full bg-green-500"></span>
-    <span>Online</span>
-  </button>
-  <button mat-menu-item (click)="updateUserStatus('away')">
-    <span class="mr-3 inline-flex h-4 w-4 rounded-full bg-amber-500"></span>
-    <span>Away</span>
-  </button>
-  <button mat-menu-item (click)="updateUserStatus('busy')">
-    <span class="mr-3 inline-flex h-4 w-4 rounded-full bg-red-500"></span>
-    <span>Busy</span>
-  </button>
-  <button mat-menu-item (click)="updateUserStatus('not-visible')">
-    <span class="mr-3 inline-flex h-4 w-4 rounded-full bg-gray-400"></span>
-    <span>Invisible</span>
-  </button>
-</mat-menu> -->
 }
