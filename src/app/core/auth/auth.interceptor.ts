@@ -17,10 +17,11 @@ import { Observable, catchError, throwError } from "rxjs";
  */
 export const authInterceptor = (
   req: HttpRequest<unknown>,
-  next: HttpHandlerFn
+  next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
   const authService = inject(AuthService);
 
+  // Ignore assets
   if (
     req.url.includes("assets/") ||
     req.url.endsWith(".svg") ||
@@ -29,17 +30,8 @@ export const authInterceptor = (
     return next(req);
   }
 
-  // Clone the request object
-  let newReq = req.clone();
+  let newReq = req;
 
-  // Request
-  //
-  // If the access token didn't expire, add the Authorization header.
-  // We won't add the Authorization header if the access token expired.
-  // This will force the server to return a "401 Unauthorized" response
-  // for the protected API routes which our response interceptor will
-  // catch and delete the access token from the local storage while logging
-  // the user out from the app.
   if (
     authService.accessToken &&
     !AuthUtils.isTokenExpired(authService.accessToken)
@@ -47,24 +39,21 @@ export const authInterceptor = (
     newReq = req.clone({
       headers: req.headers.set(
         "Authorization",
-        "Bearer " + authService.accessToken
+        "Bearer " + authService.accessToken,
       ),
     });
   }
 
-  // Response
   return next(newReq).pipe(
-    catchError((error) => {
-      // Catch "401 Unauthorized" responses
-      if (error instanceof HttpErrorResponse && error.status === 401) {
-        // Sign out
+    catchError((error: unknown) => {
+      if (
+        error instanceof HttpErrorResponse &&
+        error.status === 401 &&
+        !req.url.includes("auth/signin")
+      ) {
         authService.signOut();
-
-        // Reload the app
-        location.reload();
       }
-
-      return throwError(error);
-    })
+      return throwError(() => error);
+    }),
   );
 };

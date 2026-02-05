@@ -1,5 +1,5 @@
 import { AsyncPipe } from "@angular/common";
-import { Component, OnInit, Pipe } from "@angular/core";
+import { Component, Injector, OnInit, Pipe } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
@@ -69,14 +69,18 @@ export class StudentReportComponent implements OnInit {
   public monthlyReportForm: FormGroup;
   private studentId: string;
   toDayDate = new Date().toISOString().substring(0, 10);
+  public toastService: ToastService;
+
   constructor(
     private studentService: StudentService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
-    public toastService: ToastService,
     public userService: UserService,
-    private router: Router
+    private router: Router,
+    public injector: Injector,
   ) {
+    this.toastService = this.injector.get(ToastService);
+
     this.monthlyReportForm = this.fb.group({
       date: [{ value: this.toDayDate, disabled: true }, Validators.required],
       memorization: [null, Validators.required],
@@ -101,7 +105,7 @@ export class StudentReportComponent implements OnInit {
         filter((user) => !!user),
         tap((user) => {
           this.userId = user.id;
-        })
+        }),
       )
       .subscribe();
 
@@ -110,7 +114,7 @@ export class StudentReportComponent implements OnInit {
         map((params) => params.get("id")),
         tap((id) => {
           this.studentId = id;
-        })
+        }),
       )
       .subscribe();
   }
@@ -130,8 +134,8 @@ export class StudentReportComponent implements OnInit {
           message: "Report created successfully",
         }),
         tap(() => {
-          this.router.navigate([`/profiles/${this.userId}`]);
-        })
+          this.router.navigate([`/my-students/${this.userId}`]);
+        }),
       )
       .subscribe();
   }

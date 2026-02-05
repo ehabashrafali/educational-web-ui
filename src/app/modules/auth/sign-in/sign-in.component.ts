@@ -18,7 +18,7 @@ import { fuseAnimations } from "@fuse/animations";
 import { FuseAlertComponent, FuseAlertType } from "@fuse/components/alert";
 import { AuthService } from "app/core/auth/auth.service";
 import { ToastService } from "app/shared/sevices/toasts.service";
-import { catchError, of, tap } from "rxjs";
+import { catchError, EMPTY, of, tap } from "rxjs";
 
 @Component({
   selector: "auth-sign-in",
@@ -57,7 +57,7 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -99,9 +99,11 @@ export class AuthSignInComponent implements OnInit {
             this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
             "/signed-in-redirect";
 
+          debugger;
           this._router.navigateByUrl(redirectURL);
         }),
         catchError((response) => {
+          debugger;
           this.signInForm.enable();
           this.signInNgForm.resetForm();
 
@@ -116,8 +118,8 @@ export class AuthSignInComponent implements OnInit {
             message,
           });
 
-          return of(null);
-        })
+          return EMPTY;
+        }),
       )
       .subscribe();
   }

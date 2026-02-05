@@ -107,7 +107,7 @@ export class AuthService {
         this._userService.user = user;
 
         return response;
-      })
+      }),
     );
   }
 
@@ -154,7 +154,7 @@ export class AuthService {
         catchError(() => {
           this.signOut();
           return of(false);
-        })
+        }),
       );
   }
 
@@ -211,7 +211,7 @@ export class AuthService {
 
         return { authenticated: true, role: this.role };
       }),
-      catchError(() => of({ authenticated: false }))
+      catchError(() => of({ authenticated: false })),
     );
   }
 }

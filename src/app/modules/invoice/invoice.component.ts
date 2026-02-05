@@ -10,11 +10,20 @@ import { toDateOnly } from "../add-session/add-session.component";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { StudentService } from "app/shared/sevices/student.service";
 import { UserProfile } from "../models/user.profile";
+import { MatButtonModule } from "@angular/material/button";
+import { CommonModule } from "@angular/common";
+import { MatIconModule } from "@angular/material/icon";
 
 @Component({
   selector: "app-invoice",
   standalone: true,
-  imports: [CdkScrollable, PipesModule],
+  imports: [
+    CdkScrollable,
+    PipesModule,
+    MatButtonModule,
+    CommonModule,
+    MatIconModule,
+  ],
   templateUrl: "./invoice.component.html",
   styleUrl: "./invoice.component.scss",
 })
@@ -78,5 +87,23 @@ export class InvoiceComponent implements OnInit {
   }
   private generateInvoiceNo() {
     return Math.floor(new Date().valueOf() * Math.random());
+  }
+
+  statusClass(status: AttendanceStatus): string {
+    switch (status) {
+      case AttendanceStatus.Attend:
+        return "bg-green-100 rounded-full text-green-800";
+      case AttendanceStatus.Late:
+        return "bg-gray-100 text-gray-800";
+      case AttendanceStatus.AbsentStudent:
+      case AttendanceStatus.AbsentInstructor:
+        return "bg-red-100 text-red-700";
+      case AttendanceStatus.CancelledByInstructor:
+        return "bg-yellow-100 text-yellow-800";
+      case AttendanceStatus.CancelledByStudent:
+        return "bg-red-100 text-red-900";
+      default:
+        return "bg-purple-100 text-purple-800";
+    }
   }
 }
