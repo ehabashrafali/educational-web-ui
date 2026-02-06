@@ -7,7 +7,8 @@ import {
 } from "@angular/core";
 import { MatButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
-import { ToastMessage, ToastService } from "app/shared/sevices/toasts.service";
+import { NgbToast, NgbToastHeader } from "@ng-bootstrap/ng-bootstrap";
+import { ToastService, ToastMessage } from "app/shared/sevices/toasts.service";
 
 @Component({
   selector: "app-toast-container",
