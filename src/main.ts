@@ -1,3 +1,5 @@
+/// <reference types="@angular/localize" />
+
 import { isDevMode } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
 import { AppComponent } from "app/app.component";
