@@ -27,13 +27,15 @@ import {
 } from "../models/report.dto";
 import { PipesModule } from "../pipes.module";
 import { StudentService } from "app/shared/sevices/student.service";
-import { filter, map, tap } from "rxjs";
+import { filter, map, takeUntil, tap } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import {
   showToastOnSuccess,
   ToastService,
 } from "app/shared/sevices/toasts.service";
 import { UserService } from "app/core/user/user.service";
+import { Location } from "@angular/common";
+import { ModalService } from "app/shared/sevices/modal.service";
 
 @Component({
   selector: "app-student-report",
@@ -78,6 +80,8 @@ export class StudentReportComponent implements OnInit {
     public userService: UserService,
     private router: Router,
     public injector: Injector,
+    private location: Location,
+    public modalService: ModalService,
   ) {
     this.toastService = this.injector.get(ToastService);
 
@@ -118,6 +122,7 @@ export class StudentReportComponent implements OnInit {
       )
       .subscribe();
   }
+
   submitMonthlyReport() {
     if (this.monthlyReportForm.invalid) {
       this.monthlyReportForm.markAllAsTouched();
@@ -137,6 +142,11 @@ export class StudentReportComponent implements OnInit {
           this.router.navigate([`/my-students/${this.userId}`]);
         }),
       )
+      .subscribe();
+  }
+  cancel() {
+    this.modalService
+      .confirmLosingChanges(this.monthlyReportForm, () => this.location.back())
       .subscribe();
   }
 }

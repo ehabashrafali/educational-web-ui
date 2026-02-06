@@ -9,6 +9,7 @@ import { UserProfile } from "../models/user.profile";
 import { filter, map, of, switchMap, tap } from "rxjs";
 import { Role } from "app/core/user/user.types";
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
   selector: "app-user-information",
@@ -20,10 +21,11 @@ import { ActivatedRoute } from "@angular/router";
 export class UserInformationComponent implements OnInit {
   studentId: string;
   constructor(
+    private location: Location,
     private _studentService: StudentService,
     private _instructorService: InstructorService,
     private _userService: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   userProfile: UserProfile | null = null;
@@ -34,7 +36,7 @@ export class UserInformationComponent implements OnInit {
         map((params) => params.get("id")),
         tap((id) => {
           this.studentId = id;
-        })
+        }),
       )
       .subscribe();
 
@@ -53,9 +55,13 @@ export class UserInformationComponent implements OnInit {
         }),
         map((profile) => profile as UserProfile),
         tap((profile) => {
+          debugger;
           this.userProfile = profile;
-        })
+        }),
       )
       .subscribe();
+  }
+  goBack(): void {
+    this.location.back();
   }
 }

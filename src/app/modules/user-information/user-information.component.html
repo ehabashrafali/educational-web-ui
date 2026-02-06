@@ -1,6 +1,15 @@
 <div class="grid max-w-screen w-full mb-10">
-  <div class="flex mb-4 gap-4 justify-between w-full">
-    <p class="text-4xl ms-10 mt-5 mb-5 font-semibold">Your Information</p>
+  <div class="flex mb-4 gap-4 items-center w-full">
+    <button
+      mat-icon-button
+      class="text-gray-700 transition hover:opacity-75 dark:text-gray-200 ms-6 mt-2"
+      (click)="goBack()"
+      aria-label="Go back"
+    >
+      <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
+    </button>
+
+    <p class="text-4xl mt-5 mb-5 font-semibold">Your Information</p>
   </div>
 
   <div class="flex justify-center w-full">
@@ -40,15 +49,19 @@
               <div>
                 <div class="text-secondary opacity-70">Fees</div>
                 <div class="mt-1 font-semibold">
-                  ${{ userProfile?.fees === 0 ? "--" : userProfile?.fees }}
+                  @if (!userProfile?.fees || userProfile?.fees === 0) {
+                    --
+                  } @else {
+                    {{ userProfile?.fees }}
+                  }
                 </div>
               </div>
               <div class="col-span-1">
                 <div class="text-secondary opacity-70">Days &amp; Times</div>
-                <div class="mt-2 space-y-1">
+                <div class="mt-2 space-y-1 font-semibold">
                   <!-- Fallback if you don't have daysAndTimes yet -->
                   @if (!userProfile?.weeklyAppointments) {
-                    -
+                    --
                   } @else {
                     @for (
                       appointment of userProfile.weeklyAppointments;

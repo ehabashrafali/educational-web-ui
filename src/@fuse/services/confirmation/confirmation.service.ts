@@ -1,50 +1,54 @@
-import { inject, Injectable } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { FuseConfirmationConfig } from '@fuse/services/confirmation/confirmation.types';
-import { FuseConfirmationDialogComponent } from '@fuse/services/confirmation/dialog/dialog.component';
-import { merge } from 'lodash-es';
+import { inject, Injectable } from "@angular/core";
+import { MatDialog, MatDialogRef } from "@angular/material/dialog";
+import { FuseConfirmationDialogComponent } from "@fuse/services/confirmation/dialog/dialog.component";
+import { merge } from "lodash-es";
+import { FuseConfirmationConfig } from "./confirmation.types";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class FuseConfirmationService {
-    private _matDialog: MatDialog = inject(MatDialog);
-    private _defaultConfig: FuseConfirmationConfig = {
-        title: 'Confirm action',
-        message: 'Are you sure you want to confirm this action?',
-        icon: {
-            show: true,
-            name: 'heroicons_outline:exclamation-triangle',
-            color: 'warn',
-        },
-        actions: {
-            confirm: {
-                show: true,
-                label: 'Confirm',
-                color: 'warn',
-            },
-            cancel: {
-                show: true,
-                label: 'Cancel',
-            },
-        },
-        dismissible: false,
-    };
+  private _matDialog: MatDialog = inject(MatDialog);
+  private _defaultConfig: FuseConfirmationConfig = {
+    title: "Confirm action",
+    message: "Are you sure you want to confirm this action?",
+    icon: {
+      show: true,
+      name: "heroicons_outline:exclamation-triangle",
+      color: "danger",
+    },
+    actions: {
+      confirm: {
+        show: true,
+        label: "Confirm",
+        color: "danger",
+      },
+      cancel: {
+        show: true,
+        label: "Cancel",
+      },
+    },
+    dismissible: false,
+  };
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    open(
-        config: FuseConfirmationConfig = {}
-    ): MatDialogRef<FuseConfirmationDialogComponent> {
-        // Merge the user config with the default config
-        const userConfig = merge({}, this._defaultConfig, config);
+  open(
+    config: FuseConfirmationConfig = {},
+  ): MatDialogRef<FuseConfirmationDialogComponent> {
+    // Merge the user config with the default config
+    const userConfig = merge({}, this._defaultConfig, config);
 
-        // Open the dialog
-        return this._matDialog.open(FuseConfirmationDialogComponent, {
-            autoFocus: false,
-            disableClose: !userConfig.dismissible,
-            data: userConfig,
-            panelClass: 'fuse-confirmation-dialog-panel',
-        });
-    }
+    // Open the dialog
+    return this._matDialog.open(FuseConfirmationDialogComponent, {
+      autoFocus: false,
+      disableClose: !userConfig.dismissible,
+      data: userConfig,
+      panelClass: "fuse-confirmation-dialog-panel",
+    });
+  }
+
+  dismissAll() {
+    this._matDialog.closeAll();
+  }
 }
