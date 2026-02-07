@@ -89,6 +89,23 @@
             <mat-error>Session Status is required</mat-error>
           }
         </mat-form-field>
+        <mat-form-field>
+          <mat-label>Session Duration</mat-label>
+          <mat-select formControlName="sessionDuration">
+            @for (duration of SessionDuration | enumToList; track duration.id) {
+              <mat-option [value]="duration.id">
+                {{ duration.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+          @if (
+            sessionForm.get("sessionDuration")?.invalid &&
+            (sessionForm.get("sessionDuration")?.touched ||
+              sessionForm.get("sessionDuration")?.dirty)
+          ) {
+            <mat-error>Session duration is required</mat-error>
+          }
+        </mat-form-field>
       </div>
     </form>
   </div>

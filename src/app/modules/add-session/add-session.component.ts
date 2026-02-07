@@ -25,7 +25,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { PipesModule } from "../pipes.module";
-import { AttendanceStatus, SessionDto } from "../models/session.dto";
+import {
+  AttendanceStatus,
+  SessionDto,
+  SessionDuration,
+} from "../models/session.dto";
 import {
   showToastOnSuccess,
   ToastService,
@@ -60,6 +64,7 @@ export class AddSessionComponent implements OnInit {
   public _students$: Observable<StudentDTO[]>;
   public sessionForm: FormGroup;
   SessionStatus = AttendanceStatus;
+  SessionDuration = SessionDuration;
   date: Date;
   constructor(
     private instructorService: InstructorService,
@@ -74,6 +79,7 @@ export class AddSessionComponent implements OnInit {
       instructorId: [null, Validators.required],
       studentId: [null, Validators.required],
       studentSessionStatus: [AttendanceStatus.Attend, Validators.required],
+      sessionDuration: [SessionDuration.ThirtyMinutes, Validators.required],
     });
   }
   ngOnInit(): void {

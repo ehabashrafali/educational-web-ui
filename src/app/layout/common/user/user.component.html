@@ -6,7 +6,7 @@
           class="flex h-full w-full items-center justify-center rounded-full bg-gray-200 text-2xl font-semibold uppercase text-gray-600 dark:bg-gray-700 dark:text-gray-200"
         >
           @if (!user) {
-            Hi
+            CS
           } @else {
             {{ name | initials }}
           }
@@ -29,11 +29,6 @@
     <mat-divider class="my-2"></mat-divider>
 
     @if (user) {
-      <button mat-menu-item (click)="getUserInfo()">
-        <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-        <span>Profile</span>
-      </button>
-
       @if (user.role === "Student") {
         <button mat-menu-item (click)="getmMnthlyReport()">
           <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
@@ -52,6 +47,10 @@
         <button mat-menu-item (click)="getUserAttendance()">
           <mat-icon [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
           <span>Attendance</span>
+        </button>
+        <button mat-menu-item (click)="getUserInfo()">
+          <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+          <span>Profile</span>
         </button>
       }
 

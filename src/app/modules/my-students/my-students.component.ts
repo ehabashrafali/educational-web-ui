@@ -34,7 +34,7 @@ import { MatIconModule } from "@angular/material/icon";
 export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) tableMatSort!: MatSort;
 
-  displayedColumns: string[] = ["Name", "Email", "ReportStatus"];
+  displayedColumns: string[] = ["Name", "ReportStatus"];
   dataSource = new MatTableDataSource<any>();
 
   private _unsubscribeAll = new Subject<void>();
@@ -42,7 +42,7 @@ export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private instructorService: InstructorService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -56,7 +56,7 @@ export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
         tap((students) => {
           this.dataSource.data = students;
         }),
-        takeUntil(this._unsubscribeAll)
+        takeUntil(this._unsubscribeAll),
       )
       .subscribe();
   }

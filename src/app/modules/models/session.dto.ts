@@ -12,5 +12,16 @@ export enum AttendanceStatus {
   AbsentInstructor = 3,
   CancelledByInstructor = 4,
   CancelledByStudent = 5,
-  Late,
+  StudentLate5Minutes = 6,
+  StudentLate10Minutes = 7,
+  InstructorLate5Minutes = 8,
+  InstructorLate10Minutes = 9,
+}
+
+export enum SessionDuration {
+  ThirtyMinutes = 30,
+  FortyFiveMinutes = 45,
+  SixtyMinutes = 60,
+  SeventyFiveMinutes = 75,
+  NinetyMinutes = 90,
 }

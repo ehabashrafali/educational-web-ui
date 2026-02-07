@@ -99,11 +99,9 @@ export class AuthSignInComponent implements OnInit {
             this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
             "/signed-in-redirect";
 
-          debugger;
           this._router.navigateByUrl(redirectURL);
         }),
         catchError((response) => {
-          debugger;
           this.signInForm.enable();
           this.signInNgForm.resetForm();
 

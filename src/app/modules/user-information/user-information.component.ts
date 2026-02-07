@@ -20,6 +20,7 @@ import { Location } from "@angular/common";
 })
 export class UserInformationComponent implements OnInit {
   studentId: string;
+  currentUser: import("c:/Users/eaali/Desktop/Crescent School/educational-web-ui/src/app/core/user/user.types").User;
   constructor(
     private location: Location,
     private _studentService: StudentService,
@@ -44,6 +45,7 @@ export class UserInformationComponent implements OnInit {
       .pipe(
         filter((user) => !!user),
         switchMap((user) => {
+          this.currentUser = user;
           if (this.studentId) {
             return this._studentService.getStudentProfile(this.studentId);
           } else if (user!.role == Role.Student) {
@@ -55,7 +57,6 @@ export class UserInformationComponent implements OnInit {
         }),
         map((profile) => profile as UserProfile),
         tap((profile) => {
-          debugger;
           this.userProfile = profile;
         }),
       )

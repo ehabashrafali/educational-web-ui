@@ -13,68 +13,82 @@
   </div>
 
   <div class="flex justify-center w-full">
-    <fuse-card class="max-w-4xl w-full bg-card rounded-2xl shadow">
-      <div class="p-8 sm:p-6">
+    <fuse-card class="max-w-fit w-full bg-card rounded-2xl shadow">
+      <div class="ms-4 p-8 sm:p-6">
         <div class="flex flex-col lg:flex-row">
           <div class="mt-8 lg:mt-12 flex-1">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-x-16 gap-y-10">
-              <div>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-x-8 gap-y-10">
+              <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Name</div>
                 <div class="mt-1 font-semibold">
                   {{ userProfile?.fullName }}
                 </div>
               </div>
 
-              <div>
+              <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Country</div>
                 <div class="mt-1 font-semibold">
                   {{ userProfile?.country }}
                 </div>
               </div>
 
-              <div>
+              <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Status</div>
                 <div class="mt-1 font-semibold">
                   {{ userProfile?.isActive ? "Active" : "InActive" }}
                 </div>
               </div>
 
-              <div>
-                <div class="text-secondary opacity-70">Age</div>
+              <div class="max-w-fit">
+                <div class="text-secondary opacity-70">Email</div>
                 <div class="mt-1 font-semibold">
-                  {{ userProfile?.age === 0 ? "--" : userProfile?.age }}
+                  {{ userProfile?.email ? userProfile?.email : "--" }}
                 </div>
               </div>
 
-              <div>
-                <div class="text-secondary opacity-70">Fees</div>
-                <div class="mt-1 font-semibold">
-                  @if (!userProfile?.fees || userProfile?.fees === 0) {
-                    --
-                  } @else {
-                    {{ userProfile?.fees }}
-                  }
+              @if (currentUser?.role === "Student") {
+                <div class="max-w-fit">
+                  <div class="text-secondary opacity-70">Age</div>
+                  <div class="mt-1 font-semibold">
+                    {{ userProfile?.age === 0 ? "--" : userProfile?.age }}
+                  </div>
                 </div>
-              </div>
-              <div class="col-span-1">
-                <div class="text-secondary opacity-70">Days &amp; Times</div>
-                <div class="mt-2 space-y-1 font-semibold">
-                  <!-- Fallback if you don't have daysAndTimes yet -->
-                  @if (!userProfile?.weeklyAppointments) {
-                    --
-                  } @else {
-                    @for (
-                      appointment of userProfile.weeklyAppointments;
-                      track appointment
-                    ) {
-                      <div class="font-semibold">
-                        {{ appointment.dayOfWeek }} {{ appointment.time }}
-                      </div>
+              }
+
+              @if (currentUser?.role === "Student") {
+                <div class="max-w-fit">
+                  <div class="text-secondary opacity-70">Fees</div>
+                  <div class="mt-1 font-semibold">
+                    @if (!userProfile?.fees || userProfile?.fees === 0) {
+                      --
+                    } @else {
+                      {{ userProfile?.fees }}
                     }
-                  }
+                  </div>
                 </div>
-              </div>
-              <div>
+              }
+
+              @if (currentUser?.role === "Student") {
+                <div class="col-span-1 max-w-fit">
+                  <div class="text-secondary opacity-70">Days &amp; Times</div>
+                  <div class="mt-2 space-y-1 font-semibold">
+                    <!-- Fallback if you don't have daysAndTimes yet -->
+                    @if (!userProfile?.weeklyAppointments) {
+                      --
+                    } @else {
+                      @for (
+                        appointment of userProfile.weeklyAppointments;
+                        track appointment
+                      ) {
+                        <div class="font-semibold">
+                          {{ appointment.dayOfWeek }} {{ appointment.time }}
+                        </div>
+                      }
+                    }
+                  </div>
+                </div>
+              }
+              <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Phone Number</div>
                 <div class="mt-1 font-semibold">
                   {{
@@ -82,7 +96,8 @@
                   }}
                 </div>
               </div>
-              <div>
+
+              <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Zoom Link</div>
                 <div class="mt-1 font-semibold">
                   {{

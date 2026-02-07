@@ -36,6 +36,11 @@ import {
 import { UserService } from "app/core/user/user.service";
 import { Location } from "@angular/common";
 import { ModalService } from "app/shared/sevices/modal.service";
+import {
+  BasicQuranRecitationRule,
+  IslamicStudiesBook,
+  Tajweed,
+} from "../models/monthly-report.dto";
 
 @Component({
   selector: "app-student-report",
@@ -86,20 +91,25 @@ export class StudentReportComponent implements OnInit {
     this.toastService = this.injector.get(ToastService);
 
     this.monthlyReportForm = this.fb.group({
-      date: [{ value: this.toDayDate, disabled: true }, Validators.required],
-      memorization: [null, Validators.required],
-      noOfMemorizationAyah: ["", Validators.required],
-      reading: ["", Validators.required],
-      noOfReadingAyah: ["", Validators.required],
-      grade: [null, Validators.required],
-      basicQuranRecitationRules: [null, Validators.required],
-      progress: ["", Validators.required],
-      tajweedRules: ["", Validators.required],
-      quranComments: ["", Validators.required],
-      islamicStudiesProgress: ["", Validators.required],
-      islamicStudiesComments: ["", Validators.required],
-      islamicStudiesTopics: ["", Validators.required],
-      islamicStudiesBook: ["", Validators.required],
+      date: [{ value: this.toDayDate, disabled: true }],
+      memorization: [null],
+      noOfMemorizationAyah: [""],
+      memorizationGrade: [null],
+
+      reading: [""],
+      noOfReadingAyah: [""],
+      readingGrade: [null],
+      basicQuranRecitationRulesProgress: [""],
+      tajweedRules: this.fb.array([]),
+      islamicStudiesBooks: fb.array([]),
+      basicQuranRecitationRules: fb.array([]),
+      tajweedRulesProgress: [""],
+
+      quranComments: [""],
+
+      islamicStudiesProgress: [""],
+      islamicStudiesComments: [""],
+      islamicStudiesTopics: [""],
     });
   }
 
@@ -124,6 +134,7 @@ export class StudentReportComponent implements OnInit {
   }
 
   submitMonthlyReport() {
+    debugger;
     if (this.monthlyReportForm.invalid) {
       this.monthlyReportForm.markAllAsTouched();
       return;
@@ -131,8 +142,27 @@ export class StudentReportComponent implements OnInit {
 
     const formVal = this.monthlyReportForm.getRawValue();
 
+    const dto = {
+      ...formVal,
+
+      basicQuranRecitationRules: formVal.basicQuranRecitationRules.map(
+        (topic: QuranRecitationTopic) => ({
+          quranRecitationTopic: topic,
+        }),
+      ),
+
+      tajweedRules: formVal.tajweedRules.map((rule: TajweedRules) => ({
+        tajweedRule: rule,
+      })),
+
+      islamicStudiesBooks: formVal.islamicStudiesBook.map(
+        (book: IslamicStudiesBooks) => ({
+          book,
+        }),
+      ),
+    };
     this.studentService
-      .createMonthlyReport(this.studentId, formVal)
+      .createMonthlyReport(this.studentId, dto)
       .pipe(
         showToastOnSuccess(this.toastService, {
           title: "Success",

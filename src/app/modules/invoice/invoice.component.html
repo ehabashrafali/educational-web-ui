@@ -1,7 +1,8 @@
-<div class="w-full font-sans text-gray-800">
-  <div class="min-h-screen w-full overflow-auto bg-transparent text-center">
-    <!-- Main -->
-    <div class="mx-auto w-full max-w-5xl p-4 text-left sm:p-8 print:p-0">
+<div class="w-full font-sans text-gray-800" #content>
+  <div
+    class="min-h-screen w-full overflow-auto bg-transparent flex justify-center"
+  >
+    <div class="mx-auto w-full max-w-5xl p-2 text-left sm:p-8 print:p-0">
       <!-- Invoice -->
       <div
         class="w-full rounded-2xl bg-card p-6 shadow sm:p-10 lg:p-12 print:rounded-none print:bg-transparent print:p-0 print:shadow-none"
@@ -11,7 +12,7 @@
           class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"
         >
           <!-- Invoice meta -->
-          <div class="grid grid-cols-2 gap-x-4 gap-y-3">
+          <div class="grid grid-cols-2 mt-5 gap-x-4 gap-y-3">
             <div
               class="text-secondary text-xl font-semibold tracking-tight sm:text-2xl"
             >
@@ -38,26 +39,39 @@
             <div class="text-base font-semibold">${{ total }}</div>
           </div>
 
-          <!-- Brand / Purchased by -->
-          <div
-            class="grid w-full grid-cols-[auto,1fr] items-center gap-x-6 rounded-2xl bg-accent px-6 py-5 md:w-auto md:rounded-l-2xl md:rounded-r-none md:-mr-6 lg:-mr-12 print:mr-0 print:rounded-none"
-          >
-            <div class="w-16 sm:w-20">
-              <img class="w-full" src="images/logo/crescent School-01.png" />
+          <div>
+            <div class="mb-4 flex justify-end print:hidden">
+              <button
+                mat-flat-button
+                color="primary"
+                class="flex items-center gap-2"
+                (click)="exportToPdf()"
+              >
+                <mat-icon>picture_as_pdf</mat-icon>
+                Export PDF
+              </button>
             </div>
+            <!-- Brand / Purchased by -->
             <div
-              class="border-l pl-6 text-sm leading-relaxed text-white/90 sm:text-base"
+              class="grid w-full grid-cols-[auto,1fr] items-center gap-x-6 rounded-2xl bg-accent px-6 py-5 md:w-auto md:rounded-l-2xl md:rounded-r-none md:-mr-6 lg:-mr-12 print:mr-0 print:rounded-none"
             >
-              <div class="font-semibold text-white">Purchased by:</div>
-              <div>Osama Elbosili</div>
-              <div>Arabic & Quran Teacher</div>
-              <div>+201551494362</div>
+              <div class="w-16 sm:w-20">
+                <img class="w-full" src="images/logo/crescent School-01.png" />
+              </div>
+              <div
+                class="border-l pl-6 text-sm leading-relaxed text-white/90 sm:text-base"
+              >
+                <div class="font-semibold text-white">Purchased by:</div>
+                <div>Osama Elbosili</div>
+                <div>Arabic & Quran Teacher</div>
+                <div>+201551494362</div>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- User Info -->
-        <div class="mt-10">
+        <div class="mt-2">
           <div
             class="text-secondary text-base font-semibold uppercase tracking-wide sm:text-lg"
           >
@@ -74,87 +88,101 @@
           </div>
         </div>
 
-        <!-- Table -->
-        <div class="mt-12">
-          <!-- Table header -->
+        <!--Payment Instructions-->
+        <div class="my-10">
           <div
-            class="hidden grid-cols-12 gap-x-4 border-b pb-3 text-xs font-semibold uppercase tracking-wide text-secondary md:grid"
+            class="text-secondary text-base font-semibold uppercase tracking-wide sm:text-lg"
           >
-            <div class="col-span-6">Session Date</div>
-            <div class="col-span-4 text-center">Status</div>
-            <div class="col-span-2 text-right">Fees</div>
+            Payment Instructions
+          </div>
+          <div class="mt-1 text-sm text-gray-600 sm:text-base">
+            Absent classes are the lessons that the student misses or cancels
+            less than two hours before the scheduled start time, according to
+            the school's approved policy
           </div>
 
-          <!-- Rows -->
-          <div class="divide-y">
-            @for (session of sessions; track session) {
-              <div
-                class="grid grid-cols-1 gap-y-2 py-4 md:grid-cols-12 md:gap-x-4 md:gap-y-0"
-              >
-                <!-- Session Date -->
-                <div class="md:col-span-6">
-                  <div
-                    class="text-secondary text-xs font-medium uppercase md:hidden"
-                  >
-                    Session Date
-                  </div>
-                  <div class="text-sm font-medium sm:text-base">
-                    {{ session.date | datetime }}
-                  </div>
-                </div>
-
-                <!-- Status -->
-                <div class="md:col-span-4 md:text-center">
-                  <div
-                    class="text-secondary text-xs font-medium uppercase md:hidden"
-                  >
-                    Status
-                  </div>
-                  <div
-                    class="inline-block rounded-full px-3 py-1 text-sm font-semibold capitalize"
-                    [ngClass]="
-                      userProfile?.role === 'Student'
-                        ? statusClass(session.studentSessionStatus)
-                        : statusClass(session.instructorSessionStatus)
-                    "
-                  >
-                    {{
-                      userProfile?.role === "Instructor"
-                        ? AttendanceStatus[session.instructorSessionStatus]
-                        : AttendanceStatus[session.studentSessionStatus]
-                    }}
-                  </div>
-                </div>
-
-                <!-- Fees -->
-                <div class="md:col-span-2 md:text-right">
-                  <div
-                    class="text-secondary text-xs font-medium uppercase md:hidden"
-                  >
-                    Fees
-                  </div>
-                  <div class="text-sm font-semibold sm:text-base">
-                    ${{ userProfile?.fees }}
-                  </div>
-                </div>
-              </div>
-            }
-
-            @if (sessions?.length === 0) {
-              <div class="py-4 text-left text-sm text-secondary">
-                No sessions for this month.
-              </div>
-            }
-          </div>
-
-          <!-- Total -->
-          <div class="mt-10 flex items-center justify-between border-t pt-6">
+          <!-- Table -->
+          <div class="mt-12">
+            <!-- Table header -->
             <div
-              class="text-secondary text-lg font-semibold uppercase tracking-wide sm:text-xl"
+              class="hidden grid-cols-12 gap-x-4 border-b pb-3 text-xs font-semibold uppercase tracking-wide text-secondary md:grid"
             >
-              Total
+              <div class="col-span-6">Session Date</div>
+              <div class="col-span-4 text-center">Status</div>
+              <div class="col-span-2 text-right">Fees</div>
             </div>
-            <div class="text-xl font-bold sm:text-2xl">${{ total }}</div>
+
+            <!-- Rows -->
+            <div class="divide-y">
+              @for (session of sessions; track session) {
+                <div
+                  class="grid grid-cols-1 gap-y-2 py-4 md:grid-cols-12 md:gap-x-4 md:gap-y-0"
+                >
+                  <!-- Session Date -->
+                  <div class="md:col-span-6">
+                    <div
+                      class="text-secondary text-xs font-medium uppercase md:hidden"
+                    >
+                      Session Date
+                    </div>
+                    <div class="text-sm font-medium sm:text-base">
+                      {{ session.date | datetime }}
+                    </div>
+                  </div>
+
+                  <!-- Status -->
+                  <div class="md:col-span-4 md:text-center">
+                    <div
+                      class="text-secondary text-xs font-medium uppercase md:hidden"
+                    >
+                      Status
+                    </div>
+                    <div
+                      class="inline-block rounded-full px-3 py-1 text-sm font-semibold capitalize"
+                      [ngClass]="
+                        userProfile?.role === 'Student'
+                          ? statusClass(session.studentSessionStatus)
+                          : statusClass(session.instructorSessionStatus)
+                      "
+                    >
+                      {{
+                        userProfile?.role === "Instructor"
+                          ? AttendanceStatus[session.instructorSessionStatus]
+                          : AttendanceStatus[session.studentSessionStatus]
+                      }}
+                    </div>
+                  </div>
+
+                  <!-- Fees -->
+                  <div class="md:col-span-2 md:text-right">
+                    <div
+                      class="text-secondary text-xs font-medium uppercase md:hidden"
+                    >
+                      Fees
+                    </div>
+                    <div class="text-sm font-semibold sm:text-base">
+                      ${{ userProfile?.fees }}
+                    </div>
+                  </div>
+                </div>
+              }
+
+              @if (sessions?.length === 0) {
+                <div class="py-4 text-left text-sm text-secondary">
+                  No sessions for this month.
+                </div>
+              }
+            </div>
+
+            <!-- Total -->
+            <div class="mt-10 flex items-center justify-between border-t pt-6">
+              <div
+                class="text-secondary text-lg font-semibold uppercase tracking-wide sm:text-xl"
+              >
+                Total
+              </div>
+              <div class="text-xl font-bold sm:text-2xl">${{ total }}</div>
+            </div>
           </div>
         </div>
       </div>

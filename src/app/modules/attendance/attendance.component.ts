@@ -89,7 +89,8 @@ export class AttendanceComponent implements OnInit {
     switch (status) {
       case AttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
-      case AttendanceStatus.Late:
+      case AttendanceStatus.StudentLate5Minutes:
+      case AttendanceStatus.InstructorLate5Minutes:
         return "bg-gray-100 text-gray-800";
       case AttendanceStatus.AbsentStudent:
       case AttendanceStatus.AbsentInstructor:
@@ -171,7 +172,7 @@ export class AttendanceComponent implements OnInit {
       (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
     ).length;
     this.lateCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.Late,
+      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate5Minutes,
     ).length;
     this.totalCount = this.sessions.length;
   }
@@ -194,7 +195,7 @@ export class AttendanceComponent implements OnInit {
       (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
     ).length;
     this.lateCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.Late,
+      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate5Minutes,
     ).length;
     this.totalCount = this.sessions.length;
   }
