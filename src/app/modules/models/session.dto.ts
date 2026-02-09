@@ -4,6 +4,7 @@ export interface SessionDto {
   studentId: string;
   studentSessionStatus: AttendanceStatus;
   instructorSessionStatus: AttendanceStatus;
+  duration: SessionDuration;
 }
 
 export enum AttendanceStatus {

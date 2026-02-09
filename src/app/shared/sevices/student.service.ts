@@ -47,4 +47,8 @@ export class StudentService {
       )
       .subscribe();
   }
+  getStudentMonthlyReport(studentId: string) {
+    const url = StudentController.GetMonthlyReport;
+    return this._httpClient.get<MonthlyReportDto>(`${url}/${studentId}`);
+  }
 }

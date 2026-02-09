@@ -7,20 +7,32 @@ import {
 } from "./report.dto";
 
 export interface MonthlyReportDto {
-  id: string;
-  date?: Date;
+  // Id is ignored by backend, keep optional if needed in UI
+  id?: string;
+
+  date: Date;
+
   memorization?: QuranSurah;
+  memorizationGrade?: Grade;
+
   reading?: QuranSurah;
+  readingGrade: Grade;
+
   noOfMemorizationAyah: number;
   noOfReadingAyah: number;
-  grade?: Grade;
+
   basicQuranRecitationRules: BasicQuranRecitationRule[];
+  basicQuranRecitationRulesProgress?: Grade;
+
   tajweedRules: Tajweed[];
-  progress?: Grade;
+  tajweedRulesProgress?: Grade;
+
   quranComments?: string;
-  islamicStudiesComments: string;
+
+  islamicStudiesComments?: string;
   islamicStudiesTopics?: string;
-  islamicStudiesBooks?: IslamicStudiesBook[];
+
+  islamicStudiesBooks: IslamicStudiesBook[];
   islamicStudiesProgress?: Grade;
 }
 

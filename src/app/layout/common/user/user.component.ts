@@ -124,8 +124,8 @@ export class UserComponent implements OnInit, OnDestroy {
   getUserInfo(): void {
     this._router.navigate(["/user-info"]);
   }
-  getmMnthlyReport(): void {
-    this._router.navigate(["/monthly-report"]);
+  getMonthlyReport(): void {
+    this._router.navigate(["/student-report/" + this.user.id]);
   }
   getUserAttendance() {
     this._router.navigate(["/attendance"]);

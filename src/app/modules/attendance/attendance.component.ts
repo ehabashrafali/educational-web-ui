@@ -45,7 +45,10 @@ export class AttendanceComponent implements OnInit {
   absentInstructorCount = 0;
   cancelledByInstructorCount = 0;
   cancelledByStudentCount = 0;
-  lateCount = 0;
+  StudentLate10MinutesCount = 0;
+  StudentLate5MinutesCount = 0;
+  InstructorLate10MinutesCount = 0;
+  InstructorLate5MinutesCount = 0;
   totalCount = 0;
   role: Role;
 
@@ -89,18 +92,33 @@ export class AttendanceComponent implements OnInit {
     switch (status) {
       case AttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
-      case AttendanceStatus.StudentLate5Minutes:
-      case AttendanceStatus.InstructorLate5Minutes:
-        return "bg-gray-100 text-gray-800";
-      case AttendanceStatus.AbsentStudent:
-      case AttendanceStatus.AbsentInstructor:
-        return "bg-red-100 text-red-700";
+
       case AttendanceStatus.CancelledByInstructor:
         return "bg-yellow-100 text-yellow-800";
+
       case AttendanceStatus.CancelledByStudent:
-        return "bg-red-100 text-red-900";
-      default:
+        return "bg-gray-500 text-white";
+
+      case AttendanceStatus.AbsentInstructor:
+        return "bg-red-300 text-red-800";
+
+      case AttendanceStatus.AbsentStudent:
+        return "bg-red-100 text-red-700";
+
+      case AttendanceStatus.StudentLate5Minutes:
+        return "bg-stone-200 text-stone-800";
+
+      case AttendanceStatus.StudentLate10Minutes:
         return "bg-purple-100 text-purple-800";
+
+      case AttendanceStatus.InstructorLate5Minutes:
+        return "bg-teal-200 text-teal-900";
+
+      case AttendanceStatus.InstructorLate10Minutes:
+        return "bg-violet-100 text-violet-800";
+
+      default:
+        return "";
     }
   }
 
@@ -171,9 +189,13 @@ export class AttendanceComponent implements OnInit {
     this.cancelledByStudentCount = this.sessions.filter(
       (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
     ).length;
-    this.lateCount = this.sessions.filter(
+    this.StudentLate5MinutesCount = this.sessions.filter(
       (s) => s.studentSessionStatus === AttendanceStatus.StudentLate5Minutes,
     ).length;
+    this.StudentLate10MinutesCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate10Minutes,
+    ).length;
+
     this.totalCount = this.sessions.length;
   }
 
@@ -194,8 +216,13 @@ export class AttendanceComponent implements OnInit {
     this.cancelledByStudentCount = this.sessions.filter(
       (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
     ).length;
-    this.lateCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate5Minutes,
+    this.InstructorLate5MinutesCount = this.sessions.filter(
+      (s) =>
+        s.instructorSessionStatus === AttendanceStatus.InstructorLate5Minutes,
+    ).length;
+    this.InstructorLate10MinutesCount = this.sessions.filter(
+      (s) =>
+        s.instructorSessionStatus === AttendanceStatus.InstructorLate10Minutes,
     ).length;
     this.totalCount = this.sessions.length;
   }

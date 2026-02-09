@@ -1,23 +1,22 @@
-import { AsyncPipe } from "@angular/common";
-import { Component, Injector, OnInit, Pipe } from "@angular/core";
+import { AsyncPipe, Location } from "@angular/common";
+import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
-  Validators,
   ReactiveFormsModule,
   FormsModule,
 } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { filter, tap } from "rxjs";
+
 import { MatButtonModule } from "@angular/material/button";
-import { MatNativeDateModule, MatOptionModule } from "@angular/material/core";
-import { MatError, MatFormFieldModule } from "@angular/material/form-field";
+import { MatOptionModule } from "@angular/material/core";
+import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
-import {
-  MatDatepicker,
-  MatDatepickerInput,
-  MatDatepickerToggle,
-} from "@angular/material/datepicker";
+import { MatNativeDateModule } from "@angular/material/core";
+
 import {
   Grade,
   IslamicStudiesBooks,
@@ -25,41 +24,32 @@ import {
   QuranSurah,
   TajweedRules,
 } from "../models/report.dto";
+
 import { PipesModule } from "../pipes.module";
 import { StudentService } from "app/shared/sevices/student.service";
-import { filter, map, takeUntil, tap } from "rxjs";
-import { ActivatedRoute, Router } from "@angular/router";
 import {
-  showToastOnSuccess,
   ToastService,
+  showToastOnSuccess,
 } from "app/shared/sevices/toasts.service";
 import { UserService } from "app/core/user/user.service";
-import { Location } from "@angular/common";
 import { ModalService } from "app/shared/sevices/modal.service";
-import {
-  BasicQuranRecitationRule,
-  IslamicStudiesBook,
-  Tajweed,
-} from "../models/monthly-report.dto";
+import { Role } from "app/core/user/user.types";
+import { MonthlyReportDto } from "../models/monthly-report.dto";
 
 @Component({
   selector: "app-student-report",
   standalone: true,
   imports: [
     ReactiveFormsModule,
+    FormsModule,
+    AsyncPipe,
+    MatFormFieldModule,
+    MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatError,
     MatButtonModule,
     MatSlideToggleModule,
-    AsyncPipe,
-    FormsModule,
     MatNativeDateModule,
-    MatDatepickerToggle,
-    MatDatepickerInput,
-    MatDatepicker,
     PipesModule,
   ],
   templateUrl: "./student-report.component.html",
@@ -72,69 +62,141 @@ export class StudentReportComponent implements OnInit {
   islamicStudiesBooks = IslamicStudiesBooks;
   tajweedRules = TajweedRules;
 
-  userId: string;
-  public monthlyReportForm: FormGroup;
-  private studentId: string;
-  toDayDate = new Date().toISOString().substring(0, 10);
-  public toastService: ToastService;
+  monthlyReportForm!: FormGroup;
+
+  disableSubmit = false;
+  private studentId!: string;
+  private userId!: string;
+
+  readonly today = new Date().toISOString().substring(0, 10);
+  hasMonthlyReport: boolean;
 
   constructor(
-    private studentService: StudentService,
     private fb: FormBuilder,
+    private studentService: StudentService,
+    private userService: UserService,
     private route: ActivatedRoute,
-    public userService: UserService,
     private router: Router,
-    public injector: Injector,
     private location: Location,
-    public modalService: ModalService,
-  ) {
-    this.toastService = this.injector.get(ToastService);
-
-    this.monthlyReportForm = this.fb.group({
-      date: [{ value: this.toDayDate, disabled: true }],
-      memorization: [null],
-      noOfMemorizationAyah: [""],
-      memorizationGrade: [null],
-
-      reading: [""],
-      noOfReadingAyah: [""],
-      readingGrade: [null],
-      basicQuranRecitationRulesProgress: [""],
-      tajweedRules: this.fb.array([]),
-      islamicStudiesBooks: fb.array([]),
-      basicQuranRecitationRules: fb.array([]),
-      tajweedRulesProgress: [""],
-
-      quranComments: [""],
-
-      islamicStudiesProgress: [""],
-      islamicStudiesComments: [""],
-      islamicStudiesTopics: [""],
-    });
-  }
+    private modalService: ModalService,
+    private toastService: ToastService,
+  ) {}
 
   ngOnInit(): void {
-    this.userService.user$
-      .pipe(
-        filter((user) => !!user),
-        tap((user) => {
-          this.userId = user.id;
-        }),
-      )
-      .subscribe();
+    this.createForm(false);
 
     this.route.paramMap
       .pipe(
-        map((params) => params.get("id")),
-        tap((id) => {
-          this.studentId = id;
+        tap((params) => {
+          this.studentId = params.get("id")!;
         }),
+      )
+      .subscribe();
+
+    this.userService.user$
+      .pipe(
+        filter(Boolean),
+        tap((user) => this.handleUser(user)),
       )
       .subscribe();
   }
 
-  submitMonthlyReport() {
-    debugger;
+  /* -------------------- Form -------------------- */
+
+  private createForm(disabled = false): void {
+    this.monthlyReportForm = this.fb.group({
+      date: [{ value: this.today, disabled: true }],
+
+      memorization: [null],
+      noOfMemorizationAyah: [null],
+      memorizationGrade: [null],
+
+      reading: [null],
+      noOfReadingAyah: [null],
+      readingGrade: [null],
+
+      basicQuranRecitationRules: [[]],
+      basicQuranRecitationRulesProgress: [null],
+
+      tajweedRules: [[]],
+      tajweedRulesProgress: [null],
+
+      quranComments: [""],
+
+      islamicStudiesBooks: [[]],
+      islamicStudiesTopics: [""],
+      islamicStudiesProgress: [null],
+      islamicStudiesComments: [""],
+    });
+
+    if (disabled) {
+      this.monthlyReportForm.disable();
+    }
+  }
+
+  /* -------------------- User Handling -------------------- */
+  private handleUser(user: any): void {
+    this.userId = user.id;
+
+    if (user.role === Role.Student) {
+      this.disableSubmit = true;
+      this.monthlyReportForm.disable();
+
+      this.studentService
+        .getStudentMonthlyReport(user.id)
+        .pipe(
+          tap((report) => {
+            if (!report) {
+              this.hasMonthlyReport = false;
+              return;
+            }
+
+            this.hasMonthlyReport = true;
+            this.fillForm(report);
+          }),
+        )
+        .subscribe();
+    }
+
+    if (user.role === Role.Instructor) {
+      this.disableSubmit = false;
+      this.monthlyReportForm.enable(); // 👈 FULLY EDITABLE
+    }
+  }
+
+  private fillForm(report: MonthlyReportDto): void {
+    this.monthlyReportForm.patchValue({
+      date: report.date
+        ? new Date(report.date).toISOString().substring(0, 10)
+        : this.today,
+
+      memorization: report.memorization,
+      noOfMemorizationAyah: report.noOfMemorizationAyah,
+      memorizationGrade: report.memorizationGrade,
+
+      reading: report.reading,
+      noOfReadingAyah: report.noOfReadingAyah,
+      readingGrade: report.readingGrade,
+
+      basicQuranRecitationRules: report.basicQuranRecitationRules?.map(
+        (x: any) => x.quranRecitationTopic,
+      ),
+      basicQuranRecitationRulesProgress:
+        report.basicQuranRecitationRulesProgress,
+
+      tajweedRules: report.tajweedRules?.map((x: any) => x.tajweedRule),
+      tajweedRulesProgress: report.tajweedRulesProgress,
+
+      quranComments: report.quranComments,
+
+      islamicStudiesBooks: report.islamicStudiesBooks?.map((x: any) => x.book),
+      islamicStudiesTopics: report.islamicStudiesTopics,
+      islamicStudiesProgress: report.islamicStudiesProgress,
+      islamicStudiesComments: report.islamicStudiesComments,
+    });
+  }
+
+  submitMonthlyReport(): void {
     if (this.monthlyReportForm.invalid) {
       this.monthlyReportForm.markAllAsTouched();
       return;
@@ -155,12 +217,13 @@ export class StudentReportComponent implements OnInit {
         tajweedRule: rule,
       })),
 
-      islamicStudiesBooks: formVal.islamicStudiesBook.map(
+      islamicStudiesBooks: formVal.islamicStudiesBooks.map(
         (book: IslamicStudiesBooks) => ({
           book,
         }),
       ),
     };
+
     this.studentService
       .createMonthlyReport(this.studentId, dto)
       .pipe(
@@ -174,7 +237,8 @@ export class StudentReportComponent implements OnInit {
       )
       .subscribe();
   }
-  cancel() {
+
+  cancel(): void {
     this.modalService
       .confirmLosingChanges(this.monthlyReportForm, () => this.location.back())
       .subscribe();

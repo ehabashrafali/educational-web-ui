@@ -171,37 +171,57 @@
         </div>
 
         <div>
-          <div class="label">Cancel T</div>
+          <div class="label">Cancel Teacher</div>
           <div class="px-2 py-1 rounded bg-yellow-100 text-yellow-800">
             {{ cancelledByInstructorCount }}
           </div>
         </div>
 
         <div>
-          <div class="label">Cancel S</div>
-          <div class="px-2 py-1 rounded bg-red-100 text-red-900">
+          <div class="label">Cancel Student</div>
+          <div class="px-2 py-1 rounded bg-gray-500">
             {{ cancelledByStudentCount }}
           </div>
         </div>
 
         <div>
-          <div class="label">Absent T</div>
-          <div class="px-2 py-1 rounded bg-red-100 text-red-800">
+          <div class="label">Absent Teacher</div>
+          <div class="px-2 py-1 rounded bg-red-300 text-red-800">
             {{ absentInstructorCount }}
           </div>
         </div>
 
         <div>
-          <div class="label">Absent S</div>
+          <div class="label">Absent Student</div>
           <div class="px-2 py-1 rounded bg-red-100 text-red-700">
             {{ absentStudentCount }}
           </div>
         </div>
 
         <div>
-          <div class="label">Late S</div>
-          <div class="px-2 py-1 rounded bg-gray-100 text-gray-800">
-            {{ lateCount }}
+          <div class="label">Late Student 5</div>
+          <div class="px-2 py-1 rounded bg-stone-200">
+            {{ StudentLate5MinutesCount }}
+          </div>
+        </div>
+        <div>
+          <div class="label">Late Student 10</div>
+          <div class="px-2 py-1 rounded bg-purple-100">
+            {{ StudentLate10MinutesCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Late Instructor 5</div>
+          <div class="px-2 py-1 rounded bg-teal-200">
+            {{ InstructorLate5MinutesCount }}
+          </div>
+        </div>
+
+        <div>
+          <div class="label">Late Instructor 10</div>
+          <div class="px-2 py-1 rounded bg-violet-100">
+            {{ InstructorLate10MinutesCount }}
           </div>
         </div>
 
