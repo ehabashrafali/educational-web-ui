@@ -36,6 +36,7 @@ export class InvoiceComponent implements OnInit {
   total: number;
   sessions: SessionDto[];
   AttendanceStatus = AttendanceStatus;
+  totalHours: number;
   @ViewChild("content") content: ElementRef;
 
   constructor(
@@ -76,7 +77,6 @@ export class InvoiceComponent implements OnInit {
             this.date,
           ),
         ),
-
         tap((sessions) => {
           this.sessions = sessions;
           this.total = this.totalSum();
@@ -85,34 +85,37 @@ export class InvoiceComponent implements OnInit {
       .subscribe();
   }
 
-  private totalSum() {
+  private totalSum(): number {
+    this.totalHours = 0;
+
     if (this.userProfile.role === Role.Student) {
       return this.sessions.reduce((sum, session) => {
-        if (
+        const valid =
           session.studentSessionStatus === AttendanceStatus.Attend ||
           session.studentSessionStatus ===
             AttendanceStatus.StudentLate5Minutes ||
           session.studentSessionStatus ===
             AttendanceStatus.StudentLate10Minutes ||
-          session.studentSessionStatus === AttendanceStatus.AbsentStudent
-        ) {
-          debugger;
-          return ((sum + session.duration) / 60) * this.userProfile.fees;
-        }
-      }, 0);
-    } else {
-      return this.sessions.reduce((sum, session) => {
-        if (
-          session.instructorSessionStatus === AttendanceStatus.Attend ||
-          session.instructorSessionStatus ===
-            AttendanceStatus.InstructorLate5Minutes ||
-          session.instructorSessionStatus ===
-            AttendanceStatus.InstructorLate10Minutes
-        ) {
-          return sum + (session.duration / 60) * this.userProfile.fees;
-        }
+          session.studentSessionStatus === AttendanceStatus.AbsentStudent;
+
+        if (!valid) return sum;
+
+        this.totalHours += session.duration;
+        return sum + (session.duration / 60) * this.userProfile.fees;
       }, 0);
     }
+
+    return this.sessions.reduce((sum, session) => {
+      const valid =
+        session.instructorSessionStatus === AttendanceStatus.Attend ||
+        session.instructorSessionStatus ===
+          AttendanceStatus.InstructorLate5Minutes ||
+        session.instructorSessionStatus ===
+          AttendanceStatus.InstructorLate10Minutes;
+      if (!valid) return sum;
+      this.totalHours += session.duration / 60;
+      return sum + (session.duration / 60) * this.userProfile.fees;
+    }, 0);
   }
   private generateInvoiceNo() {
     return Math.floor(new Date().valueOf() * Math.random());
@@ -121,7 +124,6 @@ export class InvoiceComponent implements OnInit {
     const element = this.content.nativeElement;
 
     html2canvas(element, {
-      scale: 2,
       useCORS: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
@@ -179,5 +181,37 @@ export class InvoiceComponent implements OnInit {
       default:
         return "";
     }
+  }
+
+  getStudentAttendCount(): number {
+    return this.sessions.filter(
+      (session) =>
+        session.studentSessionStatus === AttendanceStatus.Attend ||
+        session.studentSessionStatus === AttendanceStatus.StudentLate5Minutes ||
+        session.studentSessionStatus === AttendanceStatus.StudentLate10Minutes,
+    ).length;
+  }
+
+  getStudentAbsentCount(): number {
+    return this.sessions.filter(
+      (session) =>
+        session.studentSessionStatus === AttendanceStatus.AbsentStudent,
+    ).length;
+  }
+  getInstructorAttendCount(): number {
+    return this.sessions.filter(
+      (session) =>
+        session.instructorSessionStatus === AttendanceStatus.Attend ||
+        session.instructorSessionStatus ===
+          AttendanceStatus.InstructorLate5Minutes ||
+        session.instructorSessionStatus ===
+          AttendanceStatus.InstructorLate10Minutes,
+    ).length;
+  }
+  getInstructorAbsentCount(): number {
+    return this.sessions.filter(
+      (session) =>
+        session.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
+    ).length;
   }
 }
