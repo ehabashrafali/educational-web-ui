@@ -62,9 +62,8 @@
                 class="border-l pl-6 text-sm leading-relaxed text-white/90 sm:text-base"
               >
                 <div class="font-semibold text-white">Purchased by:</div>
-                <div>Osama Elbosili</div>
-                <div>Arabic & Quran Teacher</div>
-                <div>+201551494362</div>
+                <div>Crescent School</div>
+                <div>+201270052846</div>
               </div>
             </div>
           </div>
@@ -99,16 +98,18 @@
             Payment Instructions
           </div>
           <div class="mt-1 text-sm text-gray-600 sm:text-base">
-            Absent classes are the lessons that the instructor misses or cancels
-            less than two hours before the scheduled start time, according to
-            the school's approved policy
+            Absent classes are the lessons that the
+            @if (userProfile?.role === "Instructor") {
+              instructor
+            } @else {
+              student
+            }
+            misses or cancels less than two hours before the scheduled start
+            time, according to the school's approved policy
           </div>
 
-          <!-- Table -->
           <div class="mt-12">
-            <!-- Table header -->
             <div class="mt-12">
-              <!-- Table header -->
               <div
                 class="hidden md:grid grid-cols-12 gap-x-4 border-b pb-3 text-xs font-semibold uppercase tracking-wide text-white bg-primary text-center py-3 rounded-t-md"
               >
@@ -116,7 +117,7 @@
                 <div class="col-span-2">Absent Classes</div>
                 <div class="col-span-2">Total Hours</div>
                 <div class="col-span-3">Hour Rate</div>
-                <div class="col-span-3">Total</div>
+                <div class="col-span-3">Fees</div>
               </div>
               <!-- Rows -->
               <div class="divide-y border-secondary/50">
@@ -154,6 +155,22 @@
                   </div>
                 }
               </div>
+            </div>
+          </div>
+          <div class="mt-2">
+            <div
+              class="text-secondary text-base font-semibold uppercase tracking-wide sm:text-lg"
+            >
+              Total Summary:
+            </div>
+            <div class="mt-1 text-base font-medium sm:text-lg">
+              Subtotal: ${{ total }}
+            </div>
+            <div class="text-sm text-gray-600 sm:text-base">
+              PayPal Fees: ${{ payPalFees }}
+            </div>
+            <div class="text-sm text-gray-600 sm:text-base">
+              Total Amount Due: ${{ total + payPalFees }}
             </div>
           </div>
         </div>

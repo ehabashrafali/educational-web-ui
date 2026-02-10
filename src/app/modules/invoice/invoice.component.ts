@@ -37,6 +37,7 @@ export class InvoiceComponent implements OnInit {
   sessions: SessionDto[];
   AttendanceStatus = AttendanceStatus;
   totalHours: number;
+  payPalFees: number;
   @ViewChild("content") content: ElementRef;
 
   constructor(
@@ -80,6 +81,7 @@ export class InvoiceComponent implements OnInit {
         tap((sessions) => {
           this.sessions = sessions;
           this.total = this.totalSum();
+          this.SetPayPalFees(this.total);
         }),
       )
       .subscribe();
@@ -181,6 +183,9 @@ export class InvoiceComponent implements OnInit {
       default:
         return "";
     }
+  }
+  SetPayPalFees(total: number) {
+    this.payPalFees = total * 0.05;
   }
 
   getStudentAttendCount(): number {
