@@ -9,31 +9,23 @@ import {
 export interface MonthlyReportDto {
   // Id is ignored by backend, keep optional if needed in UI
   id?: string;
-
   date: Date;
-
   memorization?: QuranSurah;
   memorizationGrade?: Grade;
-
   reading?: QuranSurah;
   readingGrade: Grade;
-
   noOfMemorizationAyah: number;
   noOfReadingAyah: number;
-
   basicQuranRecitationRules: BasicQuranRecitationRule[];
   basicQuranRecitationRulesProgress?: Grade;
-
   tajweedRules: Tajweed[];
   tajweedRulesProgress?: Grade;
-
   quranComments?: string;
-
   islamicStudiesComments?: string;
   islamicStudiesTopics?: string;
-
   islamicStudiesBooks: IslamicStudiesBook[];
   islamicStudiesProgress?: Grade;
+  othersIslamicStudiesBooks: string;
 }
 
 export interface BasicQuranRecitationRule {

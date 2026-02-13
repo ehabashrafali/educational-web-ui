@@ -101,18 +101,16 @@ export class StudentReportComponent implements OnInit {
       .subscribe();
   }
 
-  /* -------------------- Form -------------------- */
-
   private createForm(disabled = false): void {
     this.monthlyReportForm = this.fb.group({
       date: [{ value: this.today, disabled: true }],
 
       memorization: [null],
-      noOfMemorizationAyah: [null],
+      noOfMemorizationAyah: [0],
       memorizationGrade: [null],
 
       reading: [null],
-      noOfReadingAyah: [null],
+      noOfReadingAyah: [0],
       readingGrade: [null],
 
       basicQuranRecitationRules: [[]],
@@ -127,6 +125,7 @@ export class StudentReportComponent implements OnInit {
       islamicStudiesTopics: [""],
       islamicStudiesProgress: [null],
       islamicStudiesComments: [""],
+      othersIslamicStudiesBooks: [""],
     });
 
     if (disabled) {
@@ -160,7 +159,7 @@ export class StudentReportComponent implements OnInit {
 
     if (user.role === Role.Instructor) {
       this.disableSubmit = false;
-      this.monthlyReportForm.enable(); // 👈 FULLY EDITABLE
+      this.monthlyReportForm.enable();
     }
   }
 
@@ -193,6 +192,7 @@ export class StudentReportComponent implements OnInit {
       islamicStudiesTopics: report.islamicStudiesTopics,
       islamicStudiesProgress: report.islamicStudiesProgress,
       islamicStudiesComments: report.islamicStudiesComments,
+      othersIslamicStudiesBooks: report.othersIslamicStudiesBooks,
     });
   }
 
@@ -223,6 +223,7 @@ export class StudentReportComponent implements OnInit {
         }),
       ),
     };
+    debugger;
 
     this.studentService
       .createMonthlyReport(this.studentId, dto)

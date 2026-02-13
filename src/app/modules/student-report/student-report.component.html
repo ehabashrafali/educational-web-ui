@@ -20,8 +20,6 @@
       </mat-form-field>
 
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Date -->
-
         <!-- Memorization -->
         <mat-form-field>
           <mat-label>Memorization</mat-label>
@@ -258,6 +256,18 @@
             <mat-error>Book is required</mat-error>
           }
         </mat-form-field>
+
+        <!-- Show input only if Other is selected -->
+        @if (
+          monthlyReportForm
+            .get("islamicStudiesBooks")
+            ?.value?.includes(islamicStudiesBooks.Others)
+        ) {
+          <mat-form-field class="w-full mt-2">
+            <mat-label>Write Other Books Names</mat-label>
+            <input matInput formControlName="othersIslamicStudiesBooks" />
+          </mat-form-field>
+        }
 
         <!-- Islamic Studies Topics -->
         <mat-form-field>

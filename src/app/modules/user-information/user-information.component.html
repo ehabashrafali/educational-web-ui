@@ -17,7 +17,7 @@
       <div class="ms-4 p-8 sm:p-6">
         <div class="flex flex-col lg:flex-row">
           <div class="mt-8 lg:mt-12 flex-1">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-x-8 gap-y-10">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-x-8 gap-y-8">
               <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Name</div>
                 <div class="mt-1 font-semibold">
@@ -72,7 +72,6 @@
                 <div class="col-span-1 max-w-fit">
                   <div class="text-secondary opacity-70">Days &amp; Times</div>
                   <div class="mt-2 space-y-1 font-semibold">
-                    <!-- Fallback if you don't have daysAndTimes yet -->
                     @if (!userProfile?.weeklyAppointments) {
                       --
                     } @else {
@@ -100,9 +99,14 @@
               <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Zoom Link</div>
                 <div class="mt-1 font-semibold">
-                  {{
-                    userProfile?.zoomMeeting ? userProfile?.zoomMeeting : "--"
-                  }}
+                  <a
+                    [href]="userProfile?.zoomMeeting"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-blue-600 hover:underline break-all"
+                  >
+                    {{ userProfile?.zoomMeeting }}
+                  </a>
                 </div>
               </div>
             </div>
