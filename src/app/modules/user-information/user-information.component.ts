@@ -7,7 +7,7 @@ import { InstructorService } from "app/shared/sevices/instructor.service";
 import { StudentService } from "app/shared/sevices/student.service";
 import { UserProfile } from "../models/user.profile";
 import { filter, map, of, switchMap, tap } from "rxjs";
-import { Role } from "app/core/user/user.types";
+import { Role, User } from "app/core/user/user.types";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 
@@ -20,7 +20,6 @@ import { Location } from "@angular/common";
 })
 export class UserInformationComponent implements OnInit {
   studentId: string;
-  currentUser: import("c:/Users/eaali/Desktop/Crescent School/educational-web-ui/src/app/core/user/user.types").User;
   constructor(
     private location: Location,
     private _studentService: StudentService,
@@ -30,6 +29,7 @@ export class UserInformationComponent implements OnInit {
   ) {}
 
   userProfile: UserProfile | null = null;
+  currentUser: User;
 
   ngOnInit(): void {
     this.route.paramMap

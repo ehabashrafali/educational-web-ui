@@ -25,7 +25,6 @@ import { ShortcutsComponent } from "app/layout/common/shortcuts/shortcuts.compon
 import { UserComponent } from "app/layout/common/user/user.component";
 import { filter, map, Subject, takeUntil } from "rxjs";
 import { FooterComponent } from "../footer/footer.component";
-import { user } from "app/mock-api/common/user/data";
 import { UserService } from "app/core/user/user.service";
 
 @Component({
@@ -67,7 +66,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     private _navigationService: NavigationService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
-    private _userService: UserService
+    private _userService: UserService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------
@@ -111,7 +110,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
         filter((u) => !!u),
         map((user) => {
           this.isUserVisible = user ? true : false;
-        })
+        }),
       )
       .subscribe();
   }
@@ -138,7 +137,7 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     // Get the navigation
     const navigation =
       this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>(
-        name
+        name,
       );
 
     if (navigation) {
