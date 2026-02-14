@@ -315,4 +315,20 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "students-list",
+        loadChildren: () =>
+          import("app/modules/students-list/students-list.routes"),
+      },
+    ],
+  },
 ];

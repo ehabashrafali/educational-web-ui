@@ -34,4 +34,8 @@ export const StudentController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students/monthly-report`;
   },
+  get Deactivate() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/deactivate`;
+  },
 };

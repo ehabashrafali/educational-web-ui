@@ -51,4 +51,8 @@ export class StudentService {
     const url = StudentController.GetMonthlyReport;
     return this._httpClient.get<MonthlyReportDto>(`${url}/${studentId}`);
   }
+  deactivate(studentId: string) {
+    const url = StudentController.Deactivate;
+    return this._httpClient.put(`${url}/${studentId}`, {});
+  }
 }
