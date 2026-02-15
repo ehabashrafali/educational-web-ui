@@ -76,6 +76,7 @@ export class AttendanceComponent implements OnInit {
           if (this.role === Role.Student) {
             this.computeStudentCounts();
           } else {
+            debugger;
             this.computeInstructorCounts();
           }
           this.buildCalendar();
@@ -120,10 +121,6 @@ export class AttendanceComponent implements OnInit {
       default:
         return "";
     }
-  }
-
-  getSessionTimeLabel(session: SessionDto): string {
-    return moment.utc(session.date).local().format("hh:mm a");
   }
 
   private buildCalendar(): void {

@@ -69,7 +69,7 @@ export class StudentReportComponent implements OnInit {
   private userId!: string;
 
   readonly today = new Date().toISOString().substring(0, 10);
-  hasMonthlyReport: boolean;
+  hasMonthlyReport = true;
 
   constructor(
     private fb: FormBuilder,
@@ -133,13 +133,11 @@ export class StudentReportComponent implements OnInit {
     }
   }
 
-  /* -------------------- User Handling -------------------- */
   private handleUser(user: any): void {
     this.userId = user.id;
 
     if (user.role === Role.Student) {
       this.disableSubmit = true;
-      this.monthlyReportForm.disable();
 
       this.studentService
         .getStudentMonthlyReport(user.id)
@@ -147,11 +145,13 @@ export class StudentReportComponent implements OnInit {
           tap((report) => {
             if (!report) {
               this.hasMonthlyReport = false;
+              this.monthlyReportForm.disable();
               return;
             }
 
             this.hasMonthlyReport = true;
             this.fillForm(report);
+            this.monthlyReportForm.disable();
           }),
         )
         .subscribe();
@@ -159,10 +159,10 @@ export class StudentReportComponent implements OnInit {
 
     if (user.role === Role.Instructor) {
       this.disableSubmit = false;
+      this.hasMonthlyReport = true; // Always show form
       this.monthlyReportForm.enable();
     }
   }
-
   private fillForm(report: MonthlyReportDto): void {
     this.monthlyReportForm.patchValue({
       date: report.date
@@ -223,7 +223,6 @@ export class StudentReportComponent implements OnInit {
         }),
       ),
     };
-    debugger;
 
     this.studentService
       .createMonthlyReport(this.studentId, dto)

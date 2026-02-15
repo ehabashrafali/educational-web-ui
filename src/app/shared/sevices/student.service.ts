@@ -6,22 +6,26 @@ import { MonthlyReportDto } from "app/modules/models/monthly-report.dto";
 import { UpcomingSessionsDto } from "app/modules/models/upcoming-sessions.dto";
 import { SessionDto } from "app/modules/models/session.dto";
 import { StudentDTO } from "app/modules/models/student.dto";
-import { BehaviorSubject, first, Observable, tap } from "rxjs";
+import {
+  BehaviorSubject,
+  catchError,
+  first,
+  Observable,
+  tap,
+  throwError,
+} from "rxjs";
+import { showToastOnSuccess, ToastService } from "./toasts.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class StudentService {
   private _httpClient = inject(HttpClient);
-  constructor() {}
+  constructor(private toastService: ToastService) {}
   private readonly _students$ = new BehaviorSubject<StudentDTO[]>([]);
+
   get students$(): Observable<StudentDTO[]> {
     return this._students$.asObservable();
-  }
-
-  getStudentProfile(studentId: string): any {
-    const url = StudentController.UserStudentInfo;
-    return this._httpClient.get<UserProfile>(`${url}?studentId=${studentId}`);
   }
 
   createMonthlyReport(studentId: string, monthlyReportDto: MonthlyReportDto) {
@@ -53,6 +57,29 @@ export class StudentService {
   }
   deactivate(studentId: string) {
     const url = StudentController.Deactivate;
-    return this._httpClient.put(`${url}/${studentId}`, {});
+    return this._httpClient
+      .put(`${url}/${studentId}`, {})
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "Student deactivated successfully",
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to deactivate student",
+          });
+          return throwError(() => error);
+        }),
+      )
+      .subscribe();
+  }
+  getStudent(id: string): Observable<StudentDTO> {
+    const url = StudentController.student;
+    return this._httpClient.get<StudentDTO>(`${url}/${id}`);
+  }
+  updateStudent(id: string, studentDto: StudentDTO) {
+    const url = StudentController.UpdateStudent;
+    return this._httpClient.put(`${url}/${id}`, studentDto);
   }
 }

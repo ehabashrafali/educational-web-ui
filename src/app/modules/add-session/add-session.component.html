@@ -6,11 +6,17 @@
     >
       <h5 class="text-4xl mb-5 font-semibold">Add Session</h5>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <!-- Date -->
-        <mat-form-field>
+      <div class="mb-6">
+        <mat-form-field appearance="outline" class="w-full">
           <mat-label>Date</mat-label>
-          <input matInput [value]="date" type="date" formControlName="date" />
+
+          <input matInput [matDatepicker]="picker" formControlName="date" />
+
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
 
           @if (
             sessionForm.get("date")?.invalid &&
@@ -19,7 +25,12 @@
             <mat-error>Date is required</mat-error>
           }
         </mat-form-field>
-        <mat-form-field>
+      </div>
+
+      <!-- OTHER FIELDS GRID -->
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <!-- Instructor -->
+        <mat-form-field appearance="outline">
           <mat-label>Instructor</mat-label>
           <mat-select formControlName="instructorId">
             @for (instructor of _instructors$ | async; track instructor.id) {
@@ -28,15 +39,10 @@
               </mat-option>
             }
           </mat-select>
-          @if (
-            sessionForm.get("instructorId")?.invalid &&
-            (sessionForm.get("instructorId")?.touched ||
-              sessionForm.get("instructorId")?.dirty)
-          ) {
-            <mat-error>Instructor is required</mat-error>
-          }
         </mat-form-field>
-        <mat-form-field>
+
+        <!-- Instructor Status -->
+        <mat-form-field appearance="outline">
           <mat-label>Instructor Session Status</mat-label>
           <mat-select formControlName="instructorSessionStatus">
             @for (status of SessionStatus | enumToList; track status.id) {
@@ -45,16 +51,10 @@
               </mat-option>
             }
           </mat-select>
-
-          @if (
-            sessionForm.get("instructorSessionStatus")?.invalid &&
-            (sessionForm.get("instructorSessionStatus")?.touched ||
-              sessionForm.get("instructorSessionStatus")?.dirty)
-          ) {
-            <mat-error>Session Status is required</mat-error>
-          }
         </mat-form-field>
-        <mat-form-field>
+
+        <!-- Student -->
+        <mat-form-field appearance="outline">
           <mat-label>Student</mat-label>
           <mat-select formControlName="studentId">
             @for (student of _students$ | async; track student.id) {
@@ -63,15 +63,10 @@
               </mat-option>
             }
           </mat-select>
-          @if (
-            sessionForm.get("studentId")?.invalid &&
-            (sessionForm.get("studentId")?.touched ||
-              sessionForm.get("studentId")?.dirty)
-          ) {
-            <mat-error>Student is required</mat-error>
-          }
         </mat-form-field>
-        <mat-form-field>
+
+        <!-- Student Status -->
+        <mat-form-field appearance="outline">
           <mat-label>Student Session Status</mat-label>
           <mat-select formControlName="studentSessionStatus">
             @for (status of SessionStatus | enumToList; track status.id) {
@@ -80,16 +75,10 @@
               </mat-option>
             }
           </mat-select>
-
-          @if (
-            sessionForm.get("studentSessionStatus")?.invalid &&
-            (sessionForm.get("studentSessionStatus")?.touched ||
-              sessionForm.get("studentSessionStatus")?.dirty)
-          ) {
-            <mat-error>Session Status is required</mat-error>
-          }
         </mat-form-field>
-        <mat-form-field>
+
+        <!-- Duration -->
+        <mat-form-field appearance="outline">
           <mat-label>Session Duration</mat-label>
           <mat-select formControlName="sessionDuration">
             @for (duration of SessionDuration | enumToList; track duration.id) {
@@ -98,27 +87,15 @@
               </mat-option>
             }
           </mat-select>
-          @if (
-            sessionForm.get("sessionDuration")?.invalid &&
-            (sessionForm.get("sessionDuration")?.touched ||
-              sessionForm.get("sessionDuration")?.dirty)
-          ) {
-            <mat-error>Session duration is required</mat-error>
-          }
         </mat-form-field>
       </div>
     </form>
   </div>
-  <div class="d-flex justify-content-end flex-row justify-self-end">
-    <div class="p-4">
-      <button
-        class="primary h-10 sm:order-last"
-        mat-flat-button
-        [color]="'primary'"
-        (click)="submitSession()"
-      >
-        Submit
-      </button>
-    </div>
+
+  <!-- Submit -->
+  <div class="flex justify-end mt-6">
+    <button mat-flat-button color="primary" (click)="submitSession()">
+      Submit
+    </button>
   </div>
 </div>

@@ -19,6 +19,7 @@ import {
   MatDatepickerToggle,
   MatDatepickerInput,
   MatDatepicker,
+  MatDatepickerModule,
 } from "@angular/material/datepicker";
 import { MatFormFieldModule, MatError } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -55,6 +56,7 @@ import { DateTime } from "luxon";
     MatDatepickerInput,
     MatDatepicker,
     PipesModule,
+    MatDatepickerModule,
   ],
   templateUrl: "./add-session.component.html",
   styleUrl: "./add-session.component.scss",

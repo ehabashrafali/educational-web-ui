@@ -12,8 +12,8 @@
     <p class="text-4xl mt-5 mb-5 font-semibold">Your Information</p>
   </div>
 
-  <div class="flex justify-center w-full">
-    <fuse-card class="max-w-fit w-full bg-card rounded-2xl shadow">
+  <div class="flex justify-center max-w-7xl me-10 ms-20">
+    <fuse-card class="max-w-fit w-full bg-card rounded-2xl shadow p-2">
       <div class="ms-4 p-8 sm:p-6">
         <div class="flex flex-col lg:flex-row">
           <div class="mt-8 lg:mt-12 flex-1">
@@ -38,19 +38,11 @@
                   {{ userProfile?.isActive ? "Active" : "InActive" }}
                 </div>
               </div>
-
-              <div class="max-w-fit">
-                <div class="text-secondary opacity-70">Email</div>
-                <div class="mt-1 font-semibold">
-                  {{ userProfile?.email ? userProfile?.email : "--" }}
-                </div>
-              </div>
-
-              @if (currentUser?.role === "Student") {
+              @if (!studentId) {
                 <div class="max-w-fit">
-                  <div class="text-secondary opacity-70">Age</div>
+                  <div class="text-secondary opacity-70">Email</div>
                   <div class="mt-1 font-semibold">
-                    {{ userProfile?.age === 0 ? "--" : userProfile?.age }}
+                    {{ userProfile?.email ? userProfile?.email : "--" }}
                   </div>
                 </div>
               }
@@ -68,7 +60,7 @@
                 </div>
               }
 
-              @if (currentUser?.role === "Student") {
+              @if (currentUser?.role === "Student" || studentId) {
                 <div class="col-span-1 max-w-fit">
                   <div class="text-secondary opacity-70">Days &amp; Times</div>
                   <div class="mt-2 space-y-1 font-semibold">
@@ -87,14 +79,6 @@
                   </div>
                 </div>
               }
-              <div class="max-w-fit">
-                <div class="text-secondary opacity-70">Phone Number</div>
-                <div class="mt-1 font-semibold">
-                  {{
-                    userProfile?.phoneNumber ? userProfile?.phoneNumber : "--"
-                  }}
-                </div>
-              </div>
 
               <div class="max-w-fit">
                 <div class="text-secondary opacity-70">Zoom Link</div>

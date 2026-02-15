@@ -10,6 +10,7 @@ import { filter, map, of, switchMap, tap } from "rxjs";
 import { Role, User } from "app/core/user/user.types";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
+import { StudentDTO } from "../models/student.dto";
 
 @Component({
   selector: "app-user-information",
@@ -28,7 +29,7 @@ export class UserInformationComponent implements OnInit {
     private route: ActivatedRoute,
   ) {}
 
-  userProfile: UserProfile | null = null;
+  userProfile: UserProfile | StudentDTO = null;
   currentUser: User;
 
   ngOnInit(): void {
@@ -47,9 +48,9 @@ export class UserInformationComponent implements OnInit {
         switchMap((user) => {
           this.currentUser = user;
           if (this.studentId) {
-            return this._studentService.getStudentProfile(this.studentId);
+            return this._studentService.getStudent(this.studentId);
           } else if (user!.role == Role.Student) {
-            return this._studentService.getStudentProfile(user!.id);
+            return this._studentService.getStudent(user!.id);
           } else if (user!.role == Role.Instructor) {
             return this._instructorService.getInstructorProfile(user!.id);
           }

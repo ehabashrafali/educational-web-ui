@@ -23,7 +23,6 @@ export class InstructorService {
 
   GetInstructorStudent(instructorId: string) {
     {
-      debugger;
       const url = InstructorController.InstructorStudents;
       return this._httpClient
         .get<any>(`${url}?instructorId=${instructorId}`)

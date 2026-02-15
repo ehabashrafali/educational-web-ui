@@ -143,7 +143,13 @@
                         "
                       >
                         <!-- <span class="event-name">Session</span> -->
-                        <span class="time"> {{ getSessionTimeLabel(s) }} </span>
+                        <span>
+                          {{
+                            role === "Student"
+                              ? s.instructorName
+                              : s.studentName
+                          }}
+                        </span>
                       </div>
                     </div>
                   </div>

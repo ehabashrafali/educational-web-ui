@@ -2,6 +2,8 @@ export interface SessionDto {
   date: Date;
   instructorId: string;
   studentId: string;
+  studentName: string;
+  instructorName: string;
   studentSessionStatus: AttendanceStatus;
   instructorSessionStatus: AttendanceStatus;
   duration: SessionDuration;

@@ -1,7 +1,6 @@
 import { Route } from "@angular/router";
 import { initialDataResolver } from "app/app.resolvers";
 import { AuthGuard } from "app/core/auth/guards/auth.guard";
-import { NoAuthGuard } from "app/core/auth/guards/noAuth.guard";
 import { LayoutComponent } from "app/layout/layout.component";
 
 // @formatter:off
@@ -328,6 +327,22 @@ export const appRoutes: Route[] = [
         path: "students-list",
         loadChildren: () =>
           import("app/modules/students-list/students-list.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "edit-student",
+        loadChildren: () =>
+          import("app/modules/edit-student/edit-student.routes"),
       },
     ],
   },

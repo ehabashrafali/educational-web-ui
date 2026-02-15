@@ -57,7 +57,7 @@ export class InvoiceComponent implements OnInit {
 
         switchMap((user) => {
           if (user.role === Role.Student) {
-            return this._studentService.getStudentProfile(user.id);
+            return this._studentService.getStudent(user.id);
           }
           if (user.role === Role.Instructor) {
             return this._instructorService.getInstructorProfile(user.id);
@@ -126,31 +126,37 @@ export class InvoiceComponent implements OnInit {
     const element = this.content.nativeElement;
 
     html2canvas(element, {
+      scale: 4,
       useCORS: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
 
       const pdf = new jsPDF("p", "mm", "a4");
 
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
 
-      let heightLeft = pdfHeight;
+      const zoom = 1.4;
+
+      const imgWidth = pageWidth * zoom;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+      let heightLeft = imgHeight;
       let position = 0;
 
-      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
-      heightLeft -= pdf.internal.pageSize.getHeight();
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
 
       while (heightLeft > 0) {
-        position = heightLeft - pdfHeight;
+        position = heightLeft - imgHeight;
         pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, pdfWidth, pdfHeight);
-        heightLeft -= pdf.internal.pageSize.getHeight();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
       }
+
       pdf.save(`Invoice-${this.invoiceNumber}.pdf`);
     });
   }
-
   statusClass(status: AttendanceStatus): string {
     switch (status) {
       case AttendanceStatus.Attend:

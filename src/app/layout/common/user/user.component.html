@@ -59,6 +59,9 @@
           <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
           <span>Add Session Info</span>
         </button>
+      }
+
+      @if (user.role === "Admin") {
         <button mat-menu-item (click)="getStudentsList()">
           <mat-icon [svgIcon]="'heroicons_outline:queue-list'"></mat-icon>
           <span>Students</span>

@@ -12,6 +12,7 @@ import { MatOptionModule } from "@angular/material/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-students-list",
@@ -28,20 +29,29 @@ import { MatSelectModule } from "@angular/material/select";
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    MatIconModule,
   ],
   templateUrl: "./students-list.component.html",
   styleUrl: "./students-list.component.scss",
 })
 export class StudentsListComponent implements OnInit {
   students$: Observable<StudentDTO[]>;
-  displayedColumns: string[] = ["Name", "Email", "Country", "Actions"];
+  displayedColumns: string[] = [
+    "Name",
+    "Email",
+    "Country",
+    "Status",
+    "Actions",
+  ];
   dataSource = new MatTableDataSource<StudentDTO>([]);
 
-  constructor(private studentService: StudentService) {}
+  constructor(
+    private studentService: StudentService,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
     this.studentService.getStudents([]);
-
     this.studentService.students$.subscribe((students) => {
       this.dataSource.data = students;
     });
@@ -51,8 +61,11 @@ export class StudentsListComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+  edit(studentId: string) {
+    this.router.navigate(["/edit-student", studentId]);
+  }
 
-  deactivateStudent(studentId: string) {
+  deactivate(studentId: string) {
     this.studentService.deactivate(studentId);
   }
 }
