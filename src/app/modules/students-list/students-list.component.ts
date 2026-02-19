@@ -68,4 +68,7 @@ export class StudentsListComponent implements OnInit {
   deactivate(studentId: string) {
     this.studentService.deactivate(studentId);
   }
+  create() {
+    this.router.navigate(["/create-student"]);
+  }
 }

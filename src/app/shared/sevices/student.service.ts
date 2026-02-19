@@ -82,4 +82,8 @@ export class StudentService {
     const url = StudentController.UpdateStudent;
     return this._httpClient.put(`${url}/${id}`, studentDto);
   }
+  createStudent(studentDto: StudentDTO) {
+    const url = StudentController.CreateStudent;
+    return this._httpClient.post(url, studentDto);
+  }
 }

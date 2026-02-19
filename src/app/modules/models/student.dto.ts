@@ -2,10 +2,10 @@ import { MonthlyReportDto } from "./monthly-report.dto";
 import { WeeklyAppointmentDto } from "./weekly.appointment.dto";
 
 export interface StudentDTO {
-  fees: any;
-  isActive: any;
-  lastName: any;
-  firstName: any;
+  fees: number;
+  isActive: boolean;
+  lastName: string | null;
+  firstName: string;
   id: string;
   fullName: string;
   email: string;
