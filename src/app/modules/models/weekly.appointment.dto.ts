@@ -1,4 +1,4 @@
 export interface WeeklyAppointmentDto {
-  dayOfWeek: string;
+  day: string;
   time: string;
 }

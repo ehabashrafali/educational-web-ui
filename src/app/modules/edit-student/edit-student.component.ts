@@ -1,16 +1,19 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { StudentService } from "app/shared/sevices/student.service";
 import { ActivatedRoute } from "@angular/router";
 import { map, tap } from "rxjs";
 import {
+  AbstractControl,
+  FormArray,
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { NgClass } from "@angular/common";
+import { AsyncPipe, NgClass, NgFor } from "@angular/common";
 import { MatButtonModule } from "@angular/material/button";
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatError, MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { ModalService } from "app/shared/sevices/modal.service";
@@ -20,6 +23,16 @@ import {
   showToastOnSuccess,
   ToastService,
 } from "app/shared/sevices/toasts.service";
+import {
+  MatTableDataSource,
+  MatTable,
+  MatTableModule,
+} from "@angular/material/table";
+import { MatCardModule } from "@angular/material/card";
+import { PipesModule } from "../pipes.module";
+import { MatOptionModule } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @Component({
   selector: "app-edit-student",
@@ -31,6 +44,16 @@ import {
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
+    AsyncPipe,
+    MatSelectModule,
+    MatOptionModule,
+    MatError,
+    MatSlideToggleModule,
+    FormsModule,
+    PipesModule,
+    MatTableModule,
+    MatCardModule,
+    NgFor,
   ],
   templateUrl: "./edit-student.component.html",
   styleUrl: "./edit-student.component.scss",
@@ -48,6 +71,56 @@ export class EditStudentComponent implements OnInit {
   ) {
     this.editStudentForm = this.buildForm(this.fb);
   }
+
+  dataSource: MatTableDataSource<AbstractControl>;
+
+  @ViewChild("table") table: MatTable<any>;
+  displayedColumns = ["day", "time", "actions"];
+  uid = 0;
+  trackRows(index: number, row: AbstractControl) {
+    return row.value.uid;
+  }
+  get weeklyAppointments() {
+    return this.editStudentForm.get("weeklyAppointments") as FormArray;
+  }
+
+  private addRow() {
+    const rows = this.weeklyAppointments;
+    rows.push(
+      this.fb.group({
+        uid: this.nextUid(),
+        day: [""],
+        time: [1],
+      }),
+    );
+  }
+
+  createRow() {
+    this.addRow();
+    this.dataSource.data = this.weeklyAppointments.controls;
+  }
+  private nextUid() {
+    ++this.uid;
+    return this.uid;
+  }
+  weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  remove(row: AbstractControl) {
+    const rows = this.weeklyAppointments;
+    const index = rows.controls.indexOf(row);
+    if (index >= 0) {
+      rows.removeAt(index);
+      this.dataSource.data = this.weeklyAppointments.controls;
+    }
+  }
   buildForm(fb: FormBuilder): FormGroup {
     return fb.group({
       firstName: ["", [Validators.required]],
@@ -58,28 +131,45 @@ export class EditStudentComponent implements OnInit {
       phoneNumber: [""],
       fees: [0, [Validators.required, Validators.min(0)]],
       zoomLink: [""],
+      weeklyAppointments: this.fb.array([]),
     });
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get("id");
+    this.dataSource = new MatTableDataSource(this.weeklyAppointments.controls);
+
     this.studentService
       .getStudent(id)
       .pipe(
         tap((student) => {
           this._student = student;
-        }),
-        map(() => {
+
           this.editStudentForm.patchValue({
-            firstName: this._student.firstName,
-            lastName: this._student.lastName,
-            country: this._student.country,
-            email: this._student.email,
-            isActive: this._student.isActive,
-            phoneNumber: this._student.phoneNumber,
-            fees: this._student.fees,
-            zoomLink: this._student.zoomMeeting,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            country: student.country,
+            email: student.email,
+            isActive: student.isActive,
+            phoneNumber: student.phoneNumber,
+            fees: student.fees,
+            zoomLink: student.zoomMeeting,
           });
+
+          this.weeklyAppointments.clear();
+
+          student.weeklyAppointments.forEach((appt) => {
+            debugger;
+            this.weeklyAppointments.push(
+              this.fb.group({
+                uid: this.nextUid(),
+                day: [appt.day],
+                time: [appt.time],
+              }),
+            );
+          });
+
+          this.dataSource.data = this.weeklyAppointments.controls;
         }),
       )
       .subscribe();
@@ -89,7 +179,14 @@ export class EditStudentComponent implements OnInit {
       const updatedStudent: StudentDTO = {
         ...this._student,
         ...this.editStudentForm.value,
+        weeklyAppointments: this.editStudentForm.value.weeklyAppointments.map(
+          (appointment: any) => ({
+            day: appointment.day,
+            time: appointment.time?.toString(),
+          }),
+        ),
       };
+      debugger;
       this.studentService
         .updateStudent(this._student.id, updatedStudent)
         .pipe(

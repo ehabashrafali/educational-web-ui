@@ -15,4 +15,5 @@ export interface StudentDTO {
   age: number;
   monthlyReportDtos: MonthlyReportDto[];
   weeklyAppointments: WeeklyAppointmentDto[];
+  zoomLink: string;
 }

@@ -8,6 +8,7 @@
       <h5 class="text-4xl mb-5 font-semibold">Add New Student</h5>
 
       <div class="flex flex-col gap-4">
+        <!-- Row 1 -->
         <div class="flex flex-col gap-4 sm:flex-row">
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>First Name</mat-label>
@@ -26,23 +27,29 @@
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" />
           </mat-form-field>
+
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Country</mat-label>
             <input matInput formControlName="country" />
           </mat-form-field>
         </div>
+
+        <!-- Row 3 -->
         <div class="flex flex-col gap-4 sm:flex-row">
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Fees</mat-label>
-            <input matInput formControlName="fees" />
+            <input matInput type="number" formControlName="fees" />
           </mat-form-field>
+
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Phone Number</mat-label>
             <input matInput formControlName="phoneNumber" />
           </mat-form-field>
         </div>
+
+        <!-- Row 4 -->
         <div class="flex flex-col gap-4 sm:flex-row">
-          <mat-form-field appearance="outline" class="max-w-1/2 w-full">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Instructor</mat-label>
             <mat-select formControlName="instructorId">
               @for (instructor of _instructors$ | async; track instructor.id) {
@@ -52,18 +59,22 @@
               }
             </mat-select>
           </mat-form-field>
+
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Zoom Link</mat-label>
             <input matInput formControlName="zoomLink" />
           </mat-form-field>
         </div>
 
+        <!-- Password -->
         <div class="flex flex-col gap-4 sm:flex-row">
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="password" />
           </mat-form-field>
         </div>
+
+        <!-- Weekly Appointments Table -->
         <mat-table #table class="mat-elevation-z0" [dataSource]="dataSource">
           <!-- Day Column -->
           <ng-container matColumnDef="day">
@@ -71,7 +82,7 @@
 
             <mat-cell *matCellDef="let row">
               <ng-container [formGroup]="row">
-                <mat-form-field appearance="outline" class="mt-2 w-full">
+                <mat-form-field appearance="outline" class="w-full mt-2">
                   <mat-label>Day</mat-label>
                   <mat-select formControlName="day">
                     <mat-option *ngFor="let d of weekDays" [value]="d">
@@ -93,8 +104,8 @@
                   <input
                     matInput
                     type="number"
-                    max="24"
                     min="1"
+                    max="24"
                     formControlName="time"
                   />
                 </mat-form-field>
@@ -102,53 +113,45 @@
             </mat-cell>
           </ng-container>
 
+          <!-- Actions Column -->
           <ng-container matColumnDef="actions">
-            <mat-header-cell
-              mat-header-cell
-              *matHeaderCellDef
-              class="justify-content-center flex"
-            >
+            <mat-header-cell *matHeaderCellDef class="flex justify-center">
               Actions
             </mat-header-cell>
-            <mat-cell
-              mat-cell
-              *matCellDef="let element"
-              class="justify-content-center flex p-0"
-            >
-              <div class="flex flex-row">
-                <button
-                  style="width: fit-content"
-                  mat-mini-fab
-                  (click)="remove(element)"
-                  matTooltip="Remove"
-                  class="ml-2 bg-red-500"
-                  aria-label="Remove"
-                  [disabled]="createStudentForm.disabled"
-                >
-                  <mat-icon
-                    [svgIcon]="'heroicons_outline:trash'"
-                    color="primary"
-                    id="trash-btn"
-                  ></mat-icon>
-                </button>
-              </div>
+
+            <mat-cell *matCellDef="let element" class="flex justify-center">
+              <button
+                type="button"
+                mat-mini-fab
+                color="warn"
+                (click)="remove(element)"
+                aria-label="Remove"
+                [disabled]="createStudentForm.disabled"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
             </mat-cell>
-            <mat-cell mat-footer-cell *matFooterCellDef class="p-0"></mat-cell>
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
         </mat-table>
 
+        <!-- Add Row Button -->
         <mat-card-actions>
-          <button mat-raised-button color="primary" (click)="createRow()">
+          <button
+            type="button"
+            mat-raised-button
+            color="primary"
+            (click)="createRow()"
+          >
             <mat-icon>add</mat-icon>
-            Add New
+            Add Weekly Appointment
           </button>
         </mat-card-actions>
       </div>
 
-      <!-- Buttons Inside Form -->
+      <!-- Submit / Cancel -->
       <div class="flex justify-end gap-4 mt-6">
         <button mat-flat-button color="primary" type="submit">Submit</button>
 
