@@ -57,6 +57,7 @@ export class EditStudentComponent implements OnInit {
       isActive: [true, [Validators.required]],
       phoneNumber: [""],
       fees: [0, [Validators.required, Validators.min(0)]],
+      zoomLink: [""],
     });
   }
 
@@ -77,6 +78,7 @@ export class EditStudentComponent implements OnInit {
             isActive: this._student.isActive,
             phoneNumber: this._student.phoneNumber,
             fees: this._student.fees,
+            zoomLink: this._student.zoomMeeting,
           });
         }),
       )

@@ -52,4 +52,13 @@ export class InstructorService {
       )
       .subscribe();
   }
+
+  deactivate(instructorId: string) {
+    const url = InstructorController.Deactivate;
+    return this._httpClient.put(`${url}/${instructorId}`, {});
+  }
+  createInstructor(instructor: InstrctorDto) {
+    const url = InstructorController.CreateInstructor;
+    return this._httpClient.post(url, instructor);
+  }
 }

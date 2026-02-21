@@ -136,4 +136,7 @@ export class UserComponent implements OnInit, OnDestroy {
   getStudentsList(): void {
     this._router.navigate(["/students-list"]);
   }
+  getInstructorsList(): void {
+    this._router.navigate(["/instructors-list"]);
+  }
 }

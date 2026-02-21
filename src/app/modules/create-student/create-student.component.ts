@@ -1,6 +1,7 @@
-import { AsyncPipe, NgClass } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { AsyncPipe, NgClass, NgFor } from "@angular/common";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import {
+  AbstractControl,
   FormArray,
   FormBuilder,
   FormGroup,
@@ -22,16 +23,16 @@ import {
 import { ModalService } from "app/shared/sevices/modal.service";
 import { Location } from "@angular/common";
 import { StudentService } from "app/shared/sevices/student.service";
-import { MatOptionModule, MatNativeDateModule } from "@angular/material/core";
-import {
-  MatDatepickerToggle,
-  MatDatepickerInput,
-  MatDatepicker,
-  MatDatepickerModule,
-} from "@angular/material/datepicker";
+import { MatOptionModule } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { PipesModule } from "../pipes.module";
+import { MatCardModule } from "@angular/material/card";
+import {
+  MatTable,
+  MatTableDataSource,
+  MatTableModule,
+} from "@angular/material/table";
 
 @Component({
   selector: "app-create-student",
@@ -50,6 +51,9 @@ import { PipesModule } from "../pipes.module";
     MatSlideToggleModule,
     FormsModule,
     PipesModule,
+    MatTableModule,
+    MatCardModule,
+    NgFor,
   ],
   templateUrl: "./create-student.component.html",
   styleUrl: "./create-student.component.scss",
@@ -57,6 +61,49 @@ import { PipesModule } from "../pipes.module";
 export class CreateStudentComponent implements OnInit {
   createStudentForm: FormGroup;
   public _instructors$: Observable<InstrctorDto[]>;
+  dataSource: MatTableDataSource<AbstractControl>;
+
+  @ViewChild("table") table: MatTable<any>;
+
+  uid = 0;
+  trackRows(index: number, row: AbstractControl) {
+    return row.value.uid;
+  }
+  get weeklyAppointments() {
+    return this.createStudentForm.get("weeklyAppointments") as FormArray;
+  }
+
+  private addRow() {
+    const rows = this.weeklyAppointments;
+    rows.push(
+      this.fb.group({
+        uid: this.nextUid(),
+        day: [""],
+        time: [1],
+      }),
+    );
+  }
+
+  createRow() {
+    this.addRow();
+    this.dataSource.data = this.weeklyAppointments.controls;
+  }
+  private nextUid() {
+    ++this.uid;
+    return this.uid;
+  }
+
+  remove(row: AbstractControl) {
+    const rows = this.weeklyAppointments;
+    const index = rows.controls.indexOf(row);
+    if (index >= 0) {
+      rows.removeAt(index);
+      this.dataSource.data = this.weeklyAppointments.controls;
+    }
+  }
+
+  displayedColumns = ["day", "time", "actions"];
+
   weekDays = [
     "Sunday",
     "Monday",
@@ -82,18 +129,33 @@ export class CreateStudentComponent implements OnInit {
       instructorId: ["", Validators.required],
       phoneNumber: [""],
       fees: [0],
+      zoomLink: [""],
       weeklyAppointments: this.fb.array([]),
+      password: ["", Validators.required],
     });
   }
 
   ngOnInit(): void {
     this._instructors$ = this.instructorService.instructors$;
     this.instructorService.getInstructors([]);
+    this.dataSource = new MatTableDataSource(this.weeklyAppointments.controls);
   }
   submit(): void {
     if (this.createStudentForm.valid) {
+      const formValue = this.createStudentForm.value;
+
+      const payload = {
+        ...formValue,
+        weeklyAppointments: formValue.weeklyAppointments.map(
+          (appointment: any) => ({
+            day: appointment.day.toString(),
+            time: appointment.time?.toString(),
+          }),
+        ),
+      };
+      debugger;
       this.studentService
-        .createStudent(this.createStudentForm.value)
+        .createStudent(payload)
         .pipe(
           showToastOnSuccess(this.toastService, {
             title: "Success",

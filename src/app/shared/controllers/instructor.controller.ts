@@ -11,4 +11,12 @@ export const InstructorController = {
   get Instructors() {
     return `${baseUrl}/api/instructors`;
   },
+  get Deactivate() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/instructors/deactivate`;
+  },
+  get CreateInstructor() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/instructors/create-instructor`;
+  },
 };

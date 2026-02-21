@@ -52,8 +52,100 @@
               }
             </mat-select>
           </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Zoom Link</mat-label>
+            <input matInput formControlName="zoomLink" />
+          </mat-form-field>
         </div>
-        <div class="flex flex-col gap-4 sm:flex-row"></div>
+
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password" />
+          </mat-form-field>
+        </div>
+        <mat-table #table class="mat-elevation-z0" [dataSource]="dataSource">
+          <!-- Day Column -->
+          <ng-container matColumnDef="day">
+            <mat-header-cell *matHeaderCellDef>Day</mat-header-cell>
+
+            <mat-cell *matCellDef="let row">
+              <ng-container [formGroup]="row">
+                <mat-form-field appearance="outline" class="mt-2 w-full">
+                  <mat-label>Day</mat-label>
+                  <mat-select formControlName="day">
+                    <mat-option *ngFor="let d of weekDays" [value]="d">
+                      {{ d }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Time Column -->
+          <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef>Time (24hr)</mat-header-cell>
+
+            <mat-cell *matCellDef="let row">
+              <ng-container [formGroup]="row">
+                <mat-form-field appearance="outline" class="w-full">
+                  <input
+                    matInput
+                    type="number"
+                    max="24"
+                    min="1"
+                    formControlName="time"
+                  />
+                </mat-form-field>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <mat-header-cell
+              mat-header-cell
+              *matHeaderCellDef
+              class="justify-content-center flex"
+            >
+              Actions
+            </mat-header-cell>
+            <mat-cell
+              mat-cell
+              *matCellDef="let element"
+              class="justify-content-center flex p-0"
+            >
+              <div class="flex flex-row">
+                <button
+                  style="width: fit-content"
+                  mat-mini-fab
+                  (click)="remove(element)"
+                  matTooltip="Remove"
+                  class="ml-2 bg-red-500"
+                  aria-label="Remove"
+                  [disabled]="createStudentForm.disabled"
+                >
+                  <mat-icon
+                    [svgIcon]="'heroicons_outline:trash'"
+                    color="primary"
+                    id="trash-btn"
+                  ></mat-icon>
+                </button>
+              </div>
+            </mat-cell>
+            <mat-cell mat-footer-cell *matFooterCellDef class="p-0"></mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" (click)="createRow()">
+            <mat-icon>add</mat-icon>
+            Add New
+          </button>
+        </mat-card-actions>
       </div>
 
       <!-- Buttons Inside Form -->
