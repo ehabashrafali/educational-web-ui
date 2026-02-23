@@ -2,9 +2,13 @@ import { CdkScrollable } from "@angular/cdk/scrolling";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { PipesModule } from "../pipes.module";
 import { UserService } from "app/core/user/user.service";
-import { EMPTY, filter, map, of, switchMap, tap } from "rxjs";
+import { EMPTY, filter, switchMap, tap } from "rxjs";
 import { Role, User } from "app/core/user/user.types";
-import { AttendanceStatus, SessionDto } from "../models/session.dto";
+import {
+  InstructorAttendanceStatus,
+  SessionDto,
+  StudentAttendanceStatus,
+} from "../models/session.dto";
 import { SessionService } from "app/shared/sevices/session.service";
 import { toDateOnly } from "../add-session/add-session.component";
 import { InstructorService } from "app/shared/sevices/instructor.service";
@@ -35,7 +39,6 @@ export class InvoiceComponent implements OnInit {
   userProfile: UserProfile;
   total: number;
   sessions: SessionDto[];
-  AttendanceStatus = AttendanceStatus;
   totalHours: number;
   payPalFees: number;
   @ViewChild("content") content: ElementRef;
@@ -89,31 +92,32 @@ export class InvoiceComponent implements OnInit {
 
   private totalSum(): number {
     this.totalHours = 0;
-
     if (this.userProfile.role === Role.Student) {
-      return this.sessions.reduce((sum, session) => {
-        const valid =
-          session.studentSessionStatus === AttendanceStatus.Attend ||
-          session.studentSessionStatus ===
-            AttendanceStatus.StudentLate5Minutes ||
-          session.studentSessionStatus ===
-            AttendanceStatus.StudentLate10Minutes ||
-          session.studentSessionStatus === AttendanceStatus.AbsentStudent;
+      const result = this.sessions.reduce(
+        (acc, session) => {
+          const valid =
+            session.studentSessionStatus === StudentAttendanceStatus.Attend ||
+            session.studentSessionStatus === StudentAttendanceStatus.Absent;
 
-        if (!valid) return sum;
+          if (!valid) return acc;
 
-        this.totalHours += session.duration;
-        return sum + (session.duration / 60) * this.userProfile.fees;
-      }, 0);
+          acc.totalMinutes += session.duration;
+          acc.amount += (session.duration / 60) * this.userProfile.fees;
+
+          return acc;
+        },
+        { totalMinutes: 0, amount: 0 },
+      );
+
+      this.totalHours = result.totalMinutes / 60;
+
+      return result.amount;
     }
 
     return this.sessions.reduce((sum, session) => {
       const valid =
-        session.instructorSessionStatus === AttendanceStatus.Attend ||
-        session.instructorSessionStatus ===
-          AttendanceStatus.InstructorLate5Minutes ||
-        session.instructorSessionStatus ===
-          AttendanceStatus.InstructorLate10Minutes;
+        session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
+        session.instructorSessionStatus === InstructorAttendanceStatus.Late;
       if (!valid) return sum;
       this.totalHours += session.duration / 60;
       return sum + (session.duration / 60) * this.userProfile.fees;
@@ -126,7 +130,6 @@ export class InvoiceComponent implements OnInit {
     const element = this.content.nativeElement;
 
     html2canvas(element, {
-      scale: 4,
       useCORS: true,
     }).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
@@ -136,56 +139,33 @@ export class InvoiceComponent implements OnInit {
       const pageWidth = pdf.internal.pageSize.getWidth();
       const pageHeight = pdf.internal.pageSize.getHeight();
 
-      const zoom = 1.4;
+      const imgHeight = pageHeight * 0.7;
 
-      const imgWidth = pageWidth * zoom;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const imgWidth = (canvas.width * imgHeight) / canvas.height;
 
-      let heightLeft = imgHeight;
-      let position = 0;
+      const x = (pageWidth - imgWidth) / 2;
 
-      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-      heightLeft -= pageHeight;
+      const y = pageHeight - imgHeight;
 
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
+      pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
 
       pdf.save(`Invoice-${this.invoiceNumber}.pdf`);
     });
   }
-  statusClass(status: AttendanceStatus): string {
+  statusClass(
+    status: StudentAttendanceStatus | InstructorAttendanceStatus,
+  ): string {
     switch (status) {
-      case AttendanceStatus.Attend:
+      case StudentAttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
-
-      case AttendanceStatus.CancelledByInstructor:
+      case StudentAttendanceStatus.Absent:
+        return "bg-red-100 text-red-800";
+      case InstructorAttendanceStatus.Attend:
+        return "bg-green-100 text-green-800";
+      case InstructorAttendanceStatus.Late:
         return "bg-yellow-100 text-yellow-800";
-
-      case AttendanceStatus.CancelledByStudent:
-        return "bg-gray-500 text-white";
-
-      case AttendanceStatus.AbsentInstructor:
-        return "bg-red-300 text-red-800";
-
-      case AttendanceStatus.AbsentStudent:
-        return "bg-red-100 text-red-700";
-
-      case AttendanceStatus.StudentLate5Minutes:
-        return "bg-stone-200 text-stone-800";
-
-      case AttendanceStatus.StudentLate10Minutes:
-        return "bg-purple-100 text-purple-800";
-
-      case AttendanceStatus.InstructorLate5Minutes:
-        return "bg-teal-200 text-teal-900";
-
-      case AttendanceStatus.InstructorLate10Minutes:
-        return "bg-violet-100 text-violet-800";
-
+      case InstructorAttendanceStatus.Absent:
+        return "bg-red-100 text-red-800";
       default:
         return "";
     }
@@ -197,32 +177,27 @@ export class InvoiceComponent implements OnInit {
   getStudentAttendCount(): number {
     return this.sessions.filter(
       (session) =>
-        session.studentSessionStatus === AttendanceStatus.Attend ||
-        session.studentSessionStatus === AttendanceStatus.StudentLate5Minutes ||
-        session.studentSessionStatus === AttendanceStatus.StudentLate10Minutes,
+        session.studentSessionStatus === StudentAttendanceStatus.Attend,
     ).length;
   }
 
   getStudentAbsentCount(): number {
     return this.sessions.filter(
       (session) =>
-        session.studentSessionStatus === AttendanceStatus.AbsentStudent,
+        session.studentSessionStatus === StudentAttendanceStatus.Absent,
     ).length;
   }
   getInstructorAttendCount(): number {
     return this.sessions.filter(
       (session) =>
-        session.instructorSessionStatus === AttendanceStatus.Attend ||
-        session.instructorSessionStatus ===
-          AttendanceStatus.InstructorLate5Minutes ||
-        session.instructorSessionStatus ===
-          AttendanceStatus.InstructorLate10Minutes,
+        session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
+        session.instructorSessionStatus === InstructorAttendanceStatus.Late,
     ).length;
   }
   getInstructorAbsentCount(): number {
     return this.sessions.filter(
       (session) =>
-        session.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
+        session.instructorSessionStatus === InstructorAttendanceStatus.Absent,
     ).length;
   }
 }

@@ -61,4 +61,8 @@ export class InstructorService {
     const url = InstructorController.CreateInstructor;
     return this._httpClient.post(url, instructor);
   }
+  updateInstructor(id: string, instructor: InstrctorDto) {
+    const url = InstructorController.UpdateInstructor;
+    return this._httpClient.put(`${url}/${id}`, instructor);
+  }
 }

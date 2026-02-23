@@ -4,21 +4,20 @@ export interface SessionDto {
   studentId: string;
   studentName: string;
   instructorName: string;
-  studentSessionStatus: AttendanceStatus;
-  instructorSessionStatus: AttendanceStatus;
+  studentSessionStatus: StudentAttendanceStatus;
+  instructorSessionStatus: InstructorAttendanceStatus;
   duration: SessionDuration;
 }
 
-export enum AttendanceStatus {
+export enum StudentAttendanceStatus {
   Attend = 1,
-  AbsentStudent = 2,
-  AbsentInstructor = 3,
-  CancelledByInstructor = 4,
-  CancelledByStudent = 5,
-  StudentLate5Minutes = 6,
-  StudentLate10Minutes = 7,
-  InstructorLate5Minutes = 8,
-  InstructorLate10Minutes = 9,
+  Absent = 2,
+}
+
+export enum InstructorAttendanceStatus {
+  Attend = 1,
+  Absent = 2,
+  Late = 3,
 }
 
 export enum SessionDuration {

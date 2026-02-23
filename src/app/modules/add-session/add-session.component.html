@@ -45,7 +45,10 @@
         <mat-form-field appearance="outline">
           <mat-label>Instructor Session Status</mat-label>
           <mat-select formControlName="instructorSessionStatus">
-            @for (status of SessionStatus | enumToList; track status.id) {
+            @for (
+              status of InstructorsessionStatus | enumToList;
+              track status.id
+            ) {
               <mat-option [value]="status.id">
                 {{ status.name | humanize: " " }}
               </mat-option>
@@ -69,7 +72,10 @@
         <mat-form-field appearance="outline">
           <mat-label>Student Session Status</mat-label>
           <mat-select formControlName="studentSessionStatus">
-            @for (status of SessionStatus | enumToList; track status.id) {
+            @for (
+              status of studentSessionStatus | enumToList;
+              track status.id
+            ) {
               <mat-option [value]="status.id">
                 {{ status.name | humanize: " " }}
               </mat-option>
@@ -80,7 +86,7 @@
         <!-- Duration -->
         <mat-form-field appearance="outline">
           <mat-label>Session Duration</mat-label>
-          <mat-select formControlName="sessionDuration">
+          <mat-select formControlName="duration">
             @for (duration of SessionDuration | enumToList; track duration.id) {
               <mat-option [value]="duration.id">
                 {{ duration.name | humanize: " " }}

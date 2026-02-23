@@ -186,7 +186,6 @@ export class EditStudentComponent implements OnInit {
           }),
         ),
       };
-      debugger;
       this.studentService
         .updateStudent(this._student.id, updatedStudent)
         .pipe(

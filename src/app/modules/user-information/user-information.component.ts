@@ -66,4 +66,14 @@ export class UserInformationComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+  getMeetingId(value: string | undefined): string {
+    if (!value) return "--";
+    const match = value.match(/Meeting ID:\s*([\d\s]+)/);
+    return match ? `${match[1].trim()}` : "--";
+  }
+  getPasscode(value: string | undefined): string {
+    if (!value) return "--";
+    const match = value.match(/Passcode:\s*([\w\d]+)/);
+    return match ? `${match[1].trim()}` : "--";
+  }
 }

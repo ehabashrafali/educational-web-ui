@@ -82,10 +82,10 @@
           </button>
 
           <mat-menu #menu="matMenu">
-            <!-- <button mat-menu-item (click)="edit(instructor.id)">
+            <button mat-menu-item (click)="edit(instructor.id)">
               <mat-icon>edit</mat-icon>
               <span>Edit</span>
-            </button> -->
+            </button>
 
             <button mat-menu-item (click)="deactivate(instructor.id)">
               <mat-icon>delete</mat-icon>
@@ -100,7 +100,13 @@
         *matHeaderRowDef="displayedColumns"
         class="bg-primary text-white border-b pb-3 text-center rounded-t-md"
       ></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="getInstructorInfo(row.id)"
+        class="cursor-pointer hover:bg-gray-50"
+      ></tr>
 
       <tr class="mat-row" *matNoDataRow>
         <td class="mat-cell" colspan="4">

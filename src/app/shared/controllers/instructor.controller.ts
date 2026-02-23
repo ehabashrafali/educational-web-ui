@@ -19,4 +19,8 @@ export const InstructorController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/instructors/create-instructor`;
   },
+  get UpdateInstructor() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/instructors`;
+  },
 };

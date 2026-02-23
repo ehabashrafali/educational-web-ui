@@ -4,11 +4,14 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { FuseCardComponent } from "@fuse/components/card";
 import { SessionService } from "app/shared/sevices/session.service";
-import { SessionDto, AttendanceStatus } from "../models/session.dto";
+import {
+  InstructorAttendanceStatus,
+  SessionDto,
+  StudentAttendanceStatus,
+} from "../models/session.dto";
 import { UserService } from "app/core/user/user.service";
 import { filter, switchMap, tap } from "rxjs";
 import { DateTime } from "luxon";
-import moment from "moment";
 import { Router } from "@angular/router";
 import { Role } from "app/core/user/user.types";
 
@@ -40,19 +43,13 @@ export class AttendanceComponent implements OnInit {
 
   readonly viewMonth = DateTime.now().startOf("month");
   calendarWeeks: CalendarWeek[] = [];
-  attendCount = 0;
+  instructorAttendCount = 0;
+  instructorLateCount = 0;
+  instructorAbsentCount = 0;
+  studentAttendCount = 0;
   absentStudentCount = 0;
-  absentInstructorCount = 0;
-  cancelledByInstructorCount = 0;
-  cancelledByStudentCount = 0;
-  StudentLate10MinutesCount = 0;
-  StudentLate5MinutesCount = 0;
-  InstructorLate10MinutesCount = 0;
-  InstructorLate5MinutesCount = 0;
   totalCount = 0;
   role: Role;
-
-  AttendanceStatus = AttendanceStatus;
 
   constructor(
     private sessionsService: SessionService,
@@ -76,7 +73,6 @@ export class AttendanceComponent implements OnInit {
           if (this.role === Role.Student) {
             this.computeStudentCounts();
           } else {
-            debugger;
             this.computeInstructorCounts();
           }
           this.buildCalendar();
@@ -89,40 +85,24 @@ export class AttendanceComponent implements OnInit {
     return this.viewMonth.toFormat("MMM yyyy");
   }
 
-  statusClass(status: AttendanceStatus): string {
+  statusClass(
+    status: StudentAttendanceStatus | InstructorAttendanceStatus,
+  ): string {
     switch (status) {
-      case AttendanceStatus.Attend:
+      case StudentAttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
-
-      case AttendanceStatus.CancelledByInstructor:
+      case StudentAttendanceStatus.Absent:
+        return "bg-red-100 text-red-800";
+      case InstructorAttendanceStatus.Attend:
+        return "bg-green-100 text-green-800";
+      case InstructorAttendanceStatus.Late:
         return "bg-yellow-100 text-yellow-800";
-
-      case AttendanceStatus.CancelledByStudent:
-        return "bg-gray-500 text-white";
-
-      case AttendanceStatus.AbsentInstructor:
-        return "bg-red-300 text-red-800";
-
-      case AttendanceStatus.AbsentStudent:
-        return "bg-red-100 text-red-700";
-
-      case AttendanceStatus.StudentLate5Minutes:
-        return "bg-stone-200 text-stone-800";
-
-      case AttendanceStatus.StudentLate10Minutes:
-        return "bg-purple-100 text-purple-800";
-
-      case AttendanceStatus.InstructorLate5Minutes:
-        return "bg-teal-200 text-teal-900";
-
-      case AttendanceStatus.InstructorLate10Minutes:
-        return "bg-violet-100 text-violet-800";
-
+      case InstructorAttendanceStatus.Absent:
+        return "bg-red-100 text-red-800";
       default:
         return "";
     }
   }
-
   private buildCalendar(): void {
     const monthStart = this.viewMonth.startOf("month");
     const monthEnd = this.viewMonth.endOf("month");
@@ -170,57 +150,26 @@ export class AttendanceComponent implements OnInit {
   }
 
   private computeStudentCounts(): void {
-    this.attendCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.Attend,
+    this.studentAttendCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === StudentAttendanceStatus.Attend,
     ).length;
     this.absentStudentCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.AbsentStudent,
+      (s) => s.studentSessionStatus === StudentAttendanceStatus.Absent,
     ).length;
-    this.absentInstructorCount = this.sessions.filter(
-      (s) => s.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
-    ).length;
-    this.cancelledByInstructorCount = this.sessions.filter(
-      (s) =>
-        s.instructorSessionStatus === AttendanceStatus.CancelledByInstructor,
-    ).length;
-    this.cancelledByStudentCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
-    ).length;
-    this.StudentLate5MinutesCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate5Minutes,
-    ).length;
-    this.StudentLate10MinutesCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.StudentLate10Minutes,
-    ).length;
-
     this.totalCount = this.sessions.length;
   }
 
   private computeInstructorCounts(): void {
-    this.attendCount = this.sessions.filter(
-      (s) => s.instructorSessionStatus === AttendanceStatus.Attend,
+    this.instructorAttendCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Attend,
     ).length;
-    this.absentStudentCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.AbsentStudent,
+    this.instructorLateCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Late,
     ).length;
-    this.absentInstructorCount = this.sessions.filter(
-      (s) => s.instructorSessionStatus === AttendanceStatus.AbsentInstructor,
+    this.instructorAbsentCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Absent,
     ).length;
-    this.cancelledByInstructorCount = this.sessions.filter(
-      (s) =>
-        s.instructorSessionStatus === AttendanceStatus.CancelledByInstructor,
-    ).length;
-    this.cancelledByStudentCount = this.sessions.filter(
-      (s) => s.studentSessionStatus === AttendanceStatus.CancelledByStudent,
-    ).length;
-    this.InstructorLate5MinutesCount = this.sessions.filter(
-      (s) =>
-        s.instructorSessionStatus === AttendanceStatus.InstructorLate5Minutes,
-    ).length;
-    this.InstructorLate10MinutesCount = this.sessions.filter(
-      (s) =>
-        s.instructorSessionStatus === AttendanceStatus.InstructorLate10Minutes,
-    ).length;
+
     this.totalCount = this.sessions.length;
   }
 

@@ -15,4 +15,5 @@ export interface UserProfile {
   role: Role;
   zoomMeeting?: string;
   phoneNumber?: string;
+  lastName?: string;
 }

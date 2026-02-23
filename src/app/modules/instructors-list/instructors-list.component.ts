@@ -66,9 +66,10 @@ export class InstructorsListComponent {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  // edit(studentId: string) {
-  //   this.router.navigate(["/edit-student", studentId]);
-  // }
+
+  edit(instructorId: string) {
+    this.router.navigate(["/edit-instructor", instructorId]);
+  }
 
   deactivate(instructorId: string) {
     this.instructorService
@@ -90,5 +91,9 @@ export class InstructorsListComponent {
   }
   create() {
     this.router.navigate(["/create-instructor"]);
+  }
+  getInstructorInfo(instructorId: string) {
+    console.log(instructorId);
+    this.router.navigate(["/instructor-info", instructorId]);
   }
 }

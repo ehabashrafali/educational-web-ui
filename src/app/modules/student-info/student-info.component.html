@@ -9,7 +9,7 @@
       <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
     </button>
 
-    <p class="text-4xl mt-5 mb-5 font-semibold">Your Information</p>
+    <p class="text-4xl mt-5 mb-5 font-semibold">Student Information</p>
   </div>
 
   <div class="flex justify-center max-w-fit me-10 ms-20">
@@ -43,49 +43,43 @@
               </div>
 
               <!-- Email -->
-              @if (!studentId) {
-                <div>
-                  <div class="text-secondary opacity-70">Email</div>
-                  <div class="mt-1 font-semibold">
-                    {{ userProfile?.email || "--" }}
-                  </div>
+              <div>
+                <div class="text-secondary opacity-70">Email</div>
+                <div class="mt-1 font-semibold">
+                  {{ userProfile?.email || "--" }}
                 </div>
-              }
+              </div>
 
               <!-- Fees -->
-              @if (currentUser?.role === "Student") {
-                <div>
-                  <div class="text-secondary opacity-70">Fees</div>
-                  <div class="mt-1 font-semibold">
-                    {{
-                      userProfile?.fees && userProfile?.fees !== 0
-                        ? userProfile?.fees
-                        : "--"
-                    }}
-                  </div>
+              <div>
+                <div class="text-secondary opacity-70">Fees</div>
+                <div class="mt-1 font-semibold">
+                  {{
+                    userProfile?.fees && userProfile?.fees !== 0
+                      ? userProfile?.fees
+                      : "--"
+                  }}
                 </div>
-              }
+              </div>
 
               <!-- Days & Times -->
-              @if (currentUser?.role === "Student" || studentId) {
-                <div>
-                  <div class="text-secondary opacity-70">Days & Times</div>
-                  <div class="mt-2 space-y-1 font-semibold">
-                    @if (!userProfile?.weeklyAppointments?.length) {
-                      --
-                    } @else {
-                      @for (
-                        appointment of userProfile.weeklyAppointments;
-                        track appointment
-                      ) {
-                        <div>
-                          {{ appointment.dayOfWeek }} {{ appointment.time }}
-                        </div>
-                      }
+              <div>
+                <div class="text-secondary opacity-70">Days & Times</div>
+                <div class="mt-2 space-y-1 font-semibold">
+                  @if (!userProfile?.weeklyAppointments?.length) {
+                    --
+                  } @else {
+                    @for (
+                      appointment of userProfile.weeklyAppointments;
+                      track appointment
+                    ) {
+                      <div>
+                        {{ appointment.dayOfWeek }} {{ appointment.time }}
+                      </div>
                     }
-                  </div>
+                  }
                 </div>
-              }
+              </div>
 
               <!-- Zoom Link -->
               <div>

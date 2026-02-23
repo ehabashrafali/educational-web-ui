@@ -7,7 +7,6 @@ import {
 } from "./report.dto";
 
 export interface MonthlyReportDto {
-  // Id is ignored by backend, keep optional if needed in UI
   id?: string;
   date: Date;
   memorization?: QuranSurah;

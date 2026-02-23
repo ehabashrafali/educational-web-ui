@@ -27,9 +27,10 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { PipesModule } from "../pipes.module";
 import {
-  AttendanceStatus,
+  InstructorAttendanceStatus,
   SessionDto,
   SessionDuration,
+  StudentAttendanceStatus,
 } from "../models/session.dto";
 import {
   showToastOnSuccess,
@@ -65,7 +66,8 @@ export class AddSessionComponent implements OnInit {
   public _instructors$: Observable<InstrctorDto[]>;
   public _students$: Observable<StudentDTO[]>;
   public sessionForm: FormGroup;
-  SessionStatus = AttendanceStatus;
+  InstructorsessionStatus = InstructorAttendanceStatus;
+  studentSessionStatus = StudentAttendanceStatus;
   SessionDuration = SessionDuration;
   date: Date;
   constructor(
@@ -77,11 +79,17 @@ export class AddSessionComponent implements OnInit {
   ) {
     this.sessionForm = this.fb.group({
       date: [toDateOnly(new Date()), Validators.required],
-      instructorSessionStatus: [AttendanceStatus.Attend, Validators.required],
+      instructorSessionStatus: [
+        InstructorAttendanceStatus.Attend,
+        Validators.required,
+      ],
       instructorId: [null, Validators.required],
       studentId: [null, Validators.required],
-      studentSessionStatus: [AttendanceStatus.Attend, Validators.required],
-      sessionDuration: [SessionDuration.ThirtyMinutes, Validators.required],
+      studentSessionStatus: [
+        StudentAttendanceStatus.Attend,
+        Validators.required,
+      ],
+      duration: [SessionDuration.ThirtyMinutes, Validators.required],
     });
   }
   ngOnInit(): void {

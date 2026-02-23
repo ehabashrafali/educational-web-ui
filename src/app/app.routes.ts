@@ -394,4 +394,52 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "edit-instructor",
+        loadChildren: () =>
+          import("app/modules/edit-instructor/edit-instructor.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "student-info",
+        loadChildren: () =>
+          import("app/modules/student-info/student-info.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "instructor-info",
+        loadChildren: () =>
+          import("app/modules/instructor-info/instructor-info.routes"),
+      },
+    ],
+  },
 ];

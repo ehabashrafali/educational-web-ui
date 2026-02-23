@@ -71,4 +71,7 @@ export class StudentsListComponent implements OnInit {
   create() {
     this.router.navigate(["/create-student"]);
   }
+  getStudentInfo(studentId: string) {
+    this.router.navigate(["/student-info", studentId]);
+  }
 }
