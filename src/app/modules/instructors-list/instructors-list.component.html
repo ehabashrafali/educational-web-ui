@@ -46,7 +46,7 @@
       </ng-container>
 
       <ng-container matColumnDef="Country">
-        <th mat-header-cell *matHeaderCellDef>Country</th>
+        <th mat-header-cell *matHeaderCellDef>Country/State</th>
         <td mat-cell *matCellDef="let instructor">
           @if (instructor.country) {
             {{ instructor.country }}
@@ -72,11 +72,17 @@
       <ng-container matColumnDef="Actions">
         <th mat-header-cell *matHeaderCellDef class="text-center">Actions</th>
 
-        <td mat-cell *matCellDef="let instructor" class="text-right">
+        <td
+          mat-cell
+          (click)="trigger.openMenu()"
+          *matCellDef="let instructor"
+          class="text-right"
+        >
           <button
             mat-icon-button
             [matMenuTriggerFor]="menu"
             aria-label="Actions menu"
+            (click)="$event.stopPropagation()"
           >
             <mat-icon>more_vert</mat-icon>
           </button>
