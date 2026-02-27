@@ -171,7 +171,11 @@ export class InvoiceComponent implements OnInit {
     }
   }
   SetPayPalFees(total: number) {
-    this.payPalFees = total * 0.05;
+    if (this.userProfile.role === Role.Student) {
+      this.payPalFees = total * 0.05;
+    } else {
+      this.payPalFees = 0;
+    }
   }
 
   getStudentAttendCount(): number {

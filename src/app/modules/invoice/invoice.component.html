@@ -171,10 +171,12 @@
               <span class="font-medium">${{ total }}</span>
             </div>
 
-            <div class="flex justify-between text-sm sm:text-base">
-              <span class="text-gray-500">PayPal Fees</span>
-              <span class="text-gray-700">${{ payPalFees }}</span>
-            </div>
+            @if (userProfile?.role === "Student") {
+              <div class="flex justify-between text-sm sm:text-base">
+                <span class="text-gray-500">PayPal Fees</span>
+                <span class="text-gray-700">${{ payPalFees }}</span>
+              </div>
+            }
 
             <div
               class="border-t pt-3 flex justify-between text-base sm:text-lg"
