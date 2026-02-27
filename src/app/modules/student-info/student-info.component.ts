@@ -22,6 +22,7 @@ export class StudentInfoComponent implements OnInit {
     private _studentService: StudentService,
     private route: ActivatedRoute,
   ) {}
+
   ngOnInit(): void {
     const studentId = this.route.snapshot.paramMap.get("id");
     if (studentId) {
@@ -35,7 +36,6 @@ export class StudentInfoComponent implements OnInit {
         .subscribe();
     }
   }
-
   goBack(): void {
     this.location.back();
   }
@@ -48,5 +48,12 @@ export class StudentInfoComponent implements OnInit {
     if (!value) return "--";
     const match = value.match(/Passcode:\s*([\w\d]+)/);
     return match ? `${match[1].trim()}` : "--";
+  }
+  convertTo12HourFormat(time: string): string {
+    const [hourStr, minute] = time.split(".");
+    let hour = parseInt(hourStr, 10);
+    const ampm = hour >= 12 ? "PM" : "AM";
+    hour = hour % 12 || 12;
+    return `${hour}:${minute ?? "00"} ${ampm}`;
   }
 }

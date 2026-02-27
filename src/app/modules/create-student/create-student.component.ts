@@ -66,6 +66,7 @@ export class CreateStudentComponent implements OnInit {
   @ViewChild("table") table: MatTable<any>;
 
   uid = 0;
+  timeZone: string;
   trackRows(index: number, row: AbstractControl) {
     return row.value.uid;
   }
@@ -80,6 +81,7 @@ export class CreateStudentComponent implements OnInit {
         uid: this.nextUid(),
         day: [""],
         time: [1],
+        timeZone: [""],
       }),
     );
   }
@@ -139,10 +141,12 @@ export class CreateStudentComponent implements OnInit {
     this._instructors$ = this.instructorService.instructors$;
     this.instructorService.getInstructors([]);
     this.dataSource = new MatTableDataSource(this.weeklyAppointments.controls);
+    this.timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   }
   submit(): void {
     if (this.createStudentForm.valid) {
       const formValue = this.createStudentForm.value;
+      debugger;
 
       const payload = {
         ...formValue,
@@ -150,10 +154,10 @@ export class CreateStudentComponent implements OnInit {
           (appointment: any) => ({
             day: appointment.day.toString(),
             time: appointment.time?.toString(),
+            timeZone: this.timeZone,
           }),
         ),
       };
-      debugger;
       this.studentService
         .createStudent(payload)
         .pipe(

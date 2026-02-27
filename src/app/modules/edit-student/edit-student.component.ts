@@ -165,9 +165,7 @@ export class EditStudentComponent implements OnInit {
           });
 
           this.weeklyAppointments.clear();
-
           student.weeklyAppointments.forEach((appt) => {
-            debugger;
             this.weeklyAppointments.push(
               this.fb.group({
                 uid: this.nextUid(),
@@ -184,6 +182,7 @@ export class EditStudentComponent implements OnInit {
   }
   submit(): void {
     if (this.editStudentForm.valid) {
+      debugger;
       const updatedStudent: StudentDTO = {
         ...this._student,
         ...this.editStudentForm.value,
