@@ -50,6 +50,16 @@
             <mat-label>Zoom Link</mat-label>
             <input matInput formControlName="zoomLink" />
           </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Instructor</mat-label>
+            <mat-select formControlName="instructorId">
+              @for (instructor of _instructors$ | async; track instructor.id) {
+                <mat-option [value]="instructor.id">
+                  {{ instructor.firstName }} {{ instructor.lastName }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
         </div>
 
         <mat-table class="mat-elevation-z0" [dataSource]="dataSource">

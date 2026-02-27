@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { StudentService } from "app/shared/sevices/student.service";
 import { ActivatedRoute } from "@angular/router";
-import { map, tap } from "rxjs";
+import { map, Observable, tap } from "rxjs";
 import {
   AbstractControl,
   FormArray,
@@ -33,6 +33,8 @@ import { PipesModule } from "../pipes.module";
 import { MatOptionModule } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { InstructorService } from "app/shared/sevices/instructor.service";
+import { InstrctorDto } from "../models/instructor.dto";
 
 @Component({
   selector: "app-edit-student",
@@ -60,6 +62,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 })
 export class EditStudentComponent implements OnInit {
   public _student: StudentDTO;
+  public _instructors$: Observable<InstrctorDto[]>;
   editStudentForm: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -68,6 +71,7 @@ export class EditStudentComponent implements OnInit {
     private location: Location,
     private modalService: ModalService,
     private toastService: ToastService,
+    private instructorService: InstructorService,
   ) {
     this.editStudentForm = this.buildForm(this.fb);
   }
@@ -132,10 +136,13 @@ export class EditStudentComponent implements OnInit {
       fees: [0, [Validators.required, Validators.min(0)]],
       zoomLink: [""],
       weeklyAppointments: this.fb.array([]),
+      instructorId: [null, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    this._instructors$ = this.instructorService.instructors$;
+    this.instructorService.getInstructors([]);
     const id = this.route.snapshot.paramMap.get("id");
     this.dataSource = new MatTableDataSource(this.weeklyAppointments.controls);
 
@@ -154,6 +161,7 @@ export class EditStudentComponent implements OnInit {
             phoneNumber: student.phoneNumber,
             fees: student.fees,
             zoomLink: student.zoomMeeting,
+            instructorId: student.instructorId,
           });
 
           this.weeklyAppointments.clear();

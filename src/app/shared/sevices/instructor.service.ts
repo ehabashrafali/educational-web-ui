@@ -21,7 +21,7 @@ export class InstructorService {
   }
   constructor() {}
 
-  GetInstructorStudent(instructorId: string) {
+  GetInstructorStudents(instructorId: string) {
     {
       const url = InstructorController.InstructorStudents;
       return this._httpClient

@@ -51,7 +51,7 @@ export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!id) return;
 
     this.instructorService
-      .GetInstructorStudent(id)
+      .GetInstructorStudents(id)
       .pipe(
         tap((students) => {
           this.dataSource.data = students;

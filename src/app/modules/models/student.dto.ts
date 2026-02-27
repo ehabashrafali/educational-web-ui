@@ -16,4 +16,5 @@ export interface StudentDTO {
   monthlyReportDtos: MonthlyReportDto[];
   weeklyAppointments: WeeklyAppointmentDto[];
   zoomLink: string;
+  instructorId: string;
 }
