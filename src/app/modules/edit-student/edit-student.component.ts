@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { StudentService } from "app/shared/sevices/student.service";
 import { ActivatedRoute } from "@angular/router";
-import { map, Observable, tap } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import {
   AbstractControl,
   FormArray,
@@ -93,8 +93,8 @@ export class EditStudentComponent implements OnInit {
     rows.push(
       this.fb.group({
         uid: this.nextUid(),
-        day: [""],
-        time: [1],
+        day: ["", Validators.required],
+        time: [0, Validators.required],
       }),
     );
   }
@@ -129,7 +129,7 @@ export class EditStudentComponent implements OnInit {
     return fb.group({
       firstName: ["", [Validators.required]],
       lastName: ["", [Validators.required]],
-      country: ["", [Validators.required]],
+      country: [""],
       email: ["", [Validators.required, Validators.email]],
       isActive: [true, [Validators.required]],
       phoneNumber: [""],
@@ -182,6 +182,7 @@ export class EditStudentComponent implements OnInit {
   }
   submit(): void {
     if (this.editStudentForm.valid) {
+      debugger;
       const updatedStudent: StudentDTO = {
         ...this._student,
         ...this.editStudentForm.value,
@@ -200,6 +201,13 @@ export class EditStudentComponent implements OnInit {
             message: "Student updated successfully",
           }),
           tap(() => this.location.back()),
+          catchError((error) => {
+            this.toastService.error({
+              title: "Error",
+              message: error.error?.message || "Failed to update student",
+            });
+            return throwError(() => error);
+          }),
         )
         .subscribe();
     } else {

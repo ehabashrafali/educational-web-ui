@@ -87,8 +87,9 @@
                 <mat-form-field appearance="outline" class="w-full">
                   <input
                     matInput
-                    type="number"
-                    min="1"
+                    inputmode="decimal"
+                    pattern="^\d+(\.\d{1,2})?$"
+                    min="0"
                     max="24"
                     formControlName="time"
                   />

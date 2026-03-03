@@ -13,7 +13,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatError, MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
-import { Observable, tap } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { InstrctorDto } from "../models/instructor.dto";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import {
@@ -79,8 +79,8 @@ export class CreateStudentComponent implements OnInit {
     rows.push(
       this.fb.group({
         uid: this.nextUid(),
-        day: [""],
-        time: [1],
+        day: ["", Validators.required],
+        time: [0, Validators.required],
         timeZone: [""],
       }),
     );
@@ -146,6 +146,7 @@ export class CreateStudentComponent implements OnInit {
   submit(): void {
     if (this.createStudentForm.valid) {
       const formValue = this.createStudentForm.value;
+      debugger;
       const payload = {
         ...formValue,
         weeklyAppointments: formValue.weeklyAppointments.map(
@@ -164,6 +165,13 @@ export class CreateStudentComponent implements OnInit {
             message: "Student created successfully",
           }),
           tap(() => this.location.back()),
+          catchError((error) => {
+            this.toastService.error({
+              title: "Error",
+              message: "Failed to create student",
+            });
+            return throwError(() => error);
+          }),
         )
         .subscribe();
     } else {
