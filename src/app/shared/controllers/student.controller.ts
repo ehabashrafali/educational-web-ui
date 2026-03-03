@@ -46,4 +46,8 @@ export const StudentController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students/create-student`;
   },
+  get Delete() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/delete-student`;
+  },
 };

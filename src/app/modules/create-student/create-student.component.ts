@@ -146,8 +146,6 @@ export class CreateStudentComponent implements OnInit {
   submit(): void {
     if (this.createStudentForm.valid) {
       const formValue = this.createStudentForm.value;
-      debugger;
-
       const payload = {
         ...formValue,
         weeklyAppointments: formValue.weeklyAppointments.map(

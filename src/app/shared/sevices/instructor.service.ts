@@ -65,4 +65,9 @@ export class InstructorService {
     const url = InstructorController.UpdateInstructor;
     return this._httpClient.put(`${url}/${id}`, instructor);
   }
+
+  delete(instructorId: string) {
+    const url = InstructorController.Delete;
+    return this._httpClient.delete(`${url}/${instructorId}`);
+  }
 }

@@ -23,4 +23,8 @@ export const InstructorController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/instructors`;
   },
+  get Delete() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/instructors/delete-instructor`;
+  },
 };

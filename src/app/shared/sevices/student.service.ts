@@ -57,22 +57,7 @@ export class StudentService {
   }
   deactivate(studentId: string) {
     const url = StudentController.Deactivate;
-    return this._httpClient
-      .put(`${url}/${studentId}`, {})
-      .pipe(
-        showToastOnSuccess(this.toastService, {
-          title: "Success",
-          message: "Student deactivated successfully",
-        }),
-        catchError((error) => {
-          this.toastService.error({
-            title: "Error",
-            message: "Failed to deactivate student",
-          });
-          return throwError(() => error);
-        }),
-      )
-      .subscribe();
+    return this._httpClient.put(`${url}/${studentId}`, {});
   }
   getStudent(id: string): Observable<StudentDTO> {
     const url = StudentController.student;
@@ -85,5 +70,9 @@ export class StudentService {
   createStudent(studentDto: StudentDTO) {
     const url = StudentController.CreateStudent;
     return this._httpClient.post(url, studentDto);
+  }
+  delete(studentId: string) {
+    const url = StudentController.Delete;
+    return this._httpClient.delete(`${url}/${studentId}`);
   }
 }

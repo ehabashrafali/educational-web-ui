@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { InstrctorDto } from "../models/instructor.dto";
-import { catchError, Observable, throwError } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
@@ -95,5 +95,27 @@ export class InstructorsListComponent {
   getInstructorInfo(instructorId: string) {
     console.log(instructorId);
     this.router.navigate(["/instructor-info", instructorId]);
+  }
+
+  delete(instructorId: string) {
+    this.instructorService
+      .delete(instructorId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "The instructor has been deleted successfully.",
+        }),
+        tap(() => {
+          this.instructorService.getInstructors([]);
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to delete instructor.",
+          });
+          return throwError(() => error);
+        }),
+      )
+      .subscribe();
   }
 }

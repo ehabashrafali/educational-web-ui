@@ -4,7 +4,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { StudentService } from "app/shared/sevices/student.service";
 import { StudentDTO } from "../models/student.dto";
-import { Observable } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButtonModule } from "@angular/material/button";
@@ -13,6 +13,10 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSelectModule } from "@angular/material/select";
 import { Router } from "@angular/router";
+import {
+  showToastOnSuccess,
+  ToastService,
+} from "app/shared/sevices/toasts.service";
 
 @Component({
   selector: "app-students-list",
@@ -48,6 +52,7 @@ export class StudentsListComponent implements OnInit {
   constructor(
     private studentService: StudentService,
     private router: Router,
+    private toastService: ToastService,
   ) {}
 
   ngOnInit(): void {
@@ -65,8 +70,26 @@ export class StudentsListComponent implements OnInit {
     this.router.navigate(["/edit-student", studentId]);
   }
 
-  deactivate(studentId: string) {
-    this.studentService.deactivate(studentId);
+  delete(studentId: string) {
+    this.studentService
+      .delete(studentId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "The student has been deleted successfully.",
+        }),
+        tap(() => {
+          this.studentService.getStudents([]);
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to delete student.",
+          });
+          return throwError(() => error);
+        }),
+      )
+      .subscribe();
   }
   create() {
     this.router.navigate(["/create-student"]);
