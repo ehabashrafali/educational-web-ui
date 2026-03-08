@@ -3,48 +3,68 @@ import { BehaviorSubject } from "rxjs";
 
 @Injectable({ providedIn: "root" })
 export class NotificationService {
-    private _isAllowed$ = new BehaviorSubject<boolean>(
-        Notification.permission === "granted"
-    );
-    constructor() {}
+  private _isAllowed$ = new BehaviorSubject<boolean>(
+    this.getPermission() === "granted",
+  );
 
-    get isAllowed$() {
-        return this._isAllowed$.asObservable();
+  constructor() {}
+
+  get isAllowed$() {
+    return this._isAllowed$.asObservable();
+  }
+
+  private isNotificationSupported(): boolean {
+    return typeof window !== "undefined" && "Notification" in window;
+  }
+
+  private getPermission(): NotificationPermission | "unsupported" {
+    if (!this.isNotificationSupported()) return "unsupported";
+    return Notification.permission;
+  }
+
+  isAllowed(): boolean {
+    return this.getPermission() === "granted";
+  }
+
+  async requestPermission(): Promise<boolean> {
+    if (!this.isNotificationSupported()) {
+      this._isAllowed$.next(false);
+      return false;
     }
 
-    isAllowed(): boolean {
-        return Notification.permission === "granted";
+    const permission = await Notification.requestPermission();
+    const isAllowed = permission === "granted";
+    this._isAllowed$.next(isAllowed);
+    return isAllowed;
+  }
+
+  async notify(
+    title: string,
+    message: string,
+    onclick?: () => void,
+    onclose?: () => void,
+  ): Promise<void> {
+    if (!this.isNotificationSupported()) {
+      return;
     }
 
-    async requestPermission() {
-        const permission = await Notification.requestPermission();
-        const isAllowed = permission === "granted";
-        this._isAllowed$.next(isAllowed);
-        return isAllowed;
+    if (!this.isAllowed()) {
+      const allowed = await this.requestPermission();
+      if (!allowed) return;
     }
 
-    notify(
-        title: string,
-        message: string,
-        onclick?: () => void,
-        onclose?: () => void
-    ): void {
-        if (!this.isAllowed) {
-            this.requestPermission().then((isAllowed) => {
-                if (isAllowed) this.notify(title, message, onclick, onclose);
-            });
-            return;
-        }
-        if (!this.isAllowed) return;
-        const notification = new Notification(title, {
-            body: message,
-            icon: "favicon.svg",
-        });
+    const notification = new Notification(title, {
+      body: message,
+      icon: "favicon.svg",
+    });
 
-        notification.onclick = () => {
-            window.parent.focus();
-            if (onclick) onclick();
-        };
-        if (onclose) notification.onclose = onclose;
-    }
+    notification.onclick = () => {
+      window.focus();
+      onclick?.();
+    };
+
+    notification.onclose = () => {
+      onclose?.();
+    };
+  }
 }
