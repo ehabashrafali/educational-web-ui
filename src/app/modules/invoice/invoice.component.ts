@@ -2,7 +2,7 @@ import { CdkScrollable } from "@angular/cdk/scrolling";
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { PipesModule } from "../pipes.module";
 import { UserService } from "app/core/user/user.service";
-import { EMPTY, filter, switchMap, tap } from "rxjs";
+import { EMPTY, filter, map, switchMap, tap } from "rxjs";
 import { Role, User } from "app/core/user/user.types";
 import {
   InstructorAttendanceStatus,
@@ -19,6 +19,7 @@ import { CommonModule } from "@angular/common";
 import { MatIconModule } from "@angular/material/icon";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import { ActivatedRoute } from "@angular/router";
 @Component({
   selector: "app-invoice",
   standalone: true,
@@ -48,11 +49,19 @@ export class InvoiceComponent implements OnInit {
     private sessionService: SessionService,
     private _studentService: StudentService,
     private _instructorService: InstructorService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
     this.invoiceNumber = this.generateInvoiceNo();
-    this.date = toDateOnly(new Date());
+    this.route.paramMap
+      .pipe(
+        map((params) => params.get("date")),
+        tap((date) => {
+          this.date = date;
+        }),
+      )
+      .subscribe();
 
     this.userService.user$
       .pipe(
@@ -75,7 +84,7 @@ export class InvoiceComponent implements OnInit {
         }),
 
         switchMap((profile) =>
-          this.sessionService.GetOfCurrentMonthAndYear(
+          this.sessionService.GetSessionsByIdAndDate(
             profile.id,
             profile.role,
             this.date,
@@ -160,6 +169,8 @@ export class InvoiceComponent implements OnInit {
         return "bg-green-100 text-green-800";
       case StudentAttendanceStatus.Absent:
         return "bg-red-100 text-red-800";
+      case StudentAttendanceStatus.Cancelled:
+        return "bg-gray-100 text-gray-800";
       case InstructorAttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
       case InstructorAttendanceStatus.Late:

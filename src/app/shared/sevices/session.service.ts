@@ -15,10 +15,18 @@ export class SessionService {
     const url = SessionController.CreateSession;
     return this._httpClient.post(`${url}`, sessionDto);
   }
-  GetOfCurrentMonthAndYear(id: string, role: Role, date: string) {
-    const url = SessionController.GetSessions;
+  GetSessionsByIdAndDate(id: string, role: Role, date: string) {
+    const url = SessionController.GetSessionsByIdAndDate;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
       params: { date: date, role: role },
     });
+  }
+  GetSessions() {
+    const url = SessionController.GetSessions;
+    return this._httpClient.get<SessionDto[]>(`${url}`);
+  }
+  deleteSession(id: string) {
+    const url = SessionController.delete;
+    return this._httpClient.delete(`${url}/${id}`);
   }
 }

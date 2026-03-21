@@ -1,4 +1,5 @@
 export interface SessionDto {
+  id: string;
   date: Date;
   instructorId: string;
   studentId: string;
@@ -12,6 +13,7 @@ export interface SessionDto {
 export enum StudentAttendanceStatus {
   Attend = 1,
   Absent = 2,
+  Cancelled = 3,
 }
 
 export enum InstructorAttendanceStatus {

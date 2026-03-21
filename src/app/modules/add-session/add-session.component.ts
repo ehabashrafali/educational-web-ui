@@ -116,7 +116,7 @@ export class AddSessionComponent implements OnInit {
         catchError((error) => {
           this.toastService.error({
             title: "Error",
-            message: "Failed to create session",
+            message: error?.error,
           });
           return throwError(() => error);
         }),

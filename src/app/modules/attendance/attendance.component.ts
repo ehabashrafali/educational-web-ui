@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { FuseCardComponent } from "@fuse/components/card";
@@ -10,7 +10,7 @@ import {
   StudentAttendanceStatus,
 } from "../models/session.dto";
 import { UserService } from "app/core/user/user.service";
-import { filter, switchMap, tap } from "rxjs";
+import { Subject, filter, switchMap, takeUntil, tap } from "rxjs";
 import { DateTime } from "luxon";
 import { Router } from "@angular/router";
 import { Role } from "app/core/user/user.types";
@@ -24,10 +24,10 @@ type CalendarDay = {
 };
 
 type CalendarWeek = {
-  index: number; // 0..5
-  start: DateTime; // first day in week (Sun)
-  end: DateTime; // last day in week (Sat)
-  days: CalendarDay[]; // length = 7
+  index: number;
+  start: DateTime;
+  end: DateTime;
+  days: CalendarDay[];
 };
 
 @Component({
@@ -37,19 +37,25 @@ type CalendarWeek = {
   templateUrl: "./attendance.component.html",
   styleUrl: "./attendance.component.scss",
 })
-export class AttendanceComponent implements OnInit {
+export class AttendanceComponent implements OnInit, OnDestroy {
+  private destroy$ = new Subject<void>();
+
   sessions: SessionDto[] = [];
   userId: string;
+  role: Role;
 
-  readonly viewMonth = DateTime.now().startOf("month");
+  viewMonth: DateTime = DateTime.now().startOf("month");
   calendarWeeks: CalendarWeek[] = [];
+
   instructorAttendCount = 0;
   instructorLateCount = 0;
   instructorAbsentCount = 0;
+
   studentAttendCount = 0;
   absentStudentCount = 0;
+  cancelledStudentCount = 0;
+
   totalCount = 0;
-  role: Role;
 
   constructor(
     private sessionsService: SessionService,
@@ -58,31 +64,36 @@ export class AttendanceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const dateIso = DateTime.fromJSDate(new Date()).toISODate();
-
     this.userService.user$
       .pipe(
-        filter((u) => !!u.id),
-        tap((u) => (this.userId = u.id)),
-        tap((u) => (this.role = u.role)),
-        switchMap((u) =>
-          this.sessionsService.GetOfCurrentMonthAndYear(u.id, u.role, dateIso),
-        ),
-        tap((sessionsDto) => {
-          this.sessions = sessionsDto;
-          if (this.role === Role.Student) {
-            this.computeStudentCounts();
-          } else {
-            this.computeInstructorCounts();
-          }
-          this.buildCalendar();
+        filter((u) => !!u?.id),
+        tap((u) => {
+          this.userId = u.id;
+          this.role = u.role;
         }),
+        tap(() => this.loadSessionsForCurrentViewMonth()),
+        takeUntil(this.destroy$),
       )
       .subscribe();
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   get monthLabel(): string {
-    return this.viewMonth.toFormat("MMM yyyy");
+    return this.viewMonth.toFormat("MMMM yyyy");
+  }
+
+  previousMonth(): void {
+    this.viewMonth = this.viewMonth.minus({ months: 1 }).startOf("month");
+    this.loadSessionsForCurrentViewMonth();
+  }
+
+  nextMonth(): void {
+    this.viewMonth = this.viewMonth.plus({ months: 1 }).startOf("month");
+    this.loadSessionsForCurrentViewMonth();
   }
 
   statusClass(
@@ -93,6 +104,8 @@ export class AttendanceComponent implements OnInit {
         return "bg-green-100 text-green-800";
       case StudentAttendanceStatus.Absent:
         return "bg-red-100 text-red-800";
+      case StudentAttendanceStatus.Cancelled:
+        return "bg-gray-100 text-gray-800";
       case InstructorAttendanceStatus.Attend:
         return "bg-green-100 text-green-800";
       case InstructorAttendanceStatus.Late:
@@ -103,25 +116,53 @@ export class AttendanceComponent implements OnInit {
         return "";
     }
   }
+
+  private loadSessionsForCurrentViewMonth(): void {
+    if (!this.userId || !this.role) return;
+
+    const dateIso = this.viewMonth.toISODate();
+
+    this.sessionsService
+      .GetSessionsByIdAndDate(this.userId, this.role, dateIso!)
+      .pipe(
+        tap((sessionsDto) => {
+          this.sessions = sessionsDto ?? [];
+          this.resetCounts();
+
+          if (this.role === Role.Student) {
+            this.computeStudentCounts();
+          } else {
+            this.computeInstructorCounts();
+          }
+
+          this.buildCalendar();
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+  }
+
   private buildCalendar(): void {
     const monthStart = this.viewMonth.startOf("month");
     const monthEnd = this.viewMonth.endOf("month");
     const todayIso = DateTime.now().toISODate();
 
     const sessionsByDay = new Map<string, SessionDto[]>();
+
     for (const s of this.sessions) {
-      const date = new Date(s.date);
-      const key = date.toISOString().split("T")[0];
+      const key = DateTime.fromISO(s.date.toString()).toISODate();
+      if (!key) continue;
+
       const arr = sessionsByDay.get(key) ?? [];
       arr.push(s);
       sessionsByDay.set(key, arr);
     }
 
-    // Start calendar on Sunday
-    const firstCellOffset = monthStart.weekday % 7; // Sun=0
+    const firstCellOffset = monthStart.weekday % 7;
     const gridStart = monthStart.minus({ days: firstCellOffset });
 
     const allDays: CalendarDay[] = [];
+
     for (let i = 0; i < 42; i++) {
       const d = gridStart.plus({ days: i });
       const isoDate = d.toISODate()!;
@@ -130,13 +171,13 @@ export class AttendanceComponent implements OnInit {
         date: d,
         isoDate,
         sessions: sessionsByDay.get(isoDate) ?? [],
-        inMonth: d >= monthStart && d <= monthEnd,
+        inMonth: d.month === monthStart.month && d.year === monthStart.year,
         isToday: isoDate === todayIso,
       });
     }
 
-    // Build CalendarWeek objects
     this.calendarWeeks = [];
+
     for (let w = 0; w < 6; w++) {
       const days = allDays.slice(w * 7, w * 7 + 7);
 
@@ -149,13 +190,29 @@ export class AttendanceComponent implements OnInit {
     }
   }
 
+  private resetCounts(): void {
+    this.instructorAttendCount = 0;
+    this.instructorLateCount = 0;
+    this.instructorAbsentCount = 0;
+    this.studentAttendCount = 0;
+    this.absentStudentCount = 0;
+    this.cancelledStudentCount = 0;
+    this.totalCount = 0;
+  }
+
   private computeStudentCounts(): void {
     this.studentAttendCount = this.sessions.filter(
       (s) => s.studentSessionStatus === StudentAttendanceStatus.Attend,
     ).length;
+
     this.absentStudentCount = this.sessions.filter(
       (s) => s.studentSessionStatus === StudentAttendanceStatus.Absent,
     ).length;
+
+    this.cancelledStudentCount = this.sessions.filter(
+      (s) => s.studentSessionStatus === StudentAttendanceStatus.Cancelled,
+    ).length;
+
     this.totalCount = this.sessions.length;
   }
 
@@ -163,9 +220,11 @@ export class AttendanceComponent implements OnInit {
     this.instructorAttendCount = this.sessions.filter(
       (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Attend,
     ).length;
+
     this.instructorLateCount = this.sessions.filter(
       (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Late,
     ).length;
+
     this.instructorAbsentCount = this.sessions.filter(
       (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Absent,
     ).length;
@@ -173,7 +232,9 @@ export class AttendanceComponent implements OnInit {
     this.totalCount = this.sessions.length;
   }
 
-  public getInvoice() {
-    this.router.navigate([`/invoice/${this.userId}`]);
+  public getInvoice(): void {
+    this.router.navigate([
+      `/invoice/${this.userId}/${this.viewMonth.toISODate()}`,
+    ]);
   }
 }

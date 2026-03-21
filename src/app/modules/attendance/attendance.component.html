@@ -10,10 +10,32 @@
     >
       <div class="container mx-auto mt-10">
         <div class="wrapper bg-white rounded shadow w-full">
-          <div class="header flex justify-between border-b p-2">
-            <span class="text-xl font-bold self-center">
-              {{ monthLabel }}
-            </span>
+          <div class="header flex justify-between items-center border-b p-2">
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                mat-icon-button
+                (click)="previousMonth()"
+                aria-label="Previous month"
+              >
+                <mat-icon svgIcon="heroicons_outline:chevron-left"></mat-icon>
+              </button>
+
+              <span
+                class="text-xl font-bold self-center min-w-[180px] text-center"
+              >
+                {{ monthLabel }}
+              </span>
+
+              <button
+                type="button"
+                mat-icon-button
+                (click)="nextMonth()"
+                aria-label="Next month"
+              >
+                <mat-icon svgIcon="heroicons_outline:chevron-right"></mat-icon>
+              </button>
+            </div>
 
             <div>
               <button
@@ -28,7 +50,6 @@
               </button>
             </div>
           </div>
-
           <table class="w-full">
             <thead>
               <tr>
@@ -197,6 +218,15 @@
             <div class="label">Absent</div>
             <div class="px-2 py-1 rounded bg-red-100 text-red-800">
               {{ absentStudentCount }}
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="role === 'Student'">
+          <div>
+            <div class="label">Cancelled</div>
+            <div class="px-2 py-1 rounded bg-gray-100 text-gray-800">
+              {{ cancelledStudentCount }}
             </div>
           </div>
         </div>

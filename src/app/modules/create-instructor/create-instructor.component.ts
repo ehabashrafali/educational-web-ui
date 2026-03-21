@@ -22,7 +22,7 @@ import {
   showToastOnSuccess,
   ToastService,
 } from "app/shared/sevices/toasts.service";
-import { tap } from "rxjs";
+import { catchError, tap, throwError } from "rxjs";
 
 @Component({
   selector: "app-create-instructor",
@@ -73,6 +73,13 @@ export class CreateInstructorComponent {
           showToastOnSuccess(this.toastService, {
             title: "Success",
             message: "Instructor created successfully",
+          }),
+          catchError((error) => {
+            this.toastService.error({
+              title: "Error",
+              message: error?.error,
+            });
+            return throwError(() => error);
           }),
           tap(() => this.location.back()),
         )

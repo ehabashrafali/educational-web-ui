@@ -5,8 +5,16 @@ export const SessionController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/create-session`;
   },
+  get GetSessionsByIdAndDate() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions`;
+  },
   get GetSessions() {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
-    return `${baseUrl}/api/sessions/current-month`;
+    return `${baseUrl}/api/sessions/search`;
+  },
+  get delete() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/delete-session`;
   },
 };

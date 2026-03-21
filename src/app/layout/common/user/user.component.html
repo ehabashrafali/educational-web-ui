@@ -59,6 +59,10 @@
           <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
           <span>Add Session Info</span>
         </button>
+        <button mat-menu-item (click)="getSessions()">
+          <mat-icon [svgIcon]="'heroicons_outline:calendar-days'"></mat-icon>
+          <span>Sessions Management</span>
+        </button>
       }
 
       @if (user.role === "Admin") {

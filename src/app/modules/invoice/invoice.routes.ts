@@ -7,7 +7,7 @@ export default [
     component: InvoiceComponent,
   },
   {
-    path: ":id",
+    path: ":id/:date",
     component: InvoiceComponent,
   },
 ] as Routes;
