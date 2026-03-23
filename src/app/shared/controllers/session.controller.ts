@@ -17,4 +17,8 @@ export const SessionController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/delete-session`;
   },
+  get getSessionsByUserId() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/get-sessions-by-id`;
+  },
 };

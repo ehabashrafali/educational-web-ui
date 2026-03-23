@@ -1,0 +1,92 @@
+<div class="grid w-full mb-10" [formGroup]="form">
+  <div class="flex justify-between w-full">
+    <p class="text-4xl ms-10 mt-5 font-semibold">Invoices Management</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-2 m-8">
+    <div class="flex flex-auto items-center gap-4">
+      <mat-form-field appearance="outline" class="w-1/3">
+        <mat-label>Select Role</mat-label>
+        <mat-select formControlName="role" (selectionChange)="onRoleChange()">
+          @for (role of Roles; track role) {
+            <mat-option [value]="role">
+              {{ role }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-1/3">
+        <mat-label>
+          {{
+            form.get("role")?.value === "Student"
+              ? "Select Student"
+              : form.get("role")?.value === "Instructor"
+                ? "Select Instructor"
+                : "Select User"
+          }}
+        </mat-label>
+
+        <mat-select
+          formControlName="selectedUser"
+          (selectionChange)="onUserChange()"
+          [disabled]="!form.get('role')?.value"
+        >
+          @if (form.get("role")?.value === "Student") {
+            @for (student of students$ | async; track student.id) {
+              <mat-option [value]="student.id">
+                {{ student.fullName }}
+              </mat-option>
+            }
+          }
+
+          @if (form.get("role")?.value === "Instructor") {
+            @for (instructor of instructors$ | async; track instructor.id) {
+              <mat-option [value]="instructor.id">
+                {{ instructor.fullName }}
+              </mat-option>
+            }
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+      <ng-container matColumnDef="monthYear">
+        <th mat-header-cell *matHeaderCellDef>Month</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.monthYear }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="attendClasses">
+        <th mat-header-cell *matHeaderCellDef>Attend Classes</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.attendClasses }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="absentClasses">
+        <th mat-header-cell *matHeaderCellDef>Absent Classes</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.absentClasses }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef>Total</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.total | number: "1.2-2" }}
+        </td>
+      </ng-container>
+
+      <tr
+        mat-header-row
+        *matHeaderRowDef="displayedColumns"
+        class="bg-primary text-white border-b pb-3 text-center rounded-t-md"
+      ></tr>
+
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

@@ -55,10 +55,6 @@
       }
 
       @if (user.role === "Supervisor" || user.role === "Admin") {
-        <button mat-menu-item (click)="addSessionInfo()">
-          <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
-          <span>Add Session Info</span>
-        </button>
         <button mat-menu-item (click)="getSessions()">
           <mat-icon [svgIcon]="'heroicons_outline:calendar-days'"></mat-icon>
           <span>Sessions Management</span>
@@ -73,6 +69,10 @@
         <button mat-menu-item (click)="getInstructorsList()">
           <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
           <span>Instructors</span>
+        </button>
+        <button mat-menu-item (click)="getInvoices()">
+          <mat-icon [svgIcon]="'heroicons_outline:banknotes'"></mat-icon>
+          <span>Invoices Management</span>
         </button>
       }
 

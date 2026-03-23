@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { SessionService } from "app/shared/sevices/session.service";
 import { StudentService } from "app/shared/sevices/student.service";
-import { catchError, Observable, throwError } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { StudentDTO } from "../models/student.dto";
 import { InstrctorDto } from "../models/instructor.dto";
 import { AsyncPipe } from "@angular/common";
@@ -32,6 +32,7 @@ import {
   SessionDuration,
   StudentAttendanceStatus,
 } from "../models/session.dto";
+import { Location } from "@angular/common";
 import {
   showToastOnSuccess,
   ToastService,
@@ -75,6 +76,7 @@ export class AddSessionComponent implements OnInit {
     private sessionService: SessionService,
     private studentService: StudentService,
     private fb: FormBuilder,
+    private location: Location,
     private toastService: ToastService,
   ) {
     this.sessionForm = this.fb.group({
@@ -113,6 +115,7 @@ export class AddSessionComponent implements OnInit {
           title: "Success",
           message: "Session created successfully",
         }),
+        tap(() => this.location.back()),
         catchError((error) => {
           this.toastService.error({
             title: "Error",

@@ -10,7 +10,6 @@ import {
   StudentAttendanceStatus,
 } from "../models/session.dto";
 import { SessionService } from "app/shared/sevices/session.service";
-import { toDateOnly } from "../add-session/add-session.component";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { StudentService } from "app/shared/sevices/student.service";
 import { UserProfile } from "../models/user.profile";

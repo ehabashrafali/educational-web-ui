@@ -130,9 +130,6 @@ export class UserComponent implements OnInit, OnDestroy {
   getUserAttendance() {
     this._router.navigate(["/attendance"]);
   }
-  addSessionInfo(): void {
-    this._router.navigate(["/add-session"]);
-  }
   getStudentsList(): void {
     this._router.navigate(["/students-list"]);
   }
@@ -141,5 +138,8 @@ export class UserComponent implements OnInit, OnDestroy {
   }
   getSessions(): void {
     this._router.navigate(["/sessions-management"]);
+  }
+  getInvoices(): void {
+    this._router.navigate(["/invoices-management"]);
   }
 }

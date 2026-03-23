@@ -15,6 +15,7 @@ import { SessionService } from "app/shared/sevices/session.service";
 import { showToastOnSuccess } from "app/shared/sevices/toasts.service";
 import { ToastService } from "app/shared/sevices/toasts.service";
 import { catchError, Observable, tap, throwError } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-sessions-management",
@@ -53,6 +54,7 @@ export class SessionsManagementComponent implements OnInit, AfterViewInit {
   constructor(
     private sessionService: SessionService,
     private toastService: ToastService,
+    private _router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +115,10 @@ export class SessionsManagementComponent implements OnInit, AfterViewInit {
         }),
       )
       .subscribe();
+  }
+
+  addSessionInfo(): void {
+    this._router.navigate(["/add-session"]);
   }
 
   applyFilter(event: Event) {

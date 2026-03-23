@@ -458,4 +458,20 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "invoices-management",
+        loadChildren: () =>
+          import("app/modules/invoices-management/invoices-management.routes"),
+      },
+    ],
+  },
 ];

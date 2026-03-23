@@ -29,4 +29,10 @@ export class SessionService {
     const url = SessionController.delete;
     return this._httpClient.delete(`${url}/${id}`);
   }
+  getSessionsByUserId(id: string, role: Role) {
+    const url = SessionController.getSessionsByUserId;
+    return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
+      params: { role: role },
+    });
+  }
 }

@@ -19,6 +19,18 @@
           #input
         />
       </mat-form-field>
+      <button
+        class="ml-4 min-w-10 px-1 sm:px-4"
+        mat-flat-button
+        [color]="'primary'"
+        (click)="addSessionInfo()"
+      >
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'heroicons_solid:plus-circle'"
+        ></mat-icon>
+        <span class="ml-2 hidden sm:inline-block">New Session</span>
+      </button>
     </div>
 
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
