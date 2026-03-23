@@ -20,6 +20,7 @@ import { StudentService } from "app/shared/sevices/student.service";
 import { InstrctorDto } from "../models/instructor.dto";
 import { StudentDTO } from "../models/student.dto";
 import { map, Observable, take, tap } from "rxjs";
+
 import {
   InstructorAttendanceStatus,
   SessionDto,
@@ -27,6 +28,7 @@ import {
 } from "../models/session.dto";
 import { SessionService } from "app/shared/sevices/session.service";
 import { Role } from "app/core/user/user.types";
+import { TableUtil } from "app/shared/helpers/tableUtil";
 
 @Component({
   selector: "app-invoices-management",
@@ -228,6 +230,9 @@ export class InvoicesManagementComponent implements OnInit {
 
       return sum + (session.duration / 60) * this.userFees;
     }, 0);
+  }
+  export() {
+    TableUtil.exportTableToExcel("invoicesTable", "Invoices");
   }
 }
 

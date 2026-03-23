@@ -1,10 +1,10 @@
-<div class="grid w-full mb-10" [formGroup]="form">
+<div class="w-full mb-10" [formGroup]="form">
   <div class="flex justify-between w-full">
     <p class="text-4xl ms-10 mt-5 font-semibold">Invoices Management</p>
   </div>
 
   <div class="grid grid-cols-1 gap-2 m-8">
-    <div class="flex flex-auto items-center gap-4">
+    <div class="flex flex-auto items-start gap-4">
       <mat-form-field appearance="outline" class="w-1/3">
         <mat-label>Select Role</mat-label>
         <mat-select formControlName="role" (selectionChange)="onRoleChange()">
@@ -49,9 +49,28 @@
           }
         </mat-select>
       </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="export()"
+        justify-self-start
+        [disabled]="!form.get('selectedUser')?.value"
+      >
+        <mat-icon
+          class="icon-size-5"
+          [svgIcon]="'heroicons_outline:arrow-up-tray'"
+        ></mat-icon>
+        <span class="ml-2 hidden sm:inline-block">Export Invoices</span>
+      </button>
     </div>
 
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+    <table
+      mat-table
+      id="invoicesTable"
+      [dataSource]="dataSource"
+      class="mat-elevation-z8 w-full"
+    >
       <ng-container matColumnDef="monthYear">
         <th mat-header-cell *matHeaderCellDef>Month</th>
         <td mat-cell *matCellDef="let invoice">
@@ -76,7 +95,7 @@
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef>Total</th>
         <td mat-cell *matCellDef="let invoice">
-          {{ invoice.total | number: "1.2-2" }}
+          {{ invoice.total | currency: "USD" : "symbol-narrow" }}
         </td>
       </ng-container>
 
