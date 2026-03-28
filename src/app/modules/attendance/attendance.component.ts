@@ -234,7 +234,7 @@ export class AttendanceComponent implements OnInit, OnDestroy {
 
   public getInvoice(): void {
     this.router.navigate([
-      `/invoice/${this.userId}/${this.viewMonth.toISODate()}`,
+      `/invoice/${this.userId}/${this.role}/${this.viewMonth.toISODate()}`,
     ]);
   }
 }

@@ -29,6 +29,7 @@ import {
 import { SessionService } from "app/shared/sevices/session.service";
 import { Role } from "app/core/user/user.types";
 import { TableUtil } from "app/shared/helpers/tableUtil";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-invoices-management",
@@ -60,6 +61,7 @@ export class InvoicesManagementComponent implements OnInit {
     "attendClasses",
     "absentClasses",
     "total",
+    "Actions",
   ];
 
   form!: FormGroup;
@@ -72,6 +74,7 @@ export class InvoicesManagementComponent implements OnInit {
     private instructorService: InstructorService,
     private fb: FormBuilder,
     private sessionService: SessionService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -161,15 +164,10 @@ export class InvoicesManagementComponent implements OnInit {
 
     sessions.forEach((session) => {
       const date = new Date(session.date);
-      const monthYear = date.toLocaleString("en-US", {
-        month: "long",
-        year: "numeric",
-      });
-
+      const monthYear = date.toISOString().slice(0, 7);
       if (!grouped[monthYear]) {
         grouped[monthYear] = [];
       }
-
       grouped[monthYear].push(session);
     });
 
@@ -233,6 +231,12 @@ export class InvoicesManagementComponent implements OnInit {
   }
   export() {
     TableUtil.exportTableToExcel("invoicesTable", "Invoices");
+  }
+  getMonthInvoice(date: string) {
+    const selectedRole = this.form.get("role")?.value;
+    this.router.navigate([
+      `/invoice/${this.form.get("selectedUser")?.value}/${selectedRole}/${date}-01`,
+    ]);
   }
 }
 

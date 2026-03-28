@@ -19,6 +19,7 @@ import { MatIconModule } from "@angular/material/icon";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { ActivatedRoute } from "@angular/router";
+import { StudentDTO } from "../models/student.dto";
 @Component({
   selector: "app-invoice",
   standalone: true,
@@ -36,11 +37,13 @@ import { ActivatedRoute } from "@angular/router";
 export class InvoiceComponent implements OnInit {
   invoiceNumber: number;
   date: string;
-  userProfile: UserProfile;
+  userProfile: UserProfile | StudentDTO;
   total: number;
   sessions: SessionDto[];
   totalHours: number;
   payPalFees: number;
+  Id: string;
+  role: Role;
   @ViewChild("content") content: ElementRef;
 
   constructor(
@@ -50,45 +53,55 @@ export class InvoiceComponent implements OnInit {
     private _instructorService: InstructorService,
     private route: ActivatedRoute,
   ) {}
-
   ngOnInit(): void {
     this.invoiceNumber = this.generateInvoiceNo();
+
     this.route.paramMap
       .pipe(
-        map((params) => params.get("date")),
-        tap((date) => {
+        map((params) => ({
+          date: params.get("date"),
+          role: params.get("role") as Role | null,
+          id: params.get("id"),
+        })),
+        filter(
+          (params): params is { date: string; role: Role; id: string } =>
+            !!params.date && !!params.role && !!params.id,
+        ),
+        map(({ date, role, id }) => ({
+          date: `${date}`,
+          role,
+          id,
+        })),
+        tap(({ date, role, id }) => {
           this.date = date;
+          this.role = role;
+          this.Id = id;
         }),
-      )
-      .subscribe();
-
-    this.userService.user$
-      .pipe(
-        filter((user): user is User => !!user),
-
-        switchMap((user) => {
-          if (user.role === Role.Student) {
-            return this._studentService.getStudent(user.id);
+        switchMap(({ role, id, date }) => {
+          if (role === Role.Student) {
+            return this._studentService.getStudent(id).pipe(
+              tap((student) => {
+                this.userProfile = student;
+              }),
+              switchMap(() =>
+                this.sessionService.GetSessionsByIdAndDate(id, role, date),
+              ),
+            );
           }
-          if (user.role === Role.Instructor) {
-            return this._instructorService.getInstructorProfile(user.id);
+
+          if (role === Role.Instructor) {
+            return this._instructorService.getInstructorProfile(id).pipe(
+              tap((inst) => {
+                this.userProfile = inst;
+              }),
+              switchMap(() =>
+                this.sessionService.GetSessionsByIdAndDate(id, role, date),
+              ),
+            );
           }
+
           return EMPTY;
         }),
-
-        filter((profile): profile is UserProfile => !!profile),
-
-        tap((profile) => {
-          this.userProfile = profile;
-        }),
-
-        switchMap((profile) =>
-          this.sessionService.GetSessionsByIdAndDate(
-            profile.id,
-            profile.role,
-            this.date,
-          ),
-        ),
         tap((sessions) => {
           this.sessions = sessions;
           this.total = this.totalSum();
@@ -97,10 +110,9 @@ export class InvoiceComponent implements OnInit {
       )
       .subscribe();
   }
-
   private totalSum(): number {
     this.totalHours = 0;
-    if (this.userProfile.role === Role.Student) {
+    if (this.role === Role.Student) {
       const result = this.sessions.reduce(
         (acc, session) => {
           const valid =
@@ -181,7 +193,7 @@ export class InvoiceComponent implements OnInit {
     }
   }
   SetPayPalFees(total: number) {
-    if (this.userProfile.role === Role.Student) {
+    if (this.role === Role.Student) {
       this.payPalFees = total * 0.05;
     } else {
       this.payPalFees = 0;

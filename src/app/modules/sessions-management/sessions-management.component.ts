@@ -62,7 +62,6 @@ export class SessionsManagementComponent implements OnInit, AfterViewInit {
       .GetSessions()
       .pipe(
         tap((sessions) => {
-          debugger;
           this.dataSource.data = sessions;
         }),
       )
@@ -122,7 +121,6 @@ export class SessionsManagementComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(event: Event) {
-    debugger;
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }

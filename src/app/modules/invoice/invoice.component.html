@@ -83,7 +83,7 @@
             {{ userProfile?.email }}
           </div>
           <div class="text-sm text-gray-600 sm:text-base">
-            {{ userProfile?.role }}
+            {{ role }}
           </div>
           <div class="text-sm text-gray-600 sm:text-base">
             {{ userProfile?.country }}
@@ -99,7 +99,7 @@
           </div>
           <div class="mt-1 text-sm text-gray-600 sm:text-base">
             Absent classes are the lessons that the
-            @if (userProfile?.role === "Instructor") {
+            @if (role === "Instructor") {
               instructor
             } @else {
               student
@@ -171,7 +171,7 @@
               <span class="font-medium">${{ total }}</span>
             </div>
 
-            @if (userProfile?.role === "Student") {
+            @if (role === "Student") {
               <div class="flex justify-between text-sm sm:text-base">
                 <span class="text-gray-500">PayPal Fees</span>
                 <span class="text-gray-700">${{ payPalFees }}</span>

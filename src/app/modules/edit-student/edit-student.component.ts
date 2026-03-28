@@ -182,7 +182,6 @@ export class EditStudentComponent implements OnInit {
   }
   submit(): void {
     if (this.editStudentForm.valid) {
-      debugger;
       const updatedStudent: StudentDTO = {
         ...this._student,
         ...this.editStudentForm.value,

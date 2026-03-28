@@ -16,6 +16,7 @@ export class SessionService {
     return this._httpClient.post(`${url}`, sessionDto);
   }
   GetSessionsByIdAndDate(id: string, role: Role, date: string) {
+    debugger;
     const url = SessionController.GetSessionsByIdAndDate;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
       params: { date: date, role: role },

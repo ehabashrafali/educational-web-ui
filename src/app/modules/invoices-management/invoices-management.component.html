@@ -50,7 +50,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button
+      <!-- <button
         mat-raised-button
         color="primary"
         (click)="export()"
@@ -62,7 +62,7 @@
           [svgIcon]="'heroicons_outline:arrow-up-tray'"
         ></mat-icon>
         <span class="ml-2 hidden sm:inline-block">Export Invoices</span>
-      </button>
+      </button> -->
     </div>
 
     <table
@@ -98,7 +98,22 @@
           {{ invoice.total | currency: "USD" : "symbol-narrow" }}
         </td>
       </ng-container>
-
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let invoice">
+          <button
+            mat-button
+            color="accent"
+            (click)="getMonthInvoice(invoice.monthYear)"
+          >
+            <mat-icon
+              class="icon-size-5"
+              [svgIcon]="'heroicons_outline:banknotes'"
+            ></mat-icon>
+            <span class="ml-2 hidden sm:inline-block">Invoice</span>
+          </button>
+        </td>
+      </ng-container>
       <tr
         mat-header-row
         *matHeaderRowDef="displayedColumns"
