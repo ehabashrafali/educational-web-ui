@@ -142,4 +142,10 @@ export class UserComponent implements OnInit, OnDestroy {
   getInvoices(): void {
     this._router.navigate(["/invoices-management"]);
   }
+  getStudentPolicy(): void {
+    this._router.navigate(["/student-policy"]);
+  }
+  getInstructorPolicy(): void {
+    this._router.navigate(["/instructor-policy"]);
+  }
 }

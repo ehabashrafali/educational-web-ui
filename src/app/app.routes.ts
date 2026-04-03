@@ -474,4 +474,36 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "student-policy",
+        loadChildren: () =>
+          import("app/modules/student-policy/student-policy.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "instructor-policy",
+        loadChildren: () =>
+          import("app/modules/instructor-policy/instructor-policy.routes"),
+      },
+    ],
+  },
 ];

@@ -34,12 +34,20 @@
           <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
           <span>Monthly Report</span>
         </button>
+        <button mat-menu-item (click)="getStudentPolicy()">
+          <mat-icon svgIcon="rule"></mat-icon>
+          <span>Student Policy</span>
+        </button>
       }
 
       @if (user.role === "Instructor") {
         <button mat-menu-item (click)="getMyStudents()">
           <mat-icon [svgIcon]="'heroicons_mini:chart-bar'"></mat-icon>
           <span>My Students</span>
+        </button>
+        <button mat-menu-item (click)="getInstructorPolicy()">
+          <mat-icon svgIcon="rule"></mat-icon>
+          <span>Instructor Policy</span>
         </button>
       }
 
