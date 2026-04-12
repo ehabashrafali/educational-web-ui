@@ -4,6 +4,7 @@ import { SessionController } from "../controllers/session.controller";
 import { SessionDto } from "app/modules/models/session.dto";
 import { DateTime } from "luxon";
 import { Role } from "app/core/user/user.types";
+import { GetSessionsResult } from "app/modules/models/get-sessions-result";
 
 @Injectable({
   providedIn: "root",
@@ -22,10 +23,16 @@ export class SessionService {
       params: { date: date, role: role },
     });
   }
-  GetSessions() {
+  GetSessions(pageNumber: number, pageSize: number) {
     const url = SessionController.GetSessions;
-    return this._httpClient.get<SessionDto[]>(`${url}`);
+    return this._httpClient.get<GetSessionsResult>(`${url}`, {
+      params: {
+        pageNumber: pageNumber,
+        pageSize: pageSize,
+      },
+    });
   }
+
   deleteSession(id: string) {
     const url = SessionController.delete;
     return this._httpClient.delete(`${url}/${id}`);
