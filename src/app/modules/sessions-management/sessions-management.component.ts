@@ -119,6 +119,9 @@ export class SessionsManagementComponent implements OnInit, AfterViewInit {
   addSessionInfo(): void {
     this._router.navigate(["/add-session"]);
   }
+  edit(sessionId: string): void {
+    this._router.navigate(["/edit-session", sessionId]);
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

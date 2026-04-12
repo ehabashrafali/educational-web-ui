@@ -36,4 +36,13 @@ export class SessionService {
       params: { role: role },
     });
   }
+  getSessionById(id: string) {
+    const url = SessionController.getSessionById;
+    return this._httpClient.get<SessionDto>(`${url}/${id}`);
+  }
+  Update(id: string, sessionDto: SessionDto) {
+    const url = SessionController.Update;
+    debugger;
+    return this._httpClient.put(`${url}/${id}`, sessionDto);
+  }
 }

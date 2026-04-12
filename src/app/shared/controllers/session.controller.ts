@@ -19,6 +19,14 @@ export const SessionController = {
   },
   get getSessionsByUserId() {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
-    return `${baseUrl}/api/sessions/get-sessions-by-id`;
+    return `${baseUrl}/api/sessions/get-sessions-by-user-id`;
+  },
+  get getSessionById() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/get-session-by-id`;
+  },
+  get Update() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/update-session`;
   },
 };

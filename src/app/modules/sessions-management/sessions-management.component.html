@@ -71,6 +71,10 @@
           </button>
 
           <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="edit(session.id)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
             <button mat-menu-item (click)="delete(session.id)">
               <mat-icon>delete</mat-icon>
               <span>Delete</span>

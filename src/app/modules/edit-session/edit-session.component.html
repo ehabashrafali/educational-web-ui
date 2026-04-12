@@ -1,0 +1,105 @@
+<div class="rounded-3 m-3 p-5 w-full">
+  <div class="w-full">
+    <form
+      class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+      [formGroup]="editSessionForm"
+    >
+      <h5 class="text-4xl mb-5 font-semibold">Edit Session</h5>
+
+      <div class="mb-6">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Date</mat-label>
+
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date"
+            readonly
+          />
+
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+            disabled
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <!-- Instructor -->
+        <mat-form-field appearance="outline">
+          <mat-label>Instructor</mat-label>
+          <mat-select formControlName="instructorId">
+            @for (instructor of _instructors$ | async; track instructor.id) {
+              <mat-option [value]="instructor.id">
+                {{ instructor.firstName }} {{ instructor.lastName }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Instructor Status -->
+        <mat-form-field appearance="outline">
+          <mat-label>Instructor Session Status</mat-label>
+          <mat-select formControlName="instructorSessionStatus">
+            @for (
+              status of InstructorsessionStatus | enumToList;
+              track status.id
+            ) {
+              <mat-option [value]="status.id">
+                {{ status.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Student -->
+        <mat-form-field appearance="outline">
+          <mat-label>Student</mat-label>
+          <mat-select formControlName="studentId">
+            @for (student of _students$ | async; track student.id) {
+              <mat-option [value]="student.id">
+                {{ student.firstName }} {{ student.lastName }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Student Status -->
+        <mat-form-field appearance="outline">
+          <mat-label>Student Session Status</mat-label>
+          <mat-select formControlName="studentSessionStatus">
+            @for (
+              status of studentSessionStatus | enumToList;
+              track status.id
+            ) {
+              <mat-option [value]="status.id">
+                {{ status.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <!-- Duration -->
+        <mat-form-field appearance="outline">
+          <mat-label>Session Duration</mat-label>
+          <mat-select formControlName="duration">
+            @for (duration of SessionDuration | enumToList; track duration.id) {
+              <mat-option [value]="duration.id">
+                {{ duration.name | humanize: " " }}
+              </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+
+  <!-- Submit -->
+  <div class="flex justify-end mt-2">
+    <button mat-flat-button color="primary" (click)="submitEditSession()">
+      Submit
+    </button>
+  </div>
+</div>

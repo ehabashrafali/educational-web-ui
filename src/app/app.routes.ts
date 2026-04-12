@@ -506,4 +506,20 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "edit-session",
+        loadChildren: () =>
+          import("app/modules/edit-session/edit-session.routes"),
+      },
+    ],
+  },
 ];
