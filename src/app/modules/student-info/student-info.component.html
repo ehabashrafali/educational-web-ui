@@ -44,7 +44,7 @@
 
               <!-- Email -->
               <div>
-                <div class="text-secondary opacity-70">Email</div>
+                <div class="text-secondary opacity-70 text-wrap">Email</div>
                 <div class="mt-1 font-semibold">
                   {{ userProfile?.email || "--" }}
                 </div>
@@ -74,8 +74,12 @@
                       track appointment
                     ) {
                       <div>
-                        {{ appointment.day }},
-                        {{ convertTo12HourFormat(appointment.time) }}
+                        {{ convertWeeklyAppointmentToClient(appointment).day }},
+                        {{
+                          convertTo12HourFormat(
+                            convertWeeklyAppointmentToClient(appointment).time
+                          )
+                        }}
                       </div>
                     }
                   }

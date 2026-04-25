@@ -11,6 +11,10 @@ import { Role, User } from "app/core/user/user.types";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from "@angular/common";
 import { StudentDTO } from "../models/student.dto";
+import {
+  convertTo12HourFormat,
+  convertWeeklyAppointmentToClients,
+} from "app/shared/helpers/clientTimeZone";
 
 @Component({
   selector: "app-user-information",
@@ -21,6 +25,8 @@ import { StudentDTO } from "../models/student.dto";
 })
 export class UserInformationComponent implements OnInit {
   studentId: string;
+  convertWeeklyAppointmentToClient = convertWeeklyAppointmentToClients;
+  convertTo12HourFormat = convertTo12HourFormat;
   constructor(
     private location: Location,
     private _studentService: StudentService,
@@ -75,12 +81,5 @@ export class UserInformationComponent implements OnInit {
     if (!value) return "--";
     const match = value.match(/Passcode:\s*([\w\d]+)/);
     return match ? `${match[1].trim()}` : "--";
-  }
-  convertTo12HourFormat(time: string): string {
-    const [hourStr, minute] = time.split(".");
-    let hour = parseInt(hourStr, 10);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    hour = hour % 12 || 12;
-    return `${hour}:${minute ?? "00"} ${ampm}`;
   }
 }

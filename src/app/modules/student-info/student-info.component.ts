@@ -7,6 +7,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { FuseCardComponent } from "@fuse/components/card";
 import { StudentDTO } from "../models/student.dto";
 import { tap } from "rxjs";
+import { convertWeeklyAppointmentToClients } from "app/shared/helpers/clientTimeZone";
+import { convertTo12HourFormat } from "app/shared/helpers/clientTimeZone";
 
 @Component({
   selector: "app-student-info",
@@ -16,7 +18,9 @@ import { tap } from "rxjs";
   styleUrl: "./student-info.component.scss",
 })
 export class StudentInfoComponent implements OnInit {
-  userProfile: StudentDTO;
+  userProfile!: StudentDTO;
+  convertWeeklyAppointmentToClient = convertWeeklyAppointmentToClients;
+  convertTo12HourFormat = convertTo12HourFormat;
   constructor(
     private location: Location,
     private _studentService: StudentService,
@@ -48,12 +52,5 @@ export class StudentInfoComponent implements OnInit {
     if (!value) return "--";
     const match = value.match(/Passcode:\s*([\w\d]+)/);
     return match ? `${match[1].trim()}` : "--";
-  }
-  convertTo12HourFormat(time: string): string {
-    const [hourStr, minute] = time.split(".");
-    let hour = parseInt(hourStr, 10);
-    const ampm = hour >= 12 ? "PM" : "AM";
-    hour = hour % 12 || 12;
-    return `${hour}:${minute ?? "00"} ${ampm}`;
   }
 }

@@ -79,8 +79,14 @@
                         track appointment
                       ) {
                         <div>
-                          {{ appointment.day }},
-                          {{ convertTo12HourFormat(appointment.time) }}
+                          {{
+                            convertWeeklyAppointmentToClient(appointment).day
+                          }},
+                          {{
+                            convertTo12HourFormat(
+                              convertWeeklyAppointmentToClient(appointment).time
+                            )
+                          }}
                         </div>
                       }
                     }
