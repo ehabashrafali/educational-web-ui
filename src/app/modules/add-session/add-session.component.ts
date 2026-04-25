@@ -119,7 +119,8 @@ export class AddSessionComponent implements OnInit {
         catchError((error) => {
           this.toastService.error({
             title: "Error",
-            message: error?.error,
+            message: error?.error?.Message,
+            autoHide: false,
           });
           return throwError(() => error);
         }),

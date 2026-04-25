@@ -76,8 +76,9 @@ export class CreateInstructorComponent {
           }),
           catchError((error) => {
             this.toastService.error({
+              autoHide: false,
               title: "Error",
-              message: error?.error,
+              message: error?.error?.Message,
             });
             return throwError(() => error);
           }),

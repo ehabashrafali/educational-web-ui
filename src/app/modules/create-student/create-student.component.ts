@@ -167,7 +167,8 @@ export class CreateStudentComponent implements OnInit {
           catchError((error) => {
             this.toastService.error({
               title: "Error",
-              message: "Failed to create student",
+              message: "" + error?.error?.Message,
+              autoHide: false,
             });
             return throwError(() => error);
           }),
