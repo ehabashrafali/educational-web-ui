@@ -1,27 +1,17 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { StudentController } from "../controllers/student.controller";
-import { UserProfile } from "app/modules/models/user.profile";
 import { MonthlyReportDto } from "app/modules/models/monthly-report.dto";
 import { UpcomingSessionsDto } from "app/modules/models/upcoming-sessions.dto";
-import { SessionDto } from "app/modules/models/session.dto";
 import { StudentDTO } from "app/modules/models/student.dto";
-import {
-  BehaviorSubject,
-  catchError,
-  first,
-  Observable,
-  tap,
-  throwError,
-} from "rxjs";
-import { showToastOnSuccess, ToastService } from "./toasts.service";
+import { BehaviorSubject, first, Observable, tap } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class StudentService {
   private _httpClient = inject(HttpClient);
-  constructor(private toastService: ToastService) {}
+  constructor() {}
   private readonly _students$ = new BehaviorSubject<StudentDTO[]>([]);
 
   get students$(): Observable<StudentDTO[]> {
@@ -74,5 +64,14 @@ export class StudentService {
   delete(studentId: string) {
     const url = StudentController.Delete;
     return this._httpClient.delete(`${url}/${studentId}`);
+  }
+  getCurrentMonthlyReport(studentId: string) {
+    const url = StudentController.GetCurrentMonthlyReport;
+    return this._httpClient.get<MonthlyReportDto>(`${url}/${studentId}`);
+  }
+  editMonthlyReport(studentId: string, monthlyReportDto: MonthlyReportDto) {
+    debugger;
+    const url = StudentController.EditMonthlyReport;
+    return this._httpClient.put(`${url}/${studentId}`, monthlyReportDto);
   }
 }

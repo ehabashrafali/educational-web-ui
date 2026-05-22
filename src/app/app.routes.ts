@@ -522,4 +522,20 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "edit-report",
+        loadChildren: () =>
+          import("app/modules/edit-student-report/edit-student-report.routes"),
+      },
+    ],
+  },
 ];

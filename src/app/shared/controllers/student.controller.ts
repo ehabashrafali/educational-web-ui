@@ -50,4 +50,12 @@ export const StudentController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/students/delete-student`;
   },
+  get GetCurrentMonthlyReport() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/monthly-report`;
+  },
+  get EditMonthlyReport() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/students/edit-report`;
+  },
 };

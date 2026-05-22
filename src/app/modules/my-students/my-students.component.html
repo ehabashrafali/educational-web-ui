@@ -54,6 +54,34 @@
               </div>
             </td>
           </ng-container>
+          <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef class="text-center">
+              Actions
+            </th>
+
+            <td
+              mat-cell
+              (click)="trigger.openMenu()"
+              *matCellDef="let student"
+              class="text-right"
+            >
+              <button
+                mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Actions menu"
+                (click)="$event.stopPropagation()"
+              >
+                <mat-icon>more_vert</mat-icon>
+              </button>
+
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editReport(student)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr

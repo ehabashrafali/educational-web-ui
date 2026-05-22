@@ -1,0 +1,220 @@
+<div class="rounded-3 m-3 p-5 w-full">
+  @if (hasMonthlyReport) {
+    <div class="w-full">
+      <form
+        class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+        [formGroup]="monthlyReportForm"
+      >
+        <h5 class="text-4xl mb-5 font-semibold">Edit Student Report</h5>
+
+        <mat-form-field class="w-full mb-6 max-w-1/3">
+          <mat-label>Date</mat-label>
+          <input matInput type="date" formControlName="date" />
+        </mat-form-field>
+
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <mat-form-field>
+            <mat-label>Memorization</mat-label>
+            <mat-select formControlName="memorization">
+              @for (surah of quranSurah | enumToList; track surah.id) {
+                <mat-option [value]="surah.id">
+                  {{ surah.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>No. Of Memorized Ayah</mat-label>
+            <input
+              matInput
+              min="0"
+              type="number"
+              formControlName="noOfMemorizationAyah"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Memorization Grade</mat-label>
+            <mat-select formControlName="memorizationGrade">
+              @for (grade of grades | enumToList; track grade.id) {
+                <mat-option [value]="grade.id">
+                  {{ grade.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Reading</mat-label>
+            <mat-select formControlName="reading">
+              @for (surah of quranSurah | enumToList; track surah.id) {
+                <mat-option [value]="surah.id">
+                  {{ surah.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>No. Of Reading Ayah</mat-label>
+            <input
+              matInput
+              min="0"
+              type="number"
+              formControlName="noOfReadingAyah"
+            />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Reading Grade</mat-label>
+            <mat-select formControlName="readingGrade">
+              @for (grade of grades | enumToList; track grade.id) {
+                <mat-option [value]="grade.id">
+                  {{ grade.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-span-2">
+            <mat-label>Basic Quran Recitation Rules</mat-label>
+            <mat-select formControlName="basicQuranRecitationRules" multiple>
+              @for (
+                topic of quranRecitationTopics | enumToList;
+                track topic.id
+              ) {
+                <mat-option [value]="topic.id">
+                  {{ topic.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Progress</mat-label>
+            <mat-select formControlName="basicQuranRecitationRulesProgress">
+              @for (grade of grades | enumToList; track grade.id) {
+                <mat-option [value]="grade.id">
+                  {{ grade.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-span-2">
+            <mat-label>Tajweed Rules</mat-label>
+            <mat-select formControlName="tajweedRules" multiple>
+              @for (rule of tajweedRules | enumToList; track rule.id) {
+                <mat-option [value]="rule.id">
+                  {{ rule.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Progress</mat-label>
+            <mat-select formControlName="tajweedRulesProgress">
+              @for (grade of grades | enumToList; track grade.id) {
+                <mat-option [value]="grade.id">
+                  {{ grade.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="lg:col-span-3">
+            <mat-label>Quran Comments</mat-label>
+            <textarea
+              matInput
+              rows="3"
+              formControlName="quranComments"
+            ></textarea>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Islamic Studies Book</mat-label>
+            <mat-select formControlName="islamicStudiesBooks" multiple>
+              @for (book of islamicStudiesBooks | enumToList; track book.id) {
+                <mat-option [value]="book.id">
+                  {{ book.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          @if (
+            monthlyReportForm
+              .get("islamicStudiesBooks")
+              ?.value?.includes(islamicStudiesBooks.Others)
+          ) {
+            <mat-form-field class="w-full mt-2">
+              <mat-label>Write Other Books Names</mat-label>
+              <input matInput formControlName="othersIslamicStudiesBooks" />
+            </mat-form-field>
+          }
+
+          <mat-form-field>
+            <mat-label>Islamic Studies Topics</mat-label>
+            <textarea
+              matInput
+              formControlName="islamicStudiesTopics"
+              rows="3"
+            ></textarea>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Islamic Studies Progress</mat-label>
+            <mat-select formControlName="islamicStudiesProgress">
+              @for (grade of grades | enumToList; track grade.id) {
+                <mat-option [value]="grade.id">
+                  {{ grade.name | humanize: " " }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="lg:col-span-3">
+            <mat-label>Islamic Studies Comments</mat-label>
+            <textarea
+              matInput
+              rows="3"
+              formControlName="islamicStudiesComments"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div class="d-flex justify-content-end flex-row justify-self-end">
+      <div class="p-4">
+        <button
+          class="primary h-10 sm:order-last"
+          mat-flat-button
+          [color]="'primary'"
+          (click)="submit()"
+          [disabled]="disableSubmit"
+        >
+          Save Changes
+        </button>
+      </div>
+
+      <div class="p-4">
+        <button
+          class="primary h-10 sm:order-last"
+          mat-flat-button
+          class="fuse-mat-button border sm:order-last"
+          (click)="cancel()"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  } @else {
+    <div class="flex flex-col items-center justify-center p-10">
+      <mat-icon class="text-6xl mb-4">assignment_late</mat-icon>
+      <h2 class="text-2xl font-semibold">No Monthly Report Found</h2>
+    </div>
+  }
+</div>

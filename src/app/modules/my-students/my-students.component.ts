@@ -17,6 +17,9 @@ import { CommonModule } from "@angular/common";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { StudentDTO } from "../models/student.dto";
 import { MatIconModule } from "@angular/material/icon";
+import { MatTooltipModule } from "@angular/material/tooltip";
+import { MatMenuModule } from "@angular/material/menu";
+import { MonthlyReportDto } from "../models/monthly-report.dto";
 
 @Component({
   selector: "app-my-students",
@@ -27,6 +30,8 @@ import { MatIconModule } from "@angular/material/icon";
     MatSortModule,
     MatIconModule,
     MatPaginatorModule,
+    MatTooltipModule,
+    MatMenuModule,
   ],
   templateUrl: "./my-students.component.html",
   styleUrl: "./my-students.component.scss",
@@ -34,7 +39,7 @@ import { MatIconModule } from "@angular/material/icon";
 export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(MatSort) tableMatSort!: MatSort;
 
-  displayedColumns: string[] = ["Name", "ReportStatus"];
+  displayedColumns: string[] = ["Name", "ReportStatus", "Actions"];
   dataSource = new MatTableDataSource<any>();
 
   private _unsubscribeAll = new Subject<void>();
@@ -96,5 +101,8 @@ export class MyStudentsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onRowClick(row: StudentDTO): void {
     this.router.navigate(["user-info/", row.id]);
+  }
+  editReport(student: StudentDTO): void {
+    this.router.navigate(["edit-report/", student.id]);
   }
 }
