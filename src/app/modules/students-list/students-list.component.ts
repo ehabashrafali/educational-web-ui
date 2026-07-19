@@ -97,4 +97,46 @@ export class StudentsListComponent implements OnInit {
   getStudentInfo(studentId: string) {
     this.router.navigate(["/student-info", studentId]);
   }
+  deactivate(studentId: string) {
+    this.studentService
+      .deactivate(studentId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "The student has been deactivated successfully.",
+        }),
+        tap(() => {
+          this.studentService.getStudents([]);
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to deactivate student.",
+          });
+          return throwError(() => error);
+        }),
+      )
+      .subscribe();
+  }
+  activate(studentId: string) {
+    this.studentService
+      .activate(studentId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "The student has been activated successfully.",
+        }),
+        tap(() => {
+          this.studentService.getStudents([]);
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to activate student.",
+          });
+          return throwError(() => error);
+        }),
+      )
+      .subscribe();
+  }
 }

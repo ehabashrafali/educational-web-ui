@@ -49,6 +49,11 @@ export class StudentService {
     const url = StudentController.Deactivate;
     return this._httpClient.put(`${url}/${studentId}`, {});
   }
+  activate(studentId: string) {
+    const url = StudentController.Activate;
+    return this._httpClient.put(`${url}/${studentId}`, {});
+  }
+
   getStudent(id: string): Observable<StudentDTO> {
     const url = StudentController.student;
     return this._httpClient.get<StudentDTO>(`${url}/${id}`);

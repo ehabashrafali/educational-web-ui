@@ -97,6 +97,24 @@
               <mat-icon>delete</mat-icon>
               <span>Delete</span>
             </button>
+
+            <button
+              mat-menu-item
+              (click)="deactivate(student.id)"
+              [disabled]="!student.isActive"
+            >
+              <mat-icon svgIcon="heroicons_outline:pause"></mat-icon>
+              <span>Deactivate</span>
+            </button>
+
+            <button
+              mat-menu-item
+              (click)="activate(student.id)"
+              [disabled]="student.isActive"
+            >
+              <mat-icon svgIcon="heroicons_outline:play"></mat-icon>
+              <span>Activate</span>
+            </button>
           </mat-menu>
         </td>
       </ng-container>
