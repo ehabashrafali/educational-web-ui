@@ -50,11 +50,12 @@ export class PricingComponent implements OnInit, OnDestroy {
     "Hafiz",
     "IslamicStudies",
     "QuranicArabic",
+    "ArabicAsASecondLanguage",
   ];
 
   constructor(
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnDestroy(): void {
@@ -73,7 +74,7 @@ export class PricingComponent implements OnInit, OnDestroy {
           this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
           this.defaultSessionCount = "3";
           this.cdr.markForCheck();
-        })
+        }),
       )
       .subscribe();
   }

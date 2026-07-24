@@ -38,16 +38,28 @@
                   check_circle
                 </mat-icon>
 
-                <mat-icon
+                <button
                   *ngIf="setReportStatus(student) === 'Add'"
-                  color="accent"
+                  type="button"
+                  mat-icon-button
+                  [disabled]="!student.isActive"
                   (click)="addReport(student.id); $event.stopPropagation()"
-                  class="cursor-pointer hover:scale-110 transition"
-                  matTooltip="Add monthly report"
+                  [matTooltip]="
+                    student.isActive
+                      ? 'Add monthly report'
+                      : 'Student is inactive'
+                  "
                 >
-                  add_circle
-                </mat-icon>
-
+                  <mat-icon
+                    color="accent"
+                    class="transition"
+                    [class.cursor-pointer]="student.isActive"
+                    [class.hover:scale-110]="student.isActive"
+                    [class.icon-disabled]="!student.isActive"
+                  >
+                    add_circle
+                  </mat-icon>
+                </button>
                 <span class="font-medium">
                   {{ setReportStatus(student) }}
                 </span>
