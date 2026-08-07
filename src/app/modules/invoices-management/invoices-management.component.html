@@ -49,20 +49,6 @@
           }
         </mat-select>
       </mat-form-field>
-
-      <!-- <button
-        mat-raised-button
-        color="primary"
-        (click)="export()"
-        justify-self-start
-        [disabled]="!form.get('selectedUser')?.value"
-      >
-        <mat-icon
-          class="icon-size-5"
-          [svgIcon]="'heroicons_outline:arrow-up-tray'"
-        ></mat-icon>
-        <span class="ml-2 hidden sm:inline-block">Export Invoices</span>
-      </button> -->
     </div>
 
     <table
@@ -89,6 +75,29 @@
         <th mat-header-cell *matHeaderCellDef>Absent Classes</th>
         <td mat-cell *matCellDef="let invoice">
           {{ invoice.absentClasses }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cancelledClasses">
+        <th mat-header-cell *matHeaderCellDef>Cancelled Classes</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.cancelledClasses }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lateClasses">
+        <th mat-header-cell *matHeaderCellDef>Late Classes</th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.lateClasses }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="cancelledByInstructorClasses">
+        <th mat-header-cell *matHeaderCellDef>
+          Cancelled By Instructor Classes
+        </th>
+        <td mat-cell *matCellDef="let invoice">
+          {{ invoice.cancelledByInstructorClasses }}
         </td>
       </ng-container>
 

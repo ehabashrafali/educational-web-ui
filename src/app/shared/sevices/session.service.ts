@@ -19,7 +19,6 @@ export class SessionService {
   }
 
   GetSessionsByIdAndDate(id: string, role: Role, date: string) {
-    debugger;
     const url = SessionController.GetSessionsByIdAndDate;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
       params: { date: date, role: role },
@@ -52,7 +51,6 @@ export class SessionService {
   }
   Update(id: string, sessionDto: SessionDto) {
     const url = SessionController.Update;
-    debugger;
     return this._httpClient.put(`${url}/${id}`, sessionDto);
   }
 }

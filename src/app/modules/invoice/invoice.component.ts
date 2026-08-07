@@ -141,7 +141,7 @@ export class InvoiceComponent implements OnInit {
       return result.amount;
     }
 
-    const totalbeforeDeeduction = this.sessions.reduce((sum, session) => {
+    return this.sessions.reduce((sum, session) => {
       const valid =
         session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
         session.instructorSessionStatus === InstructorAttendanceStatus.Late;
@@ -149,11 +149,11 @@ export class InvoiceComponent implements OnInit {
       this.totalHours += session.duration / 60;
       return sum + (session.duration / 60) * this.userProfile.fees;
     }, 0);
-    return (
-      totalbeforeDeeduction -
-      getDeductedCancelledByInstructorSessionsCount(this.sessions) * 2 -
-      getInstructorLateCount(this.sessions) * 1
-    );
+    // return (
+    //   totalbeforeDeeduction -
+    //   getDeductedCancelledByInstructorSessionsCount(this.sessions) * 2 -
+    //   getInstructorLateCount(this.sessions) * 1
+    // );
   }
   generateInvoiceNo() {
     return Math.floor(new Date().valueOf() * Math.random());
@@ -233,7 +233,6 @@ export class InvoiceComponent implements OnInit {
     return getInstructorAbsentCount(this.sessions);
   }
   totalDue() {
-    debugger;
     const cancellledByInstructorCount =
       getDeductedCancelledByInstructorSessionsCount(this.sessions);
     const instructorLateCount = getInstructorLateCount(this.sessions);

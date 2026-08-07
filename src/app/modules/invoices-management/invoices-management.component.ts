@@ -37,6 +37,7 @@ import {
   getInstructorAbsentCount,
   getInstructorLateCount,
   getDeductedCancelledByInstructorSessionsCount,
+  getInstructorCancelledCount,
 } from "../models/invoice.helper";
 
 @Component({
@@ -76,6 +77,7 @@ export class InvoicesManagementComponent implements OnInit {
   students$: Observable<StudentDTO[]> | null = null;
   instructors$: Observable<InstrctorDto[]> | null = null;
   dataSource = new MatTableDataSource<SessionSummary>([]);
+  selectedRole: Role;
 
   constructor(
     private studentService: StudentService,
@@ -102,23 +104,40 @@ export class InvoicesManagementComponent implements OnInit {
     if (selectedRole === "Student") {
       this.students$ = this.studentService.students$;
       this.studentService.getStudents([]);
+      this.displayedColumns = [
+        "monthYear",
+        "attendClasses",
+        "absentClasses",
+        "cancelledByInstructorClasses",
+        "total",
+        "Actions",
+      ];
     } else if (selectedRole === "Instructor") {
       this.instructors$ = this.instructorService.instructors$;
       this.instructorService.getInstructors([]);
+      this.displayedColumns = [
+        "monthYear",
+        "attendClasses",
+        "absentClasses",
+        "cancelledClasses",
+        "lateClasses",
+        "total",
+        "Actions",
+      ];
     }
   }
 
   onUserChange(): void {
-    const selectedRole = this.form.get("role")?.value;
+    this.selectedRole = this.form.get("role")?.value;
     const selectedUser = this.form.get("selectedUser")?.value;
 
-    if (!selectedRole || !selectedUser) {
+    if (!this.selectedRole || !selectedUser) {
       this.dataSource.data = [];
       this.userFees = 0;
       return;
     }
 
-    if (selectedRole === "Student") {
+    if (this.selectedRole === "Student") {
       this.students$
         .pipe(
           take(1),
@@ -128,7 +147,7 @@ export class InvoicesManagementComponent implements OnInit {
           }),
         )
         .subscribe();
-    } else if (selectedRole === "Instructor") {
+    } else if (this.selectedRole === "Instructor") {
       this.instructors$
         .pipe(
           take(1),
@@ -141,21 +160,33 @@ export class InvoicesManagementComponent implements OnInit {
     }
 
     this.sessionService
-      .getSessionsByUserId(selectedUser, selectedRole)
+      .getSessionsByUserId(selectedUser, this.selectedRole)
       .pipe(
         map((sessions) => this.groupSessionsByMonthYear(sessions)),
         map((grouped) =>
           grouped.map((group) => ({
             monthYear: group.monthYear,
             attendClasses:
-              selectedRole === "Student"
+              this.selectedRole === "Student"
                 ? getStudentAttendCount(group.sessions)
                 : getInstructorAttendCount(group.sessions),
             absentClasses:
-              selectedRole === "Student"
+              this.selectedRole === "Student"
                 ? getStudentAbsentCount(group.sessions)
                 : getInstructorAbsentCount(group.sessions),
-            total: this.totalSum(group.sessions, selectedRole),
+            cancelledClasses:
+              this.selectedRole === "Student"
+                ? getDeductedCancelledByInstructorSessionsCount(group.sessions)
+                : getInstructorCancelledCount(group.sessions),
+            cancelledByInstructorClasses:
+              this.selectedRole === "Student"
+                ? getDeductedCancelledByInstructorSessionsCount(group.sessions)
+                : 0,
+            lateClasses:
+              this.selectedRole === "Student"
+                ? 0
+                : getInstructorLateCount(group.sessions),
+            total: this.totalSum(group.sessions, this.selectedRole),
           })),
         ),
         tap((sessionSummaries) => {
@@ -210,8 +241,8 @@ export class InvoicesManagementComponent implements OnInit {
     }, 0);
     return (
       totalbeforeDeeduction -
-      getDeductedCancelledByInstructorSessionsCount(sessions) * 2 -
-      getInstructorLateCount(sessions) * 1
+      (getDeductedCancelledByInstructorSessionsCount(sessions) * 2 +
+        getInstructorLateCount(sessions) * 1)
     );
   }
 
@@ -230,5 +261,8 @@ export interface SessionSummary {
   monthYear: string;
   attendClasses: number;
   absentClasses: number;
+  cancelledClasses: number;
+  cancelledByInstructorClasses: number;
+  lateClasses: number;
   total: number;
 }
