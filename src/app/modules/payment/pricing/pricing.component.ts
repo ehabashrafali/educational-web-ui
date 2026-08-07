@@ -39,12 +39,13 @@ import { map, Subject, takeUntil, tap } from "rxjs";
 export class PricingComponent implements OnInit, OnDestroy {
   destroyed$ = new Subject<void>();
   defaultPrice: Boolean = true;
+  customDuration: Boolean = false;
   pricePerHour: number;
   PricePerMonth: number;
   defaultSessionCount = "3";
   customSessionPrice = 10;
   courseId: string | null = null;
-  defaultCourses: string[] = [
+  coursesHasDefaultPrice: string[] = [
     "BasicQuranRecitation",
     "Tajweed",
     "Hafiz",
@@ -52,6 +53,7 @@ export class PricingComponent implements OnInit, OnDestroy {
     "QuranicArabic",
     "ArabicAsASecondLanguage",
   ];
+  coursesHasCustomDuration: string[] = ["ArabicAsASecondLanguage"];
 
   constructor(
     private route: ActivatedRoute,
@@ -70,7 +72,10 @@ export class PricingComponent implements OnInit, OnDestroy {
         map((params) => params.get("id")),
         tap((id) => {
           this.courseId = id;
-          this.defaultPrice = this.defaultCourses.includes(id || "");
+          this.defaultPrice = this.coursesHasDefaultPrice.includes(id || "");
+          this.customDuration = this.coursesHasCustomDuration.includes(
+            id || "",
+          );
           this.selectedNumberOfSessionsChanged(this.defaultSessionCount);
           this.defaultSessionCount = "3";
           this.cdr.markForCheck();

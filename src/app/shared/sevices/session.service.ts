@@ -12,10 +12,12 @@ import { GetSessionsResult } from "app/modules/models/get-sessions-result";
 export class SessionService {
   private _httpClient = inject(HttpClient);
   constructor() {}
+
   CreateSession(sessionDto: SessionDto) {
     const url = SessionController.CreateSession;
     return this._httpClient.post(`${url}`, sessionDto);
   }
+
   GetSessionsByIdAndDate(id: string, role: Role, date: string) {
     debugger;
     const url = SessionController.GetSessionsByIdAndDate;
@@ -23,6 +25,7 @@ export class SessionService {
       params: { date: date, role: role },
     });
   }
+
   GetSessions(pageNumber: number, pageSize: number) {
     const url = SessionController.GetSessions;
     return this._httpClient.get<GetSessionsResult>(`${url}`, {

@@ -20,6 +20,15 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import { ActivatedRoute } from "@angular/router";
 import { StudentDTO } from "../models/student.dto";
+import {
+  getDeductedCancelledByInstructorSessionsCount,
+  getInstructorAbsentCount,
+  getInstructorAttendCount,
+  getInstructorCancelledCount,
+  getInstructorLateCount,
+  getStudentAbsentCount,
+  getStudentAttendCount,
+} from "../models/invoice.helper";
 @Component({
   selector: "app-invoice",
   standalone: true,
@@ -38,17 +47,16 @@ export class InvoiceComponent implements OnInit {
   invoiceNumber: number;
   date: string;
   userProfile: UserProfile | StudentDTO;
-  total: number;
-  sessions: SessionDto[];
-  totalHours: number;
-  payPalFees: number;
-  Id: string;
+  total: number = 0;
+  sessions: SessionDto[] = [];
+  totalHours: number = 0;
+  payPalFees: number = 0;
+  Id: string = "";
   role: Role;
   @ViewChild("content") content: ElementRef;
 
   constructor(
-    private userService: UserService,
-    private sessionService: SessionService,
+    private _sessionService: SessionService,
     private _studentService: StudentService,
     private _instructorService: InstructorService,
     private route: ActivatedRoute,
@@ -84,7 +92,7 @@ export class InvoiceComponent implements OnInit {
                 this.userProfile = student;
               }),
               switchMap(() =>
-                this.sessionService.GetSessionsByIdAndDate(id, role, date),
+                this._sessionService.GetSessionsByIdAndDate(id, role, date),
               ),
             );
           }
@@ -95,7 +103,7 @@ export class InvoiceComponent implements OnInit {
                 this.userProfile = inst;
               }),
               switchMap(() =>
-                this.sessionService.GetSessionsByIdAndDate(id, role, date),
+                this._sessionService.GetSessionsByIdAndDate(id, role, date),
               ),
             );
           }
@@ -123,7 +131,6 @@ export class InvoiceComponent implements OnInit {
 
           acc.totalMinutes += session.duration;
           acc.amount += (session.duration / 60) * this.userProfile.fees;
-
           return acc;
         },
         { totalMinutes: 0, amount: 0 },
@@ -134,7 +141,7 @@ export class InvoiceComponent implements OnInit {
       return result.amount;
     }
 
-    return this.sessions.reduce((sum, session) => {
+    const totalbeforeDeeduction = this.sessions.reduce((sum, session) => {
       const valid =
         session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
         session.instructorSessionStatus === InstructorAttendanceStatus.Late;
@@ -142,8 +149,13 @@ export class InvoiceComponent implements OnInit {
       this.totalHours += session.duration / 60;
       return sum + (session.duration / 60) * this.userProfile.fees;
     }, 0);
+    return (
+      totalbeforeDeeduction -
+      getDeductedCancelledByInstructorSessionsCount(this.sessions) * 2 -
+      getInstructorLateCount(this.sessions) * 1
+    );
   }
-  private generateInvoiceNo() {
+  generateInvoiceNo() {
     return Math.floor(new Date().valueOf() * Math.random());
   }
   exportToPdf(): void {
@@ -199,31 +211,37 @@ export class InvoiceComponent implements OnInit {
       this.payPalFees = 0;
     }
   }
-
-  getStudentAttendCount(): number {
-    return this.sessions.filter(
-      (session) =>
-        session.studentSessionStatus === StudentAttendanceStatus.Attend,
-    ).length;
+  getInstructorLateCount() {
+    return getInstructorLateCount(this.sessions);
   }
-
-  getStudentAbsentCount(): number {
-    return this.sessions.filter(
-      (session) =>
-        session.studentSessionStatus === StudentAttendanceStatus.Absent,
-    ).length;
+  getDeductedCancelledByInstructorSessionsCount() {
+    return getDeductedCancelledByInstructorSessionsCount(this.sessions);
   }
-  getInstructorAttendCount(): number {
-    return this.sessions.filter(
-      (session) =>
-        session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
-        session.instructorSessionStatus === InstructorAttendanceStatus.Late,
-    ).length;
+  getInstructorCancelledCount() {
+    return getInstructorCancelledCount(this.sessions);
   }
-  getInstructorAbsentCount(): number {
-    return this.sessions.filter(
-      (session) =>
-        session.instructorSessionStatus === InstructorAttendanceStatus.Absent,
-    ).length;
+  getStudentAbsentCount() {
+    return getStudentAbsentCount(this.sessions);
+  }
+  getInstructorAttendCount() {
+    return getInstructorAttendCount(this.sessions);
+  }
+  getStudentAttendCount() {
+    return getStudentAttendCount(this.sessions);
+  }
+  getInstructorAbsentCount() {
+    return getInstructorAbsentCount(this.sessions);
+  }
+  totalDue() {
+    debugger;
+    const cancellledByInstructorCount =
+      getDeductedCancelledByInstructorSessionsCount(this.sessions);
+    const instructorLateCount = getInstructorLateCount(this.sessions);
+    return (
+      this.total +
+      this.payPalFees -
+      cancellledByInstructorCount * 2 -
+      instructorLateCount * 1
+    );
   }
 }

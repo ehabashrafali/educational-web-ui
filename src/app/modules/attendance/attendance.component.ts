@@ -50,10 +50,11 @@ export class AttendanceComponent implements OnInit, OnDestroy {
   instructorAttendCount = 0;
   instructorLateCount = 0;
   instructorAbsentCount = 0;
-
+  cancelledByInstructorCount = 0;
   studentAttendCount = 0;
   absentStudentCount = 0;
   cancelledStudentCount = 0;
+  instructorCancelledCount = 0;
 
   totalCount = 0;
 
@@ -194,9 +195,11 @@ export class AttendanceComponent implements OnInit, OnDestroy {
     this.instructorAttendCount = 0;
     this.instructorLateCount = 0;
     this.instructorAbsentCount = 0;
+    this.instructorCancelledCount = 0;
     this.studentAttendCount = 0;
     this.absentStudentCount = 0;
     this.cancelledStudentCount = 0;
+    this.cancelledByInstructorCount = 0;
     this.totalCount = 0;
   }
 
@@ -213,6 +216,11 @@ export class AttendanceComponent implements OnInit, OnDestroy {
       (s) => s.studentSessionStatus === StudentAttendanceStatus.Cancelled,
     ).length;
 
+    this.cancelledByInstructorCount = this.sessions.filter(
+      (s) =>
+        s.studentSessionStatus ===
+        StudentAttendanceStatus.CancelledByInstructor,
+    ).length;
     this.totalCount = this.sessions.length;
   }
 
@@ -227,6 +235,10 @@ export class AttendanceComponent implements OnInit, OnDestroy {
 
     this.instructorAbsentCount = this.sessions.filter(
       (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Absent,
+    ).length;
+
+    this.instructorCancelledCount = this.sessions.filter(
+      (s) => s.instructorSessionStatus === InstructorAttendanceStatus.Cancelled,
     ).length;
 
     this.totalCount = this.sessions.length;

@@ -30,6 +30,14 @@ import { SessionService } from "app/shared/sevices/session.service";
 import { Role } from "app/core/user/user.types";
 import { TableUtil } from "app/shared/helpers/tableUtil";
 import { Router } from "@angular/router";
+import {
+  getStudentAbsentCount,
+  getStudentAttendCount,
+  getInstructorAttendCount,
+  getInstructorAbsentCount,
+  getInstructorLateCount,
+  getDeductedCancelledByInstructorSessionsCount,
+} from "../models/invoice.helper";
 
 @Component({
   selector: "app-invoices-management",
@@ -141,12 +149,12 @@ export class InvoicesManagementComponent implements OnInit {
             monthYear: group.monthYear,
             attendClasses:
               selectedRole === "Student"
-                ? this.getStudentAttendCount(group.sessions)
-                : this.getInstructorAttendCount(group.sessions),
+                ? getStudentAttendCount(group.sessions)
+                : getInstructorAttendCount(group.sessions),
             absentClasses:
               selectedRole === "Student"
-                ? this.getStudentAbsentCount(group.sessions)
-                : this.getInstructorAbsentCount(group.sessions),
+                ? getStudentAbsentCount(group.sessions)
+                : getInstructorAbsentCount(group.sessions),
             total: this.totalSum(group.sessions, selectedRole),
           })),
         ),
@@ -177,38 +185,9 @@ export class InvoicesManagementComponent implements OnInit {
     }));
   }
 
-  getStudentAttendCount(sessions: SessionDto[]): number {
-    return sessions.filter(
-      (session) =>
-        session.studentSessionStatus === StudentAttendanceStatus.Attend,
-    ).length;
-  }
-
-  getStudentAbsentCount(sessions: SessionDto[]): number {
-    return sessions.filter(
-      (session) =>
-        session.studentSessionStatus === StudentAttendanceStatus.Absent,
-    ).length;
-  }
-
-  getInstructorAttendCount(sessions: SessionDto[]): number {
-    return sessions.filter(
-      (session) =>
-        session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
-        session.instructorSessionStatus === InstructorAttendanceStatus.Late,
-    ).length;
-  }
-
-  getInstructorAbsentCount(sessions: SessionDto[]): number {
-    return sessions.filter(
-      (session) =>
-        session.instructorSessionStatus === InstructorAttendanceStatus.Absent,
-    ).length;
-  }
-
   totalSum(sessions: SessionDto[], selectedRole: string): number {
     if (selectedRole === "Student" || selectedRole === Role.Student) {
-      return sessions.reduce((sum, session) => {
+      const total = sessions.reduce((sum, session) => {
         const valid =
           session.studentSessionStatus === StudentAttendanceStatus.Attend ||
           session.studentSessionStatus === StudentAttendanceStatus.Absent;
@@ -217,9 +196,10 @@ export class InvoicesManagementComponent implements OnInit {
 
         return sum + (session.duration / 60) * this.userFees;
       }, 0);
+      const payPalFees = total * 0.05;
+      return total + payPalFees;
     }
-
-    return sessions.reduce((sum, session) => {
+    const totalbeforeDeeduction = sessions.reduce((sum, session) => {
       const valid =
         session.instructorSessionStatus === InstructorAttendanceStatus.Attend ||
         session.instructorSessionStatus === InstructorAttendanceStatus.Late;
@@ -228,7 +208,13 @@ export class InvoicesManagementComponent implements OnInit {
 
       return sum + (session.duration / 60) * this.userFees;
     }, 0);
+    return (
+      totalbeforeDeeduction -
+      getDeductedCancelledByInstructorSessionsCount(sessions) * 2 -
+      getInstructorLateCount(sessions) * 1
+    );
   }
+
   export() {
     TableUtil.exportTableToExcel("invoicesTable", "Invoices");
   }

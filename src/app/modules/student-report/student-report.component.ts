@@ -135,12 +135,11 @@ export class StudentReportComponent implements OnInit {
 
   private handleUser(user: any): void {
     this.userId = user.id;
-
-    if (user.role === Role.Student) {
+    if (user.role === Role.Student || user.role === Role.Admin) {
       this.disableSubmit = true;
 
       this.studentService
-        .getStudentMonthlyReport(user.id)
+        .getStudentMonthlyReport(this.studentId)
         .pipe(
           tap((report) => {
             if (!report) {

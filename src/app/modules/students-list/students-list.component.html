@@ -106,6 +106,14 @@
               <mat-icon svgIcon="heroicons_outline:pause"></mat-icon>
               <span>Deactivate</span>
             </button>
+            <button
+              mat-menu-item
+              (click)="viewReports(student.id)"
+              [disabled]="!student.isActive"
+            >
+              <mat-icon svgIcon="heroicons_outline:document-text"></mat-icon>
+              <span>View Report</span>
+            </button>
 
             <button
               mat-menu-item

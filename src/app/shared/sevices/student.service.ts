@@ -75,7 +75,6 @@ export class StudentService {
     return this._httpClient.get<MonthlyReportDto>(`${url}/${studentId}`);
   }
   editMonthlyReport(studentId: string, monthlyReportDto: MonthlyReportDto) {
-    debugger;
     const url = StudentController.EditMonthlyReport;
     return this._httpClient.put(`${url}/${studentId}`, monthlyReportDto);
   }

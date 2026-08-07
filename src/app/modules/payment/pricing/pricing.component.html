@@ -100,12 +100,10 @@
               Choose number of sessions per week
             </div>
             <div class="text-secondary mt-3 text-center tracking-tight text-l">
-              @if (defaultPrice) {
+              @if (!customDuration) {
                 <div class="">(Session is 30 minutes)</div>
-              } @else {
-                <div class="">
-                  (Each session is one hour long and costs 10$)
-                </div>
+              } @else if (courseId === "ArabicAsASecondLanguage") {
+                <div class="">(Session is 1 hour)</div>
               }
             </div>
             <!-- Features -->

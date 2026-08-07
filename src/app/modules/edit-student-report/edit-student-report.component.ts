@@ -156,7 +156,6 @@ export class EditStudentReportComponent implements OnInit {
       return;
     }
     const formVal = this.monthlyReportForm.getRawValue();
-    debugger;
     const dto = {
       ...formVal,
       id: formVal.id,

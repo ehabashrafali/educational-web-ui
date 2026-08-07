@@ -36,7 +36,15 @@
             >
               Total Due
             </div>
-            <div class="text-base font-semibold">${{ total + payPalFees }}</div>
+            <div class="text-base font-semibold">
+              {{
+                total +
+                  payPalFees -
+                  ((getDeductedCancelledByInstructorSessionsCount() * 2 ?? 0) +
+                    (getInstructorLateCount() * 1 ?? 0))
+                  | currency: "USD" : "symbol-narrow"
+              }}
+            </div>
           </div>
 
           <div>
@@ -108,49 +116,117 @@
             time, according to the school's approved policy
           </div>
 
-          <div class="mt-12">
-            <div class="mt-12">
+          <div class="mt-12 overflow-x-auto">
+            <div class="min-w-[750px]">
+              <!-- Header -->
               <div
-                class="hidden md:grid grid-cols-12 gap-x-4 border-b pb-3 text-xs font-semibold uppercase tracking-wide text-white bg-primary text-center py-3 rounded-t-md"
+                class="grid grid-cols-12 items-center gap-x-4 rounded-t-md border-b bg-primary py-3 text-center text-xs font-semibold uppercase tracking-wide text-white"
               >
-                <div class="col-span-2">Attend Classes</div>
-                <div class="col-span-2">Absent Classes</div>
+                <div
+                  [ngClass]="
+                    role === 'Instructor' ? 'col-span-2' : 'col-span-3'
+                  "
+                >
+                  Attend Classes
+                </div>
+
+                <div
+                  [ngClass]="
+                    role === 'Instructor' ? 'col-span-2' : 'col-span-3'
+                  "
+                >
+                  Absent Classes
+                </div>
+
+                @if (role === "Instructor") {
+                  <div class="col-span-2">Cancelled Classes</div>
+                  <div class="col-span-2">Late Classes</div>
+                }
+
                 <div class="col-span-2">Total Hours</div>
-                <div class="col-span-3">Hour Rate</div>
-                <div class="col-span-3">Fees</div>
+
+                <div
+                  [ngClass]="
+                    role === 'Instructor' ? 'col-span-1' : 'col-span-2'
+                  "
+                >
+                  Hour Rate
+                </div>
+
+                <div
+                  [ngClass]="
+                    role === 'Instructor' ? 'col-span-1' : 'col-span-2'
+                  "
+                >
+                  Fees
+                </div>
               </div>
+
               <!-- Rows -->
               <div class="divide-y border-secondary/50">
                 @if (sessions?.length > 0) {
                   <div
-                    class="grid grid-cols-12 gap-x-4 py-4 text-sm text-center font-bold"
+                    class="grid grid-cols-12 items-center gap-x-4 py-4 text-center text-sm font-bold"
                   >
-                    <div class="col-span-2">
-                      @if (userProfile?.role === "Instructor") {
+                    <div
+                      [ngClass]="
+                        role === 'Instructor' ? 'col-span-2' : 'col-span-3'
+                      "
+                    >
+                      @if (role === "Instructor") {
                         {{ getInstructorAttendCount() }}
                       } @else {
                         {{ getStudentAttendCount() }}
                       }
                     </div>
-                    <div class="col-span-2">
-                      @if (userProfile?.role === "Instructor") {
+
+                    <div
+                      [ngClass]="
+                        role === 'Instructor' ? 'col-span-2' : 'col-span-3'
+                      "
+                    >
+                      @if (role === "Instructor") {
                         {{ getInstructorAbsentCount() }}
                       } @else {
                         {{ getStudentAbsentCount() }}
                       }
                     </div>
+
+                    @if (role === "Instructor") {
+                      <div class="col-span-2">
+                        {{ getInstructorCancelledCount() }}
+                      </div>
+
+                      <div class="col-span-2">
+                        {{ getInstructorLateCount() }}
+                      </div>
+                    }
+
                     <div class="col-span-2">
-                      {{ totalHours }}
+                      {{ totalHours | number: "1.0-2" }}
                     </div>
 
-                    <div class="col-span-3">
-                      {{ userProfile?.fees | currency }}
+                    <div
+                      [ngClass]="
+                        role === 'Instructor' ? 'col-span-1' : 'col-span-2'
+                      "
+                    >
+                      {{
+                        userProfile?.fees | currency: "USD" : "symbol-narrow"
+                      }}
                     </div>
 
-                    <div class="col-span-3 font-bold">${{ total }}</div>
+                    <div
+                      class="font-bold"
+                      [ngClass]="
+                        role === 'Instructor' ? 'col-span-1' : 'col-span-2'
+                      "
+                    >
+                      {{ total | currency: "USD" : "symbol-narrow" }}
+                    </div>
                   </div>
                 } @else {
-                  <div class="py-4 text-left text-sm text-secondary">
+                  <div class="py-4 text-center text-sm text-secondary">
                     No sessions for this month.
                   </div>
                 }
@@ -168,13 +244,37 @@
 
             <div class="flex justify-between text-sm sm:text-base">
               <span class="text-gray-600">Subtotal</span>
-              <span class="font-medium">${{ total }}</span>
+              <span class="font-medium">{{
+                total | currency: "USD" : "symbol-narrow"
+              }}</span>
             </div>
 
             @if (role === "Student") {
               <div class="flex justify-between text-sm sm:text-base">
                 <span class="text-gray-500">PayPal Fees</span>
-                <span class="text-gray-700">${{ payPalFees }}</span>
+                <span class="text-gray-700">{{
+                  payPalFees | currency: "USD" : "symbol-narrow"
+                }}</span>
+              </div>
+            }
+            @if (role === "Instructor") {
+              <div class="flex justify-between text-sm sm:text-base">
+                <span class="text-red-600">Cancellation Deduction</span>
+                <span class="font-medium text-red-600">
+                  -{{
+                    getDeductedCancelledByInstructorSessionsCount() * 2 ?? 0
+                      | currency: "USD" : "symbol-narrow"
+                  }}
+                </span>
+              </div>
+              <div class="flex justify-between text-sm sm:text-base">
+                <span class="text-red-600">Late Deduction</span>
+                <span class="font-medium text-red-600">
+                  -{{
+                    getInstructorLateCount() * 1 ?? 0
+                      | currency: "USD" : "symbol-narrow"
+                  }}
+                </span>
               </div>
             }
 
@@ -183,7 +283,13 @@
             >
               <span class="font-semibold text-gray-800">Total Due</span>
               <span class="font-bold text-gray-900">
-                ${{ total + payPalFees }}
+                {{
+                  total +
+                    payPalFees -
+                    (getDeductedCancelledByInstructorSessionsCount() * 2 ?? 0) -
+                    (getInstructorLateCount() * 1 ?? 0)
+                    | currency: "USD" : "symbol-narrow"
+                }}
               </span>
             </div>
           </div>

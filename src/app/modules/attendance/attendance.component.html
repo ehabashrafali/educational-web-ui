@@ -191,7 +191,7 @@
       class="mx-auto w-full max-w-[90%] md:max-w-[80%] flex-col md:flex-row mb-4"
     >
       <div
-        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-6 p-6 w-full"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 p-6 w-full"
       >
         <div>
           <div class="label">Attend</div>
@@ -215,6 +215,12 @@
             {{ instructorLateCount }}
           </div>
         </div>
+        <div *ngIf="role === 'Instructor'">
+          <div class="label">Cancelled</div>
+          <div class="px-2 py-1 rounded bg-red-100 text-red-800">
+            {{ instructorCancelledCount }}
+          </div>
+        </div>
 
         <div *ngIf="role === 'Student'">
           <div>
@@ -230,6 +236,14 @@
             <div class="label">Cancelled</div>
             <div class="px-2 py-1 rounded bg-gray-100 text-gray-800">
               {{ cancelledStudentCount }}
+            </div>
+          </div>
+        </div>
+        <div *ngIf="role === 'Student'">
+          <div>
+            <div class="label">Cancelled by Inst</div>
+            <div class="px-2 py-1 rounded bg-red-100 text-red-800">
+              {{ cancelledByInstructorCount }}
             </div>
           </div>
         </div>

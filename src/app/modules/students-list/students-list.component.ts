@@ -139,4 +139,7 @@ export class StudentsListComponent implements OnInit {
       )
       .subscribe();
   }
+  viewReports(studentId: string) {
+    this.router.navigate(["/student-report", studentId]);
+  }
 }
