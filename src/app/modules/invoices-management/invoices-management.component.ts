@@ -242,7 +242,8 @@ export class InvoicesManagementComponent implements OnInit {
     return (
       totalbeforeDeeduction -
       (getDeductedCancelledByInstructorSessionsCount(sessions) * 2 +
-        getInstructorLateCount(sessions) * 1)
+        getInstructorLateCount(sessions) * 1 +
+        getInstructorAbsentCount(sessions) * 3)
     );
   }
 

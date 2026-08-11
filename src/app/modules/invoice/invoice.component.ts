@@ -232,15 +232,20 @@ export class InvoiceComponent implements OnInit {
   getInstructorAbsentCount() {
     return getInstructorAbsentCount(this.sessions);
   }
-  totalDue() {
+  studentTotalDue() {
+    return this.total + this.payPalFees;
+  }
+  instructorTotalDue() {
     const cancellledByInstructorCount =
       getDeductedCancelledByInstructorSessionsCount(this.sessions);
     const instructorLateCount = getInstructorLateCount(this.sessions);
+    const absentCount = getInstructorAbsentCount(this.sessions);
     return (
       this.total +
       this.payPalFees -
       cancellledByInstructorCount * 2 -
-      instructorLateCount * 1
+      instructorLateCount * 1 -
+      absentCount * 3
     );
   }
 }
