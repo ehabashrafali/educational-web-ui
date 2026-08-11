@@ -77,7 +77,7 @@ export class InvoicesManagementComponent implements OnInit {
   students$: Observable<StudentDTO[]> | null = null;
   instructors$: Observable<InstrctorDto[]> | null = null;
   dataSource = new MatTableDataSource<SessionSummary>([]);
-  selectedRole: Role;
+  selectedRole!: Role;
 
   constructor(
     private studentService: StudentService,
@@ -249,6 +249,7 @@ export class InvoicesManagementComponent implements OnInit {
   export() {
     TableUtil.exportTableToExcel("invoicesTable", "Invoices");
   }
+
   getMonthInvoice(date: string) {
     const selectedRole = this.form.get("role")?.value;
     this.router.navigate([
