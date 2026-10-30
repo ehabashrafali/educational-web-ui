@@ -62,34 +62,6 @@
                 </div>
               </div>
 
-              <!-- Zoom Link -->
-              <div>
-                <div class="text-secondary opacity-70">Zoom Link</div>
-                <div class="mt-1 font-semibold">
-                  <a
-                    [href]="userProfile?.zoomMeeting"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-blue-600 hover:underline break-all"
-                  >
-                    {{ userProfile?.zoomMeeting }}
-                  </a>
-                </div>
-              </div>
-
-              <!-- Meeting ID -->
-              <div>
-                <div class="text-secondary opacity-70">Meeting ID</div>
-                <div class="mt-1 font-semibold">
-                  {{ getMeetingId(userProfile?.zoomMeeting) }}
-                </div>
-              </div>
-              <div>
-                <div class="text-secondary opacity-70">Passcode</div>
-                <div class="mt-1 font-semibold">
-                  {{ getPasscode(userProfile?.zoomMeeting) }}
-                </div>
-              </div>
               <div>
                 <div class="text-secondary opacity-70">Phone Number</div>
                 <div class="mt-1 font-semibold">

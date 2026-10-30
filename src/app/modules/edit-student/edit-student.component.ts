@@ -160,7 +160,6 @@ export class EditStudentComponent implements OnInit {
             isActive: student.isActive,
             phoneNumber: student.phoneNumber,
             fees: student.fees,
-            zoomLink: student.zoomMeeting,
             instructorId: student.instructorId,
           });
 

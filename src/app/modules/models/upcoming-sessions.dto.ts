@@ -1,6 +1,6 @@
 export interface UpcomingSessionsDto {
-  zoomMeeting: string;
   sessionDateTime: Date;
-  instructorName: string[];
-  courseName: string[];
+  participantName: string;
+  courseName: string;
+  studentName: string;
 }

@@ -5,6 +5,7 @@ import { SessionDto } from "app/modules/models/session.dto";
 import { DateTime } from "luxon";
 import { Role } from "app/core/user/user.types";
 import { GetSessionsResult } from "app/modules/models/get-sessions-result";
+import { UpcomingSessionsDto } from "app/modules/models/upcoming-sessions.dto";
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +23,13 @@ export class SessionService {
     const url = SessionController.GetSessionsByIdAndDate;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {
       params: { date: date, role: role },
+    });
+  }
+
+  getTimeTable(id: string, role: Role) {
+    const url = SessionController.GetTimeTable;
+    return this._httpClient.get<UpcomingSessionsDto[]>(`${url}/${id}`, {
+      params: { role: role },
     });
   }
 

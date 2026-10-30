@@ -61,6 +61,12 @@
           <span>Profile</span>
         </button>
       }
+      @if (user.email == "test@test.com") {
+        <button mat-menu-item (click)="getTimeTable()">
+          <mat-icon [svgIcon]="'heroicons_solid:table-cells'"></mat-icon>
+          <span>Timetable</span>
+        </button>
+      }
 
       @if (user.role === "Supervisor" || user.role === "Admin") {
         <button mat-menu-item (click)="getSessions()">

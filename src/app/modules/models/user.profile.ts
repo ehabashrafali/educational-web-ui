@@ -13,7 +13,6 @@ export interface UserProfile {
   weeklyAppointments: WeeklyAppointmentDto[];
   fees: number;
   role: Role;
-  zoomMeeting?: string;
   phoneNumber?: string;
   lastName?: string;
 }

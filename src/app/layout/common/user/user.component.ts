@@ -148,4 +148,7 @@ export class UserComponent implements OnInit, OnDestroy {
   getInstructorPolicy(): void {
     this._router.navigate(["/instructor-policy"]);
   }
+  getTimeTable(): void {
+    this._router.navigate(["/timetable"]);
+  }
 }

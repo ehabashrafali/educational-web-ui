@@ -81,7 +81,6 @@ export class EditInstructorComponent implements OnInit {
             isActive: instructor.isActive,
             phoneNumber: instructor.phoneNumber,
             fees: instructor.fees,
-            zoomLink: instructor.zoomMeeting,
           });
         }),
       )

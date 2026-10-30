@@ -28,10 +28,6 @@ export class StudentService {
     const url = StudentController.GetMonthlyReports;
     return this._httpClient.get<MonthlyReportDto[]>(`${url}?id=${id}`);
   }
-  getTimeTable(id: string) {
-    const url = StudentController.GetTimeTable;
-    return this._httpClient.get<UpcomingSessionsDto[]>(`${url}/${id}`);
-  }
   getStudents(studentsId: string[]) {
     this._httpClient
       .post(StudentController.Students, studentsId, {})

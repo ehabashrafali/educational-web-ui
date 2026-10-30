@@ -11,7 +11,6 @@ export interface StudentDTO {
   email: string;
   country: string;
   phoneNumber: string;
-  zoomMeeting: string;
   age: number;
   monthlyReportDtos: MonthlyReportDto[];
   weeklyAppointments: WeeklyAppointmentDto[];

@@ -29,4 +29,8 @@ export const SessionController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/update-session`;
   },
+  get GetTimeTable() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/time-table`;
+  },
 };

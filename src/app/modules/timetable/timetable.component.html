@@ -1,4 +1,4 @@
-<!-- <div class="grid w-full justify-items-center">
+<div class="grid w-full justify-items-center">
   <div class="flex justify-between mb-3 w-full">
     <p class="text-4xl ms-10 mt-5 font-semibold">Timetable</p>
   </div>
@@ -9,7 +9,7 @@
       >
         <div class="m-8 mb-4 flex flex-auto flex-col">
           <div class="text-lg font-medium text-dark mb-2">
-            {{ session.sessionDateTime | date: "fullDate" }}
+            {{ session.sessionDateTime | datetime }}
           </div>
 
           <div class="flex gap-4">
@@ -22,15 +22,18 @@
             </div>
 
             <div class="text-2xl font-semibold leading-tight">
-              {{ session.courseName.join(" || ") }}
+              {{ session.courseName }}
 
-              <div class="text-base text-[#8E8E8E] mt-2">
-                {{ session.instructorName.join(" || ") }}
-              </div>
-
-              <div class="text-base text-[#8E8E8E] mt-2">
-                {{ session.sessionDateTime | date: "shortTime" }}
-              </div>
+              @if (userRole === "Student") {
+                <div class="text-base text-[#8E8E8E] mt-2">
+                  Instructor: {{ session.participantName }}
+                </div>
+              }
+              @if (userRole === "Instructor") {
+                <div class="text-base text-[#8E8E8E] mt-2">
+                  Student: {{ session.studentName }}
+                </div>
+              }
             </div>
 
             <div class="ml-auto flex items-start">
@@ -48,4 +51,4 @@
       </fuse-card>
     }
   </div>
-</div> -->
+</div>
