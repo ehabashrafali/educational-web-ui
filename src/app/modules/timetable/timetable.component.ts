@@ -52,39 +52,12 @@ export class TimetableComponent implements OnInit {
         return this.sessionService.getTimeTable(user.id as string, user.role);
       }),
       catchError(() => EMPTY),
-      tap((sessions) => console.log(sessions)),
     );
   }
 
   joinSession(session: UpcomingSessionsDto): void {
-    // const sessionDto: SessionDto = {
-    //   joiningTime: new Date(),
-    //   startTime: session.sessionDateTime,
-    //   courseId: null,
-    //   instructorId: this.userRole == Role.Instructor ? this.userId : null,
-    //   studentId: this.userRole == Role.Student ? this.userId : null,
-    //   status: AttendanceStatus.Attend,
-    //   courseName: null,
-    //   coursePricePerHoure: null,
-    // };
-    // this.sessionStudent
-    //   .CreateSession(this.userId, sessionDto)
-    //   .pipe(
-    //     tap((success) => {
-    //       if (success && session.zoomMeeting) {
-    //         this.openZoom(session.zoomMeeting);
-    //       }
-    //     }),
-    //     catchError((err) => {
-    //       console.error("CreateSession failed", err);
-    //       return EMPTY;
-    //     }),
-    //   )
-    //   .subscribe();
-  }
-
-  private openZoom(url: string): void {
-    window.open(url, "_blank", "noopener,noreferrer");
+    if (!session.zoomMeeting) return;
+    window.open(session.zoomMeeting, "_blank", "noopener,noreferrer");
   }
 
   isDisabled(session: any): boolean {

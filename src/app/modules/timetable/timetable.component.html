@@ -22,11 +22,9 @@
             </div>
 
             <div class="text-2xl font-semibold leading-tight">
-              {{ session.courseName }}
-
               @if (userRole === "Student") {
                 <div class="text-base text-[#8E8E8E] mt-2">
-                  Instructor: {{ session.participantName }}
+                  Instructor: {{ session.instructorName }}
                 </div>
               }
               @if (userRole === "Instructor") {
