@@ -11,7 +11,22 @@ import { UpcomingSessionsDto } from "../models/upcoming-sessions.dto";
 import { AsyncPipe } from "@angular/common";
 import { PipesModule } from "../pipes.module";
 import { SessionService } from "app/shared/sevices/session.service";
-import { catchError, EMPTY, filter, Observable, switchMap, tap } from "rxjs";
+import {
+  catchError,
+  EMPTY,
+  filter,
+  map,
+  Observable,
+  Subject,
+  switchMap,
+  takeUntil,
+  tap,
+  throwError,
+} from "rxjs";
+import {
+  showToastOnSuccess,
+  ToastService,
+} from "app/shared/sevices/toasts.service";
 
 @Component({
   selector: "app-timetable",
@@ -34,10 +49,12 @@ export class TimetableComponent implements OnInit {
   userRole?: Role;
   sessions$!: Observable<UpcomingSessionsDto[]>;
   now: Date = new Date();
+  private destroy$ = new Subject<void>();
 
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
+    private toastService: ToastService,
   ) {
     this.now = new Date();
   }
@@ -48,8 +65,16 @@ export class TimetableComponent implements OnInit {
       switchMap((user) => {
         this.userId = user.id;
         this.userRole = user.role;
+
         if (!this.userId || !this.userRole) return EMPTY;
-        return this.sessionService.getTimeTable(user.id as string, user.role);
+
+        return this.sessionService
+          .getTimeTable(user.id as string, user.role)
+          .pipe(
+            map((sessions) =>
+              (sessions ?? []).filter((session) => !session.isCanceled),
+            ),
+          );
       }),
       catchError(() => EMPTY),
     );
@@ -59,7 +84,26 @@ export class TimetableComponent implements OnInit {
     if (!session.zoomMeeting) return;
     window.open(session.zoomMeeting, "_blank", "noopener,noreferrer");
   }
-
+  cancelSession(session: UpcomingSessionsDto): void {
+    debugger;
+    this.sessionService
+      .cancelUpCommingSession(session.zoomMeetingId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message: "The session has been canceled successfully.",
+        }),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message: "Failed to cancel session.",
+          });
+          return throwError(() => error);
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+  }
   isDisabled(session: any): boolean {
     const sessionTime = new Date(session.sessionDateTime);
     return sessionTime > this.now;

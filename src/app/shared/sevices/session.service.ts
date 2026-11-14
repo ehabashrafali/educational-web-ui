@@ -18,7 +18,10 @@ export class SessionService {
     const url = SessionController.CreateSession;
     return this._httpClient.post(`${url}`, sessionDto);
   }
-
+  cancelUpCommingSession(meetingId: number) {
+    const url = SessionController.CancelUpCommingSession;
+    return this._httpClient.delete(`${url}/${meetingId}`);
+  }
   GetSessionsByIdAndDate(id: string, role: Role, date: string) {
     const url = SessionController.GetSessionsByIdAndDate;
     return this._httpClient.get<SessionDto[]>(`${url}/${id}`, {

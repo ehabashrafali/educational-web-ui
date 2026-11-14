@@ -9,4 +9,5 @@ export interface UpcomingSessionsDto {
   uuid: string;
   studentId: string;
   instructorId: string;
+  isCanceled: boolean;
 }

@@ -34,7 +34,7 @@
               }
             </div>
 
-            <div class="ml-auto flex items-start">
+            <div class="ml-auto flex items-start gap-2">
               <button
                 mat-flat-button
                 color="primary"
@@ -42,6 +42,13 @@
                 (click)="joinSession(session)"
               >
                 Join
+              </button>
+              <button
+                mat-flat-button
+                color="warn"
+                (click)="cancelSession(session)"
+              >
+                Cancel
               </button>
             </div>
           </div>
