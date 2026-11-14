@@ -4,7 +4,20 @@
   Your Instructor
 </div>
 
-<swiper-container
+<div class="instructor-picker" role="group" aria-label="Choose an instructor">
+  @for (instructor of instructors; track instructor.image; let index = $index) {
+    <button type="button" class="instructor-option"
+      [class.is-selected]="activeIndex === index"
+      [attr.aria-pressed]="activeIndex === index"
+      [attr.aria-label]="'Show ' + instructor.name"
+      (click)="selectInstructor(index)">
+      <img [src]="'images/Instructors/' + instructor.image" alt="" width="48" height="48" />
+      <span>{{ instructor.name }}</span>
+    </button>
+  }
+</div>
+
+<swiper-container aria-roledescription="carousel" aria-label="Instructors"
   class="w-full mx-auto px-3 sm:px-4 md:px-6 max-w-screen-lg"
   init="false"
   #instSwiper

@@ -1,12 +1,4 @@
-import {
-    Component,
-    CUSTOM_ELEMENTS_SCHEMA,
-    AfterViewInit,
-    ViewChild,
-    ElementRef,
-    OnInit,
-} from "@angular/core";
-
+import { AfterViewInit, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { register } from "swiper/element/bundle";
 
 @Component({
@@ -16,51 +8,62 @@ import { register } from "swiper/element/bundle";
     styleUrl: "./instructors.component.scss",
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class InstructorsComponent implements AfterViewInit, OnInit {
+export class InstructorsComponent implements AfterViewInit, OnInit, OnDestroy {
     @ViewChild("instSwiper", { static: true })
-    instSwiper!: ElementRef;
+    slider!: ElementRef;
+
+    activeIndex = 0;
+    readonly instructors = [
+        { name: 'Osama El-Bosili', image: 'OsamaInst.jpeg' },
+        { name: 'Ibrahim Ayman', image: 'IbrahimInst.jpeg' },
+        { name: 'Hagar Ayman', image: 'HagarInst.jpeg' },
+        { name: 'Aya fouad', image: 'AyaInst.jpeg' },
+    ];
+
+    constructor(private readonly zone: NgZone) {}
+
+    selectInstructor(index: number): void {
+        this.slider.nativeElement.swiper?.slideTo(index);
+    }
+
+    ngOnDestroy(): void {
+        this.slider.nativeElement.swiper?.destroy(true, true);
+    }
 
     ngOnInit(): void {
         register();
     }
 
     ngAfterViewInit(): void {
-        const swiper = this.instSwiper.nativeElement;
-        Object.assign(this.instSwiper.nativeElement, {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const element = this.slider.nativeElement;
+        Object.assign(element, {
             slidesPerView: 1,
-            spaceBetween: 16,
-            centeredSlides: true,
-            breakpoints: {
-                640: { slidesPerView: 1 },
-                768: { slidesPerView: 1 },
-                1024: { slidesPerView: 1 },
-            },
+            spaceBetween: 24,
+            effect: "fade",
+            fadeEffect: { crossFade: true },
+            autoHeight: true,
+            speed: reducedMotion ? 0 : 450,
             loop: false,
-            autoplay: {
-                delay: 6000,
-                disableOnInteraction: false,
-            },
-            keyboard: {
-                enabled: true,
-                onlyInViewport: true,
-            },
-            speed: 1000,
+            grabCursor: true,
             on: {
-                keyPress: () => {
-                    const swiper = this.instSwiper.nativeElement.swiper;
-                    if (swiper.autoplay) {
-                        swiper.autoplay.stop();
-                    }
-
-                    // Disable loop for the next navigation
-                    swiper.loopDestroy(); // Remove loop clones
-                    swiper.params.loop = false;
-                    swiper.update();
+                slideChange: (swiper: { activeIndex: number }) => {
+                    this.zone.run(() => this.activeIndex = swiper.activeIndex);
                 },
             },
-        });
-        this.instSwiper.nativeElement.initialize();
+            // Let visitors read at their own pace.
+            autoplay: false,
+            navigation: true,
+            pagination: { clickable: true },
+            keyboard: { enabled: true, onlyInViewport: true },
+            a11y: {
+                enabled: true,
+                containerMessage: "instructors",
+                prevSlideMessage: "Previous instructors",
+                nextSlideMessage: "Next instructors",
+            },
 
-        swiper.initialize();
+        });
+        element.initialize();
     }
 }

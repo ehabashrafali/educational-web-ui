@@ -1,8 +1,110 @@
-swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
+
+:host { display: block; width: min(1100px, calc(100vw - 48px)); max-width: 100%; margin-inline: auto; }
+swiper-container {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0 68px;
+    --swiper-theme-color: #286b60;
+    --swiper-navigation-size: 17px;
+    --swiper-pagination-bullet-inactive-color: #7d938c;
+    --swiper-pagination-bullet-inactive-opacity: .35;
 }
+swiper-container::part(button-prev), swiper-container::part(button-next) {
+    top: auto;
+    bottom: 3px;
+    margin-top: 0;
+    width: 44px;
+    height: 44px;
+    padding: 13px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    border: 1px solid #cadcd5;
+    background: #fff;
+    color: #286b60;
+    transition: background .2s;
+    z-index: 12;
+}
+swiper-container::part(button-prev) { left: 0; }
+swiper-container::part(button-next) { right: 0; }
+swiper-container::part(button-prev):hover, swiper-container::part(button-next):hover { background: #eaf3ef; }
+swiper-container::part(button-prev):focus-visible, swiper-container::part(button-next):focus-visible,
+swiper-container::part(bullet):focus-visible { outline: 3px solid #286b60; outline-offset: 3px; }
+swiper-container::part(pagination) { bottom: 15px; left: 60px; width: calc(100% - 120px); }
+swiper-container::part(bullet) { width: 10px; height: 10px; margin-inline: 6px; }
+swiper-container::part(bullet-active) { width: 26px; border-radius: 8px; background: #286b60; }
+@media (prefers-reduced-motion: reduce) {
+    swiper-container::part(button-prev), swiper-container::part(button-next) { transition: none; }
+}
+
+:host > div { margin: 24px 0 28px; }
+swiper-slide { height: auto; }
 fuse-card {
-  height: 100%;
+    display: flex;
+    width: 100%;
+    padding: 32px;
+    gap: 36px;
+    border-radius: 24px;
+    border: 1px solid #dce7e0;
+    background: linear-gradient(120deg, #f0f6f1, #ffffff 65%);
+    box-shadow: 0 8px 24px #193e3210;
 }
+fuse-card img { border-radius: 18px; aspect-ratio: 4 / 5; object-fit: cover; }
+fuse-card > div:last-child > div:first-child { color: #21584d; }
+fuse-card > div:last-child > div:nth-child(2) { color: #58756a; margin-top: 6px; font-size: 14px; letter-spacing: 1px; }
+fuse-card > div:last-child > div:last-child { color: #43534e; font-size: 16px; line-height: 1.8; }
+@media (max-width: 767px) {
+    fuse-card { padding: 22px; gap: 22px; }
+    fuse-card > div:first-child { max-width: 180px; }
+    fuse-card > div:last-child > div:last-child { font-size: 14px; line-height: 1.75; }
+}
+
+// Portrait navigation makes every instructor discoverable without cycling.
+:host > .instructor-picker {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0 0 22px;
+    padding: 8px;
+    border: 1px solid #d9e5df;
+    border-radius: 20px;
+    background: #f5f8f5;
+}
+.instructor-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 14px;
+    color: #52675e;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    transition: background .2s, border-color .2s, box-shadow .2s;
+    img { width: 48px; height: 48px; flex-shrink: 0; object-fit: cover; border-radius: 50%; }
+    &:hover { background: #e9f0eb; }
+    &.is-selected { background: #fff; color: #21584d; border-color: #8db3a4; box-shadow: 0 3px 10px #193e3210; }
+    &:focus-visible { outline: 3px solid #286b60; outline-offset: 2px; }
+}
+fuse-card { padding: 0; gap: 0; align-items: stretch; overflow: hidden; }
+fuse-card > div:first-child {
+    width: 34%; max-width: none; padding: 30px;
+    background: #e8f0e8;
+    display: flex; align-items: center; justify-content: center;
+}
+fuse-card img { width: 100%; max-width: 240px; height: auto; box-shadow: 0 12px 28px #193e3220; }
+fuse-card > div:last-child { padding: 38px; justify-content: center; }
+fuse-card > div:last-child > div:first-child { font-size: clamp(25px, 3vw, 34px); letter-spacing: -.7px; }
+fuse-card > div:last-child > div:nth-child(2) { text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+fuse-card > div:last-child > div:last-child { margin-top: 24px; }
+@media (max-width: 767px) {
+    :host > .instructor-picker { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; padding: 6px; }
+    .instructor-option { gap: 8px; padding: 8px; font-size: 11px; }
+    .instructor-option img { width: 36px; height: 36px; }
+    fuse-card > div:first-child { width: 100%; max-width: none; padding: 24px; }
+    fuse-card img { width: 150px; }
+    fuse-card > div:last-child { padding: 26px 22px; }
+    fuse-card > div:last-child > div:last-child { margin-top: 18px; }
+}
+@media (prefers-reduced-motion: reduce) { .instructor-option { transition: none; } }
