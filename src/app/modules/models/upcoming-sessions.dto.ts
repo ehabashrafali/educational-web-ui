@@ -1,3 +1,5 @@
+import { StudentAttendanceStatus } from "./session.dto";
+
 export interface UpcomingSessionsDto {
   sessionDateTime: Date;
   participantName: string;
@@ -9,5 +11,5 @@ export interface UpcomingSessionsDto {
   uuid: string;
   studentId: string;
   instructorId: string;
-  isCanceled: boolean;
+  canceled?: StudentAttendanceStatus;
 }

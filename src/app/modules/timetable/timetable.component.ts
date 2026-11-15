@@ -72,7 +72,7 @@ export class TimetableComponent implements OnInit {
           .getTimeTable(user.id as string, user.role)
           .pipe(
             map((sessions) =>
-              (sessions ?? []).filter((session) => !session.isCanceled),
+              (sessions ?? []).filter((session) => session.canceled != null),
             ),
           );
       }),
@@ -87,7 +87,7 @@ export class TimetableComponent implements OnInit {
   cancelSession(session: UpcomingSessionsDto): void {
     debugger;
     this.sessionService
-      .cancelUpCommingSession(session.zoomMeetingId)
+      .cancelUpCommingSession(session.zoomMeetingId, this.userRole as Role)
       .pipe(
         showToastOnSuccess(this.toastService, {
           title: "Success",
