@@ -72,7 +72,7 @@ export class TimetableComponent implements OnInit {
           .getTimeTable(user.id as string, user.role)
           .pipe(
             map((sessions) =>
-              (sessions ?? []).filter((session) => session.canceled != null),
+              (sessions ?? []).filter((session) => session.canceled == null),
             ),
           );
       }),
@@ -104,7 +104,7 @@ export class TimetableComponent implements OnInit {
       )
       .subscribe();
   }
-  isDisabled(session: any): boolean {
+  isDisabled(session: UpcomingSessionsDto): boolean {
     const sessionTime = new Date(session.sessionDateTime);
     return sessionTime > this.now;
   }

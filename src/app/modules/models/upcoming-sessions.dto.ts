@@ -1,9 +1,7 @@
 import { StudentAttendanceStatus } from "./session.dto";
 
 export interface UpcomingSessionsDto {
-  sessionDateTime: Date;
-  participantName: string;
-  courseName: string;
+  sessionDateTime: string;
   studentName: string;
   zoomMeeting: string;
   instructorName: string;
@@ -11,5 +9,5 @@ export interface UpcomingSessionsDto {
   uuid: string;
   studentId: string;
   instructorId: string;
-  canceled?: StudentAttendanceStatus;
+  canceled: StudentAttendanceStatus | null;
 }
