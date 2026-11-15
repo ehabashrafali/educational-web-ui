@@ -118,19 +118,19 @@ export class AuthService {
     const url = AuthController.SignInWithToken;
 
     return this._httpClient
-      .post<any>(url, { accessToken: this.accessToken })
+      .post<{ token: string }>(url, { accessToken: this.accessToken })
       .pipe(
         map((response) => {
-          if (!response?.token) {
+          if (typeof response?.token !== "string" || !response.token) {
             throw new Error("Token refresh failed");
           }
-          this.accessToken = response.token.result;
+          this.accessToken = response.token;
           this._accessToken$.next({
-            token: response.token.result,
+            token: response.token,
             isAuthenticated: true,
           });
 
-          const payload = AuthUtils._decodeToken(response.token.result);
+          const payload = AuthUtils._decodeToken(response.token);
 
           const CLAIMS = {
             ID: "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier",
