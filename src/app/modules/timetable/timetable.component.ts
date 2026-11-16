@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
+import {  Component, OnDestroy, OnInit } from "@angular/core";
 import { Role } from "app/core/user/user.types";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -20,7 +20,6 @@ import {
   Subject,
   switchMap,
   takeUntil,
-  tap,
   throwError,
 } from "rxjs";
 import {
@@ -44,22 +43,26 @@ import {
   styleUrl: "./timetable.component.scss",
   providers: [provideNativeDateAdapter()],
 })
-export class TimetableComponent implements OnInit {
+export class TimetableComponent implements OnInit , OnDestroy {
   userId?: string;
   userRole?: Role;
   sessions$!: Observable<UpcomingSessionsDto[]>;
-  now: Date = new Date();
+  now = Date.now();
   private destroy$ = new Subject<void>();
+  private nowTimer?: ReturnType<typeof setInterval>;
 
   constructor(
     private userService: UserService,
     private sessionService: SessionService,
     private toastService: ToastService,
   ) {
-    this.now = new Date();
   }
 
   ngOnInit(): void {
+     this.nowTimer = setInterval(() => {
+    this.now = Date.now();
+  }, 1_000);
+  
     this.sessions$ = this.userService.user$.pipe(
       filter((user): user is NonNullable<typeof user> => !!user),
       switchMap((user) => {
@@ -79,6 +82,11 @@ export class TimetableComponent implements OnInit {
       catchError(() => EMPTY),
     );
   }
+  ngOnDestroy(): void {
+  if (this.nowTimer !== undefined) {
+    clearInterval(this.nowTimer);
+  }
+}
 
   joinSession(session: UpcomingSessionsDto): void {
     if (!session.zoomMeeting) return;
@@ -104,8 +112,12 @@ export class TimetableComponent implements OnInit {
       )
       .subscribe();
   }
-  isDisabled(session: UpcomingSessionsDto): boolean {
-    const sessionTime = new Date(session.sessionDateTime);
-    return sessionTime > this.now;
-  }
+isEnabled(session: UpcomingSessionsDto): boolean {
+  const sessionTime = new Date(session.sessionDateTime).getTime();
+  const minute = 60_000;
+  const enabledFrom = sessionTime - 5 * minute;
+  const enabledUntil = sessionTime + 30 * minute;
+
+  return this.now >= enabledFrom && this.now <= enabledUntil;
+}
 }
