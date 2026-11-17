@@ -38,7 +38,7 @@
               <button
                 mat-flat-button
                 color="primary"
-                [disabled]="isDisabled(session)"
+                [disabled]="!isEnabled(session)"
                 (click)="joinSession(session)"
               >
                 Join
@@ -50,6 +50,16 @@
               >
                 Cancel
               </button>
+              @if (userRole === "Instructor") {
+              
+               <button
+                mat-flat-button
+                color="accent"
+                (click)="scheduleSession(session)"
+              >
+                Schedule
+              </button>
+            }
             </div>
           </div>
         </div>

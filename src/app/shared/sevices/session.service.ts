@@ -62,6 +62,12 @@ export class SessionService {
     const url = SessionController.getSessionById;
     return this._httpClient.get<SessionDto>(`${url}/${id}`);
   }
+  scheduleSession(meetingId: number, newDateTime: string) {
+    return this._httpClient.put<void>(SessionController.RescheduleSession, {
+      meetingId,
+      newDateTime,
+    });
+  }
   Update(id: string, sessionDto: SessionDto) {
     const url = SessionController.Update;
     return this._httpClient.put(`${url}/${id}`, sessionDto);

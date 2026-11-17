@@ -1,0 +1,68 @@
+import { Component, DestroyRef, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DateTime } from 'luxon';
+import { finalize } from 'rxjs';
+import { SessionService } from 'app/shared/sevices/session.service';
+import { ToastService } from 'app/shared/sevices/toasts.service';
+import { UpcomingSessionsDto } from '../models/upcoming-sessions.dto';
+
+@Component({
+  selector: 'app-schedule-session-dialog',
+  standalone: true,
+  imports: [ReactiveFormsModule, MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  templateUrl: "./schedule-session-dialog.component.html",
+})
+export class ScheduleSessionDialogComponent {
+  private session = inject<UpcomingSessionsDto>(MAT_DIALOG_DATA);
+  private dialogRef = inject(MatDialogRef<ScheduleSessionDialogComponent, string>);
+  private sessionService = inject(SessionService);
+  private toastService = inject(ToastService);
+  private destroyRef = inject(DestroyRef);
+  private initialTime = DateTime.fromISO(this.session.sessionDateTime).toLocal();
+  readonly timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  readonly form = new FormGroup({
+    date: new FormControl(this.initialTime.toISODate() ?? '', { nonNullable: true, validators: [Validators.required] }),
+    time: new FormControl(this.initialTime.isValid ? this.initialTime.toFormat('HH:mm') : '', { nonNullable: true, validators: [Validators.required] }),
+  });
+  saving = false;
+  error = '';
+
+  save(): void {
+    if (this.saving) return;
+    this.form.markAllAsTouched();
+    if (this.form.invalid) return;
+
+    const { date, time } = this.form.getRawValue();
+    const selected = DateTime.fromISO(`${date}T${time}`);
+    if (!selected.isValid || selected.toFormat('yyyy-MM-dd\'T\'HH:mm') !== `${date}T${time}`) {
+      this.error = 'Select a valid date and time in your timezone.';
+      return;
+    }
+    const newDateTime = selected.toUTC().toISO()!;
+    this.error = '';
+    this.saving = true;
+    this.dialogRef.disableClose = true;
+    this.sessionService.scheduleSession(this.session.zoomMeetingId, newDateTime)
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        finalize(() => {
+          this.saving = false;
+          this.dialogRef.disableClose = false;
+        }),
+      )
+      .subscribe({
+        next: () => {
+          this.toastService.success({ title: 'Success', message: 'The session has been rescheduled successfully.' });
+          this.dialogRef.close(newDateTime);
+        },
+        error: () => {
+          this.error = 'Could not reschedule the session. Please try again.';
+        },
+      });
+  }
+}

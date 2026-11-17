@@ -33,6 +33,10 @@ export const SessionController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/time-table`;
   },
+  get RescheduleSession() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/reschedule-session`;
+  },
   get CancelUpCommingSession() {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/cancel-upcomming-session`;
