@@ -1,3 +1,4 @@
+import { APPOINTMENT_TIME_PATTERN } from "app/shared/helpers/appointment-time";
 import { AsyncPipe, NgClass, NgFor } from "@angular/common";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import {
@@ -80,7 +81,10 @@ export class CreateStudentComponent implements OnInit {
       this.fb.group({
         uid: this.nextUid(),
         day: ["", Validators.required],
-        time: [0, Validators.required],
+        time: [
+          "",
+          [Validators.required, Validators.pattern(APPOINTMENT_TIME_PATTERN)],
+        ],
         timeZone: [""],
       }),
     );
@@ -151,7 +155,7 @@ export class CreateStudentComponent implements OnInit {
         weeklyAppointments: formValue.weeklyAppointments.map(
           (appointment: any) => ({
             day: appointment.day.toString(),
-            time: appointment.time?.toString(),
+            time: appointment.time,
             timeZone: this.timeZone,
           }),
         ),

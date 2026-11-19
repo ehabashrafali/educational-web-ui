@@ -1,3 +1,4 @@
+import { normalizeAppointmentTime } from "./appointment-time";
 import { WeeklyAppointmentDto } from "app/modules/models/weekly.appointment.dto";
 import { DateTime } from "luxon";
 
@@ -15,32 +16,40 @@ export function convertWeeklyAppointmentToClients(
   appointment: WeeklyAppointmentDto,
   clientZone: string = Intl.DateTimeFormat().resolvedOptions().timeZone,
 ): WeeklyAppointmentDto {
-  const [hourPart, minutePart] = appointment.time.toString().split(".");
-
-  const hour = Number(hourPart);
-  const minute = minutePart ? Number(minutePart.padEnd(2, "0")) : 0;
+  const time = normalizeAppointmentTime(appointment.time);
+  if (!time || !dayMap[appointment.day]) {
+    return { ...appointment, time: "" };
+  }
+  const [hour, minute, second = 0] = time
+    .split(":")
+    .map(Number);
   const egyptDateTime = DateTime.now()
     .setZone("Africa/Cairo")
     .set({
       weekday: dayMap[appointment.day] as any,
       hour,
       minute,
-      second: 0,
+      second,
       millisecond: 0,
     });
 
   const clientDateTime = egyptDateTime.setZone(clientZone);
 
+  if (!clientDateTime.isValid) {
+    return { ...appointment, time: "" };
+  }
+
   return {
     day: clientDateTime.toFormat("cccc"),
-    time: clientDateTime.toFormat("HH:mm"),
+    time: clientDateTime.toFormat(time.length === 8 ? "HH:mm:ss" : "HH:mm"),
     timeZone: clientZone,
   };
 }
 export function convertTo12HourFormat(time: string): string {
-  const [hourStr, minute] = time.split(":");
-  let hour = parseInt(hourStr, 10);
+  const normalized = normalizeAppointmentTime(time);
+  if (!normalized) return "-";
+  const [hourStr, minute, second] = normalized.split(":");
+  const hour = Number(hourStr);
   const ampm = hour >= 12 ? "PM" : "AM";
-  hour = hour % 12 || 12;
-  return `${hour}:${minute ?? "00"} ${ampm}`;
+  return `${hour % 12 || 12}:${minute}${second === undefined ? "" : `:${second}`} ${ampm}`;
 }

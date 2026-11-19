@@ -1,3 +1,7 @@
+import {
+  APPOINTMENT_TIME_PATTERN,
+  normalizeAppointmentTime,
+} from "app/shared/helpers/appointment-time";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { StudentService } from "app/shared/sevices/student.service";
 import { ActivatedRoute } from "@angular/router";
@@ -93,8 +97,12 @@ export class EditStudentComponent implements OnInit {
     rows.push(
       this.fb.group({
         uid: this.nextUid(),
+        timeZone: ["Africa/Cairo"],
         day: ["", Validators.required],
-        time: [0, Validators.required],
+        time: [
+          "",
+          [Validators.required, Validators.pattern(APPOINTMENT_TIME_PATTERN)],
+        ],
       }),
     );
   }
@@ -168,8 +176,12 @@ export class EditStudentComponent implements OnInit {
             this.weeklyAppointments.push(
               this.fb.group({
                 uid: this.nextUid(),
-                day: [appt.day],
-                time: [appt.time],
+                day: [appt.day, Validators.required],
+                time: [
+                  normalizeAppointmentTime(appt.time),
+                  [Validators.required, Validators.pattern(APPOINTMENT_TIME_PATTERN)],
+                ],
+                timeZone: [appt.timeZone],
               }),
             );
           });
@@ -187,7 +199,8 @@ export class EditStudentComponent implements OnInit {
         weeklyAppointments: this.editStudentForm.value.weeklyAppointments.map(
           (appointment: any) => ({
             day: appointment.day,
-            time: appointment.time?.toString(),
+            time: appointment.time,
+            timeZone: appointment.timeZone,
           }),
         ),
       };
