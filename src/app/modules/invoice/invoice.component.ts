@@ -177,7 +177,8 @@ export class InvoiceComponent implements OnInit {
 
       const x = (pageWidth - imgWidth) / 2;
 
-      const y = pageHeight - imgHeight;
+      // Keep the original invoice layout, positioned near the top of the page.
+      const y = 10;
 
       pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
 
