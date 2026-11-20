@@ -125,6 +125,16 @@ export class TimetableComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (!this.isCancelEnabled(session)) {
+      this.toastService.error({
+        title: "Cancellation unavailable",
+        message: this.userRole === Role.Student
+          ? "Students can only cancel sessions at least two hours before their start time."
+          : "Instructors can only cancel sessions at least six hours before their start time.",
+      });
+      return;
+    }
+
     this.sessionService
       .cancelUpCommingSession(session.zoomMeetingId, this.userRole)
       .pipe(
@@ -133,10 +143,10 @@ export class TimetableComponent implements OnInit, OnDestroy {
           message: "The session has been canceled successfully.",
         }),
         tap(() => this.refreshSessions$.next()),
-        catchError(() => {
+        catchError((error) => {
           this.toastService.error({
             title: "Error",
-            message: "Failed to cancel session.",
+            message: error.error?.Message || "Failed to cancel session.",
           });
 
           return EMPTY;
@@ -147,13 +157,27 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   isEnabled(session: UpcomingSessionsDto): boolean {
+    // const sessionTime = new Date(session.sessionDateTime).getTime();
+    // const minute = 60_000;
+
+    // const enabledFrom = sessionTime - 5 * minute;
+    // const enabledUntil = sessionTime + 30 * minute;
+
+    // return this.now >= enabledFrom && this.now <= enabledUntil;
+    return true;
+  }
+  isCancelEnabled(session: UpcomingSessionsDto): boolean {
+    if (this.userRole !== Role.Student && this.userRole !== Role.Instructor) return false;
+    const noticeHours = this.userRole === Role.Student ? 2 : 6;
+    return session.canceled == null &&
+      this.now <= new Date(session.sessionDateTime).getTime() - noticeHours * 60 * 60_000;
+  }
+  isScheduleEnabled(session: UpcomingSessionsDto): boolean {
     const sessionTime = new Date(session.sessionDateTime).getTime();
     const minute = 60_000;
 
-    const enabledFrom = sessionTime - 5 * minute;
-    const enabledUntil = sessionTime + 30 * minute;
-
-    return this.now >= enabledFrom && this.now <= enabledUntil;
+    const enabledUntil = sessionTime - 120 * minute;
+    return this.now <= enabledUntil;
   }
 
   scheduleSession(session: UpcomingSessionsDto): void {

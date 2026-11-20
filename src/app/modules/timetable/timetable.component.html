@@ -46,6 +46,7 @@
               <button
                 mat-flat-button
                 color="warn"
+                [disabled]="!isCancelEnabled(session)"
                 (click)="cancelSession(session)"
               >
                 Cancel
@@ -56,6 +57,7 @@
                 mat-flat-button
                 color="accent"
                 (click)="scheduleSession(session)"
+                [disabled]="!isScheduleEnabled(session)"
               >
                 Schedule
               </button>
