@@ -157,14 +157,13 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   isEnabled(session: UpcomingSessionsDto): boolean {
-    // const sessionTime = new Date(session.sessionDateTime).getTime();
-    // const minute = 60_000;
+    const sessionTime = new Date(session.sessionDateTime).getTime();
+    const minute = 60_000;
 
-    // const enabledFrom = sessionTime - 5 * minute;
-    // const enabledUntil = sessionTime + 30 * minute;
+    const enabledFrom = sessionTime - 5 * minute;
+    const enabledUntil = sessionTime + 30 * minute;
 
-    // return this.now >= enabledFrom && this.now <= enabledUntil;
-    return true;
+    return this.now >= enabledFrom && this.now <= enabledUntil;
   }
   isCancelEnabled(session: UpcomingSessionsDto): boolean {
     if (this.userRole !== Role.Student && this.userRole !== Role.Instructor) return false;
