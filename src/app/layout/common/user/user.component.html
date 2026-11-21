@@ -71,13 +71,13 @@
           <mat-icon [svgIcon]="'heroicons_outline:calendar-days'"></mat-icon>
           <span>Sessions Management</span>
         </button>
-      }
-
-      @if (user.role === "Admin") {
-        <button mat-menu-item (click)="getStudentsList()">
+         <button mat-menu-item (click)="getStudentsList()">
           <mat-icon [svgIcon]="'heroicons_outline:queue-list'"></mat-icon>
           <span>Students</span>
         </button>
+      }
+
+      @if (user.role === "Admin") {
         <button mat-menu-item (click)="getInstructorsList()">
           <mat-icon [svgIcon]="'heroicons_outline:users'"></mat-icon>
           <span>Instructors</span>

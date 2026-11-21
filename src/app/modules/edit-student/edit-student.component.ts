@@ -39,6 +39,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { InstrctorDto } from "../models/instructor.dto";
+import { SessionDuration } from "../models/session.dto";
 
 @Component({
   selector: "app-edit-student",
@@ -83,7 +84,8 @@ export class EditStudentComponent implements OnInit {
   dataSource: MatTableDataSource<AbstractControl>;
 
   @ViewChild("table") table: MatTable<any>;
-  displayedColumns = ["day", "time", "actions"];
+  displayedColumns = ["day", "time", "duration", "actions"];
+  readonly SessionDuration = SessionDuration;
   uid = 0;
   trackRows(index: number, row: AbstractControl) {
     return row.value.uid;
@@ -97,6 +99,7 @@ export class EditStudentComponent implements OnInit {
     rows.push(
       this.fb.group({
         uid: this.nextUid(),
+        duration: [SessionDuration.ThirtyMinutes, Validators.required],
         timeZone: ["Africa/Cairo"],
         day: ["", Validators.required],
         time: [
@@ -177,6 +180,7 @@ export class EditStudentComponent implements OnInit {
               this.fb.group({
                 uid: this.nextUid(),
                 day: [appt.day, Validators.required],
+                duration: [appt.duration ?? SessionDuration.ThirtyMinutes, Validators.required],
                 time: [
                   normalizeAppointmentTime(appt.time),
                   [Validators.required, Validators.pattern(APPOINTMENT_TIME_PATTERN)],
@@ -200,6 +204,7 @@ export class EditStudentComponent implements OnInit {
           (appointment: any) => ({
             day: appointment.day,
             time: appointment.time,
+            duration: appointment.duration,
             timeZone: appointment.timeZone,
           }),
         ),

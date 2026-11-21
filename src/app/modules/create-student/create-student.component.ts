@@ -16,6 +16,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { InstrctorDto } from "../models/instructor.dto";
+import { SessionDuration } from "../models/session.dto";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import {
   showToastOnSuccess,
@@ -66,6 +67,7 @@ export class CreateStudentComponent implements OnInit {
 
   @ViewChild("table") table: MatTable<any>;
 
+  readonly SessionDuration = SessionDuration;
   uid = 0;
   timeZone: string;
   trackRows(index: number, row: AbstractControl) {
@@ -80,6 +82,7 @@ export class CreateStudentComponent implements OnInit {
     rows.push(
       this.fb.group({
         uid: this.nextUid(),
+        duration: [SessionDuration.ThirtyMinutes, Validators.required],
         day: ["", Validators.required],
         time: [
           "",
@@ -108,7 +111,7 @@ export class CreateStudentComponent implements OnInit {
     }
   }
 
-  displayedColumns = ["day", "time", "actions"];
+  displayedColumns = ["day", "time", "duration", "actions"];
 
   weekDays = [
     "Sunday",
@@ -156,6 +159,7 @@ export class CreateStudentComponent implements OnInit {
           (appointment: any) => ({
             day: appointment.day.toString(),
             time: appointment.time,
+            duration: appointment.duration,
             timeZone: this.timeZone,
           }),
         ),

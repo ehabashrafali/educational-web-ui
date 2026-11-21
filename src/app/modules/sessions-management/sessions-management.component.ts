@@ -26,7 +26,11 @@ import {
   ToastService,
 } from "app/shared/sevices/toasts.service";
 import { GetSessionsResult } from "../models/get-sessions-result";
-import { SessionDto } from "../models/session.dto";
+import {
+  InstructorAttendanceStatus,
+  SessionDto,
+  StudentAttendanceStatus,
+} from "../models/session.dto";
 import { MatSelectModule } from "@angular/material/select";
 
 @Component({
@@ -60,11 +64,27 @@ export class SessionsManagementComponent
     "Date",
     "InstructorName",
     "StudentName",
+    "StudentSessionStatus",
+    "InstructorSessionStatus",
     "Duration",
     "Actions",
   ];
 
   dataSource = new MatTableDataSource<SessionDto>([]);
+
+  readonly studentStatusLabels: Record<StudentAttendanceStatus, string> = {
+    [StudentAttendanceStatus.Attend]: "Attend",
+    [StudentAttendanceStatus.Absent]: "Absent",
+    [StudentAttendanceStatus.Cancelled]: "Cancelled",
+    [StudentAttendanceStatus.CancelledByInstructor]: "Cancelled by instructor",
+  };
+
+  readonly instructorStatusLabels: Record<InstructorAttendanceStatus, string> = {
+    [InstructorAttendanceStatus.Attend]: "Attend",
+    [InstructorAttendanceStatus.Absent]: "Absent",
+    [InstructorAttendanceStatus.Late]: "Late",
+    [InstructorAttendanceStatus.Cancelled]: "Cancelled",
+  };
 
   private destroy$ = new Subject<void>();
   private filterSubject$ = new Subject<string>();
@@ -109,6 +129,10 @@ export class SessionsManagementComponent
           return item.instructorName?.toLowerCase() || "";
         case "StudentName":
           return item.studentName?.toLowerCase() || "";
+        case "StudentSessionStatus":
+          return this.studentStatusLabels[item.studentSessionStatus]?.toLowerCase() || "";
+        case "InstructorSessionStatus":
+          return this.instructorStatusLabels[item.instructorSessionStatus]?.toLowerCase() || "";
         case "Duration":
           return item.duration ?? 0;
         default:
@@ -122,6 +146,8 @@ export class SessionsManagementComponent
       return (
         data.instructorName?.toLowerCase().includes(normalizedFilter) ||
         data.studentName?.toLowerCase().includes(normalizedFilter) ||
+        this.studentStatusLabels[data.studentSessionStatus]?.toLowerCase().includes(normalizedFilter) ||
+        this.instructorStatusLabels[data.instructorSessionStatus]?.toLowerCase().includes(normalizedFilter) ||
         data.duration?.toString().toLowerCase().includes(normalizedFilter) ||
         (data.date
           ? new Date(data.date)

@@ -98,6 +98,26 @@
             </mat-cell>
           </ng-container>
 
+          <!-- Duration Column -->
+          <ng-container matColumnDef="duration">
+            <mat-header-cell *matHeaderCellDef>Duration</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <ng-container [formGroup]="row">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Session Duration</mat-label>
+                  <mat-select formControlName="duration">
+                    @for (duration of SessionDuration | enumToList; track duration.id) {
+                      <mat-option [value]="duration.id">
+                        {{ duration.name | humanize: " " }}
+                      </mat-option>
+                    }
+                  </mat-select>
+                  <mat-error>Select a session duration.</mat-error>
+                </mat-form-field>
+              </ng-container>
+            </mat-cell>
+          </ng-container>
+
           <!-- Actions Column -->
           <ng-container matColumnDef="actions">
             <mat-header-cell *matHeaderCellDef class="flex justify-center">
