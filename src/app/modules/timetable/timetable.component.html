@@ -51,17 +51,14 @@
               >
                 Cancel
               </button>
-              @if (userRole === "Instructor") {
-              
-               <button
+              <button
                 mat-flat-button
                 color="accent"
                 (click)="scheduleSession(session)"
                 [disabled]="!isScheduleEnabled(session)"
               >
-                Schedule
+                Reschedule
               </button>
-            }
             </div>
           </div>
         </div>

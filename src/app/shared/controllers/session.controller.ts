@@ -41,4 +41,8 @@ export const SessionController = {
     const baseUrl = environment.Config?.crescentUrls?.baseUrl;
     return `${baseUrl}/api/sessions/cancel-upcomming-session`;
   },
+  get SetAsPending() {
+    const baseUrl = environment.Config?.crescentUrls?.baseUrl;
+    return `${baseUrl}/api/sessions/set-as-pending`;
+  },
 };

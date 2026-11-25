@@ -2,7 +2,6 @@ import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { SessionController } from "../controllers/session.controller";
 import { SessionDto } from "app/modules/models/session.dto";
-import { DateTime } from "luxon";
 import { Role } from "app/core/user/user.types";
 import { GetSessionsResult } from "app/modules/models/get-sessions-result";
 import { UpcomingSessionsDto } from "app/modules/models/upcoming-sessions.dto";
@@ -71,5 +70,9 @@ export class SessionService {
   Update(id: string, sessionDto: SessionDto) {
     const url = SessionController.Update;
     return this._httpClient.put(`${url}/${id}`, sessionDto);
+  }
+  SetAsPending(meetingId: number) {
+    const url = SessionController.SetAsPending;
+    return this._httpClient.put(`${url}/${meetingId}`, {});
   }
 }

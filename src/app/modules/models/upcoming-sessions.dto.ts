@@ -10,4 +10,5 @@ export interface UpcomingSessionsDto {
   studentId: string;
   instructorId: string;
   canceled: StudentAttendanceStatus | null;
+  isPendingReschedule: boolean;
 }

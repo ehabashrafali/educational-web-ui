@@ -93,7 +93,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
             this.sessionService.getTimeTable(userId, userRole).pipe(
               map((sessions) =>
                 (sessions ?? []).filter(
-                  (session) => session.canceled == null && new Date(session.sessionDateTime).getTime() > this.now
+                  (session) =>
+                    session.canceled == null &&
+                    new Date(session.sessionDateTime).getTime() > this.now,
                 ),
               ),
               catchError(() => {
@@ -128,9 +130,10 @@ export class TimetableComponent implements OnInit, OnDestroy {
     if (!this.isCancelEnabled(session)) {
       this.toastService.error({
         title: "Cancellation unavailable",
-        message: this.userRole === Role.Student
-          ? "Students can only cancel sessions at least two hours before their start time."
-          : "Instructors can only cancel sessions at least six hours before their start time.",
+        message:
+          this.userRole === Role.Student
+            ? "Students can only cancel sessions at least two hours before their start time."
+            : "Instructors can only cancel sessions at least six hours before their start time.",
       });
       return;
     }
@@ -157,6 +160,9 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   isEnabled(session: UpcomingSessionsDto): boolean {
+    if (session.isPendingReschedule) {
+      return false;
+    }
     const sessionTime = new Date(session.sessionDateTime).getTime();
     const minute = 60_000;
 
@@ -166,12 +172,25 @@ export class TimetableComponent implements OnInit, OnDestroy {
     return this.now >= enabledFrom && this.now <= enabledUntil;
   }
   isCancelEnabled(session: UpcomingSessionsDto): boolean {
-    if (this.userRole !== Role.Student && this.userRole !== Role.Instructor) return false;
+    if (
+      (this.userRole !== Role.Student && this.userRole !== Role.Instructor) ||
+      session.isPendingReschedule
+    )
+      return false;
     const noticeHours = this.userRole === Role.Student ? 2 : 6;
-    return session.canceled == null &&
-      this.now <= new Date(session.sessionDateTime).getTime() - noticeHours * 60 * 60_000;
+    return (
+      session.canceled == null &&
+      this.now <=
+        new Date(session.sessionDateTime).getTime() - noticeHours * 60 * 60_000
+    );
   }
   isScheduleEnabled(session: UpcomingSessionsDto): boolean {
+    if (this.userRole == Role.Student && session.isPendingReschedule) {
+      return false;
+    }
+    if (session.isPendingReschedule) {
+      return false;
+    }
     const sessionTime = new Date(session.sessionDateTime).getTime();
     const minute = 60_000;
 
@@ -180,6 +199,38 @@ export class TimetableComponent implements OnInit, OnDestroy {
   }
 
   scheduleSession(session: UpcomingSessionsDto): void {
+    if (this.userRole === Role.Instructor) {
+      this.scheduleSessionByInstructor(session);
+    }
+    if (this.userRole === Role.Student) {
+      this.setSessionAsPending(session);
+    }
+  }
+  setSessionAsPending(session: UpcomingSessionsDto): void {
+    this.sessionService
+      .SetAsPending(session.zoomMeetingId)
+      .pipe(
+        showToastOnSuccess(this.toastService, {
+          title: "Success",
+          message:
+            "The session has been set as pending reschedule successfully.",
+        }),
+        tap(() => this.refreshSessions$.next()),
+        catchError((error) => {
+          this.toastService.error({
+            title: "Error",
+            message:
+              error.error?.Message ||
+              "Failed to set session as pending reschedule.",
+          });
+
+          return EMPTY;
+        }),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+  }
+  scheduleSessionByInstructor(session: UpcomingSessionsDto): void {
     this.dialogRef = this.dialog.open(ScheduleSessionDialogComponent, {
       width: "440px",
       maxWidth: "95vw",
