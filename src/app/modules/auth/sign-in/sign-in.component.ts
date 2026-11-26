@@ -94,12 +94,15 @@ export class AuthSignInComponent implements OnInit {
     this._authService
       .signIn(this.signInForm.value)
       .pipe(
-        tap(() => {
-          const redirectURL =
-            this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
-            "/signed-in-redirect";
+        // tap(() => {
+        //   const redirectURL =
+        //     this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
+        //     "/timetable";
 
-          this._router.navigateByUrl(redirectURL);
+        //   this._router.navigateByUrl(redirectURL);
+        // }),
+        tap(() => {
+          void this._router.navigateByUrl("/timetable");
         }),
         catchError((response) => {
           this.signInForm.enable();

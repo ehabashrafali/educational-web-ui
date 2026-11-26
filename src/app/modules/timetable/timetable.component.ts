@@ -10,6 +10,7 @@ import { FuseCardComponent } from "@fuse/components/card";
 import { UserService } from "app/core/user/user.service";
 import { Role } from "app/core/user/user.types";
 import { SessionService } from "app/shared/sevices/session.service";
+import { MatTooltipModule } from "@angular/material/tooltip";
 import {
   showToastOnSuccess,
   ToastService,
@@ -44,6 +45,7 @@ import { ScheduleSessionDialogComponent } from "./schedule-session-dialog.compon
     MatDatepickerModule,
     AsyncPipe,
     PipesModule,
+    MatTooltipModule,
   ],
   templateUrl: "./timetable.component.html",
   styleUrl: "./timetable.component.scss",
@@ -188,9 +190,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     if (this.userRole == Role.Student && session.isPendingReschedule) {
       return false;
     }
-    if (session.isPendingReschedule) {
-      return false;
-    }
+
     const sessionTime = new Date(session.sessionDateTime).getTime();
     const minute = 60_000;
 
@@ -257,5 +257,45 @@ export class TimetableComponent implements OnInit, OnDestroy {
     if (this.nowTimer !== undefined) {
       clearInterval(this.nowTimer);
     }
+  }
+
+  getJoinTooltip(session: UpcomingSessionsDto): string {
+    if (session.isPendingReschedule) {
+      return "You can join once the session has been rescheduled.";
+    }
+
+    const sessionTime = new Date(session.sessionDateTime).getTime();
+
+    return this.now < sessionTime - 5 * 60_000
+      ? "You can join starting 5 minutes before the session."
+      : "The join window closed 30 minutes after the session started.";
+  }
+
+  getCancelTooltip(session: UpcomingSessionsDto): string {
+    if (session.canceled != null) {
+      return "This session has already been canceled.";
+    }
+
+    if (session.isPendingReschedule) {
+      return "This session is pending rescheduling and cannot be canceled.";
+    }
+
+    if (this.userRole === Role.Student) {
+      return "Students can cancel up to 2 hours before the session starts.";
+    }
+
+    if (this.userRole === Role.Instructor) {
+      return "Instructors can cancel up to 6 hours before the session starts.";
+    }
+
+    return "Your role does not have permission to cancel sessions.";
+  }
+
+  getRescheduleTooltip(session: UpcomingSessionsDto): string {
+    if (this.userRole === Role.Student && session.isPendingReschedule) {
+      return "A reschedule request is already pending.";
+    }
+
+    return "Sessions can be rescheduled up to 2 hours before they start.";
   }
 }

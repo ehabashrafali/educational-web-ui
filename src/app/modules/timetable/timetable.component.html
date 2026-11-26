@@ -35,30 +35,53 @@
             </div>
 
             <div class="ml-auto flex items-start gap-2">
-              <button
-                mat-flat-button
-                color="primary"
-                [disabled]="!isEnabled(session)"
-                (click)="joinSession(session)"
+              <span
+                class="inline-flex"
+                [matTooltip]="getJoinTooltip(session)"
+                [matTooltipDisabled]="isEnabled(session)"
+                [attr.tabindex]="isEnabled(session) ? null : 0"
               >
-                Join
-              </button>
-              <button
-                mat-flat-button
-                color="warn"
-                [disabled]="!isCancelEnabled(session)"
-                (click)="cancelSession(session)"
+                <button
+                  mat-flat-button
+                  color="primary"
+                  [disabled]="!isEnabled(session)"
+                  (click)="joinSession(session)"
+                >
+                  Join
+                </button>
+              </span>
+
+              <span
+                class="inline-flex"
+                [matTooltip]="getCancelTooltip(session)"
+                [matTooltipDisabled]="isCancelEnabled(session)"
+                [attr.tabindex]="isCancelEnabled(session) ? null : 0"
               >
-                Cancel
-              </button>
-              <button
-                mat-flat-button
-                color="accent"
-                (click)="scheduleSession(session)"
-                [disabled]="!isScheduleEnabled(session)"
+                <button
+                  mat-flat-button
+                  color="warn"
+                  [disabled]="!isCancelEnabled(session)"
+                  (click)="cancelSession(session)"
+                >
+                  Cancel
+                </button>
+              </span>
+
+              <span
+                class="inline-flex"
+                [matTooltip]="getRescheduleTooltip(session)"
+                [matTooltipDisabled]="isScheduleEnabled(session)"
+                [attr.tabindex]="isScheduleEnabled(session) ? null : 0"
               >
-                Reschedule
-              </button>
+                <button
+                  mat-flat-button
+                  color="accent"
+                  [disabled]="!isScheduleEnabled(session)"
+                  (click)="scheduleSession(session)"
+                >
+                  Reschedule
+                </button>
+              </span>
             </div>
           </div>
         </div>
