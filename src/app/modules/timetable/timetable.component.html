@@ -1,91 +1,119 @@
-<div class="grid w-full justify-items-center">
-  <div class="flex justify-between mb-3 w-full">
-    <p class="text-4xl ms-10 mt-5 font-semibold">Timetable</p>
-  </div>
-  <div class="w-full">
-    @for (session of sessions$ | async; track session) {
-      <fuse-card
-        class="filter-listing mx-auto flex w-full max-w-[90%] md:max-w-[80%] flex-col md:flex-row mb-4"
+@if (sessions$ | async; as sessions) {
+  <div class="mx-auto w-full max-w-5xl px-4 py-8 md:px-8">
+    <div class="mb-8 flex items-end justify-between">
+      <div>
+        <p class="text-4xl mt-5 font-semibold">Timetable</p>
+        <p class="text-secondary mt-1">Your upcoming sessions</p>
+      </div>
+      <span
+        class="bg-primary-50 text-primary-700 rounded-full px-4 py-1 text-sm font-medium"
       >
-        <div class="m-8 mb-4 flex flex-auto flex-col">
-          <div class="text-lg font-medium text-dark mb-2">
-            {{ session.sessionDateTime | datetime }}
+        {{ sessions.length }} upcoming
+      </span>
+    </div>
+
+    @for (session of sessions; track session.zoomMeetingId) {
+      <div
+        class="session-card bg-card mb-4 flex flex-col gap-5 rounded-2xl p-5 shadow transition-shadow hover:shadow-lg md:flex-row md:items-center"
+        [class.session-card--live]="isEnabled(session)"
+        [class.session-card--pending]="session.isPendingReschedule"
+      >
+        <div class="min-w-0 flex-auto">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-xl font-semibold">{{
+              session.sessionDateTime | date: "h:mm a"
+            }}</span>
+            @if (isEnabled(session)) {
+              <span
+                class="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700"
+                >Live now</span
+              >
+            }
+            @if (session.isPendingReschedule) {
+              <span
+                class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700"
+                >Pending reschedule</span
+              >
+            }
           </div>
-
-          <div class="flex gap-4">
-            <div>
-              <img
-                class="h-[80%] w-full object-cover"
-                src="images/ui/angular-material/scenes/record-icon.png"
-                alt="session"
-              />
-            </div>
-
-            <div class="text-2xl font-semibold leading-tight">
-              @if (userRole === "Student") {
-                <div class="text-base text-[#8E8E8E] mt-2">
-                  Instructor: {{ session.instructorName }}
-                </div>
-              }
-              @if (userRole === "Instructor") {
-                <div class="text-base text-[#8E8E8E] mt-2">
-                  Student: {{ session.studentName }}
-                </div>
-              }
-            </div>
-
-            <div class="ml-auto flex items-start gap-2">
-              <span
-                class="inline-flex"
-                [matTooltip]="getJoinTooltip(session)"
-                [matTooltipDisabled]="isEnabled(session)"
-                [attr.tabindex]="isEnabled(session) ? null : 0"
-              >
-                <button
-                  mat-flat-button
-                  color="primary"
-                  [disabled]="!isEnabled(session)"
-                  (click)="joinSession(session)"
-                >
-                  Join
-                </button>
-              </span>
-
-              <span
-                class="inline-flex"
-                [matTooltip]="getCancelTooltip(session)"
-                [matTooltipDisabled]="isCancelEnabled(session)"
-                [attr.tabindex]="isCancelEnabled(session) ? null : 0"
-              >
-                <button
-                  mat-flat-button
-                  color="warn"
-                  [disabled]="!isCancelEnabled(session)"
-                  (click)="cancelSession(session)"
-                >
-                  Cancel
-                </button>
-              </span>
-
-              <span
-                class="inline-flex"
-                [matTooltip]="getRescheduleTooltip(session)"
-                [matTooltipDisabled]="isScheduleEnabled(session)"
-                [attr.tabindex]="isScheduleEnabled(session) ? null : 0"
-              >
-                <button
-                  mat-flat-button
-                  color="accent"
-                  [disabled]="!isScheduleEnabled(session)"
-                  (click)="scheduleSession(session)"
-                >
-                  Reschedule
-                </button>
-              </span>
-            </div>
+          <div class="text-secondary mt-1 flex items-center gap-2">
+            <mat-icon
+              class="icon-size-5"
+              svgIcon="heroicons_outline:user-circle"
+            ></mat-icon>
+            @if (userRole === "Student") {
+              <span>Instructor: {{ session.instructorName }}</span>
+            }
+            @if (userRole === "Instructor") {
+              <span>Student: {{ session.studentName }}</span>
+            }
           </div>
         </div>
-      </fuse-card>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <span
+            class="inline-flex"
+            [matTooltip]="getJoinTooltip(session)"
+            [matTooltipDisabled]="isEnabled(session)"
+            [attr.tabindex]="isEnabled(session) ? null : 0"
+          >
+            <button
+              mat-flat-button
+              color="primary"
+              [disabled]="!isEnabled(session)"
+              (click)="joinSession(session)"
+            >
+              <mat-icon svgIcon="heroicons_outline:video-camera"></mat-icon>
+              Join
+            </button>
+          </span>
+
+          <span
+            class="inline-flex"
+            [matTooltip]="getRescheduleTooltip(session)"
+            [matTooltipDisabled]="isScheduleEnabled(session)"
+            [attr.tabindex]="isScheduleEnabled(session) ? null : 0"
+          >
+            <button
+              mat-stroked-button
+              color="accent"
+              [disabled]="!isScheduleEnabled(session)"
+              (click)="scheduleSession(session)"
+            >
+              Reschedule
+            </button>
+          </span>
+
+          <span
+            class="inline-flex"
+            [matTooltip]="getCancelTooltip(session)"
+            [matTooltipDisabled]="isCancelEnabled(session)"
+            [attr.tabindex]="isCancelEnabled(session) ? null : 0"
+          >
+            <button
+              mat-stroked-button
+              color="warn"
+              [disabled]="!isCancelEnabled(session)"
+              (click)="cancelSession(session)"
+            >
+              Cancel
+            </button>
+          </span>
+        </div>
+      </div>
+    } @empty {
+      <div
+        class="bg-card flex flex-col items-center rounded-2xl py-16 text-center shadow"
+      >
+        <mat-icon
+          class="icon-size-16 text-hint"
+          svgIcon="heroicons_outline:calendar"
+        ></mat-icon>
+        <p class="mt-4 text-xl font-semibold">No upcoming sessions</p>
+        <p class="text-secondary">
+          New sessions will appear here once scheduled.
+        </p>
+      </div>
     }
   </div>
-</div>
+}

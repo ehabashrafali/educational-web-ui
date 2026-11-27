@@ -1,4 +1,4 @@
-import { AsyncPipe } from "@angular/common";
+import { AsyncPipe, DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { provideNativeDateAdapter } from "@angular/material/core";
@@ -44,6 +44,7 @@ import { ScheduleSessionDialogComponent } from "./schedule-session-dialog.compon
     MatFormFieldModule,
     MatDatepickerModule,
     AsyncPipe,
+    DatePipe,
     PipesModule,
     MatTooltipModule,
   ],

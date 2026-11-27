@@ -1,0 +1,11 @@
+.session-card {
+  border-left: 4px solid transparent;
+
+  &--live {
+    border-left-color: #16a34a;
+  }
+
+  &--pending {
+    border-left-color: #f59e0b;
+  }
+}
