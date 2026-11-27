@@ -25,7 +25,7 @@ export enum InstructorAttendanceStatus {
 }
 
 export enum SessionDuration {
-  ZeroMinutes = 0,
+  FifteenMinutes = 15,
   ThirtyMinutes = 30,
   FortyFiveMinutes = 45,
   SixtyMinutes = 60,
