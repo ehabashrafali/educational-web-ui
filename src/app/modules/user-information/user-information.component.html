@@ -1,112 +1,148 @@
-<div class="grid max-w-screen w-full mb-10">
-  <div class="flex mb-4 gap-4 items-center w-full">
+<div class="mx-auto w-full max-w-4xl px-4 py-8 md:px-8">
+  <div class="mb-6 flex items-center gap-3">
     <button
       mat-icon-button
-      class="text-gray-700 transition hover:opacity-75 dark:text-gray-200 ms-6 mt-2"
+      class="text-gray-700 transition hover:opacity-75 dark:text-gray-200"
       (click)="goBack()"
       aria-label="Go back"
     >
       <mat-icon svgIcon="heroicons_outline:arrow-left"></mat-icon>
     </button>
-
-    <p class="text-4xl mt-5 mb-5 font-semibold">Your Information</p>
+    <h1 class="text-4xl font-semibold tracking-tight">
+      {{ studentId ? "Student Information" : "Your Information" }}
+    </h1>
   </div>
 
-  <div class="flex justify-center max-w-fit me-10 ms-20">
-    <fuse-card class="max-w-fit w-full bg-card rounded-2xl shadow">
-      <div class="ms-4 p-8 sm:p-6">
-        <div class="flex flex-col lg:flex-row">
-          <div class="mt-8 lg:mt-12 flex-1">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-x-6 gap-y-8">
-              <!-- Name -->
-              <div>
-                <div class="text-secondary opacity-70">Name</div>
-                <div class="mt-1 font-semibold">
-                  {{ userProfile?.fullName }}
-                </div>
-              </div>
+  <div class="bg-card overflow-hidden rounded-2xl shadow">
+    <!-- Header -->
+    <div
+      class="flex items-center gap-5 bg-gradient-to-r from-teal-900 to-teal-600 p-6 sm:p-8"
+    >
+      <div
+        class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white text-3xl font-bold uppercase text-teal-900 shadow"
+      >
+        {{ userProfile?.fullName?.charAt(0) || "?" }}
+      </div>
+      <div class="min-w-0 text-white">
+        <div class="truncate text-2xl font-semibold">
+          {{ userProfile?.fullName || "--" }}
+        </div>
+        <div class="mt-2 flex flex-wrap items-center gap-2">
+          @if (studentId || currentUser?.role) {
+            <span
+              class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-medium"
+            >
+              {{ studentId ? "Student" : currentUser?.role }}
+            </span>
+          }
+          <span
+            class="rounded-full px-3 py-0.5 text-xs font-medium"
+            [class]="
+              userProfile?.isActive
+                ? 'bg-green-100 text-green-700'
+                : 'bg-red-100 text-red-700'
+            "
+          >
+            {{ userProfile?.isActive ? "Active" : "Inactive" }}
+          </span>
+        </div>
+      </div>
+    </div>
 
-              <!-- Country -->
-              <div>
-                <div class="text-secondary opacity-70">Country/State</div>
-                <div class="mt-1 font-semibold">
-                  {{ userProfile?.country }}
-                </div>
-              </div>
-
-              <!-- Status -->
-              <div>
-                <div class="text-secondary opacity-70">Status</div>
-                <div class="mt-1 font-semibold">
-                  {{ userProfile?.isActive ? "Active" : "InActive" }}
-                </div>
-              </div>
-
-              <!-- Email -->
-              @if (!studentId) {
-                <div>
-                  <div class="text-secondary opacity-70">Email</div>
-                  <div class="mt-1 font-semibold">
-                    {{ userProfile?.email || "--" }}
-                  </div>
-                </div>
-              }
-
-              <!-- Fees -->
-              @if (currentUser?.role === "Student") {
-                <div>
-                  <div class="text-secondary opacity-70">Fees</div>
-                  <div class="mt-1 font-semibold">
-                    {{
-                      userProfile?.fees && userProfile?.fees !== 0
-                        ? userProfile?.fees
-                        : "--"
-                    }}
-                  </div>
-                </div>
-              }
-
-              <!-- Days & Times -->
-              @if (currentUser?.role === "Student" || studentId) {
-                <div>
-                  <div class="text-secondary opacity-70">Days & Times</div>
-                  <div class="mt-2 space-y-1 font-semibold">
-                    @if (!userProfile?.weeklyAppointments?.length) {
-                      --
-                    } @else {
-                      @for (
-                        appointment of userProfile.weeklyAppointments;
-                        track appointment
-                      ) {
-                        <div>
-                          {{
-                            convertWeeklyAppointmentToClient(appointment).day
-                          }},
-                          {{
-                            convertTo12HourFormat(
-                              convertWeeklyAppointmentToClient(appointment).time
-                            )
-                          }}
-                        </div>
-                      }
-                    }
-                  </div>
-                </div>
-              }
-
-              <!-- mobile phone -->
-              @if (!studentId) {
-                <div>
-                  <div class="text-secondary opacity-70">Phone Number</div>
-                  <div class="mt-1 font-semibold">
-                    {{ userProfile?.phoneNumber || "--" }}
-                  </div>
-                </div>
-              }
-            </div>
+    <!-- Details -->
+    <div class="grid grid-cols-1 gap-6 p-6 sm:grid-cols-2 sm:p-8">
+      <div class="flex items-start gap-3">
+        <mat-icon
+          class="icon-size-5 text-hint mt-0.5"
+          svgIcon="heroicons_outline:map-pin"
+        ></mat-icon>
+        <div>
+          <div class="text-secondary text-sm">Country/State</div>
+          <div class="mt-0.5 font-semibold">
+            {{ userProfile?.country || "--" }}
           </div>
         </div>
       </div>
-    </fuse-card>
+
+      @if (!studentId) {
+        <div class="flex items-start gap-3">
+          <mat-icon
+            class="icon-size-5 text-hint mt-0.5"
+            svgIcon="heroicons_outline:envelope"
+          ></mat-icon>
+          <div>
+            <div class="text-secondary text-sm">Email</div>
+            <div class="mt-0.5 break-all font-semibold">
+              {{ userProfile?.email || "--" }}
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-3">
+          <mat-icon
+            class="icon-size-5 text-hint mt-0.5"
+            svgIcon="heroicons_outline:phone"
+          ></mat-icon>
+          <div>
+            <div class="text-secondary text-sm">Phone Number</div>
+            <div class="mt-0.5 font-semibold">
+              {{ userProfile?.phoneNumber || "--" }}
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (currentUser?.role === "Student") {
+        <div class="flex items-start gap-3">
+          <mat-icon
+            class="icon-size-5 text-hint mt-0.5"
+            svgIcon="heroicons_outline:banknotes"
+          ></mat-icon>
+          <div>
+            <div class="text-secondary text-sm">Fees</div>
+            <div class="mt-0.5 font-semibold">
+              {{
+                userProfile?.fees && userProfile?.fees !== 0
+                  ? userProfile?.fees
+                  : "--"
+              }}
+            </div>
+          </div>
+        </div>
+      }
+
+      @if (currentUser?.role === "Student" || studentId) {
+        <div class="flex items-start gap-3 sm:col-span-2">
+          <mat-icon
+            class="icon-size-5 text-hint mt-0.5"
+            svgIcon="heroicons_outline:calendar-days"
+          ></mat-icon>
+          <div class="w-full">
+            <div class="text-secondary text-sm">Days & Times</div>
+            @if (!userProfile?.weeklyAppointments?.length) {
+              <div class="mt-0.5 font-semibold">--</div>
+            } @else {
+              <div class="mt-2 flex flex-wrap gap-2">
+                @for (
+                  appointment of userProfile.weeklyAppointments;
+                  track appointment
+                ) {
+                  <span
+                    class="bg-primary-50 text-primary-700 rounded-full px-3 py-1 text-sm font-medium"
+                  >
+                    {{ convertWeeklyAppointmentToClient(appointment).day }},
+                    {{
+                      convertTo12HourFormat(
+                        convertWeeklyAppointmentToClient(appointment).time
+                      )
+                    }}
+                  </span>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </div>

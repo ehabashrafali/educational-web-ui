@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
-import { FuseCardComponent } from "@fuse/components/card";
 import { UserService } from "app/core/user/user.service";
 import { InstructorService } from "app/shared/sevices/instructor.service";
 import { StudentService } from "app/shared/sevices/student.service";
@@ -19,7 +18,7 @@ import {
 @Component({
   selector: "app-user-information",
   standalone: true,
-  imports: [FuseCardComponent, MatIconModule, MatButtonModule],
+  imports: [MatIconModule, MatButtonModule],
   templateUrl: "./user-information.component.html",
   styleUrl: "./user-information.component.scss",
 })
