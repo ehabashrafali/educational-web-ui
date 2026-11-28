@@ -340,6 +340,22 @@ export const appRoutes: Route[] = [
     },
     children: [
       {
+        path: "parents-list",
+        loadChildren: () =>
+          import("app/modules/parents-list/parents-list.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
         path: "edit-student",
         loadChildren: () =>
           import("app/modules/edit-student/edit-student.routes"),
@@ -359,6 +375,22 @@ export const appRoutes: Route[] = [
         path: "create-student",
         loadChildren: () =>
           import("app/modules/create-student/create-student.routes"),
+      },
+    ],
+  },
+  {
+    path: "",
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: "create-parent",
+        loadChildren: () =>
+          import("app/modules/create-parent/create-parent.routes"),
       },
     ],
   },

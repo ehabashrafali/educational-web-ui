@@ -1,0 +1,65 @@
+<div class="rounded-3 m-3 p-5 w-full">
+  <div class="w-full">
+    <form
+      class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+      [formGroup]="createParentForm"
+      (ngSubmit)="submit()"
+    >
+      <h5 class="text-4xl mb-5 font-semibold">Add New Parent</h5>
+
+      <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" />
+            <mat-error>First name is required</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Last Name</mat-label>
+            <input matInput formControlName="lastName" />
+            <mat-error>Last name is required</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+            <mat-error>A valid email is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Phone Number</mat-label>
+            <input matInput formControlName="phoneNumber" />
+          </mat-form-field>
+        </div>
+
+        <div class="flex flex-col gap-4 sm:flex-row">
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" type="password" />
+            <mat-error>Password is required</mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Students</mat-label>
+            <mat-select formControlName="studentIds" multiple>
+              @for (student of _students$ | async; track student.id) {
+                <mat-option [value]="student.id">
+                  {{ student.fullName || student.firstName + " " + student.lastName }}
+                </mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-4 mt-6">
+        <button mat-flat-button color="primary" type="submit">Submit</button>
+
+        <button mat-stroked-button type="button" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

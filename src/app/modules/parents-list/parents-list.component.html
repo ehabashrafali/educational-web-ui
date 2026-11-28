@@ -1,0 +1,83 @@
+<div class="m-3 p-5 w-full">
+  <div class="flex justify-between items-center mb-5">
+    <h5 class="text-4xl font-semibold">Parents</h5>
+    <button
+      class="ml-4 min-w-10 px-1 sm:px-4"
+      mat-flat-button
+      [color]="'primary'"
+      (click)="create()"
+    >
+      <mat-icon
+        class="icon-size-5"
+        [svgIcon]="'heroicons_solid:plus-circle'"
+      ></mat-icon>
+      <span class="ml-2 hidden sm:inline-block">New Parent</span>
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="rows" class="w-full mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>Name</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="flex items-center" [style.padding-left.px]="row.level * 40">
+          @if (row.level === 0) {
+            <button
+              mat-icon-button
+              type="button"
+              [disabled]="row.childrenCount === 0"
+              [attr.aria-label]="isExpanded(row) ? 'Collapse' : 'Expand'"
+              (click)="toggle(row)"
+            >
+              <mat-icon
+                [svgIcon]="
+                  isExpanded(row)
+                    ? 'heroicons_outline:chevron-down'
+                    : 'heroicons_outline:chevron-right'
+                "
+              ></mat-icon>
+            </button>
+            <span class="font-medium">{{ row.name }}</span>
+          } @else {
+            <mat-icon
+              class="icon-size-5 me-2 text-hint"
+              svgIcon="heroicons_outline:user"
+            ></mat-icon>
+            <span>{{ row.name }}</span>
+          }
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone</th>
+      <td mat-cell *matCellDef="let row">{{ row.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="children">
+      <th mat-header-cell *matHeaderCellDef>Children</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.level === 0 ? row.childrenCount : "" }}
+      </td>
+    </ng-container>
+
+    <tr
+      mat-header-row
+      *matHeaderRowDef="columns"
+      class="bg-primary text-white border-b pb-3 text-center rounded-t-md"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columns"
+      [class.child-row]="row.level === 1"
+    ></tr>
+  </table>
+
+  @if (rows.length === 0) {
+    <p class="text-center text-secondary mt-6">No parents found.</p>
+  }
+</div>

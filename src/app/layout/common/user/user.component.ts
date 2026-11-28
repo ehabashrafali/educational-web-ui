@@ -151,4 +151,7 @@ export class UserComponent implements OnInit, OnDestroy {
   getTimeTable(): void {
     this._router.navigate(["/timetable"]);
   }
+  getParentsList(): void {
+    this._router.navigate(["/parents-list"]);
+  }
 }

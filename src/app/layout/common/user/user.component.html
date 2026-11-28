@@ -71,9 +71,13 @@
           <mat-icon [svgIcon]="'heroicons_outline:calendar-days'"></mat-icon>
           <span>Sessions Management</span>
         </button>
-         <button mat-menu-item (click)="getStudentsList()">
+        <button mat-menu-item (click)="getStudentsList()">
           <mat-icon [svgIcon]="'heroicons_outline:queue-list'"></mat-icon>
           <span>Students</span>
+        </button>
+        <button mat-menu-item (click)="getParentsList()">
+          <mat-icon>supervisor_account</mat-icon>
+          <span>Parents Management</span>
         </button>
       }
 

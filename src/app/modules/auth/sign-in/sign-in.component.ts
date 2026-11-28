@@ -17,8 +17,10 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { fuseAnimations } from "@fuse/animations";
 import { FuseAlertComponent, FuseAlertType } from "@fuse/components/alert";
 import { AuthService } from "app/core/auth/auth.service";
+import { UserService } from "app/core/user/user.service";
+import { Role } from "app/core/user/user.types";
 import { ToastService } from "app/shared/sevices/toasts.service";
-import { catchError, EMPTY, of, tap } from "rxjs";
+import { catchError, EMPTY, switchMap, take, tap } from "rxjs";
 
 @Component({
   selector: "auth-sign-in",
@@ -57,6 +59,7 @@ export class AuthSignInComponent implements OnInit {
     private _authService: AuthService,
     private _formBuilder: UntypedFormBuilder,
     private _router: Router,
+    private _userService: UserService,
     private toastService: ToastService,
   ) {}
 
@@ -94,15 +97,17 @@ export class AuthSignInComponent implements OnInit {
     this._authService
       .signIn(this.signInForm.value)
       .pipe(
-        // tap(() => {
-        //   const redirectURL =
-        //     this._activatedRoute.snapshot.queryParamMap.get("redirectURL") ||
-        //     "/timetable";
+        switchMap(() => this._userService.user$.pipe(take(1))),
+        tap((user) => {
+          const redirectURL =
+            this._activatedRoute.snapshot.queryParamMap.get("redirectURL");
 
-        //   this._router.navigateByUrl(redirectURL);
-        // }),
-        tap(() => {
-          void this._router.navigateByUrl("/timetable");
+          if (user?.role === Role.Student || user?.role === Role.Instructor) {
+            void this._router.navigateByUrl("/timetable");
+            return;
+          }
+
+          this._router.navigateByUrl(redirectURL || "/signed-in-redirect");
         }),
         catchError((response) => {
           this.signInForm.enable();
