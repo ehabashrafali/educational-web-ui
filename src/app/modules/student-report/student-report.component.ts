@@ -100,7 +100,6 @@ export class StudentReportComponent implements OnInit {
       )
       .subscribe();
   }
-
   private createForm(disabled = false): void {
     this.monthlyReportForm = this.fb.group({
       date: [{ value: this.today, disabled: true }],
@@ -132,10 +131,13 @@ export class StudentReportComponent implements OnInit {
       this.monthlyReportForm.disable();
     }
   }
-
   private handleUser(user: any): void {
     this.userId = user.id;
-    if (user.role === Role.Student || user.role === Role.Admin) {
+    if (
+      user.role === Role.Student ||
+      user.role === Role.Admin ||
+      user.role === Role.Parent
+    ) {
       this.disableSubmit = true;
 
       this.studentService
@@ -194,7 +196,6 @@ export class StudentReportComponent implements OnInit {
       othersIslamicStudiesBooks: report.othersIslamicStudiesBooks,
     });
   }
-
   submitMonthlyReport(): void {
     if (this.monthlyReportForm.invalid) {
       this.monthlyReportForm.markAllAsTouched();
@@ -236,7 +237,6 @@ export class StudentReportComponent implements OnInit {
       )
       .subscribe();
   }
-
   cancel(): void {
     this.modalService
       .confirmLosingChanges(this.monthlyReportForm, () => this.location.back())

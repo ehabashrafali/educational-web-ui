@@ -1,0 +1,46 @@
+<div class="p-6 max-w-6xl mx-auto">
+  <h2 class="text-2xl font-semibold mb-6">My Children</h2>
+
+  @if (children.length) {
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      @for (child of children; track child.id) {
+        <div
+          class="bg-card rounded-2xl shadow overflow-hidden flex flex-col"
+        >
+          <div
+            class="bg-gradient-to-r from-teal-50 to-teal-100 text-teal-900 p-5 flex items-center gap-4"
+          >
+            <div
+              class="h-14 w-14 rounded-full bg-teal-600 text-white flex items-center justify-center text-2xl font-semibold"
+            >
+              {{ initial(child) }}
+            </div>
+            <div class="min-w-0">
+              <div class="text-lg font-semibold truncate">
+                {{ child.fullName }}
+              </div>
+              <div class="text-sm opacity-80 truncate">{{ child.email }}</div>
+            </div>
+          </div>
+
+          <div class="p-4 flex flex-col gap-2">
+            <button mat-flat-button class="!bg-teal-50 !text-teal-900" (click)="showInvoice(child)">
+              <mat-icon>receipt_long</mat-icon>
+              Invoice
+            </button>
+            <button mat-flat-button class="!bg-teal-50 !text-teal-900" (click)="showTimetable(child)">
+              <mat-icon>calendar_month</mat-icon>
+              Timetable
+            </button>
+            <button mat-flat-button class="!bg-teal-100 !text-teal-900" (click)="showMonthlyReport(child)">
+              <mat-icon>assessment</mat-icon>
+              Monthly Report
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="text-center text-secondary py-16">No children found.</div>
+  }
+</div>

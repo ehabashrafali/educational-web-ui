@@ -106,6 +106,10 @@ export class AuthSignInComponent implements OnInit {
             void this._router.navigateByUrl("/timetable");
             return;
           }
+          if (user?.role === Role.Parent) {
+            void this._router.navigateByUrl("/my-children");
+            return;
+          }
 
           this._router.navigateByUrl(redirectURL || "/signed-in-redirect");
         }),

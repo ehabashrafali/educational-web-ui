@@ -6,4 +6,12 @@ export default [
     path: "",
     component: TimetableComponent,
   },
+  {
+    path: ":id",
+    component: TimetableComponent,
+  },
+  {
+    path: ":id/:role",
+    component: TimetableComponent,
+  },
 ] as Routes;

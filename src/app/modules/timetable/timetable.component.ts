@@ -1,5 +1,6 @@
 import { AsyncPipe, DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 import { MatButtonModule } from "@angular/material/button";
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -70,6 +71,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private sessionService: SessionService,
     private toastService: ToastService,
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit(): void {
@@ -77,11 +79,18 @@ export class TimetableComponent implements OnInit, OnDestroy {
       this.now = Date.now();
     }, 1_000);
 
+    const childId = this.route.snapshot.paramMap.get("id");
+    const role = this.route.snapshot.paramMap.get("role");
+
     this.sessions$ = this.userService.user$.pipe(
       filter((user): user is NonNullable<typeof user> => !!user),
       switchMap((user) => {
-        this.userId = user.id;
-        this.userRole = user.role;
+        this.userId = childId ?? user.id;
+        this.userRole = role
+          ? (role as Role)
+          : childId
+            ? Role.Student
+            : user.role;
 
         if (!this.userId || this.userRole == null) {
           return of<UpcomingSessionsDto[]>([]);
